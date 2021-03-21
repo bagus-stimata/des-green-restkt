@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Penggguna</title>
+    <meta name="description" content="spring-boot thymeleaf | home ">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="msapplication-tap-highlight" content="no">
+
+
+    <!-- Font Awesome -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"> -->
+    <link th:rel="stylesheet" th:href="@{~/webjars/font-awesome/css/all.css} " />
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{~/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- <link rel="stylesheet" th:href="@{~/webjars/bootstrap/css/bootstrap.min.css} " /> -->
+    <!-- Material Design Bootstrap -->
+    <link th:href="@{~/css/mdb.min.css}" rel="stylesheet">
+
+    <style>
+        html,
+        body,
+        header,
+        .view {
+            height: 100vh;
+        }
+        
+        @media (max-width: 740px) {
+            html,
+            body,
+            header,
+            .view {
+                height: 815px;
+            }
+        }
+        
+        @media (min-width: 800px) and (max-width: 850px) {
+            html,
+            body,
+            header,
+            .view {
+                height: 650px;
+            }
+        }
+        
+        .intro-2 {
+            /* background: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img%20(11).jpg")no-repeat center center; */
+            background: url("../app-images/background/slide-1.jpg")no-repeat center center;
+            background-size: cover;
+        }
+        
+        .top-nav-collapse {
+            background-color: #3f51b5 !important;
+        }
+        
+        .navbar:not(.top-nav-collapse) {
+            background: transparent !important;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #3f51b5 !important;
+            }
+        }
+        
+        @media (min-width: 800px) and (max-width: 850px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #3f51b5!important;
+            }
+        }
+        
+        .card {
+            background-color: rgba(229, 228, 255, 0.2);
+        }
+        
+        .md-form label {
+            color: #ffffff;
+        }
+        
+        h6 {
+            line-height: 1.7;
+        }
+        
+        .card {
+            margin-top: 30px;
+            /*margin-bottom: -45px;*/
+        }
+        
+        .md-form input[type=text]:focus:not([readonly]),
+        .md-form input[type=password]:focus:not([readonly]) {
+            border-bottom: 1px solid #8EDEF8;
+            box-shadow: 0 1px 0 0 #8EDEF8;
+        }
+        
+        .md-form input[type=text]:focus:not([readonly])+label,
+        .md-form input[type=password]:focus:not([readonly])+label {
+            color: #8EDEF8;
+        }
+        
+        .md-form .form-control {
+            color: #fff;
+        }
+        /* Toggle password */
+        
+         :root {
+            --info-color: #0099CC;
+        }
+        
+        .btn-toggle-pass {
+            border: none;
+            position: absolute;
+            top: 11px;
+            background: transparent;
+            right: 0;
+        }
+        
+        .btn-toggle-pass.active {
+            color: var(--info-color);
+        }
+    </style>
+
+</head>
+</head>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+
+        <!-- <div th:insert="my-fragments/general-fragment.html :: fragment-app-header"> </div> -->
+
+        <div class="app-main">
+
+            <!-- <div th:insert="my-fragments/general-fragment.html :: fragment-app-sidebar"> </div> -->
+
+            <div class="app-main__outer ">
+
+                <div class="app-main__inner">
+
+                    <!-- <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-users icon-gradient bg-mean-fruit">
+                                </i>
+                                </div>
+                                <div>Pengguna
+                                    <div class="page-title-subheading">Daftar Pengguna
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> -->
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-header">
+
+                                    <a href="#" th:href="@{~/logout}" class="mr-2 btn-icon btn-icon-only btn btn-outline-danger "><i class="fas fa-sign-out-alt    "></i>Sign Out</a>
+                                    <!-- <button class="mr-2 btn-icon btn-icon-only btn btn-outline-success "><i class="fas fa-sync    "></i></i></button> -->
+                                    <a th:href="@{~/admin/users/new_form/0}">
+                                        <span class="mr-2 btn-icon btn-icon-only btn btn-outline-primary"><i class="fas fa-plus-circle   btn-icon-wrapper  "></i></span>
+                                    </a>
+
+                                    <div class="fa-pull-right">
+                                        <div class="btn-group" role="group" data-toggle="buttons">
+
+                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                <input id="text_btnGroup1" type="hidden" value="semua" />
+                                                <label id="label_option1" class="btn btn-outline-primary btn-transition">
+                                                    <input type="radio" name="option1" autocomplete="off" > <small>Aktif Saja</small>
+                                                </label>
+                                                <label id="label_option2" class="btn btn-outline-primary btn-transition active">
+                                                    <input type="radio" name="option2" autocomplete="off" checked> <small>Semua</small>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <!-- <table id="table1" class="align-middle mb-0 table table-borderless table-striped table-hover"> -->
+                                    <table id="table1" class="align-middle mb-0 table table-borderless table-striped table-hover table-fixed dt-responsive mdl-data-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" style="width: 80px;">#</th>
+                                                <th>Full Name</th>
+                                                <th class="text-center">username</th>
+                                                <th class="text-center">Status</th>
+                                                <th class="text-center">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:if="${#lists.isEmpty(allData)}" class="btn-default">
+                                                <td colspan="5" align="center">Belum ada data!!!</td>
+                                            </tr>
+                                            <tr th:each=" domain, iStat : ${allData}">
+                                                <td class="text-center text-muted" th:text="${iStat.count}"></td>
+                                                <td>
+                                                    <div class=" widget-content p-0 ">
+                                                        <div class="widget-content-wrapper ">
+                                                            <div class="widget-content-left mr-3 ">
+                                                                <div class="widget-content-left ">
+                                                                    <img width="40 " class="rounded-circle " th:src="@{~/app-images/img/avatars/avatar-male.png} " alt=" ">
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-content-left flex2 ">
+                                                                <div class="widget-heading " th:text="${domain.fullName} "> </div>
+                                                                <div class="widget-subheading opacity-7 ">
+                                                                    <small> <i class="fas fa-phone "></i></small>&nbsp;<span class="text-primary " th:text="${domain.phone} "></span> &nbsp;&nbsp;
+                                                                    <small><span th:text="${domain.notes} "></span></small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center ">
+                                                    <div class="widget-content-left flex2 ">
+                                                        <div class="widget-heading " th:text="${domain.username} "></div>
+                                                        <div class="widget-subheading opacity-7 " th:text="${domain.email} " style="font-size: smaller; "></div>
+                                                    </div>
+                                                </td>
+
+                                                <!-- <td class="text-center " th:switch="${domain.locked} ">
+                                                    <span class="badge badge-success" th:case="${false}">Active</span>
+                                                    <span class="badge badge-danger" th:case="${true}">Locked</span>
+                                                </td> -->
+                                                <td class="text-center ">
+                                                    <div>
+                                                        <small>
+                                                            <div th:text=" '#' + ${mapDivision.get( __${domain.fdivisionBean}__ ) }"> </div>
+                                                            <div th:text=" '#' + ${mapSalesman.get( __${domain.fsalesmanBean}__ ) }"> </div>
+                                                            <div th:text=" '#' + ${mapWarehouse.get( __${domain.fwarehouseBean}__ ) }"> </div>
+                                                        </small>
+                                                    </div>
+                                                    <div>
+                                                        <span class="badge badge-success" th:unless="${domain.locked} ">Active</span>
+                                                        <span class="badge badge-danger" th:if=" ${domain.locked} ">Locked</span>
+                                                    </div>
+                                                </td>
+
+                                                <!-- <td class="text-center ">
+                                            <button type="button " id="PopoverCustomT-1 " class="btn btn-primary btn-sm ">Details</button>
+                                        </td> -->
+                                                <td class="text-center ">
+                                                    <a th:href="@{~/admin/users/edit_form/{id}(id=${domain.id})} ">
+                                                        <span class="mr-2 border-0 btn-icon btn-icon-only btn btn-outline-success "> <i class="fas fa-pen-alt    "></i></span>
+                                                    </a>
+
+                                                    <!-- Opsi hapus Confirm Biasa -->
+                                                    <!-- <button id="btnRowDelete_dataTables" th:value="${domain.id}">Delete</button> -->
+
+                                                    <button class="mr-2 border-0 btn-icon btn-icon-only btn btn-outline-danger" th:data-href="@{~/admin/users/delete/{id}(id=${domain.id})} " data-toggle="modal" data-target="#confirm-delete">
+                                                        <i class="fas fa-trash-alt "> </i>
+                                                    </button>
+
+                                                </td>
+
+
+
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="d-block text-center card-footer ">
+                                    <div th:if="${msg eq 'success'}" class="alert alert-success alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                                        </button> Task Saved <strong> Successfully</strong>
+                                    </div>
+                                    <div th:if="${msg eq 'active'}" class="alert alert-success alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                                        </button>
+                                        <strong><h6 th:text="${msgText}"/></strong>
+                                    </div>
+                                    <div th:if="${msg eq 'active_fail'}" class="alert alert-danger alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                                        </button>
+                                        <strong>Error !!!</strong>
+                                        <h6 th:text="${msgText}" />
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        Konfirmasi Hapus
+                    </div>
+                    <div class="modal-body">
+                        Yakin akan menghapus Data?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-danger btn-ok">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script type="text/javascript " th:src="@{~/src/assets/scripts/main.js} "></script>
+
+        <!--  SCRIPTS  -->
+        <!-- JQuery -->
+        <script type="text/javascript" th:src="@{~/js/jquery.min.js}"></script>
+        <!-- <script th:src="@{~/webjars/jquery/jquery.min.js}"></script> -->
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" th:src="@{~/js/popper.min.js}"></script>
+        <!-- <script th:src="@{~/webjars/popper.js/umd/popper.min.js}"></script> -->
+        <!-- Bootstrap core JavaScript -->
+        <!-- <script type="text/javascript" th:src="@{~/js/bootstrap.min.js}"></script> -->
+        <script th:src="@{~/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" th:src="@{~/js/mdb.min.js}"></script>
+
+        <script>
+            new WOW().init();
+        </script>
+
+        <script>
+            $.fn.dataTable.ext.search.push(
+                function(settings, data, dataIndex) {
+                    var keyword = $('#text_search').val().toLowerCase();
+                    var keyword_2 = $('#text_btnGroup1').val().toLowerCase();
+
+                    var data_column1 = data[1].toLowerCase(); // use data for the age column
+                    var data_column2 = data[2].toLowerCase(); // use data for the age column
+                    var data_column3 = data[3].toLowerCase(); // use data for the age column
+
+                    if (keyword_2 == 'active') {
+                        if ((data_column1.includes(keyword) || data_column2.includes(keyword)) && data_column3.includes(keyword_2)) {
+                            return true;
+                        }
+                    } else {
+                        if ((data_column1.includes(keyword) || data_column2.includes(keyword))) {
+                            return true;
+                        }
+                    }
+
+                    // if ((data_column1.includes(keyword) || data_column2.includes(keyword))) {
+                    //     return true;
+                    // }
+
+                    return false;
+                    // return true;
+                }
+            );
+
+
+
+            //Custome row render
+            $(document).ready(function() {
+                var table = $('#example, #table1').DataTable({
+                    //         // 'l' - Length changing
+                    //         // 'f' - Filtering input
+                    //         // 't' - The table!
+                    //         // 'i' - Information
+                    //         // 'p' - Pagination
+                    //         // 'r' - pRocessing
+                    dom: "tp ",
+
+                    responsive: {
+                        details: {
+                            renderer: function(api, rowIdx, columns) {
+                                var data = $.map(columns, function(col, i) {
+                                    return col.hidden ?
+                                        '<tr data-dt-row=" ' + col.rowIndex + ' " data-dt-column=" ' + col.columnIndex + ' ">' +
+                                        '<td>' + (col.title == 'Actions' ? '' : col.title + ' : ') + '</td> ' +
+                                        '<td>' + col.data + '</td>' +
+                                        '</tr>' :
+                                        '';
+                                }).join('');
+
+                                return data ?
+                                    $('<table/>').append(data) :
+                                    false;
+                            }
+                        }
+                    }
+                });
+
+                // Event listener to the two range filtering inputs to redraw on input
+                $('#max, #text_search').keyup(function() {
+                    table.draw();
+                });
+                $('#label_option1, #label_option2').click(function() {
+                    table.draw();
+                });
+
+
+        </script>
+
+
+        <script>
+            $(document).ready(function() {
+                // $('#buttonDelete').click(function() {
+                //     alert("Hello bos ");
+                // });
+                $('.table #btnRowDelete').on('click', function(event) {
+                    var id = $(this).parent().find('#rowId').val();
+                    $('#idToDelete').val(id);
+                });
+
+                //Proses Hapus
+                $('#deleteButtonYes').on('click', function(event) {
+                    var id = $('#idToDelete').val();
+                    var url = "/admin/users/delete/ " + id;
+                    alert("yess bos: " + url);
+                    $(location).attr('href', url);
+                });
+
+
+                // Opsi hapus Confirm Biasa
+                $('#table1').on("click ", "#btnRowDelete_dataTables ", function() {
+
+                });
+
+                $('#confirm-delete').on('show.bs.modal', function(e) {
+                    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+                });
+
+
+            });
+        </script>
+
+    </div>
+
+</body>
+
+</html>

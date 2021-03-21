@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Pengguna</title>
+    <meta name="description" content="spring-boot thymeleaf | home ">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- Font Awesome -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"> -->
+    <link th:rel="stylesheet" th:href="@{~/webjars/font-awesome/css/all.css} " />
+    <!-- Bootstrap core CSS -->
+    <!-- <link th:href="@{~/css/bootstrap.min.css}" rel="stylesheet"> -->
+    <link rel="stylesheet" th:href="@{~/webjars/bootstrap/css/bootstrap.min.css} " />
+    <!-- Material Design Bootstrap -->
+    <link th:href="@{~/css/mdb.min.css}" rel="stylesheet">
+
+    <style>
+        html,
+        body,
+        header,
+        .view {
+            height: 100vh;
+        }
+        
+        @media (max-width: 740px) {
+            html,
+            body,
+            header,
+            .view {
+                height: 815px;
+            }
+        }
+        
+        @media (min-width: 800px) and (max-width: 850px) {
+            html,
+            body,
+            header,
+            .view {
+                height: 650px;
+            }
+        }
+        
+        .intro-2 {
+            /* background: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img%20(11).jpg")no-repeat center center; */
+            background: url("../app-images/background/slide-1.jpg")no-repeat center center;
+            background-size: cover;
+        }
+        
+        .top-nav-collapse {
+            background-color: #3f51b5 !important;
+        }
+        
+        .navbar:not(.top-nav-collapse) {
+            background: transparent !important;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #3f51b5 !important;
+            }
+        }
+        
+        @media (min-width: 800px) and (max-width: 850px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #3f51b5!important;
+            }
+        }
+        
+        .card {
+            background-color: rgba(229, 228, 255, 0.2);
+        }
+        
+        .md-form label {
+            /* color: #ffffff; */
+            color: grey;
+        }
+        
+        h6 {
+            line-height: 1.7;
+        }
+        
+        .card {
+            margin-top: 30px;
+            /*margin-bottom: -45px;*/
+        }
+        
+        .md-form input[type=text]:focus:not([readonly]),
+        .md-form input[type=textarea]:focus:not([readonly]) {
+            border-bottom: 1px solid #8EDEF8;
+            box-shadow: 0 1px 0 0 #8EDEF8;
+        }
+        
+        .md-form input[type=text]:focus:not([readonly])+label,
+        .md-form input[type=password]:focus:not([readonly])+label {
+            color: #8EDEF8;
+        }
+        
+        .md-form .form-control {
+            /* color: #fff; */
+            color: black;
+        }
+        /* Toggle password */
+        
+         :root {
+            --info-color: #0099CC;
+        }
+        
+        .btn-toggle-pass {
+            border: none;
+            position: absolute;
+            top: 11px;
+            background: transparent;
+            right: 0;
+        }
+        
+        .btn-toggle-pass.active {
+            color: var(--info-color);
+        }
+    </style>
+
+    <script>
+        $(document).ready(function() {
+            $('#tombolBackPage, #tombolKembaliToList').click(function() {
+                // alert('kembali');
+                var url = "/admin/users";
+                $(location).attr('href', url);
+
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+
+        <!-- <div th:insert="my-fragments/general-fragment.html :: fragment-app-header"> </div> -->
+
+        <div class="app-main">
+
+            <!-- <div th:insert="my-fragments/general-fragment.html :: fragment-app-sidebar"> </div> -->
+
+            <div class="app-main__outer ">
+
+                <div class="app-main__inner">
+
+                    <!-- <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-users icon-gradient bg-mean-fruit">
+                                </i>
+                                </div>
+                                <div>Pengguna
+                                    <div class="page-title-subheading">Sub-Title Database SBT.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> -->
+
+
+                    <div class="row">
+                        <div class="">
+
+                            <div class="main-card card " style=" margin: 50px;">
+
+                                <div class="card-header ">
+                                    <!-- <button class="mr-2 btn-icon btn-icon-only btn btn-outline-success "><i class="pe-7s-refresh-2 btn-icon-wrapper "> </i> Kembali</button> -->
+                                    <!-- <a th:href="@{~/admin/users}" class="mr-2 btn-icon btn-icon-only btn btn-outline-info "><i class="fas fa-arrow-left btn-icon-wrapper "> </i>&nbsp;Kembali</a> -->
+
+                                    <div class="fa-pull-left">
+                                        <a th:href="@{~/admin/users}" id="tombolKembaliToList" class="mr-2 btn-icon btn-icon-only btn btn-outline-info "><i class="fas fa-arrow-left btn-icon-wrapper "> </i>&nbsp;Kembali</a>
+                                    </div>
+                                    <!-- <div>
+                                        <div class="btn-group" role="group" data-toggle="buttons">
+                                            <div class="btn-group btn-group-toggle" data-toggle="buttons" th:switch="${domain.tempInt1}">
+                                                <input id="text_btnGroup1" type="hidden" value="active" />
+
+                                                <label class="btn btn-outline-success btn-transition active" th:case="${0}">
+                                                        <input type="radio" name="option1" autocomplete="off" checked> <small>Baru</small>
+                                                    </label>
+                                                <label class="btn btn-outline-primary btn-transition active" th:case="${1}">
+                                                        <input type="radio" name="option2" autocomplete="off"> <small>Edit</small>
+                                                </label>
+
+                                            </div>
+
+                                        </div>
+                                    </div> -->
+
+                                </div>
+
+                                <div class="card-body">
+                                    <!-- <h5 class="card-title">Bootstrap 4 Form Validation</h5> -->
+                                    <form class="needs-validation" novalidate th:object="${domain}" th:action="@{~/admin/users_form/save_process}" method="post">
+                                        <input type="hidden" th:field="*{id}" th:value="*{id}" />
+                                        <input type="hidden" th:field="*{tempInt1}" th:value="*{tempInt1}" />
+
+                                        <div th:if="${saveUser eq 'success'}" class="alert alert-success alert-dismissable">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                            <strong>Save Successfully</strong>
+                                        </div>
+                                        <div th:if="${infoUser eq 'success'}" class="alert alert-success alert-dismissable">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                            <label th:text="${infoUserDesc}"></label>
+                                        </div>
+
+
+                                        <div class="row" style="margin: 20px;">
+                                            <div class="form-row w-100 ">
+                                                <div class="md-form col-md-6 mb-4">
+                                                    <input type="text" th:field="*{username}" class="form-control" id="validationCustom011" value="" required>
+                                                    <label for="validationCustom011">Username</label>
+                                                    <div class="invalid-feedback">
+                                                        input dengan data yang benar.
+                                                    </div>
+                                                </div>
+                                                <div class="md-form col-md-6 mb-4">
+                                                    <input type="text" th:field="*{email}" class="form-control" id="validationCustom022" aria-describedby="inputGroupPrepend" required>
+                                                    <label for="validationCustom022">Email</label>
+                                                    <div class="invalid-feedback">
+                                                        input dengan data yang benar.
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-row w-100">
+                                                <div class="md-form col-md-6 mb-4">
+                                                    <input th:value="*{password}" type="password" class="form-control" id="password" name="password">
+                                                    <label for="validationCustom01">Password</label>
+                                                    <div class="invalid-feedback">
+                                                        input dengan data yang benar.
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="md-form col-md-6 mb-4">
+                                                    <input  th:field="*{passwordConfirm}" th:value="*{passwordConfirm}" type="password" class="form-control" id="confirm_password" name="confirm_password">
+                                                    <label for="validationCustom02">Confirm Pass</label>
+                                                    <div class="invalid-feedback">
+                                                        input dengan data yang benar.
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-row w-100">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" th:field="*{tempBol2}" class="custom-control-input" id="ganti_password">
+                                                    <label class="custom-control-label" for="ganti_password">Confirmasi Ganti Password?</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row" style="margin-bottom: 20px;">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" th:field="*{locked}" class="custom-control-input" id="locked">
+                                                    <label class="custom-control-label" for="locked">Locked?</label>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="form-row w-100">
+                                                <div class="custom-control form-group">
+                                                    <label class="" for="customSelectDivision">Division</label>
+                                                    <select th:field="*{fdivisionBean}" type="select" id="customSelectDivision" name="customSelectDivision" class="custom-select">
+                                                        <option value="" disabled>-- Pilih Divisi</option>
+                                                        <option th:each=" item, iStat : ${listFDivision}"
+                                                                th:value="${item.id}"
+                                                                th:utext="${item.kode1} + ' - ' + ${item.description}">
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="custom-control form-group">
+                                                    <label class="" for="customSelectSalesman">Salesman</label>
+                                                    <select th:field="*{fsalesmanBean}" type="select" id="customSelectSalesman" name="customSelectSalesman" class="custom-select">
+                                                        <option value="" disabled>-- Pilih Salesman</option>
+                                                        <option th:each=" item, iStat : ${listFSalesman}"
+                                                                th:value="${item.id}"
+                                                                th:utext="${item.spcode} + ' - ' +  ${item.spname}">
+                                                        </option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="custom-control form-group">
+                                                    <label class="" for="customSelectWarehouse">Gudang</label>
+                                                    <select th:field="*{fwarehouseBean}" type="select" id="customSelectWarehouse" name="customSelectWarehouse" class="custom-select">
+                                                        <option value="" disabled>-- Pilih Warehouse</option>
+                                                        <option th:each=" item, iStat : ${listFWarehouse}"
+                                                                th:value="${item.id}"
+                                                                th:utext="${item.kode1} + ' - ' + ${item.description}">
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="custom-control form-group">
+                                                <!-- <a th:href="@{~/admin/users}" class="mr-2 btn-icon btn-icon-only btn btn-outline-info "><i class="fas fa-arrow-left btn-icon-wrapper "> </i>&nbsp;Kembali</a> -->
+<!--                                                <button type="submit" class="mr-2 btn-icon btn-icon-only btn btn-outline-primary "><i class="fas fa-pen-alt btn-icon-wrapper ">&nbsp;Exclusive Vendor</i></button>-->
+                                                <a th:href="@{~/admin/users/edit_form_vendor/{id}(id=${domain.id})} ">
+                                                    <span class="mr-2 border-0 btn-icon btn-icon-only btn btn-outline-success "> <i class="fas fa-pen-alt  ">&nbsp;Exclusive Vendor</i></span>
+                                                </a>
+
+                                            </div>
+
+
+                                            <div class="form-row w-100">
+                                                <div class="md-form col-md-6 mb-4">
+                                                    <input type="text" th:field="*{fullName}" class="form-control" id="validationCustom01" value="">
+                                                    <label for="validationCustom01">Nama Lengkap</label>
+                                                </div>
+                                                <div class="md-form col-md-6 mb-4">
+                                                    <input type="text" th:field="*{phone}" class="form-control" id="validationCustom023" value="">
+                                                    <label for="validationCustom023">No HP</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-row w-100">
+                                                <div class="md-form col-md-12 mb-4">
+                                                    <!-- <textarea name="text" th:field="*{notes}" class="form-control" id="validationCustom01"></textarea> -->
+                                                    <input type="text" th:field="*{notes}" class="form-control" id="validationCustom02" value="" />
+                                                    <label for="validationCustom02">Keterangan</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="table-responsive">
+                                            <table id="table1" class="align-middle mb-0 table table-borderless table-striped table-hover table-fixed dt-responsive mdl-data-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center"> ROLE MENU UTAMA</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="myRole : ${allStringRoles}">
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" th:id="${{myRole}}" th:value="${{myRole}}" th:field="*{tempRoles}" class="custom-control-input"> &nbsp;
+                                                                <label class="custom-control-label" th:for="${{myRole}}" th:text="${myRole}"></label>
+                                                            </div>
+
+                                                            <!-- <input type="checkbox" th:id="${{myRole}}" th:value="${{myRole}}" th:field="*{tempRoles}" />&nbsp;
+                                                            <label th:for="${{myRole}}" th:text="${myRole}"></label> -->
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <!-- <select class="form-control" th:field="*{fuserRoles}" multiple="multiple">
+                                            <option th:each="part : ${listRoles}" 
+                                                    th:field="*{fuserRoles}" 
+                                                    th:value="${part.id}" 
+                                                    th:text="${part.roleID}">Part name and serial No.                    
+                                            </option>
+                                        </select> -->
+
+
+                                        <div class="d-block text-right card-footer ">
+                                            <!-- <a th:href="@{~/admin/users}" class="mr-2 btn-icon btn-icon-only btn btn-outline-info "><i class="fas fa-arrow-left btn-icon-wrapper "> </i>&nbsp;Kembali</a> -->
+                                            <button type="submit" class="mr-2 btn-icon btn-icon-only btn btn-outline-primary "><i class="fas fa-save btn-icon-wrapper ">&nbsp;Simpan</i></button>
+                                        </div>
+                                    </form>
+
+
+                                    <script>
+                                        (function() {
+                                            'use strict';
+                                            window.addEventListener('load', function() {
+                                                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                                var forms = document.getElementsByClassName('needs-validation');
+                                                // Loop over them and prevent submission
+                                                var validation = Array.prototype.filter.call(forms, function(form) {
+                                                    form.addEventListener('submit', function(event) {
+                                                        if (form.checkValidity() === false) {
+                                                            event.preventDefault();
+                                                            event.stopPropagation();
+                                                        }
+                                                        form.classList.add('was-validated');
+                                                    }, false);
+                                                });
+                                            }, false);
+                                        })();
+                                    </script>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="modal fade " id="deleteModal " tabindex="-1 " role="dialog " aria-labelledby="exampleModalLabel " aria-hidden="true ">
+            <div class="modal-dialog " role="document ">
+                <div class="modal-content ">
+                    <div class="modal-header ">
+                        <h5 class="modal-title " id="exampleModalLabel ">Konfirmasi Hapus Data</h5>
+                        <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
+                            <span aria-hidden="true ">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body ">
+                        <p class="mb-0 ">Yakin akan melakukan <b>penghapusan</b> data secara <b>Permanent</b>?</p>
+                    </div>
+                    <div class="modal-footer ">
+                        <button type="button " class="btn btn-success " data-dismiss="modal ">Batal</button>
+
+                        <a id="deleteButtonYes "  class="btn btn-danger " data-dismiss="modal "> <i class="fas fa-trash-alt "></i>&nbsp;Hapus</a>
+                        <input type="hidden " id="idToDelete " />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script type="text/javascript " th:src="@{~/src/assets/scripts/main.js} "></script>
+
+        <!--  SCRIPTS  -->
+        <!-- JQuery -->
+        <script type="text/javascript" th:src="@{~/js/jquery.min.js}"></script>
+        <!-- <script th:src="@{~/webjars/jquery/jquery.min.js}"></script> -->
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" th:src="@{~/js/popper.min.js}"></script>
+        <!-- <script th:src="@{~/webjars/popper.js/umd/popper.min.js}"></script> -->
+        <!-- Bootstrap core JavaScript -->
+        <!-- <script type="text/javascript" th:src="@{~/js/bootstrap.min.js}"></script> -->
+        <script th:src="@{~/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" th:src="@{~/js/mdb.min.js}"></script>
+
+        <script>
+            new WOW().init();
+        </script>
+
+        <script>
+            var password = document.getElementById("password"),
+                confirm_password = document.getElementById("confirm_password");
+
+            function validatePassword() {
+                if (password.value != confirm_password.value) {
+                    confirm_password.setCustomValidity("Passwords Don't Match");
+                } else {
+                    confirm_password.setCustomValidity('');
+                }
+            }
+            password.onchange = validatePassword;
+            confirm_password.onkeyup = validatePassword;
+        </script>
+
+    </div>
+
+</body>
+
+</html>
