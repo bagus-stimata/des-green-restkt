@@ -1,8 +1,8 @@
 package com.erp.distribution.desgreenrestkt.utils
 
-import com.erp.distribution.desgreenrestkt.model.FMaterial
-import com.erp.distribution.desgreenrestkt.model.FtSalesdItems
-import com.erp.distribution.desgreenrestkt.model.FtSalesh
+import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterial
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtSalesdItems
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtSalesh
 
 class HeaderDetilSalesHelperImpl : HeaderDetilSalesHelper {
     private val serialVersionUID = 1L

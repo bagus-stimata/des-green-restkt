@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt.jpa_repository
 
-import com.erp.distribution.desgreenrestkt.model.FtPurchaseh
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtPurchaseh
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 

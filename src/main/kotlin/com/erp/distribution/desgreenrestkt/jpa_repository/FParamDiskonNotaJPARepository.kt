@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt.jpa_repository
 
-import com.erp.distribution.desgreenrestkt.model.FParamDiskonNota
+import com.erp.distribution.desgreenrestkt.data.source.entity.FParamDiskonNota
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface FParamDiskonNotaJPARepository : JpaRepository<FParamDiskonNota, Int> { //    FParamDiskonNota findById(int id);

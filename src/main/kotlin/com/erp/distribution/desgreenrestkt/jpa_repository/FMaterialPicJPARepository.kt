@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt.jpa_repository
 
-import com.erp.distribution.desgreenrestkt.model.FMaterialPic
+import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialPic
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 

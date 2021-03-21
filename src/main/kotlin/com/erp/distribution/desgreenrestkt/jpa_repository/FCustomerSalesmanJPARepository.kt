@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt.jpa_repository
 
-import com.erp.distribution.desgreenrestkt.model.FCustomerSalesman
+import com.erp.distribution.desgreenrestkt.data.source.entity.FCustomerSalesman
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface FCustomerSalesmanJPARepository : JpaRepository<FCustomerSalesman, Int> {

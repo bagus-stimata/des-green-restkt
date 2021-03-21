@@ -1,7 +1,7 @@
 package com.erp.distribution.desgreenrestkt
 
 import com.erp.distribution.desgreenrestkt.jpa_repository.*
-import com.erp.distribution.desgreenrestkt.model.*
+import com.erp.distribution.desgreenrestkt.data.source.entity.*
 import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumSalesType
 import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumTipeWarehouse
 import com.erp.distribution.desgreenrestkt.security_config.PassEncoding.Companion.instance

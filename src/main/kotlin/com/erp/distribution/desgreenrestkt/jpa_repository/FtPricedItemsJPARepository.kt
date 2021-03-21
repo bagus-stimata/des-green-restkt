@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt.jpa_repository
 
-import com.erp.distribution.desgreenrestkt.model.FtPricedItems
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtPricedItems
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface FtPricedItemsJPARepository : JpaRepository<FtPricedItems, Int> {

@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt.utils
 
-import com.erp.distribution.desgreenrestkt.model.FtSalesdItems
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtSalesdItems
 
 interface HeaderDetilSalesHelper {
     val taxPercentFloat: Double

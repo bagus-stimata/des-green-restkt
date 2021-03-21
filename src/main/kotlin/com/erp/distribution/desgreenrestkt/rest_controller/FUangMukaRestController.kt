@@ -1,7 +1,7 @@
 package com.erp.distribution.desgreenrestkt.rest_controller
 
 import com.erp.distribution.desgreenrestkt.jpa_repository.FUangMukaJPARepository
-import com.erp.distribution.desgreenrestkt.model.FUangMuka
+import com.erp.distribution.desgreenrestkt.data.source.entity.FUangMuka
 import com.erp.distribution.desgreenrestkt.security_model.Role
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired

@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt.utils
 
-import com.erp.distribution.desgreenrestkt.model.FMaterial
+import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterial
 import java.text.NumberFormat
 
 class KonversiProductAndStockHelperImpl : KonversiProductAndStockHelper {

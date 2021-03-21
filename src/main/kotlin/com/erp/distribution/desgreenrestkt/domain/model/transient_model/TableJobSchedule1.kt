@@ -1,7 +1,7 @@
 package com.erp.distribution.desgreenrestkt.domain.model.transient_model
 
-import com.erp.distribution.desgreenrestkt.model.FMaterialGroup3
-import com.erp.distribution.desgreenrestkt.model.FtSalesdItems
+import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialGroup3
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtSalesdItems
 import java.util.*
 
 class TableJobSchedule1 {

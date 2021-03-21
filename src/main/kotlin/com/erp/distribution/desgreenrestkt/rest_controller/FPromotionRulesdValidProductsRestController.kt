@@ -1,7 +1,7 @@
 package com.erp.distribution.desgreenrestkt.rest_controller
 
 import com.erp.distribution.desgreenrestkt.jpa_repository.FPromotionRulesdValidProductsJPARepository
-import com.erp.distribution.desgreenrestkt.model.FPromotionRulesdValidProducts
+import com.erp.distribution.desgreenrestkt.data.source.entity.FPromotionRulesdValidProducts
 import com.erp.distribution.desgreenrestkt.security_model.Role
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired

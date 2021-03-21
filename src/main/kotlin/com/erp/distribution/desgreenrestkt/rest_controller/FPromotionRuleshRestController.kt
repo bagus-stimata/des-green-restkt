@@ -2,9 +2,9 @@ package com.erp.distribution.desgreenrestkt.rest_controller
 
 import com.erp.distribution.desgreenrestkt.jpa_repository.FPromotionRuleshJPARepository
 import com.erp.distribution.desgreenrestkt.jpa_repository.FVendorJPARepository
-import com.erp.distribution.desgreenrestkt.model.FDivision
-import com.erp.distribution.desgreenrestkt.model.FPromotionRulesh
-import com.erp.distribution.desgreenrestkt.model.FVendor
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDivision
+import com.erp.distribution.desgreenrestkt.data.source.entity.FPromotionRulesh
+import com.erp.distribution.desgreenrestkt.data.source.entity.FVendor
 import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumPromoDiscFgMethod
 import com.erp.distribution.desgreenrestkt.domain.model.transient_model.ZLapTemplate2
 import com.erp.distribution.desgreenrestkt.utils.KonversiProductAndStockHelper

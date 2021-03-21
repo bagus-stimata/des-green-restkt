@@ -1,7 +1,7 @@
 package com.erp.distribution.desgreenrestkt.rest_controller
 
 import com.erp.distribution.desgreenrestkt.jpa_repository.FCustomerPicJPARepository
-import com.erp.distribution.desgreenrestkt.model.FCustomerPic
+import com.erp.distribution.desgreenrestkt.data.source.entity.FCustomerPic
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
