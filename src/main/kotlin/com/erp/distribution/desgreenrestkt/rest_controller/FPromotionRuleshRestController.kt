@@ -1,12 +1,12 @@
 package com.erp.distribution.desgreenrestkt.rest_controller
 
-import com.erp.distribution.desgreenrestkt.jpa_repository.FPromotionRuleshJPARepository
-import com.erp.distribution.desgreenrestkt.jpa_repository.FVendorJPARepository
+import com.erp.distribution.desgreenrestkt.data.source.local.dao.FPromotionRuleshJPARepository
+import com.erp.distribution.desgreenrestkt.data.source.local.dao.FVendorJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.entity.FDivision
 import com.erp.distribution.desgreenrestkt.data.source.entity.FPromotionRulesh
 import com.erp.distribution.desgreenrestkt.data.source.entity.FVendor
-import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumPromoDiscFgMethod
-import com.erp.distribution.desgreenrestkt.domain.model.transient_model.ZLapTemplate2
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumPromoDiscFgMethod
+import com.erp.distribution.desgreenrestkt.domain.model.extended.ZLapTemplate2
 import com.erp.distribution.desgreenrestkt.utils.KonversiProductAndStockHelper
 import com.erp.distribution.desgreenrestkt.utils.KonversiProductAndStockHelperImpl
 import org.slf4j.LoggerFactory

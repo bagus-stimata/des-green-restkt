@@ -1,7 +1,7 @@
 package com.erp.distribution.desgreenrestkt.security_config
 
-import com.erp.distribution.desgreenrestkt.security_model.FUser
-import com.erp.distribution.desgreenrestkt.security_repository.FUsersJPARepository
+import com.erp.distribution.desgreenrestkt.data.source.entity_security.FUser
+import com.erp.distribution.desgreenrestkt.data.source.local.dao_security.FUsersJPARepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.GrantedAuthority

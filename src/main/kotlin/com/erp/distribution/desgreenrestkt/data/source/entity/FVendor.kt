@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
-import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumCurrency
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumCurrency
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.util.*
 import javax.persistence.*

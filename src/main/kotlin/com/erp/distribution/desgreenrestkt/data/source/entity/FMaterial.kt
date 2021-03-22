@@ -1,7 +1,7 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
-import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumMaterialType
-import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumUom
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumMaterialType
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumUom
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.annotations.Type
 import java.io.Serializable

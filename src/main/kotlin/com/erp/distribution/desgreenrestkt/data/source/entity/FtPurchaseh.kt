@@ -1,9 +1,9 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
-import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumRequestStatus
-import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumStatusUpload
-import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumTipeFakturBeli
-import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumTunaiKredit
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumRequestStatus
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumStatusUpload
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumTipeFakturBeli
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumTunaiKredit
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*

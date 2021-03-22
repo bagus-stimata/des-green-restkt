@@ -8,11 +8,11 @@ import javax.persistence.*
 @JacksonXmlRootElement
 @Entity
 @Table(name = "farea")
-class FArea : Serializable {
+class FArea (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", length = 9)
-    var id = 0
+    var id : Int =0,
 
     /*
 	 * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -21,47 +21,41 @@ class FArea : Serializable {
 	 * 2. 
 	 */
     @Column(name = "SOURCE_ID", length = 9)
-    var sourceId = 0
+    var sourceId : Int =0,
 
     @Column(name = "KODE1", length = 10)
-    var kode1 = ""
+    var kode1 : String ="",
 
     @Column(name = "KODE2", length = 20)
-    var kode2 = ""
+    var kode2 : String ="",
 
     @Column(name = "DESCRIPTION", length = 100)
-    var description = ""
+    var description : String ="",
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
-    @Column(name = "fdivisionBean", nullable = false)
-    var fdivisionBean = 0
+    @Column(name = "fdivisionBean", nullable =false)
+    var fdivisionBean : Int =0,
 
-    //	@ManyToOne
-    //	@JoinColumn(name="fregionBean", referencedColumnName="ID")
-    //	private FRegion fregionBean;
-    @Column(name = "fregionBean")
-    var fregionBean = 0
+//    @ManyToOne
+//    @JoinColumn(name="fregionBean", referencedColumnName="ID")
+//    var fregionBean: FRegion? = FRegion(),
+    @Column(name = "fregionBean", nullable = true)
+    var fregionBean : Int =0,
 
     @Column(name = "STATUS_ACTIVE")
-    var isStatusActive = true
+    var isStatusActive : Boolean =true,
 
     @Column(name = "CREATED")
     @Temporal(TemporalType.TIMESTAMP)
-    var created = Date()
+    var created : Date =Date(),
 
     @Column(name = "MODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
-    var modified = Date()
+    var modified : Date =Date(),
 
     @Column(name = "MODIFIED_BY", length = 20)
-    var modifiedBy = "" //User ID
+    var modifiedBy : String ="" //User ID
 
-
-    override fun toString(): String {
-        return "FArea{" +
-                "id=" + id +
-                '}'
-    }
-}
+): Serializable

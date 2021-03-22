@@ -1,8 +1,8 @@
 package com.erp.distribution.desgreenrestkt.rest_controller
 
-import com.erp.distribution.desgreenrestkt.jpa_repository.FAreaJPARepository
+import com.erp.distribution.desgreenrestkt.data.source.local.dao.FAreaJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.entity.FArea
-import com.erp.distribution.desgreenrestkt.security_model.Role
+import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -20,10 +20,17 @@ class FAreaRestController {
     }
 
     //        System.out.println("Hello Get All FArea");
-    @get:RequestMapping(value = ["/rest/getAllFArea"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    val allArea: List<FArea?>
-        get() =//        System.out.println("Hello Get All FArea");
-            fAreaJPARepository!!.findAll()
+//    @get:RequestMapping(value = ["/rest/getAllFArea"], produces = [MediaType.APPLICATION_JSON_VALUE])
+//    val allArea: List<FArea?>
+//        get() =//        System.out.println("Hello Get All FArea");
+//            fAreaJPARepository!!.findAll()
+    @RequestMapping(value = ["/rest/getAllFArea"], produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun allArea(): List<FArea?>{
+        return fAreaJPARepository!!.findAll().map {
+            System.out.println("Hello: " + it.description)
+            it
+        }
+    }
 
     @RequestMapping(value = ["/rest/getAllFAreaByDivision/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllFAreaByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FArea?>? {

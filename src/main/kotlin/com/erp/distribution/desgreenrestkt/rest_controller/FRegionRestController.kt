@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt.rest_controller
 
-import com.erp.distribution.desgreenrestkt.jpa_repository.FRegionJPARepository
+import com.erp.distribution.desgreenrestkt.data.source.local.dao.FRegionJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.entity.FRegion
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired

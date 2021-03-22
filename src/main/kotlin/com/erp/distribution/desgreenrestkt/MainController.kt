@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt
 
-import com.erp.distribution.desgreenrestkt.security_model.FUser
+import com.erp.distribution.desgreenrestkt.data.source.entity_security.FUser
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model

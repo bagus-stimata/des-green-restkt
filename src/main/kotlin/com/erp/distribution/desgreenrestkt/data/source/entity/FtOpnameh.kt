@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
-import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumTipeStockOpname
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumTipeStockOpname
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.util.*
 import javax.persistence.*

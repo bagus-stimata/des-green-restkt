@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
-import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumAccTransactionType
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumAccTransactionType
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*

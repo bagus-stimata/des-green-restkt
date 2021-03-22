@@ -1,7 +1,7 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
-import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumReligion
-import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumSalesType
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumReligion
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumSalesType
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.util.*
 import javax.persistence.*

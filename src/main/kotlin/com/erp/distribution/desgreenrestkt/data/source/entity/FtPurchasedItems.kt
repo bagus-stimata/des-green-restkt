@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
-import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumUom
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumUom
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import javax.persistence.*

@@ -1,9 +1,9 @@
 package com.erp.distribution.desgreenrestkt.rest_controller
 
-import com.erp.distribution.desgreenrestkt.jpa_repository.FCompanyJPARepository
-import com.erp.distribution.desgreenrestkt.jpa_repository.FDivisionJPARepository
+import com.erp.distribution.desgreenrestkt.data.source.local.dao.FCompanyJPARepository
+import com.erp.distribution.desgreenrestkt.data.source.local.dao.FDivisionJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.entity.FDivision
-import com.erp.distribution.desgreenrestkt.security_model.Role
+import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType

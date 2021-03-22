@@ -1,11 +1,11 @@
 package com.erp.distribution.desgreenrestkt.rest_controller
 
-import com.erp.distribution.desgreenrestkt.jpa_repository.FMaterialJPARepository
+import com.erp.distribution.desgreenrestkt.data.source.local.dao.FMaterialJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterial
 import com.erp.distribution.desgreenrestkt.security_config.SecurityUtils
-import com.erp.distribution.desgreenrestkt.security_model.FUser
-import com.erp.distribution.desgreenrestkt.security_model.Role
-import com.erp.distribution.desgreenrestkt.security_repository.FUsersJPARepository
+import com.erp.distribution.desgreenrestkt.data.source.entity_security.FUser
+import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
+import com.erp.distribution.desgreenrestkt.data.source.local.dao_security.FUsersJPARepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest

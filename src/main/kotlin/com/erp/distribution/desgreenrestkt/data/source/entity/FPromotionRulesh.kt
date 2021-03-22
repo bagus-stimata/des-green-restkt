@@ -1,7 +1,7 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
-import com.erp.distribution.desgreenrestkt.domain.model.modelenum.EnumPromoDiscFgMethod
-import com.erp.distribution.desgreenrestkt.model_acc_cb.AccAccount
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumPromoDiscFgMethod
+import com.erp.distribution.desgreenrestkt.data.source.entity_acc_cb.AccAccount
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
