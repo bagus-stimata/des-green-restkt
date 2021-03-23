@@ -13,11 +13,11 @@ import javax.persistence.*
 @JacksonXmlRootElement
 @Entity
 @Table(name = "fuang_muka")
-class FUangMuka : Serializable {
+data class FUangMuka (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    var id = 0
+    var id  :Int =0,
 
     /*
 	 * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -26,27 +26,27 @@ class FUangMuka : Serializable {
 	 * 2. xxxx
 	 */
     @Column(name = "SOURCE_ID")
-    var sourceId = 0
+    var sourceId  :Int =0,
 
     @Column(name = "NO_REK", length = 50)
-    var noRek = ""
+    var noRek :String ="",
 
     @Temporal(TemporalType.DATE)
     @Column(name = "TR_DATE")
-    var trDate = Date()
+    var trDate :Date =Date(),
 
     /*
 	 * Ikut Cash Bank: Deposit or Payment
 	 */
     @Enumerated(EnumType.STRING)
     @Column(name = "ACC_TRANSACTION_TYPE", length = 10)
-    var accTransactionType: EnumAccTransactionType? = null
+    var accTransactionType: EnumAccTransactionType = EnumAccTransactionType.JURNAL_MEM,
 
     @Column(name = "AMOUNT_RP")
-    var amountRp = 0.0
+    var amountRp  :Double =0.0,
 
     @Column(name = "AMOUNT_USED")
-    var amountUsed = 0.0
+    var amountUsed  :Double =0.0,
 
     /*
 	 * Pencairan Giro
@@ -58,48 +58,48 @@ class FUangMuka : Serializable {
     //	@Column(name="SHARED_TO_COMPANY")
     //	private boolean sharedToCompany=false; //setting Shared to company khusus ditaruh disini, bukan di divisi
     @Column(name = "CASH_AMOUNTPAY")
-    var cashAmountPay = 0.0
+    var cashAmountPay  :Double =0.0,
 
     @Column(name = "GIRO_AMOUNTPAY")
-    var giroAmountPay = 0.0
+    var giroAmountPay  :Double =0.0,
 
     @Column(name = "TRANSFER_AMOUNTPAY")
-    var transferAmountPay = 0.0
+    var transferAmountPay  :Double =0.0,
 
     //	@ManyToOne
     //	@JoinColumn(name="ftransferBean", referencedColumnName="ID", nullable=true)
     //	private FGiro ftransferBean;
     @Column(name = "ftransferBean")
-    var ftransferBean = 0
+    var ftransferBean  :Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fgiroBean", referencedColumnName="ID", nullable=true)
     //	private FGiro fgiroBean;
     @Column(name = "fgiroBean")
-    var fgiroBean = 0
+    var fgiroBean  :Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
     @Column(name = "fdivisionBean", nullable = false)
-    var fdivisionBean = 0
+    var fdivisionBean  :Int =0,
 
     @Column(name = "SHARED_TO_COMPANY")
-    var isSharedToCompany = false //setting Shared to company khusus ditaruh disini, bukan di divisi
+    var isSharedToCompany  :Boolean =false, //setting Shared to company khusus ditaruh disini, bukan di divisi
 
     //Jika uang muka penjualan
     //	@ManyToOne
     //	@JoinColumn(name="fcustomerBean", referencedColumnName="ID")
     //	private FCustomer fcustomerBean;
     @Column(name = "fcustomerBean")
-    var fcustomerBean = 0
+    var fcustomerBean  :Int =0,
 
     //Jika uang muka pembelian
     //	@ManyToOne
     //	@JoinColumn(name="fvendorBean", referencedColumnName="ID")
     //	private FVendor fvendorBean;
     @Column(name = "fvendorBean")
-    var fvendorBean = 0
+    var fvendorBean  :Int =0,
 
     /*
 	 * Account Mapping: Bank Account
@@ -109,33 +109,33 @@ class FUangMuka : Serializable {
     //	@JoinColumn(name="accAccountDebitBean", referencedColumnName="ID", nullable=true)
     //	private AccAccount accAccountDebitBean;
     @Column(name = "accAccountDebitBean", nullable = false)
-    var accAccountDebitBean = 0
+    var accAccountDebitBean  :Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="accAccountCreditBean", referencedColumnName="ID", nullable=true)
     //	AccAccount accAccountCreditBean;
     @Column(name = "accAccountCreditBean", nullable = false)
-    var accAccountCreditBean = 0
+    var accAccountCreditBean  :Int =0,
 
     @Column(name = "NOTES", length = 160)
-    var notes = ""
+    var notes :String ="",
 
     @Column(name = "STATUS_ACTIVE")
-    var isStatusActive = true
+    var isStatusActive  :Boolean =true,
 
     @Transient
-    var tempString = ""
+    var tempString :String ="",
 
     //LOG
     @Column(name = "CREATED")
     @Temporal(TemporalType.TIMESTAMP)
-    var created = Date()
+    var created :Date =Date(),
 
     @Column(name = "MODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
-    var modified = Date()
+    var modified :Date =Date(),
 
     @Column(name = "MODIFIED_BY", length = 20)
-    var modifiedBy = "" //User ID
+    var modifiedBy :String ="" //User ID
 
-}
+): Serializable

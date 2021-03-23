@@ -6,58 +6,54 @@ import javax.persistence.*
 
 @JacksonXmlRootElement
 @Entity
-@Table(name = "fpromotionrulesd_validproducts")
-class FPromotionRulesdValidProducts : Serializable {
+@Table(name ="fpromotionrulesd_validproducts")
+data class FPromotionRulesdValidProducts (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", length = 9)
-    var id = 0
+    @Column(name ="ID", length = 9)
+    var id :Int =0,
 
-    @Column(name = "NOURUT", length = 4)
-    var noUrut = 0
+    @Column(name ="NOURUT")
+    var noUrut :Int =0,
 
     @ManyToOne
-    @JoinColumn(name = "fpromotionRuleshBean", referencedColumnName = "ID")
-    var fpromotionRuleshBean: FPromotionRulesh? = null
+    @JoinColumn(name ="fpromotionRuleshBean", referencedColumnName ="ID")
+    var fpromotionRuleshBean: FPromotionRulesh? = FPromotionRulesh(),
 
     /*
 	 * Customer Classfication = null berarti semua/All
 	 */
     @ManyToOne
-    @JoinColumn(name = "validVendorBean", referencedColumnName = "ID")
-    var validVendorBean: FVendor? = null
+    @JoinColumn(name ="validVendorBean", referencedColumnName ="ID")
+    var validVendorBean: FVendor? = FVendor(),
 
-    @Column(name = "VALID_VENDOR_ACCUMULATION")
-    var isValidVendorAccumulation = false
-
-    @ManyToOne
-    @JoinColumn(name = "validMaterialSalesBrandBean", referencedColumnName = "ID")
-    var validMaterialSalesBrandBean: FMaterialSalesBrand? = null
-
-    @Column(name = "VALID_SALESBRAND_ACCUMULATION")
-    var isValidSalesBrandAccumulation = false
+    @Column(name ="VALID_VENDOR_ACCUMULATION")
+    var validVendorAccumulation  :Boolean =false,
 
     @ManyToOne
-    @JoinColumn(name = "validMaterialGroup2Bean", referencedColumnName = "ID")
-    var validMaterialGroup2Bean: FMaterialGroup2? = null
+    @JoinColumn(name ="validMaterialSalesBrandBean", referencedColumnName ="ID")
+    var validMaterialSalesBrandBean: FMaterialSalesBrand? = FMaterialSalesBrand(),
 
-    @Column(name = "VALID_MATERIALGROUP2_ACCUMULATION")
-    var isValidMaterialGroup2Accumulation = false
-
-    @ManyToOne
-    @JoinColumn(name = "validMaterialGroup3Bean", referencedColumnName = "ID")
-    var validMaterialGroup3Bean: FMaterialGroup3? = null
-
-    @Column(name = "VALID_MATERIALGROUP3_ACCUMULATION")
-    var isValidMaterialGroup3Accumulation = false
+    @Column(name ="VALID_SALESBRAND_ACCUMULATION")
+    var validSalesBrandAccumulation  :Boolean =false,
 
     @ManyToOne
-    @JoinColumn(name = "validMaterialBean", referencedColumnName = "ID")
-    var validMaterialBean: FMaterial? = null
+    @JoinColumn(name ="validMaterialGroup2Bean", referencedColumnName = "ID")
+    var validMaterialGroup2Bean: FMaterialGroup2? = FMaterialGroup2(),
 
-    override fun toString(): String {
-        return "" + id + ""
-    }
+    @Column(name ="VALID_MATERIALGROUP2_ACCUMULATION")
+    var validMaterialGroup2Accumulation  :Boolean =false,
+
+    @ManyToOne
+    @JoinColumn(name ="validMaterialGroup3Bean", referencedColumnName = "ID")
+    var validMaterialGroup3Bean: FMaterialGroup3? = FMaterialGroup3(),
+
+    @Column(name ="VALID_MATERIALGROUP3_ACCUMULATION")
+    var validMaterialGroup3Accumulation  :Boolean =false,
+
+    @ManyToOne
+    @JoinColumn(name ="validMaterialBean", referencedColumnName ="ID")
+    var validMaterialBean: FMaterial? = FMaterial()
 
 
-}
+): Serializable

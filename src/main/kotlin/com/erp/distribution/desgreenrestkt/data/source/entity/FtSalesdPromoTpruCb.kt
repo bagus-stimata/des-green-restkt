@@ -7,14 +7,14 @@ import javax.persistence.*
 @JacksonXmlRootElement
 @Entity
 @Table(name = "ftsalesdpromotprucb")
-class FtSalesdPromoTpruCb : Serializable {
+data class FtSalesdPromoTpruCb (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "REFNO_PROMO")
-    private val refnoPromo: Long = 0
+    private val refnoPromo: Long =0L,
 
     @Column(name = "NO_URUT", length = 4)
-    private val noUrut = 0
+    private val noUrut  :Int =0,
 
     //	@ManyToOne
     //	@JoinColumns({@JoinColumn(name="ftSalesdRefno", referencedColumnName="refno"),
@@ -23,15 +23,16 @@ class FtSalesdPromoTpruCb : Serializable {
     //	@ManyToOne
     //	@JoinColumn(name="ftSalesdFreegood", referencedColumnName="ID")
     //	private FtSalesdItems ftSalesdBean;
-    @Column(name = "ftSalesdFreegood", nullable = false)
-    private val ftSalesdFreegood: Long = 0
+    @Column(name = "ftSalesdFreegood", nullable =false)
+    private val ftSalesdFreegood: Long =0L,
 
     //	@ManyToOne
     //	@JoinColumn(name="fPromoBean", referencedColumnName="ID")
     //	private FPromotionRulesh fPromoBean;
-    @Column(name = "fPromoBean", nullable = false)
-    private val fPromoBean = 0
+    @Column(name = "fPromoBean", nullable =false)
+    private val fPromoBean  :Int =0,
 
     @Column(name = "TPRU_CASHBACK")
-    private val tpruCashback = 0.0
-}
+    private val tpruCashback  :Double =0.0
+
+): Serializable

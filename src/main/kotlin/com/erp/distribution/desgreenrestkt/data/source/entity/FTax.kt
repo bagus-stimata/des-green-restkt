@@ -7,12 +7,12 @@ import javax.persistence.*
 
 @JacksonXmlRootElement
 @Entity
-@Table(name = "ftax")
-class FTax : Serializable {
+@Table(name =  "ftax" )
+data class FTax (
     @Id
-    @Column(name = "ID", length = 9)
+    @Column(name =  "ID" , length = 9)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id = 0
+    var id :Int =0,
 
     /*
 	 * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -20,51 +20,51 @@ class FTax : Serializable {
 	 * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
 	 * 2. 
 	 */
-    @Column(name = "SOURCE_ID", length = 9)
-    var sourceId = 0
+    @Column(name =  "SOURCE_ID" , length = 9)
+    var sourceId :Int =0,
 
-    @Column(name = "KODE1", length = 10)
-    var kode1 = ""
+    @Column(name =  "KODE1" , length = 10)
+    var kode1 :String ="",
 
-    @Column(name = "KODE2", length = 20)
-    var kode2 = ""
+    @Column(name =  "KODE2" , length = 20)
+    var kode2 :String ="",
 
-    @Column(name = "DESCRIPTION", length = 100)
-    var description = ""
+    @Column(name =  "DESCRIPTION" , length = 100)
+    var description :String ="",
 
-    @Column(name = "TAX_PERCENT")
-    var taxPercent = 0.0
+    @Column(name =  "TAX_PERCENT" )
+    var taxPercent  :Double =0.0,
 
     //	@ManyToOne
-    //	@JoinColumn(name="accAccountTaxPurchaseBean", referencedColumnName="ID")
+    //	@JoinColumn(name= accAccountTaxPurchaseBean , referencedColumnName= ID )
     //	private AccAccount accAccountTaxPurchaseBean;
-    @Column(name = "accAccountTaxPurchaseBean", nullable = false)
-    var accAccountTaxPurchaseBean = 0
+    @Column(name =  "accAccountTaxPurchaseBean" , nullable = false)
+    var accAccountTaxPurchaseBean :Int =0,
 
     //	@ManyToOne
-    //	@JoinColumn(name="accAccountTaxSalesBean", referencedColumnName="ID")
+    //	@JoinColumn(name= accAccountTaxSalesBean , referencedColumnName= ID )
     //	private AccAccount accAccountTaxSalesBean;
-    @Column(name = "accAccountTaxSalesBean", nullable = false)
-    var accAccountTaxSalesBean = 0
+    @Column(name =  "accAccountTaxSalesBean" , nullable = false)
+    var accAccountTaxSalesBean :Int =0,
 
     //	@ManyToOne
-    //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
+    //	@JoinColumn(name= fdivisionBean , referencedColumnName= ID )
     //	private FDivision fdivisionBean;
-    @Column(name = "fdivisionBean", nullable = false)
-    var fdivisionBean = 0
+    @Column(name =  "fdivisionBean" , nullable = false)
+    var fdivisionBean :Int =0,
 
-    @Column(name = "STATUS_ACTIVE")
-    var isStatusActive = true
+    @Column(name =  "STATUS_ACTIVE" )
+    var statusActive  :Boolean =true,
 
-    @Column(name = "CREATED")
+    @Column(name =  "CREATED" )
     @Temporal(TemporalType.TIMESTAMP)
-    var created = Date()
+    var created :Date =Date(),
 
-    @Column(name = "MODIFIED")
+    @Column(name =  "MODIFIED" )
     @Temporal(TemporalType.TIMESTAMP)
-    var modified = Date()
+    var modified :Date =Date(),
 
-    @Column(name = "MODIFIED_BY", length = 20)
-    var modifiedBy = "" //User ID
+    @Column(name =  "MODIFIED_BY" , length = 20)
+    var modifiedBy :String =""    //User ID
 
-}
+): Serializable

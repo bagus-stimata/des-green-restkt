@@ -14,11 +14,11 @@ import javax.persistence.*
 @JacksonXmlRootElement
 @Entity
 @Table(name = "fgiro")
-class FGiro : Serializable {
+data class FGiro(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    var id = 0
+    var id  :Int =0,
 
     /*
 	 * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -29,34 +29,34 @@ class FGiro : Serializable {
     //	@Column(name="SOURCE_ID")
     //	private long sourceID =0;
     @Column(name = "GIRO_NUMBER", length = 50)
-    var giroNumber = ""
+    var giroNumber :String ="",
 
     @Column(name = "BANK_NAME", length = 55)
-    var bankName = ""
+    var bankName :String ="",
 
     @Column(name = "PEMILIK_REK", length = 75)
-    var pemilikRek = ""
+    var pemilikRek :String ="",
 
     /*
 	 * Ikut Cash Bank: Deposit or Payment
 	 */
     @Enumerated(EnumType.STRING)
     @Column(name = "ACC_TRANSACTION_TYPE", length = 10)
-    var accTransactionType: EnumAccTransactionType? = null
+    var accTransactionType: EnumAccTransactionType? = EnumAccTransactionType.JURNAL_MEM,
 
     @Temporal(TemporalType.DATE)
     @Column(name = "GIRO_DATE")
-    var giroDate = Date()
+    var giroDate :Date =Date(),
 
     @Temporal(TemporalType.DATE)
     @Column(name = "GIRO_DUE_DATE")
-    var giroDueDate = Date()
+    var giroDueDate :Date =Date(),
 
     @Column(name = "AMOUNT_RP")
-    var amountRp = 0.0
+    var amountRp  :Double =0.0,
 
     @Column(name = "AMOUNT_USED")
-    var amountUsed = 0.0
+    var amountUsed  :Double =0.0,
 
     /*
 	 * Pencairan Giro
@@ -64,14 +64,14 @@ class FGiro : Serializable {
 	 */
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "STATUS_GIRO")
-    var statusGiro: EnumStatusGiro? = null
+    var statusGiro: EnumStatusGiro? = EnumStatusGiro.GIRO_OPEN,
 
     @Temporal(TemporalType.DATE)
     @Column(name = "CAIR_TOLAK_DATE")
-    var cairOrTolakDate = Date()
+    var cairOrTolakDate :Date =Date(),
 
     @Column(name = "SHARED_TO_COMPANY")
-    var isSharedToCompany = false //setting Shared to company khusus ditaruh disini, bukan di divisi
+    var sharedToCompany  :Boolean =false, //setting Shared to company khusus ditaruh disini, bukan di divisi
 
     /*
 	 * Account Mapping: Bank Account
@@ -81,43 +81,43 @@ class FGiro : Serializable {
     //	@JoinColumn(name="accAccountBean", referencedColumnName="ID", nullable=true)
     //	private AccAccount accAccountBean;
     @Column(name = "accAccountBean")
-    var accAccountBean = 0
+    var accAccountBean  :Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="accAccountCairOrTolak", referencedColumnName="ID", nullable=true)
     //	AccAccount accAccountCairOrTolak;
     @Column(name = "accAccountCairOrTolak")
-    var accAccountCairOrTolak = 0
+    var accAccountCairOrTolak  :Int =0,
 
     /*
 	 * true	= Giro
 	 * false =  Transfer
 	 */
     @Column(name = "GIRO_OR_TRANSFER")
-    var isGiroOrTransfer = true
+    var giroOrTransfer  :Boolean =true,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
     @Column(name = "fdivisionBean", nullable = false)
-    var fdivisionBean = 0
+    var fdivisionBean  :Int =0,
 
     @Column(name = "STATUS_ACTIVE")
-    var isStatusActive = true
+    var statusActive  :Boolean =true,
 
     @Transient
-    var tempString = ""
+    var tempString :String ="",
 
     //LOG
     @Column(name = "CREATED")
     @Temporal(TemporalType.TIMESTAMP)
-    var created = Date()
+    var created :Date =Date(),
 
     @Column(name = "MODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
-    var modified = Date()
+    var modified :Date =Date(),
 
     @Column(name = "MODIFIED_BY", length = 20)
-    var modifiedBy = "" //User ID
+    var modifiedBy :String ="" //User ID
 
-}
+): Serializable

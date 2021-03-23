@@ -81,8 +81,8 @@ class UsersController {
             listFDivision = fDivisionJPARepository!!.findAllByParentId(activeCompany!!.id).stream().filter { x: FDivision -> x.statusActive == true && x.kode1 != "" && x.description != "" }.collect(Collectors.toList())
             listFWarehouse = fWarehouseJPARepository!!.findAllByCompany(activeCompany!!.id).stream().filter { x: FWarehouse -> x.isStatusActive == true && x.kode1 != "" && x.description != "" && x.tipeWarehouse == EnumTipeWarehouse.GS }.collect(Collectors.toList())
             listFSalesman = fSalesmanJPARepository!!.findAllByCompany(activeCompany!!.id)
-                    .stream().filter { x: FSalesman -> x.isStatusActive == true && x.spcode != "" && x.spname != "" && (x.salesType == EnumSalesType.TO || x.salesType == EnumSalesType.C || x.salesType == EnumSalesType.C) }.collect(Collectors.toList())
-            listFVendor = fVendorJPARepository!!.findAllByCompany(activeCompany!!.id).stream().filter { x: FVendor -> x.isStatusActive == true && x.vcode != "" && x.vname != "" }.collect(Collectors.toList())
+                    .stream().filter { x: FSalesman -> x.statusActive == true && x.spcode != "" && x.spname != "" && (x.salesType == EnumSalesType.TO || x.salesType == EnumSalesType.C || x.salesType == EnumSalesType.C) }.collect(Collectors.toList())
+            listFVendor = fVendorJPARepository!!.findAllByCompany(activeCompany!!.id).stream().filter { x: FVendor -> x.statusActive == true && x.vcode != "" && x.vname != "" }.collect(Collectors.toList())
         } else {
             listFDivision = fDivisionJPARepository!!.findAll()
             listFWarehouse = fWarehouseJPARepository!!.findAll()
@@ -342,8 +342,8 @@ class UsersController {
                 listFDivision = fDivisionJPARepository!!.findAllByParentId(activeCompany!!.id).stream().filter { x: FDivision -> x.statusActive == true && x.kode1 != "" && x.description != "" }.collect(Collectors.toList())
                 listFWarehouse = fWarehouseJPARepository!!.findAllByCompany(activeCompany!!.id).stream().filter { x: FWarehouse -> x.isStatusActive == true && x.kode1 != "" && x.description != "" && x.tipeWarehouse == EnumTipeWarehouse.GS }.collect(Collectors.toList())
                 listFSalesman = fSalesmanJPARepository!!.findAllByCompany(activeCompany!!.id)
-                        .stream().filter { x: FSalesman -> x.isStatusActive == true && x.spcode != "" && x.spname != "" && (x.salesType == EnumSalesType.TO || x.salesType == EnumSalesType.C || x.salesType == EnumSalesType.C) }.collect(Collectors.toList())
-                listFVendor = fVendorJPARepository!!.findAllByCompany(activeCompany!!.id).stream().filter { x: FVendor -> x.isStatusActive == true && x.vcode != "" && x.vname != "" }.collect(Collectors.toList())
+                        .stream().filter { x: FSalesman -> x.statusActive == true && x.spcode != "" && x.spname != "" && (x.salesType == EnumSalesType.TO || x.salesType == EnumSalesType.C || x.salesType == EnumSalesType.C) }.collect(Collectors.toList())
+                listFVendor = fVendorJPARepository!!.findAllByCompany(activeCompany!!.id).stream().filter { x: FVendor -> x.statusActive == true && x.vcode != "" && x.vname != "" }.collect(Collectors.toList())
             } else {
                 listFDivision = fDivisionJPARepository!!.findAll()
                 listFWarehouse = fWarehouseJPARepository!!.findAll()

@@ -10,11 +10,11 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "fmaterial")
-class FMaterial : Serializable {
+data class FMaterial(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", length = 9)
-    var id = 0
+    var id  :Int =0,
 
     /*
 	 * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -23,43 +23,43 @@ class FMaterial : Serializable {
 	 */
     @JsonIgnore
     @Column(name = "SOURCE_ID", length = 9)
-    var sourceId = 0
+    var sourceId  :Int =0,
 
     @JsonIgnore
     @Column(name = "NO_URUT", length = 6)
-    var noUrut = 0
+    var noUrut  :Int =0,
 
     @Column(name = "PCODE", length = 15)
-    var pcode = ""
+    var pcode :String ="",
 
     @Column(name = "BARCODE", length = 50)
-    var barcode = ""
+    var barcode :String ="",
 
     @Column(name = "PNAME", length = 120)
-    var pname = ""
+    var pname :String ="",
 
     @Lob
     @Type(type = "text")
     @Column(name = "DESCRIPTION")
-    var description = ""
+    var description :String ="",
 
     @JsonIgnore
     @Column(name = "OLD_KODE1", length = 15)
-    var oldKode1 = ""
+    var oldKode1 :String ="",
 
     @JsonIgnore
     @Column(name = "VARIAN_NAME", length = 25)
-    var varianName = ""
+    var varianName :String ="",
 
     @Column(name = "FREE_GOOD")
-    var isFreeGood = false
+    var isFreeGood  :Boolean =false,
 
     @JsonIgnore
     @Column(name = "SHORTNAME", length = 30)
-    var shortname = ""
+    var shortname :String ="",
 
     @Column(name = "STATUS_ACTIVE")
-    var isStatusActive = true
+    var isStatusActive  :Boolean =true,
 
     /*
 	 * KLASIFIKASI: BASIC
@@ -75,17 +75,17 @@ class FMaterial : Serializable {
 	 */
     @JsonIgnore
     @Column(name = "EXCLUSIVE_DIVISION_TRANSACTION")
-    var isExclusiveDivisionTransaction = false
+    var isExclusiveDivisionTransaction  :Boolean =false,
 
     @JsonIgnore
     @Column(name = "EXCLUSIVE_DIVISION_VIEW")
-    var isExclusiveDivisionView = false
+    var isExclusiveDivisionView  :Boolean =false,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
     @Column(name = "fdivisionBean", nullable = false)
-    var fdivisionBean = 0
+    var fdivisionBean  :Int =0,
 
     /*
 	 * TAX
@@ -94,10 +94,10 @@ class FMaterial : Serializable {
     //	@JoinColumn(name="ftaxBean", referencedColumnName="ID")
     //	private FTax ftaxBean;
     @Column(name = "ftaxBean")
-    var ftaxBean = 0
+    var ftaxBean  :Int =0,
 
     @Column(name = "TAXABLE")
-    var isTaxable = true
+    var isTaxable  :Boolean =true,
 
     /*
 	 * Adalah Vendor Utama Produk Tersebut
@@ -108,37 +108,37 @@ class FMaterial : Serializable {
 	 */
     @JsonIgnore
     @Column(name = "EXCLUSIVE_VENDOR_TRANSACTION")
-    var isExclusiveVendorTransaction = false
+    var isExclusiveVendorTransaction  :Boolean =false,
 
     @ManyToOne
     @JoinColumn(name = "fvendorBean", referencedColumnName = "ID")
-    var fvendorBean: FVendor? = null
+    var fvendorBean: FVendor? = FVendor(),
 
     //	@Column(name="fvendorBean", nullable = false)
-    //	private Integer fvendorBean = 0;
+    //	private Integer fvendorBean  :Int =0,;
     //	@ManyToOne
     //	@JoinColumn(name="fwarehouseBean_Utm", referencedColumnName="ID")
     //	private FWarehouse fwarehouseBean_Utm;
     @JsonIgnore
     @Column(name = "fwarehouseBean_Utm", nullable = false)
-    var fwarehouseBean_Utm = 0
+    var fwarehouseBean_Utm  :Int =0,
 
     @JsonIgnore
     @Column(name = "MATERIAL_TYPE", length = 5)
     @Enumerated(EnumType.STRING)
-    var materialType: EnumMaterialType? = null
+    var materialType: EnumMaterialType? = EnumMaterialType.FERT,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdistributionChannelBean", referencedColumnName="ID")
     //	private FDistributionChannel fdistributionChannelBean;
     @Column(name = "fdistributionChannelBean", nullable = false)
-    var fdistributionChannelBean = 0
+    var fdistributionChannelBean  :Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
     //	private FMaterialGroup3 fmaterialGroup3Bean;
     @Column(name = "fmaterialGroup3Bean", nullable = false)
-    var fmaterialGroup3Bean = 0
+    var fmaterialGroup3Bean  :Int =0,
 
     /*
 	 * KLASIFIKASI: SALES
@@ -147,56 +147,56 @@ class FMaterial : Serializable {
     //	@JoinColumn(name="fmaterialSalesBrandBean", referencedColumnName="ID")
     //	private FMaterialSalesBrand fmaterialSalesBrandBean;
     @Column(name = "fmaterialSalesBrandBean", nullable = false)
-    var fmaterialSalesBrandBean = 0
+    var fmaterialSalesBrandBean  :Int =0,
 
     //BATCH CODE --> Berhubungan dengan Stockist atau Gudang
     //PRODUCTION CODE --> Berhubungan dengan TANGGAL DIPRODUKSI DAN EXP.DATE
     @JsonIgnore
     @Column(name = "PRINCIPAL_CODE", length = 25)
-    var principalCode = ""
+    var principalCode :String ="",
 
     @JsonIgnore
     @Column(name = "BATCH_CODE", length = 30)
-    var batchCode = ""
+    var batchCode :String ="",
 
     @JsonIgnore
     @Column(name = "PRODUCTION_CODE", length = 30)
-    var productionCode = ""
+    var productionCode :String ="",
 
     @JsonIgnore
     @Temporal(TemporalType.DATE)
     @Column(name = "PRODUCTION_DATE")
-    var productionDate = Date()
+    var productionDate :Date =Date(),
 
     @JsonIgnore
     @Temporal(TemporalType.DATE)
     @Column(name = "EXPIRED_DATE")
-    var expiredDate = Date()
+    var expiredDate :Date =Date(),
 
     @JsonIgnore
     @Column(name = "PRODCLASS", length = 3)
-    var prodclass = 0
+    var prodclass  :Int =0,
 
     @Column(name = "UOM1", length = 10)
-    var uom1 = ""
+    var uom1 :String ="",
 
     @Column(name = "UOM2", length = 10)
-    var uom2 = ""
+    var uom2 :String ="",
 
     @Column(name = "UOM3", length = 10)
-    var uom3 = ""
+    var uom3 :String ="",
 
     @Column(name = "UOM4", length = 10) //UOM4 Paling Kecil
-    var uom4 = ""
+    var uom4 :String ="",
 
     @Column(name = "CONVFACT1", length = 6)
-    var convfact1 = 1 //uom1 to uom4
+    var convfact1 :Int = 1, //uom1 to uom4
 
     @Column(name = "CONVFACT2", length = 5)
-    var convfact2 = 1 //uom2 to uom4
+    var convfact2 :Int = 1, //uom2 to uom4
 
     @Column(name = "CONVFACT3", length = 4)
-    var convfact3 = 1 //uom3 to uom4
+    var convfact3 :Int = 1, //uom3 to uom4
 
     /*
 	 * PRICE yang muncul pada faktur dengan menggunakan UOM
@@ -209,20 +209,20 @@ class FMaterial : Serializable {
     @JsonIgnore
     @Column(name = "PRICE_UOM", length = 1)
     @Enumerated(EnumType.ORDINAL)
-    var priceUom = EnumUom.UOM1
+    var priceUom :EnumUom = EnumUom.UOM1,
 
     //	@Transient
-    //	private Integer temp_QtySaldo = 0; //Penolong untuk keperluan lain: seperti untuk saldo retur atas faktur
+    //	private Integer temp_QtySaldo  :Int =0,; //Penolong untuk keperluan lain: seperti untuk saldo retur atas faktur
     @JsonIgnore
     @Transient
-    var temp_QtySaldo = 0.0 //Penolong untuk keperluan lain: seperti untuk saldo retur atas faktur
+    var temp_QtySaldo  :Double =0.0, //Penolong untuk keperluan lain: seperti untuk saldo retur atas faktur
 
     /*
 	 * Harga Beli berbeda dengan HPP
 	 */
     @Transient
     @JsonIgnore
-    var hargaBeliUOM4NetAfterPpn = 0.0
+    var hargaBeliUOM4NetAfterPpn  :Double =0.0,
 
     /*
 	 * HPP disimpan Perdivisi pada Tabel AccBalanceHpp
@@ -230,60 +230,60 @@ class FMaterial : Serializable {
 	 */
     @JsonIgnore
     @Column(name = "HPP_AWAL")
-    var hppAwalPprice2 = 0.0 //Jika tidak ada HPP Awal maka menggunakan Harga Barang Net Sebelum PPN
+    var hppAwalPprice2  :Double =0.0, //Jika tidak ada HPP Awal maka menggunakan Harga Barang Net Sebelum PPN
 
     @Transient
     @JsonIgnore
-    var hppLifo = 0.0
+    var hppLifo  :Double =0.0,
 
     @Transient
     @JsonIgnore
-    var hppLifoTotalAmount = 0.0
+    var hppLifoTotalAmount  :Double =0.0,
 
     @Transient
     @JsonIgnore
-    var hppAverage = 0.0
+    var hppAverage  :Double =0.0,
 
     @Transient
     @JsonIgnore
-    var hppAverageTotalAmount = 0.0
+    var hppAverageTotalAmount  :Double =0.0,
 
     @Transient
     @JsonIgnore
-    var hppFifo = 0.0
+    var hppFifo  :Double =0.0,
 
     @Transient
     @JsonIgnore
-    var hppFifoTotalAmount = 0.0
+    var hppFifoTotalAmount  :Double =0.0,
 
     //PPRICE:: Disimpan dalam satuan Terbesar dan Terkecil. Setelah dan sebelum PPN
     //	@JsonIgnore
     @Column(name = "PPRICE")
-    var pprice = 0.0
+    var pprice  :Double =0.0,
 
     @Column(name = "PPRICE_AFTERPPN")
-    var ppriceAfterPpn = 0.0
+    var ppriceAfterPpn  :Double =0.0,
 
     //	@JsonIgnore
     @Column(name = "PPRICE2")
-    var pprice2 = 0.0
+    var pprice2  :Double =0.0,
 
     @Column(name = "PPRICE2_AFTERPPN")
-    var pprice2AfterPpn = 0.0
+    var pprice2AfterPpn  :Double =0.0,
 
     //	@JsonIgnore
     @Column(name = "SPRICE")
-    var sprice = 0.0
+    var sprice  :Double =0.0,
 
     @Column(name = "SPRICE_AFTERPPN")
-    var spriceAfterPpn: Double? = null
+    var spriceAfterPpn: Double = 0.0,
 
     //	@JsonIgnore
     @Column(name = "SPRICE2")
-    var sprice2 = 0.0
+    var sprice2  :Double =0.0,
 
     @Column(name = "SPRICE2_AFTERPPN")
-    var sprice2AfterPpn = 0.0
+    var sprice2AfterPpn  :Double =0.0,
 
     /*
 	 * Min Stok: sama dengan Buffer Stock
@@ -293,174 +293,142 @@ class FMaterial : Serializable {
 	 */
     @JsonIgnore
     @Column(name = "MIN_QTY_STOK", length = 8) //Buffer Stok
-    var minQtyStok = 0
+    var minQtyStok  :Int =0,
 
     //TIDAK BOLEH DIGANTI-GANTI
     //dalam Mili Liter
     @JsonIgnore
     @Column(name = "VOLUME", length = 7)
-    var volumeSmalest = 0
+    var volumeSmalest  :Int =0,
 
     //Dalam Grams
     @Column(name = "WEIGHT_SMALEST", length = 7)
-    var weightSmalest = 0
+    var weightSmalest  :Int =0,
 
     //Dalam Grams
     @Column(name = "CASE_WEIGHT", length = 7)
-    var caseWeight = 0
+    var caseWeight  :Int =0,
 
     //IN Cm.. Cm3
     @JsonIgnore
     @Column(name = "CASE_WIDTH", length = 7)
-    var caseWidth = 0 //Panjang
+    var caseWidth  :Int =0, //Panjang
 
     @JsonIgnore
     @Column(name = "CASE_HEIGHT", length = 7)
-    var caseHeight = 0 //Tinggi
+    var caseHeight  :Int =0, //Tinggi
 
     @JsonIgnore
     @Column(name = "CASE_DEPTH", length = 7)
-    var caseDepth = 0 //Lebar (dibalik kan kalau english.. hehehe)
+    var caseDepth  :Int =0, //Lebar (dibalik kan kalau english.. hehehe)
 
     @JsonIgnore
     @Column(name = "FLAG_NEWITEM")
-    var isFlagNewItem = false
+    var isFlagNewItem  :Boolean =false,
 
     @JsonIgnore
     @Column(name = "FLAG_NEWPRICE")
-    var isFlagNewPrice = false
+    var isFlagNewPrice  :Boolean =false,
 
     @JsonIgnore
     @Column(name = "USE_SPRICEALT")
-    var isUseSpriceAlt = false
+    var isUseSpriceAlt  :Boolean =false,
 
     //#PRICEALT1 -- Retail -->ALL AFTER PPN
     //Retail-Besar
     @JsonIgnore
     @Column(name = "SPRICEALT_RETAIL_BES")
-    var spriceAltRetailBes = 0.0
+    var spriceAltRetailBes  :Double =0.0,
 
     //Retail-Sedang
     @JsonIgnore
     @Column(name = "SPRICEALT_RETAIL_SED")
-    var spriceAltRetailSed = 0.0
+    var spriceAltRetailSed  :Double =0.0,
 
     //Retail-Kecil
     @JsonIgnore
     @Column(name = "SPRICEALT_RETAIL_KEC")
-    var spriceAltRetailKec = 0.0
+    var spriceAltRetailKec  :Double =0.0,
 
     //#PRICEALT2 --> Grosir 1
     //Grosir-Besar
     @JsonIgnore
     @Column(name = "SPRICEALT_GROSIR1_BES")
-    var spriceAltGrosir1Bes = 0.0
+    var spriceAltGrosir1Bes  :Double =0.0,
 
     //Grosir-Sed
     @JsonIgnore
     @Column(name = "SPRICEALT_GROSIR1_SED")
-    var spriceAltGrosir1Sed = 0.0
+    var spriceAltGrosir1Sed  :Double =0.0,
 
     //Grosir-Kec
     @JsonIgnore
     @Column(name = "SPRICEALT_GROSIR1_KEC")
-    var spriceAltGrosir1Kec = 0.0
+    var spriceAltGrosir1Kec  :Double =0.0,
 
     //#PRICEALT3 --> Grosir 2
     //Grosir2-Bes
     //Grosir-Besar
     @JsonIgnore
     @Column(name = "SPRICEALT_GROSIR2_BES")
-    var spriceAltGrosir2Bes = 0.0
+    var spriceAltGrosir2Bes  :Double =0.0,
 
     //Grosir-Sed
     @JsonIgnore
     @Column(name = "SPRICEALT_GROSIR2_SED")
-    var spriceAltGrosir2Sed = 0.0
+    var spriceAltGrosir2Sed  :Double =0.0,
 
     //Grosir-Kec
     @JsonIgnore
     @Column(name = "SPRICEALT_GROSIR2_KEC")
-    var spriceAltGrosir2Kec = 0.0
+    var spriceAltGrosir2Kec  :Double =0.0,
 
     //Grosir Quantity
     @JsonIgnore
     @Column(name = "SPRICE_ALT_GROSIRQTY_MORE_EQUAL1")
-    var spriceAltGrosirQtyMoreEqual1 = 0.0
+    var spriceAltGrosirQtyMoreEqual1  :Double =0.0,
 
     @JsonIgnore
     @Column(name = "SPRICE_ALT_GROSIRQTY_MORE_EQUAL2")
-    var spriceAltGrosirQtyMoreEqual2 = 0.0
+    var spriceAltGrosirQtyMoreEqual2  :Double =0.0,
 
     @JsonIgnore
     @Column(name = "SPRICE_ALT_GROSIRQTY_MORE_EQUAL3")
-    var spriceAltGrosirQtyMoreEqual3 = 0.0
+    var spriceAltGrosirQtyMoreEqual3  :Double =0.0,
 
     @JsonIgnore
     @Column(name = "SPRICE_ALT_GROSIRQTY_MORE_EQUAL4")
-    var spriceAltGrosirQtyMoreEqual4 = 0.0
+    var spriceAltGrosirQtyMoreEqual4  :Double =0.0,
 
     @JsonIgnore
     @Column(name = "SPRICE_ALT_GROSIRQTY_VALUE1")
-    var spriceAltGrosirQtyValue1 = 0.0
+    var spriceAltGrosirQtyValue1  :Double =0.0,
 
     @JsonIgnore
     @Column(name = "SPRICE_ALT_GROSIRQTY_VALUE2")
-    var spriceAltGrosirQtyValue2 = 0.0
+    var spriceAltGrosirQtyValue2  :Double =0.0,
 
     @JsonIgnore
     @Column(name = "SPRICE_ALT_GROSIRQTY_VALUE3")
-    var spriceAltGrosirQtyValue3 = 0.0
+    var spriceAltGrosirQtyValue3  :Double =0.0,
 
     @JsonIgnore
     @Column(name = "SPRICE_ALT_GROSIRQTY_VALUE4")
-    var spriceAltGrosirQtyValue4 = 0.0
+    var spriceAltGrosirQtyValue4  :Double =0.0,
 
     @JsonIgnore
     @Column(name = "CREATED")
     @Temporal(TemporalType.TIMESTAMP)
-    var created = Date()
+    var created :Date =Date(),
 
     @JsonIgnore
     @Column(name = "MODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
-    var modified = Date()
+    var modified :Date =Date(),
 
     @JsonIgnore
     @Column(name = "MODIFIED_BY", length = 20)
-    var modifiedBy = "" //User ID
+    var modifiedBy :String ="" //User ID
 
-    constructor() {}
-    constructor(id: Int, pcode: String, pname: String, description: String, freeGood: Boolean, statusActive: Boolean, fdivisionBean: Int, ftaxBean: Int, taxable: Boolean, fvendorBean: FVendor?, materialType: EnumMaterialType?, fdistributionChannelBean: Int, fmaterialGroup3Bean: Int, fmaterialSalesBrandBean: Int, uom1: String, uom2: String, uom3: String, uom4: String, convfact1: Int, convfact2: Int, convfact3: Int, pprice: Double, ppriceAfterPpn: Double, pprice2: Double, pprice2AfterPpn: Double, sprice: Double, spriceAfterPpn: Double?, sprice2: Double, sprice2AfterPpn: Double) {
-        this.id = id
-        this.pcode = pcode
-        this.pname = pname
-        this.description = description
-        isFreeGood = freeGood
-        isStatusActive = statusActive
-        this.fdivisionBean = fdivisionBean
-        this.ftaxBean = ftaxBean
-        isTaxable = taxable
-        this.fvendorBean = fvendorBean
-        this.materialType = materialType
-        this.fdistributionChannelBean = fdistributionChannelBean
-        this.fmaterialGroup3Bean = fmaterialGroup3Bean
-        this.fmaterialSalesBrandBean = fmaterialSalesBrandBean
-        this.uom1 = uom1
-        this.uom2 = uom2
-        this.uom3 = uom3
-        this.uom4 = uom4
-        this.convfact1 = convfact1
-        this.convfact2 = convfact2
-        this.convfact3 = convfact3
-        this.pprice = pprice
-        this.ppriceAfterPpn = ppriceAfterPpn
-        this.pprice2 = pprice2
-        this.pprice2AfterPpn = pprice2AfterPpn
-        this.sprice = sprice
-        this.spriceAfterPpn = spriceAfterPpn
-        this.sprice2 = sprice2
-        this.sprice2AfterPpn = sprice2AfterPpn
-    }
 
-}
+): Serializable

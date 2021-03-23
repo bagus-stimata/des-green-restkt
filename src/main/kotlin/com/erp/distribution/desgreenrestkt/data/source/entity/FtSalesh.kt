@@ -13,7 +13,7 @@ data class FtSalesh(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "REFNO")
-    var refno: Long =0,
+    var refno: Long =0L,
 
     /*
 	 * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -22,18 +22,18 @@ data class FtSalesh(
 	 * 2. 
 	 */
     @Column(name = "SOURCE_ID") //	private Long sourceID = Long.valueOf(0);
-    var sourceId: Long =0, //JPQL tidak tahu nama sourceID INGAT !!!!
+    var sourceId: Long =0L, //JPQL tidak tahu nama sourceID INGAT !!!!
 
     //ORDERNO=SO
     @Column(name = "ORDERNO", length = 20)
-    var orderno: String = "",
+    var orderno: String ="",
 
     @Column(name = "VALID_ORDER")
-    var isValidOrder : Boolean = false,
+    var validOrder : Boolean =false,
 
     //INVOICENO
     @Column(name = "INVOICENO", length = 20)
-    var invoiceno: String = "",
+    var invoiceno: String ="",
 
     @Column(name = "PRIORITY", length = 3)
     var priority :Int =0,
@@ -42,14 +42,14 @@ data class FtSalesh(
 	 * ignore/reject promotion rules setting
 	 */
     @Column(name = "NO_PROMOTION_RULES")
-    var isNoPromotionRules : Boolean = false,
+    var noPromotionRules : Boolean =false,
 
     @Column(name = "TAX_NUMBER", length = 30)
-    var taxNumber: String = "",
+    var taxNumber: String ="",
 
     @Temporal(TemporalType.DATE)
     @Column(name = "TAX_DATE")
-    var taxDate :Date = Date(),
+    var taxDate :Date =Date(),
 
     /*
 	 * SO: FROM GOOD RECEIVE
@@ -57,7 +57,7 @@ data class FtSalesh(
     //	@ManyToOne
     //	@JoinColumn(name="fromGoodReceiptBean", referencedColumnName="refno", nullable=true)
     //	private  FtPurchaseh fromGoodReceiptBean;
-    //	@Column(name="fromGoodReceiptBean", nullable = true)
+    //	@Column(name="fromGoodReceiptBean", nullable =true)
     //	private long fromGoodReceiptBean :Int =0,;
     /*
 	 * FAKTUR FROM SO
@@ -65,13 +65,13 @@ data class FtSalesh(
     //	@ManyToOne
     //	@JoinColumn(name="fakturSOBean", referencedColumnName="refno")
     //	private  FtSalesh fakturSOBean; //me as Sales Invoice
-    @Column(name = "fakturSOBean", nullable = true)
-    val fakturSOBean: Long?,
+    @Column(name = "fakturSOBean", nullable =true)
+    var fakturSOBean: Long? =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="returAtasFakturBean", referencedColumnName="refno", nullable=true)
     //	private  FtSalesh returAtasFakturBean;
-    //	@Column(name="returAtasFakturBean", nullable = true)
+    //	@Column(name="returAtasFakturBean", nullable =true)
     //	private long returAtasFakturBean :Int =0,;
     /*
 	 * Status Nota: (1)O-Open Sedang dikirim, (2)T-Terkirim,
@@ -83,11 +83,11 @@ data class FtSalesh(
 
     //SURAT JALAN PENGIRIMAIN = DO
     @Column(name = "SJ_PENGIRIMAN_NO", length = 15)
-    var sjPengirimanNo: String = "",
+    var sjPengirimanNo: String ="",
 
     @Column(name = "SJ_PENGIRIMAN_DATE")
     @Temporal(TemporalType.DATE)
-    var sjPengirimanDate :Date = Date(), //Jika tidak ada nomor SJ maka tidak berlaku
+    var sjPengirimanDate :Date =Date(), //Jika tidak ada nomor SJ maka tidak berlaku
 
     //Driver
     //	@Column(name="DRIVER_NAME", length=40)
@@ -96,41 +96,41 @@ data class FtSalesh(
     //	@JoinColumn(name="driverBean", referencedColumnName="ID", nullable=true)
     //	private FSalesman driverBean;
     @Column(name = "driverBean")
-    private val driverBean: Int?,
+    var driverBean: Int? =0,
 
     @Column(name = "NOPOL", length = 30)
-    var nopol: String = "",
+    var nopol: String ="",
 
     /*
 	 * HARUS DIGANTI MENGGUNAKAN LIST
 	 */
     @Column(name = "SJ_PENAGIHAN_NO", length = 15)
-    var sjPenagihanNo: String = "",
+    var sjPenagihanNo: String ="",
 
     @Column(name = "SJ_PENAGIHAN_DATE")
     @Temporal(TemporalType.DATE)
-    var sjPenagihanDate :Date = Date(),
+    var sjPenagihanDate :Date =Date(),
 
     //	@ManyToOne
     //	@JoinColumn(name="collectorBean", referencedColumnName="ID", nullable=true)
     //	private FSalesman collectorBean;
-    @Column(name = "collectorBean", nullable = true)
-    private val collectorBean: Int?,
+    @Column(name = "collectorBean", nullable =true)
+    var collectorBean: Int? =0,
 
     @Temporal(TemporalType.DATE)
     @Column(name = "INVOICE_DATE")
-    var invoiceDate :Date = Date(),
+    var invoiceDate :Date =Date(),
 
     @Temporal(TemporalType.DATE)
     @Column(name = "ORDER_DATE")
-    var orderDate :Date = Date(),
+    var orderDate :Date =Date(),
 
     @Column(name = "TOP")
     var top :Int =0,
 
     @Temporal(TemporalType.DATE)
     @Column(name = "DUE_DATE")
-    var dueDate :Date = Date(),
+    var dueDate :Date =Date(),
 
     /*
 	 * SEPERTINYA KITA TIDAK PAKAI INI
@@ -170,7 +170,7 @@ data class FtSalesh(
     //	@JoinColumn(name="fuangMuka_SOBean", referencedColumnName="ID", nullable=true)
     //	private FUangMuka fuangMuka_SOBean;
     @Column(name = "fuangMuka_SOBean", nullable = false)
-    var fuangMuka_SOBean: Int?,
+    var fuangMuka_SOBean: Int? =0,
 
     @Column(name = "DISC1")
     var disc1 :Double =0.0,
@@ -230,7 +230,7 @@ data class FtSalesh(
 
     ///Jika yes maka setiap FG yang harganya nol maka akan di hitung akumulasinya, lalu nilainya ditaruh di CashBack
     @Column(name = "CAL_CASHBACK_FG")
-    var isCalcCashBackFg : Boolean = false,
+    var calcCashBackFg : Boolean =false,
 
     /*
 	 * Sama dengan bawah: Jangan Lupa
@@ -251,10 +251,10 @@ data class FtSalesh(
     var amountPayRp :Double =0.0,
 
     @Column(name = "END_OF_DAY")
-    var isEndOfDay : Boolean = false,
+    var endOfDay : Boolean =false,
 
     @Column(name = "OPEN_LOCK_PRICE_DISKON")
-    var isOpenLockInputPriceAndDiscount : Boolean = false,
+    var openLockInputPriceAndDiscount : Boolean =false,
 
     /*
 	 * REQUEST PLAFON
@@ -268,7 +268,7 @@ data class FtSalesh(
     var statusRequestPlafon: EnumRequestStatus = EnumRequestStatus.OPEN,
 
     @Column(name = "NOTES", length = 160)
-    var notes: String = "",
+    var notes: String ="",
 
     @Column(length = 5, name = "TUNAI_KREDIT")
     @Enumerated(EnumType.STRING)
@@ -292,10 +292,10 @@ data class FtSalesh(
     var printCounter :Int =0,
 
     @Column(name = "PROSES")
-    var isProses : Boolean = false,
+    var proses : Boolean =false,
 
     @Column(name = "USED_SO")
-    var isUsedSO : Boolean = false,
+    var usedSO : Boolean =false,
 
     //1.Cash 2.Debit 3.Kartu Kredit 4.Cek 5.E-Wallet 6.Lain-lain
     var tipeBayarPos :Int =0,
@@ -331,7 +331,7 @@ data class FtSalesh(
     //	@JoinColumn(name="fcustomerShipToBean", referencedColumnName="ID", nullable=true)
     //	private FCustomer fcustomerShipToBean;
     @Column(name = "fcustomerShipToBean")
-    var fcustomerShipToBean: Int?,
+    var fcustomerShipToBean: Int? =0,
 
     //Allow Null
     //	@ManyToOne
@@ -351,14 +351,14 @@ data class FtSalesh(
     //	@ManyToOne
     //	@JoinColumn(name="accAccountArKbBean", referencedColumnName="ID", nullable =true)
     //	private AccAccount accAccountArKbBean;
-    @Column(name = "accAccountArKbBean", nullable = true)
-    private val accAccountArKbBean: Int?,
+    @Column(name = "accAccountArKbBean", nullable =true)
+    var accAccountArKbBean: Int? =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="accAccountFtSaleshCredit", referencedColumnName="ID", nullable =true)
     //	private AccAccount accAccountFtSaleshCredit;
-    @Column(name = "accAccountFtSaleshCredit", nullable = true)
-    private val accAccountFtSaleshCredit: Int?,
+    @Column(name = "accAccountFtSaleshCredit", nullable =true)
+    var accAccountFtSaleshCredit: Int? =0,
 
     /**
      * Seharusnya menggunakan interface Class Sendiri
@@ -370,8 +370,8 @@ data class FtSalesh(
     //	@ManyToOne
     //	@JoinColumn(name="fexpedisiBean", referencedColumnName="ID", nullable=true)
     //	private FExpedisi fexpedisiBean;
-    @Column(name = "fexpedisiBean", nullable = true)
-    private val fexpedisiBean: Int?,
+    @Column(name = "fexpedisiBean", nullable =true)
+    var fexpedisiBean: Int? =0,
 
     /*
 	 * MAPPING ACCOUNT
@@ -385,13 +385,14 @@ data class FtSalesh(
 	 */
     @Column(name = "CREATED")
     @Temporal(TemporalType.TIMESTAMP)
-    var created :Date = Date(),
+    var created :Date =Date(),
 
     @Column(name = "MODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
-    var modified :Date = Date(),
+    var modified :Date =Date(),
 
     @Column(name = "MODIFIED_BY", length = 20)
-    var modifiedBy: String = "" //User ID
+    var modifiedBy: String ="" //User ID
 
 ): Serializable
+

@@ -11,7 +11,8 @@ class HeaderDetilSalesHelperImpl : HeaderDetilSalesHelper {
 
     /*
 	 * ***********************
-	 */ var ftSalesh = FtSalesh()
+	 */
+    var ftSalesh:FtSalesh = FtSalesh()
     var newFtSalesh = FtSalesh()
     var ftPurchased = FtSalesdItems()
     var newFtPurchased = FtSalesdItems()

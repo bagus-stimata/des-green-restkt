@@ -1,17 +1,18 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
+import java.io.Serializable
 import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
 @Entity
 @Table(name = "ftpriceh")
-class FtPriceh {
+data class FtPriceh (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "REFNO")
-    private val refno: Long = 0
+    val refno: Long =0L,
 
     /*
 	 * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -20,44 +21,44 @@ class FtPriceh {
 	 * 2. 
 	 */
     @Column(name = "SOURCE_ID")
-    private val sourceId: Long = 0
+    val sourceId: Long =0L,
 
     @Column(name = "NO_REK", length = 100)
-    private val noRek = ""
+    val noRek :String ="",
 
     @Column(name = "DESCRIPTION", length = 50)
-    private val description = ""
+    val description :String ="",
 
     @Column(name = "NOTES", length = 255)
-    private val notes = ""
+    val notes :String ="",
 
     @Column(name = "TR_DATE")
     @Temporal(TemporalType.DATE)
-    private val trDate = Date()
+    val trDate :Date =Date(),
 
     @Column(name = "POSTING")
-    private val posting = false
+    val posting  :Boolean =false,
 
     @Column(name = "END_OF_DAY")
-    private val endOfDay = false
+    val endOfDay  :Boolean =false,
 
     @Column(name = "PRINT_COUNTER", length = 4)
-    private val printCounter = 0
+    val printCounter :Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID", nullable=false)
-    //	private FDivision fdivisionBean;
+    //	FDivision fdivisionBean;
     @Column(name = "fdivisionBean", nullable = false)
-    private val fdivisionBean = 0
+    val fdivisionBean :Int =0,
 
     @Column(name = "CREATED")
     @Temporal(TemporalType.TIMESTAMP)
-    private val created = Date()
+    val created :Date =Date(),
 
     @Column(name = "MODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
-    private val modified = Date()
+    val modified :Date =Date(),
 
     @Column(name = "MODIFIED_BY", length = 20)
-    private val modifiedBy = "" //User ID
-}
+    val modifiedBy :String ="" //User ID
+): Serializable

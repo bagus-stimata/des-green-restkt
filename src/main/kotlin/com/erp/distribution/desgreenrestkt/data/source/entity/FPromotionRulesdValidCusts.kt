@@ -6,42 +6,38 @@ import javax.persistence.*
 
 @JacksonXmlRootElement
 @Entity
-@Table(name = "fpromotionrulesd_validcusts")
-class FPromotionRulesdValidCusts : Serializable {
+@Table(name ="fpromotionrulesd_validcusts")
+data class FPromotionRulesdValidCusts (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", length = 9)
-    var id = 0
+    @Column(name ="ID")
+    var id :Int =0,
 
-    @Column(name = "NOURUT", length = 4)
-    var noUrut = 0
+    @Column(name ="NOURUT", length = 4)
+    var noUrut :Int =0,
 
     @ManyToOne
-    @JoinColumn(name = "fpromotionRuleshBean", referencedColumnName = "ID")
-    var fpromotionRuleshBean: FPromotionRulesh? = null
+    @JoinColumn(name ="fpromotionRuleshBean", referencedColumnName = "ID")
+    var fpromotionRuleshBean: FPromotionRulesh? = FPromotionRulesh(),
 
     /*
 	 * Customer Classfication = null berarti semua/All
 	 */
     @ManyToOne
-    @JoinColumn(name = "validCustomerGroupBean", referencedColumnName = "ID")
-    var validCustomerGroupBean: FCustomerGroup? = null
+    @JoinColumn(name ="validCustomerGroupBean", referencedColumnName = "ID")
+    var validCustomerGroupBean: FCustomerGroup? = FCustomerGroup(),
 
     @ManyToOne
-    @JoinColumn(name = "validDistributionChannelBean", referencedColumnName = "ID")
-    var validDistributionChannelBean: FDistributionChannel? = null
+    @JoinColumn(name ="validDistributionChannelBean", referencedColumnName ="ID")
+    var validDistributionChannelBean: FDistributionChannel? = FDistributionChannel(),
 
     @ManyToOne
-    @JoinColumn(name = "validAreaBean", referencedColumnName = "ID")
-    var validAreaBean: FArea? = null
+    @JoinColumn(name ="validAreaBean", referencedColumnName ="ID")
+    var validAreaBean: FArea? = FArea(),
 
     @ManyToOne
-    @JoinColumn(name = "validCustomerBean", referencedColumnName = "ID")
-    var validCustomerBean: FCustomer? = null
-
-    override fun toString(): String {
-        return "" + id + ""
-    }
+    @JoinColumn(name ="validCustomerBean", referencedColumnName ="ID")
+    var validCustomerBean: FCustomer? = FCustomer()
 
 
-}
+): Serializable

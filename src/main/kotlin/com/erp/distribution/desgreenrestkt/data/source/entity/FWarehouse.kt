@@ -2,17 +2,18 @@ package com.erp.distribution.desgreenrestkt.data.source.entity
 
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumTipeWarehouse
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
+import java.io.Serializable
 import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
 @Entity
 @Table(name = "fwarehouse")
-class FWarehouse {
+data class FWarehouse (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", length = 9)
-    var id = 0
+    var id  :Int =0,
 
     /*
 	 * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -21,82 +22,82 @@ class FWarehouse {
 	 * 2. 
 	 */
     @Column(name = "SOURCE_ID", length = 9)
-    var sourceId = 0
+    var sourceId  :Int =0,
 
     @Column(name = "KODE1", length = 10)
-    var kode1 = ""
+    var kode1 :String ="",
 
     @Column(name = "KODE2", length = 20)
-    var kode2 = ""
+    var kode2 :String ="",
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
     @Column(name = "fdivisionBean", nullable = false)
-    var fdivisionBean = 0
+    var fdivisionBean  :Int =0,
 
     @Column(name = "PRODUCT_HPP_SAVED")
-    var isProductHppSaved = false
+    var isProductHppSaved  :Boolean =false,
 
     @Column(name = "NUMBER_PRIORITY")
-    var numberPriority: Int? = null
+    var numberPriority: Int? = 0,
 
     @Column(name = "DESCRIPTION", length = 100)
-    var description = ""
+    var description :String ="",
 
     @Column(name = "GUDANG_UTAMA")
-    var isGudangUtama = false
+    var isGudangUtama  :Boolean =false,
 
     @Column(name = "ADDRESS1", length = 100)
-    var address1 = ""
+    var address1 :String ="",
 
     @Column(name = "CITY1", length = 30)
-    var city1: String? = null
+    var city1: String? = "",
 
     @Column(name = "STATE1", length = 30)
-    var state1 = ""
+    var state1 :String ="",
 
     @Column(name = "PHONE", length = 50)
-    var phone = ""
+    var phone :String ="",
 
     @Column(name = "STATUS_ACTIVE")
-    var isStatusActive = false
+    var isStatusActive  :Boolean =false,
 
     @Column(name = "GDG_PO")
-    var isGudangPo = true
+    var isGudangPo  :Boolean =true,
 
     @Column(name = "GDG_SO")
-    var isGudangSo = true
+    var isGudangSo  :Boolean =true,
 
     @Column(name = "GDG_TRANSFER")
-    var isGudangTransfer = true
+    var isGudangTransfer  :Boolean =true,
 
     @Column(name = "GDG_RETAIL")
-    var isGudangRetail = true
+    var isGudangRetail  :Boolean =true,
 
     @Column(name = "GDG_PUSAT_COMPANY")
-    var isGudangPusatCompany = true
+    var isGudangPusatCompany  :Boolean =true,
 
     @Column(name = "GDG_TRANSIT_DIV")
-    var isGudangTransitDiv = true
+    var isGudangTransitDiv  :Boolean =true,
 
     @Column(length = 5, name = "TIPE_WAREHOUSE")
     @Enumerated(EnumType.STRING)
-    var tipeWarehouse: EnumTipeWarehouse? = null
+    var tipeWarehouse: EnumTipeWarehouse = EnumTipeWarehouse.GS,
 
     //PORT WS:: UNTUK TRANSAKSI PEMBALIAN DAN PENJUALAN
     @Column(name = "WSPORT", length = 10)
-    var wsport = ""
+    var wsport :String ="",
 
     @Column(name = "CREATED")
     @Temporal(TemporalType.TIMESTAMP)
-    var created = Date()
+    var created :Date =Date(),
 
     @Column(name = "MODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
-    var modified = Date()
+    var modified :Date =Date(),
 
     @Column(name = "MODIFIED_BY", length = 20)
-    var modifiedBy = "" //User ID
+    var modifiedBy :String ="" //User ID
 
-}
+): Serializable

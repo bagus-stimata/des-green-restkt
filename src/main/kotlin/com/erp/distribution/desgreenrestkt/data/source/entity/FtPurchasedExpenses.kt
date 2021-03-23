@@ -7,20 +7,20 @@ import javax.persistence.*
 @JacksonXmlRootElement
 @Entity
 @Table(name = "ftpurchased_expenses")
-class FtPurchasedExpenses : Serializable {
+data class FtPurchasedExpenses (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    private val id: Long = 0
+    val id: Long =0L,
 
     @Column(name = "NO_URUT", length = 4)
-    private val noUrut = 0
+    val noUrut  :Int =0,
 
     @Column(name = "AMOUNT")
-    private val amount = 0.0
+    val amount  :Double =0.0,
 
     @Column(name = "NOTES", length = 120)
-    private val notes = ""
+    val notes :String ="",
 
     /*
 	 * HPP Pasti Apply To Item untuk DES
@@ -28,7 +28,7 @@ class FtPurchasedExpenses : Serializable {
 	 *  
 	 */
     //	@Column(name="APPLY_TO_ITEM")
-    //	private boolean applyToItem=false;
+    //	boolean applyToItem=false;
     /*
 	 * Jika pay to other vendor=true, maka:
 	 * - Akan menjadi Journal tersendiri:
@@ -39,17 +39,18 @@ class FtPurchasedExpenses : Serializable {
 	 * 
 	 */
     @Column(name = "PAY_TO_OTHER_VENDOR")
-    private val payToOtherVendor = false
+    val payToOtherVendor  :Boolean =false,
 
     //	@ManyToOne
     //	@JoinColumn(name="ftPurchasehBean", referencedColumnName="refno")
-    //	private FtPurchaseh ftPurchasehBean;
+    //	FtPurchaseh ftPurchasehBean;
     @Column(name = "ftPurchasehBean", nullable = false)
-    private val ftPurchasehBean: Long = 0
+    val ftPurchasehBean: Long =0L,
 
     //	@ManyToOne
     //	@JoinColumn(name="accAccountBean", referencedColumnName="ID")
-    //	private AccAccount accAccountBean;
+    //	AccAccount accAccountBean;
     @Column(name = "accAccountBean", nullable = false)
-    private val accAccountBean = 0
-}
+    val accAccountBean  :Int =0
+
+): Serializable

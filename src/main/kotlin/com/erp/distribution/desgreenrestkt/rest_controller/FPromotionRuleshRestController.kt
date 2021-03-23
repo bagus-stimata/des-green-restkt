@@ -96,7 +96,7 @@ class FPromotionRuleshRestController {
         for (fpromotionRuleshBean in listFPromotionRulesForThisDay) {
             var status = "AKTIF"
             var vendor = ""
-            if (fpromotionRuleshBean.isStatusActive == false) status = "NON AKTIF"
+            if (fpromotionRuleshBean.statusActive == false) status = "NON AKTIF"
             var valid_Products = ""
             val fvendorSet: MutableSet<FVendor?> = HashSet()
             for (detilItem in fpromotionRuleshBean.fpromotionRulesdValidProductsSet!!) {
@@ -161,8 +161,8 @@ class FPromotionRuleshRestController {
             description += """${fpromotionRuleshBean.description} (${fpromotionRuleshBean.kode1}) ref: ${fpromotionRuleshBean.kode2}
 """
             var string_IsClaimPabrik = ""
-            if (fpromotionRuleshBean.isClaimPabrik && fpromotionRuleshBean.accAccountBean != null && fpromotionRuleshBean.accAccount_CreditBean != null) string_IsClaimPabrik = "CLAIM PABRIK"
-            description += "Vendor: " + vendor + "   DIV: " + fpromotionRuleshBean.fdivisionBean!!.kode1 + "  " + (if (fpromotionRuleshBean.isSharedToCompany == true) "SHARED" else "") + "  " + string_IsClaimPabrik
+            if (fpromotionRuleshBean.claimPabrik && fpromotionRuleshBean.accAccountBean != null && fpromotionRuleshBean.accAccount_CreditBean != null) string_IsClaimPabrik = "CLAIM PABRIK"
+            description += "Vendor: " + vendor + "   DIV: " + fpromotionRuleshBean.fdivisionBean!!.kode1 + "  " + (if (fpromotionRuleshBean.sharedToCompany == true) "SHARED" else "") + "  " + string_IsClaimPabrik
             domainDescription.string1 = description
             domainDescription.string23 = vendor //BUAT VENDOR
             listLapTemplate1.add(domainDescription)

@@ -1,17 +1,18 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
+import java.io.Serializable
 import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
 @Entity
 @Table(name = "fmaterial_group3")
-class FMaterialGroup3 {
+data class FMaterialGroup3 (
     @Id
     @Column(name = "ID", length = 9)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id = 0
+    var id  :Int =0,
 
     /*
 	 * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -20,44 +21,44 @@ class FMaterialGroup3 {
 	 * 2. 
 	 */
     @Column(name = "SOURCE_ID", length = 9)
-    var sourceId = 0
+    var sourceId  :Int =0,
 
     @Column(name = "KODE1", length = 10)
-    var kode1 = ""
+    var kode1 :String ="",
 
     @Column(name = "KODE2", length = 20)
-    var kode2 = ""
+    var kode2 :String ="",
 
     @Column(name = "DESCRIPTION", length = 100)
-    var description = ""
+    var description :String ="",
 
     @Transient
-    var tempInt1 = 0
+    var tempInt1  :Int =0,
 
     @Transient
-    var tempInt2 = 0
+    var tempInt2  :Int =0,
 
     @Transient
-    var tempInt3 = 0
+    var tempInt3  :Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialGroup2Bean", referencedColumnName="ID")
     //	private FMaterialGroup2 fmaterialGroup2Bean;
     @Column(name = "fmaterialGroup2Bean", nullable = false)
-    var fmaterialGroup2Bean = 0
+    var fmaterialGroup2Bean  :Int =0,
 
     @Column(name = "STATUS_ACTIVE")
-    var isStatusActive = true
+    var statusActive  :Boolean =true,
 
     @Column(name = "CREATED")
     @Temporal(TemporalType.TIMESTAMP)
-    var created = Date()
+    var created :Date =Date(),
 
     @Column(name = "MODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
-    var modified = Date()
+    var modified :Date =Date(),
 
     @Column(name = "MODIFIED_BY", length = 20)
-    var modifiedBy = "" //User ID
+    var modifiedBy :String ="" //User ID
 
-}
+): Serializable

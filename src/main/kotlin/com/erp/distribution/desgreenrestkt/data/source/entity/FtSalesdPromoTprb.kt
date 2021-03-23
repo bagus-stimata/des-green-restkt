@@ -7,32 +7,32 @@ import javax.persistence.*
 @JacksonXmlRootElement
 @Entity
 @Table(name = "ftsalesdpromotprb")
-class FtSalesdPromoTprb : Serializable {
+data class FtSalesdPromoTprb (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "REFNO_PROMO")
-    var id: Long = 0
+    var id: Long =0L,
 
     @Column(name = "NO_URUT", length = 4)
-    var noUrut: Int? = null
+    var noUrut: Int = 0,
 
     //	@ManyToOne
     //	@JoinColumn(name="ftSalesdFreegood", referencedColumnName="ID")
     //	private FtSalesdItems ftSalesdFreegood;	//Free Goodnya, bukan itemDetil yang mendapat
     @Column(name = "ftSalesdFreegood", nullable = false)
-    var ftSalesdFreegood: Long = 0
+    var ftSalesdFreegood: Long =0L,
 
     //	@ManyToOne
     //	@JoinColumn(name="fpromoBean", referencedColumnName="ID")
     //	private FPromotionRulesh fpromoBean;
     @Column(name = "fpromoBean", nullable = false)
-    var fpromoBean = 0
+    var fpromoBean  :Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialBean", referencedColumnName="ID")
     //	private FMaterial fmaterialBean;
     @Column(name = "fmaterialBean", nullable = false)
-    var fmaterialBean = 0
+    var fmaterialBean  :Int =0,
 
     //	@Column(name="PPRICE")
     //	private Double pprice =0;
@@ -40,22 +40,18 @@ class FtSalesdPromoTprb : Serializable {
     //	@Column(name="SPRICE")
     //	private Double sprice =0;
     @Column(name = "PRICE_PCS_DTLITM")
-    var pricePcs_DetilItem = 0.0 //Sebelum PPN
+    var pricePcs_DetilItem  :Double =0.0, //Sebelum PPN
 
     /*
 	 * PRICE in PCS: akan dipakai sebagai dasar perhitungan pada laporan aktifitas promosi
 	 * dan Dipakai untuk Perhitungan Piutang pada Principle pada Journal:
 	 */
     @Column(name = "PRICE_PCS_RPT")
-    var pricePcsRpt = 0.0 //Sebelum PPN
+    var pricePcsRpt  :Double =0.0, //Sebelum PPN
 
     //	@Column(name="TPRB_QTY", length=8)
     //	private Integer tprbQty;
     @Column(name = "TPRB_QTY", length = 8)
-    var tprbQty = 0.0
+    var tprbQty  :Double =0.0
 
-    fun setFtSalesdFreegood(ftSalesdFreegood: Int) {
-        this.ftSalesdFreegood = ftSalesdFreegood.toLong()
-    }
-
-}
+): Serializable

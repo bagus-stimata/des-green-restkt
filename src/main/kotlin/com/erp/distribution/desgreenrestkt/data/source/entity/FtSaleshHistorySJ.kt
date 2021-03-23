@@ -9,41 +9,41 @@ import javax.persistence.*
 @JacksonXmlRootElement
 @Entity
 @Table(name = "ftsalesh_history_sj")
-class FtSaleshHistorySJ : Serializable {
+data class FtSaleshHistorySJ (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    var id: Long = 0
+    var id: Long =0L,
 
     @Column(name = "TIPE_SURAT_JALAN")
     @Enumerated(EnumType.ORDINAL)
-    var tipeSuratJalan: EnumTipeSuratJalan? = null
+    var tipeSuratJalan: EnumTipeSuratJalan = EnumTipeSuratJalan.OTH1,
 
     @Column(name = "SJ_NUMBER", length = 20)
-    var sjNumber = ""
+    var sjNumber :String ="",
 
     @Temporal(TemporalType.DATE)
     @Column(name = "SJ_DATE")
-    var sjDate = Date()
+    var sjDate :Date =Date(),
 
     @Column(name = "DRIVER_NAME", length = 40)
-    var driverName = ""
+    var driverName :String ="",
 
     /*
 	 * Di pakai untuk klarifikasi di kemudian hari jika ada yang berusahan untuk menghapus atau melakukan upaya-upaya kecurangan
 	 * pada Surat Jalan Pengiriman
 	 */
     @Column(name = "TOTAL_PCS_KIRIM")
-    var totalPcsKirimTagih = 0
+    var totalPcsKirimTagih  :Int =0,
 
     //Total saat kirim
     @Column(name = "AMOUNT_AFTER_DISC_PLUS_AFTERPPN")
-    var amountAfterDiscPlusRpAfterPpn = 0.0
+    var amountAfterDiscPlusRpAfterPpn  :Double =0.0,
 
     //	@ManyToOne
     //	@JoinColumn(name="ftSaleshBean", referencedColumnName="refno")
     //	private FtSalesh ftSaleshBean;
     @Column(name = "ftSaleshBean", nullable = false)
-    var ftSaleshBean: Long = 0
+    var ftSaleshBean: Long =0L
 
-}
+): Serializable

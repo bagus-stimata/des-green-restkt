@@ -1,6 +1,7 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
+import org.hibernate.type.IntegerType
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
@@ -42,10 +43,10 @@ class FArea (
 //    @JoinColumn(name="fregionBean", referencedColumnName="ID")
 //    var fregionBean: FRegion? = FRegion(),
     @Column(name = "fregionBean", nullable = true)
-    var fregionBean : Int =0,
+    var fregionBean : Int? =0,
 
     @Column(name = "STATUS_ACTIVE")
-    var isStatusActive : Boolean =true,
+    var statusActive : Boolean =true,
 
     @Column(name = "CREATED")
     @Temporal(TemporalType.TIMESTAMP)
