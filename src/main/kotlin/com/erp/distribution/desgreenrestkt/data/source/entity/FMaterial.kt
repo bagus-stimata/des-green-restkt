@@ -52,14 +52,14 @@ data class FMaterial(
     var varianName :String ="",
 
     @Column(name = "FREE_GOOD")
-    var isFreeGood  :Boolean =false,
+    var freeGood  :Boolean =false,
 
     @JsonIgnore
     @Column(name = "SHORTNAME", length = 30)
     var shortname :String ="",
 
     @Column(name = "STATUS_ACTIVE")
-    var isStatusActive  :Boolean =true,
+    var statusActive  :Boolean =true,
 
     /*
 	 * KLASIFIKASI: BASIC
@@ -75,11 +75,11 @@ data class FMaterial(
 	 */
     @JsonIgnore
     @Column(name = "EXCLUSIVE_DIVISION_TRANSACTION")
-    var isExclusiveDivisionTransaction  :Boolean =false,
+    var exclusiveDivisionTransaction  :Boolean =false,
 
     @JsonIgnore
     @Column(name = "EXCLUSIVE_DIVISION_VIEW")
-    var isExclusiveDivisionView  :Boolean =false,
+    var exclusiveDivisionView  :Boolean =false,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
@@ -91,13 +91,13 @@ data class FMaterial(
 	 * TAX
 	 */
     //	@ManyToOne
-    //	@JoinColumn(name="ftaxBean", referencedColumnName="ID")
+    //	@JoinColumn(name="ftaxBean", referencedColumnName="ID", nullable = true)
     //	private FTax ftaxBean;
-    @Column(name = "ftaxBean")
-    var ftaxBean  :Int =0,
+    @Column(name = "ftaxBean", nullable = true)
+    var ftaxBean  :Int? =0,
 
     @Column(name = "TAXABLE")
-    var isTaxable  :Boolean =true,
+    var taxable  :Boolean =true,
 
     /*
 	 * Adalah Vendor Utama Produk Tersebut
@@ -108,7 +108,7 @@ data class FMaterial(
 	 */
     @JsonIgnore
     @Column(name = "EXCLUSIVE_VENDOR_TRANSACTION")
-    var isExclusiveVendorTransaction  :Boolean =false,
+    var exclusiveVendorTransaction  :Boolean =false,
 
     @ManyToOne
     @JoinColumn(name = "fvendorBean", referencedColumnName = "ID")
@@ -120,8 +120,8 @@ data class FMaterial(
     //	@JoinColumn(name="fwarehouseBean_Utm", referencedColumnName="ID")
     //	private FWarehouse fwarehouseBean_Utm;
     @JsonIgnore
-    @Column(name = "fwarehouseBean_Utm", nullable = false)
-    var fwarehouseBean_Utm  :Int =0,
+    @Column(name = "fwarehouseBean_Utm", nullable = true)
+    var fwarehouseBean_Utm  :Int? =0,
 
     @JsonIgnore
     @Column(name = "MATERIAL_TYPE", length = 5)
@@ -324,15 +324,15 @@ data class FMaterial(
 
     @JsonIgnore
     @Column(name = "FLAG_NEWITEM")
-    var isFlagNewItem  :Boolean =false,
+    var flagNewItem  :Boolean =false,
 
     @JsonIgnore
     @Column(name = "FLAG_NEWPRICE")
-    var isFlagNewPrice  :Boolean =false,
+    var flagNewPrice  :Boolean =false,
 
     @JsonIgnore
     @Column(name = "USE_SPRICEALT")
-    var isUseSpriceAlt  :Boolean =false,
+    var useSpriceAlt  :Boolean =false,
 
     //#PRICEALT1 -- Retail -->ALL AFTER PPN
     //Retail-Besar

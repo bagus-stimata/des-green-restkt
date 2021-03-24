@@ -267,7 +267,7 @@ class HeaderDetilSalesHelperImpl : HeaderDetilSalesHelper {
 //        var disc2persen = 0.0
         var disc2rp = 0.0
         try {
-            var disc2persen = newFtPurchased.disc2 as Double / 100
+            var disc2persen = newFtPurchased.disc2 / 100
             disc2rp = newFtPurchased.subtotalRp * disc2persen
         } catch (ex: Exception) {
         }
@@ -292,7 +292,7 @@ class HeaderDetilSalesHelperImpl : HeaderDetilSalesHelper {
 //        var disc2PpnRpUom1 = 0.0
         var disc2RpAfterPpnUom1 = 0.0
         try {
-            var disc2persen = newFtPurchased.disc2 as Double / 100
+            var disc2persen = newFtPurchased.disc2 / 100
             var disc2RpUom1 = newFtPurchased.sprice * disc2persen
             var disc2PpnRpUom1 = disc2RpUom1 * taxPercentFloat
             disc2RpAfterPpnUom1 = disc2RpUom1 + disc2PpnRpUom1
@@ -308,7 +308,7 @@ class HeaderDetilSalesHelperImpl : HeaderDetilSalesHelper {
 //        var disc2PpnRpUom2 = 0.0
         var disc2RpAfterPpnUom2 = 0.0
         try {
-            var disc2persen = newFtPurchased.disc2 as Double / 100
+            var disc2persen = newFtPurchased.disc2 / 100
             var disc2RpUom2 = newFtPurchased.sprice / fMaterial.convfact1 * fMaterial.convfact2 * disc2persen
             var disc2PpnRpUom2 = disc2RpUom2 * taxPercentFloat
             disc2RpAfterPpnUom2 = disc2RpUom2 + disc2PpnRpUom2
@@ -324,7 +324,7 @@ class HeaderDetilSalesHelperImpl : HeaderDetilSalesHelper {
 //        var disc2PpnRpUom3 = 0.0
         var disc2RpAfterPpnUom3 = 0.0
         try {
-            var disc2persen = newFtPurchased.disc2 as Double / 100
+            var disc2persen = newFtPurchased.disc2 / 100
             var disc2RpUom3 = newFtPurchased.sprice / fMaterial.convfact1 * fMaterial.convfact3 * disc2persen
             var disc2PpnRpUom3 = disc2RpUom3 * taxPercentFloat
             disc2RpAfterPpnUom3 = disc2RpUom3 + disc2PpnRpUom3
@@ -340,7 +340,7 @@ class HeaderDetilSalesHelperImpl : HeaderDetilSalesHelper {
 //        var disc2PpnRpUom4 = 0.0
         var disc2RpAfterPpnUom4 = 0.0
         try {
-            var disc2persen = newFtPurchased.disc2 as Double / 100
+            var disc2persen = newFtPurchased.disc2 / 100
             var disc2RpUom4 = newFtPurchased.sprice / fMaterial.convfact1 * disc2persen
             var disc2PpnRpUom4 = disc2RpUom4 * taxPercentFloat
             disc2RpAfterPpnUom4 = disc2RpUom4 + disc2PpnRpUom4

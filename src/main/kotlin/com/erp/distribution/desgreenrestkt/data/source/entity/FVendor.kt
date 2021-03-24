@@ -108,7 +108,7 @@ data class FVendor (
     var wsport: String? = "",
 
     @Column(name = "DISC1REGMANUAL")
-    var isDisc1RegManual  :Boolean =false,
+    var disc1RegManual  :Boolean =false,
 
     @Column(name = "DISCPLUSREGMANUAL")
     var isDiscPlusRegManual  :Boolean =false,

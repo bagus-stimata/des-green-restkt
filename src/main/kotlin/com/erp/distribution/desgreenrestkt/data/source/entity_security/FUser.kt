@@ -40,15 +40,15 @@ class FUser : Serializable {
 
     @JsonIgnore
     @Transient
-    var tempRoles: MutableList<String>? = null
+    var tempRoles: MutableList<String> = mutableListOf()
 
     @JsonIgnore
     @OneToMany(mappedBy = "fuserBean")
-    private var fUserVendors: List<FUserVendors>? = null
+    var fUserVendors: List<FUserVendors> = listOf()
 
     @JsonIgnore
     @Transient
-    var tempVendors: List<Int>? = null
+    var tempVendors: List<Int> = listOf()
 
     // @NotBlank
     // @Size(max = 255)
@@ -84,12 +84,12 @@ class FUser : Serializable {
         return "FUser [id=$id]"
     }
 
-    fun getfUserVendors(): List<FUserVendors>? {
-        return fUserVendors
-    }
-
-    fun setfUserVendors(fUserVendors: List<FUserVendors>?) {
-        this.fUserVendors = fUserVendors
-    }
+//    fun getfUserVendors(): List<FUserVendors> {
+//        return fUserVendors
+//    }
+//
+//    fun setfUserVendors(fUserVendors: List<FUserVendors>) {
+//        this.fUserVendors = fUserVendors
+//    }
 
 }

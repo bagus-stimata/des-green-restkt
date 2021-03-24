@@ -20,49 +20,49 @@ import javax.annotation.PostConstruct
 @RestController
 class FMaterialRestController {
     @Autowired
-    private val fUsersJPARepository: FUsersJPARepository? = null
+    lateinit var fUsersJPARepository: FUsersJPARepository
 
     @Autowired
-    var fMaterialJPARepository: FMaterialJPARepository? = null
+    lateinit var fMaterialJPARepository: FMaterialJPARepository
 
     //    @Autowired
     //    FDivisionJPARepository fDivisionJPARepository;
     @Autowired
-    private val securityUtils: SecurityUtils? = null
-    var activeUser: FUser? = null
+    lateinit var securityUtils: SecurityUtils
+    lateinit var activeUser: FUser
 
     @PostConstruct
     fun init() {
-        activeUser = fUsersJPARepository!!.findById(securityUtils!!.loginUser!!.id).get()
+        activeUser = fUsersJPARepository.findById(securityUtils.loginUser!!.id).get()
     }
 
     @RequestMapping(value = ["/rest/getFMaterialById/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getFMaterialById(@PathVariable("id") id: Int): FMaterial {
-        return fMaterialJPARepository!!.findById(id).get()
+        return fMaterialJPARepository.findById(id).get()
     }
 
     @get:RequestMapping(value = ["/rest/getAllFMaterial"], produces = [MediaType.APPLICATION_JSON_VALUE])
     val allMaterial: List<FMaterial>
-        get() = fMaterialJPARepository!!.findAll()
+        get() = fMaterialJPARepository.findAll()
 
     @RequestMapping(value = ["/rest/getAllFMaterialPage"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllMaterialWithPageable(@RequestParam("page") page: Int, @RequestParam("size") size: Int): List<FMaterial> {
         val pageable: Pageable = PageRequest.of(page, size)
-        return fMaterialJPARepository!!.findAll(pageable).content.stream().filter { x: FMaterial -> x.isStatusActive == true && x.pcode != "" && x.pname != "" }.collect(Collectors.toList())
+        return fMaterialJPARepository.findAll(pageable).content.stream().filter { x: FMaterial -> x.statusActive == true && x.pcode != "" && x.pname != "" }.collect(Collectors.toList())
     }
 
     @RequestMapping(value = ["/rest/getAllFMaterialByDivision/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllFMaterialByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FMaterial> {
-        activeUser = fUsersJPARepository!!.findById(securityUtils!!.loginUser!!.id).get()
-        println("aktif user: " + activeUser!!.username + " >> " + activeUser!!.getfUserVendors())
-        return if (activeUser!!.getfUserVendors()!!.size > 0) {
+        activeUser = fUsersJPARepository.findById(securityUtils.loginUser!!.id).get()
+        println("aktif user: " + activeUser.username + " >> " + activeUser.fUserVendors)
+        return if (activeUser.fUserVendors.size > 0) {
             val listVendorsBean: MutableList<Int> = ArrayList()
-            for (fUserVendorBean in activeUser!!.getfUserVendors()!!) {
+            for (fUserVendorBean in activeUser.fUserVendors ) {
                 listVendorsBean.add(fUserVendorBean.fvendorBean)
             }
-            fMaterialJPARepository!!.findAllByDivisionAndListVendor(fdivisionBean, listVendorsBean).stream().filter { x: FMaterial -> x.isStatusActive == true && x.pcode != "" && x.pname != "" }.collect(Collectors.toList())
+            fMaterialJPARepository.findAllByDivisionAndListVendor(fdivisionBean, listVendorsBean).stream().filter { x: FMaterial -> x.statusActive == true && x.pcode != "" && x.pname != "" }.collect(Collectors.toList())
         } else {
-            fMaterialJPARepository!!.findAllByDivision(fdivisionBean).stream().filter { x: FMaterial -> x.isStatusActive == true && x.pcode != "" && x.pname != "" }.collect(Collectors.toList())
+            fMaterialJPARepository.findAllByDivision(fdivisionBean).stream().filter { x: FMaterial -> x.statusActive == true && x.pcode != "" && x.pname != "" }.collect(Collectors.toList())
         }
     }
 
@@ -71,37 +71,37 @@ class FMaterialRestController {
 //        for (FMaterial fMaterialBean: fMaterialJPARepository.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean)) {
 //            System.out.println(">> " + fMaterialBean.getPcode() + " >> " + fMaterialBean.getPname() + " >> " + fMaterialBean.isStatusActive());
 //        }
-        activeUser = fUsersJPARepository!!.findById(securityUtils!!.loginUser!!.id).get()
+        activeUser = fUsersJPARepository.findById(securityUtils.loginUser!!.id).get()
 
 //        System.out.println("aktif user: " + activeUser.getUsername() + " >> " + activeUser.getfUserVendors());
-        return if (activeUser!!.getfUserVendors()!!.size > 0) {
+        return if (activeUser.fUserVendors.size > 0) {
             val listVendorsBean: MutableList<Int> = ArrayList()
-            for (fUserVendorBean in activeUser!!.getfUserVendors()!!) {
+            for (fUserVendorBean in activeUser.fUserVendors) {
                 listVendorsBean.add(fUserVendorBean.fvendorBean)
             }
-            fMaterialJPARepository!!.findAllByDivisionAndShareToCompanyAndListVendor(fdivisionBean, fcompanyBean, listVendorsBean).stream().filter { x: FMaterial -> x.isStatusActive == true && x.pcode != "" && x.pname != "" }.collect(Collectors.toList())
+            fMaterialJPARepository.findAllByDivisionAndShareToCompanyAndListVendor(fdivisionBean, fcompanyBean, listVendorsBean).stream().filter { x: FMaterial -> x.statusActive == true && x.pcode != "" && x.pname != "" }.collect(Collectors.toList())
         } else {
-            fMaterialJPARepository!!.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).stream().filter { x: FMaterial -> x.isStatusActive == true && x.pcode != "" && x.pname != "" }.collect(Collectors.toList())
+            fMaterialJPARepository.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).stream().filter { x: FMaterial -> x.statusActive == true && x.pcode != "" && x.pname != "" }.collect(Collectors.toList())
         }
     }
 
     @RequestMapping(value = ["/rest/getAllFMaterialByDivisionPage/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllFMaterialByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int, @RequestParam("page") page: Int, @RequestParam("size") size: Int): List<FMaterial> {
         val pageable: Pageable = PageRequest.of(page, size)
-        return fMaterialJPARepository!!.findAllByDivision(fdivisionBean, pageable).content
+        return fMaterialJPARepository.findAllByDivision(fdivisionBean, pageable).content
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole
     @RequestMapping(value = ["/rest/createFMaterial"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun createFMaterial(@RequestBody fMaterialNew: FMaterial): FMaterial {
         fMaterialNew.id = 0 //Memastikan ID adalah Nol
-        return fMaterialJPARepository!!.save(fMaterialNew)
+        return fMaterialJPARepository.save(fMaterialNew)
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole
     @RequestMapping(value = ["/rest/updateFMaterial/{id}"], method = [RequestMethod.PUT])
     fun updateFMaterialInfo(@PathVariable("id") id: Int, @RequestBody fMaterialUpdated: FMaterial?): FMaterial {
-        val fMaterial = fMaterialJPARepository!!.findById(id).orElse(FMaterial())
+        val fMaterial = fMaterialJPARepository.findById(id).orElse(FMaterial())
         //Tidak Meng Update Parent: Hanya Info Saja
         if (fMaterialUpdated != null) {
             fMaterialUpdated.id = fMaterial.id
@@ -109,9 +109,14 @@ class FMaterialRestController {
             if (fMaterial.fdistributionChannelBean >0) fMaterialUpdated.fdistributionChannelBean = fMaterial.fdistributionChannelBean
             if (fMaterial.fmaterialGroup3Bean >0) fMaterialUpdated.fmaterialGroup3Bean = fMaterial.fmaterialGroup3Bean
             if (fMaterial.fmaterialSalesBrandBean >0) fMaterialUpdated.fmaterialSalesBrandBean = fMaterial.fmaterialSalesBrandBean
-            if (fMaterial.fvendorBean == null) fMaterialUpdated.fvendorBean = fMaterial.fvendorBean
-            if (fMaterial.fwarehouseBean_Utm >0) fMaterialUpdated.fwarehouseBean_Utm = fMaterial.fwarehouseBean_Utm
-            fMaterialJPARepository!!.save(fMaterialUpdated)
+            fMaterial.fvendorBean?.let {
+                if (fMaterial.fvendorBean == null) fMaterialUpdated.fvendorBean = fMaterial.fvendorBean
+            }
+            fMaterial.fwarehouseBean_Utm?.let {
+                if (fMaterial.fwarehouseBean_Utm!! >0) fMaterialUpdated.fwarehouseBean_Utm = fMaterial.fwarehouseBean_Utm
+            }
+
+            fMaterialJPARepository.save(fMaterialUpdated)
             return fMaterialUpdated
         }
         return fMaterial
@@ -120,9 +125,9 @@ class FMaterialRestController {
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole
     @RequestMapping(value = ["/rest/deleteFMaterial/{id}"], method = [RequestMethod.DELETE])
     fun deleteFMaterial(@PathVariable("id") id: Int): FMaterial? {
-        val fMaterial = fMaterialJPARepository!!.findById(id).orElse(FMaterial())
+        val fMaterial = fMaterialJPARepository.findById(id).orElse(FMaterial())
         if (fMaterial != null) {
-            fMaterialJPARepository!!.delete(fMaterial)
+            fMaterialJPARepository.delete(fMaterial)
         }
         return fMaterial
     }

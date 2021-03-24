@@ -40,31 +40,32 @@ import javax.annotation.PostConstruct
 @ComponentScan
 class UsersController {
     @Autowired
-    private val fUsersJPARepository: FUsersJPARepository? = null
+    lateinit var fUsersJPARepository: FUsersJPARepository
 
     @Autowired
-    private val fUserRolesJPARepository: FUserRolesJPARepository? = null
+    lateinit var fUserRolesJPARepository: FUserRolesJPARepository
 
     @Autowired
-    private val fUserVendorsJPARepository: FUserVendorsJPARepository? = null
+    lateinit var fUserVendorsJPARepository: FUserVendorsJPARepository
 
     @Autowired
-    private val fCompanyJPARepository: FCompanyJPARepository? = null
+    lateinit var fCompanyJPARepository: FCompanyJPARepository
 
     @Autowired
-    private val fDivisionJPARepository: FDivisionJPARepository? = null
+    lateinit var fDivisionJPARepository: FDivisionJPARepository
 
     @Autowired
-    private val fSalesmanJPARepository: FSalesmanJPARepository? = null
+    lateinit var fSalesmanJPARepository: FSalesmanJPARepository
 
     @Autowired
-    private val fWarehouseJPARepository: FWarehouseJPARepository? = null
+    lateinit var fWarehouseJPARepository: FWarehouseJPARepository
 
     @Autowired
-    private val fVendorJPARepository: FVendorJPARepository? = null
+    lateinit var fVendorJPARepository: FVendorJPARepository
 
     @Autowired
-    private val securityUtils: SecurityUtils? = null
+    lateinit var securityUtils: SecurityUtils
+
     var listFDivision: List<FDivision> = ArrayList()
     var listFWarehouse: List<FWarehouse> = ArrayList()
     var listFSalesman: List<FSalesman> = ArrayList()
@@ -72,22 +73,22 @@ class UsersController {
 
     @PostConstruct
     fun init() {
-        activeUser = fUsersJPARepository!!.findById(securityUtils!!.loginUser!!.id).get()
-        if (activeUser != null) activeDivision = fDivisionJPARepository!!.findById(activeUser?.fdivisionBean!!).get()
+        activeUser = fUsersJPARepository.findById(securityUtils.loginUser!!.id).get()
+        if (activeUser != null) activeDivision = fDivisionJPARepository.findById(activeUser?.fdivisionBean!!).get()
         if (activeDivision != null) {
-            activeCompany = fCompanyJPARepository!!.findById(activeDivision!!.fcompanyBean).get()
+            activeCompany = fCompanyJPARepository.findById(activeDivision!!.fcompanyBean).get()
         }
         if (activeCompany != null) {
-            listFDivision = fDivisionJPARepository!!.findAllByParentId(activeCompany!!.id).stream().filter { x: FDivision -> x.statusActive == true && x.kode1 != "" && x.description != "" }.collect(Collectors.toList())
-            listFWarehouse = fWarehouseJPARepository!!.findAllByCompany(activeCompany!!.id).stream().filter { x: FWarehouse -> x.isStatusActive == true && x.kode1 != "" && x.description != "" && x.tipeWarehouse == EnumTipeWarehouse.GS }.collect(Collectors.toList())
-            listFSalesman = fSalesmanJPARepository!!.findAllByCompany(activeCompany!!.id)
+            listFDivision = fDivisionJPARepository.findAllByParentId(activeCompany!!.id).stream().filter { x: FDivision -> x.statusActive == true && x.kode1 != "" && x.description != "" }.collect(Collectors.toList())
+            listFWarehouse = fWarehouseJPARepository.findAllByCompany(activeCompany!!.id).stream().filter { x: FWarehouse -> x.isStatusActive == true && x.kode1 != "" && x.description != "" && x.tipeWarehouse == EnumTipeWarehouse.GS }.collect(Collectors.toList())
+            listFSalesman = fSalesmanJPARepository.findAllByCompany(activeCompany!!.id)
                     .stream().filter { x: FSalesman -> x.statusActive == true && x.spcode != "" && x.spname != "" && (x.salesType == EnumSalesType.TO || x.salesType == EnumSalesType.C || x.salesType == EnumSalesType.C) }.collect(Collectors.toList())
-            listFVendor = fVendorJPARepository!!.findAllByCompany(activeCompany!!.id).stream().filter { x: FVendor -> x.statusActive == true && x.vcode != "" && x.vname != "" }.collect(Collectors.toList())
+            listFVendor = fVendorJPARepository.findAllByCompany(activeCompany!!.id).stream().filter { x: FVendor -> x.statusActive == true && x.vcode != "" && x.vname != "" }.collect(Collectors.toList())
         } else {
-            listFDivision = fDivisionJPARepository!!.findAll()
-            listFWarehouse = fWarehouseJPARepository!!.findAll()
-            listFSalesman = fSalesmanJPARepository!!.findAll()
-            listFVendor = fVendorJPARepository!!.findAll()
+            listFDivision = fDivisionJPARepository.findAll()
+            listFWarehouse = fWarehouseJPARepository.findAll()
+            listFSalesman = fSalesmanJPARepository.findAll()
+            listFVendor = fVendorJPARepository.findAll()
         }
     }
 
@@ -153,7 +154,7 @@ class UsersController {
         val newDomain = FUser()
         viewModel.addAttribute("newDomain", newDomain)
         // viewModel.addAttribute("allTask", usersRepository.findByUserIdStatus(securityUtils.getLoginUser().getId(), Status.ACTIVE.getValue()));
-        viewModel.addAttribute("allData", fUsersJPARepository!!.findAll())
+        viewModel.addAttribute("allData", fUsersJPARepository.findAll())
         logger.info("# Form Task")
         return "users/user_list"
     }
@@ -208,7 +209,7 @@ class UsersController {
             // userRolesRepository.deleteAll(newDomain.getFuserRoles());
             newDomain.fuserRoles = null
             val listUserRoles: MutableList<FUserRoles> = ArrayList()
-            for (str in domain.tempRoles!!) {
+            for (str in domain.tempRoles) {
                 for (roleID in allRoles) {
                     if (roleID == str) {
                         val newUserRole = FUserRoles()
@@ -220,14 +221,14 @@ class UsersController {
                 }
             }
             newDomain.passwordConfirm = ""
-            if (fUsersJPARepository!!.save<FUser>(newDomain).id >0 ) {
-//                if (fUserRolesJPARepository!!.save<FUserRoles?>(userRole1) != null &&
+            if (fUsersJPARepository.save<FUser>(newDomain).id >0 ) {
+//                if (fUserRolesJPARepository.save<FUserRoles?>(userRole1) != null &&
 //                        fUserRolesJPARepository.save<FUserRoles?>(userRole2) != null) {
 //                    newDomain.tempInt1 = 1
 //                    fUserRolesJPARepository.saveAll(listUserRoles)
 //                    redirectAttributes.addFlashAttribute("saveUser", "success")
 //                }
-                fUserRolesJPARepository!!.save<FUserRoles?>(userRole1)
+                fUserRolesJPARepository.save<FUserRoles?>(userRole1)
                 fUserRolesJPARepository.save<FUserRoles?>(userRole2)
                 newDomain.tempInt1 = 1
                 fUserRolesJPARepository.saveAll(listUserRoles)
@@ -238,7 +239,7 @@ class UsersController {
             }
             return "redirect:/admin/users/edit_form/" + newDomain.id
         } else if (domain.tempInt1 == 1) {
-            val domainUpdate: FUser = fUsersJPARepository!!.findById(domain.id).get()
+            val domainUpdate: FUser = fUsersJPARepository.findById(domain.id).get()
             // if (domainUpdate !=null) {
             domainUpdate.tempInt1 = domain.tempInt1 //0.New Form, 1.Edit Form, 3.Delete
             domainUpdate.tempInt1 = 1
@@ -268,10 +269,10 @@ class UsersController {
             }
             domainUpdate.fullName = domain.fullName
             domainUpdate.phone = domain.phone
-            if (domainUpdate.fuserRoles!!.size > 0) fUserRolesJPARepository!!.deleteAll(domainUpdate.fuserRoles!!)
+            if (domainUpdate.fuserRoles!!.size > 0) fUserRolesJPARepository.deleteAll(domainUpdate.fuserRoles!!)
             domainUpdate.fuserRoles = null
             val listUserRoles: MutableList<FUserRoles> = ArrayList()
-            for (str in domain.tempRoles!!) {
+            for (str in domain.tempRoles) {
                 for (roleID in allRoles) {
                     if (roleID == str) {
                         val newUserRole = FUserRoles()
@@ -284,31 +285,31 @@ class UsersController {
             }
             domainUpdate.passwordConfirm = ""
             fUsersJPARepository.save(domainUpdate)
-            fUserRolesJPARepository!!.saveAll(listUserRoles)
+            fUserRolesJPARepository.saveAll(listUserRoles)
             redirectAttributes.addFlashAttribute("saveUser", "success")
             return "redirect:/admin/users/edit_form/" + domain.id
             // return "redirect:/" ;
             // }
         } else if (domain.tempInt1 == 5) {
-            val domainUpdate: FUser = fUsersJPARepository!!.findById(domain.id).get()
+            val domainUpdate: FUser = fUsersJPARepository.findById(domain.id).get()
             domainUpdate.tempInt1 = domain.tempInt1 //0.New Form, 1.Edit Form, 3.Delete, 5.EditVendor
             domainUpdate.tempInt1 = 5
-            if (domainUpdate.getfUserVendors()!!.size > 0) {
-                fUserVendorsJPARepository!!.deleteAll(domainUpdate.getfUserVendors()!!)
-                println("Cek Uer Vendor Before: " + domainUpdate.getfUserVendors())
+            if (domainUpdate.fUserVendors.size > 0) {
+                fUserVendorsJPARepository.deleteAll(domainUpdate.fUserVendors)
+//                println("Cek Uer Vendor Before: " + domainUpdate.fUserVendors)
             }
-            domainUpdate.setfUserVendors(null)
+            domainUpdate.fUserVendors = listOf()
             /**
              * Gini aja ternyata bisa
              */
             val listUserVendors: MutableList<FUserVendors?> = ArrayList()
-            for (tempBean in domain.tempVendors!!) {
+            for (tempBean in domain.tempVendors) {
                 val newUserVendor = FUserVendors()
                 newUserVendor.fvendorBean = tempBean
                 newUserVendor.fuserBean = domainUpdate
                 listUserVendors.add(newUserVendor)
                 if (tempBean > 0) {
-                    fUserVendorsJPARepository!!.save(newUserVendor)
+                    fUserVendorsJPARepository.save(newUserVendor)
                     //                    System.out.println("AA: " + newUserVendor.getFuserBean().getId() + " >> " + newUserVendor.getFvendorBean());
                 }
             }
@@ -339,22 +340,22 @@ class UsersController {
          */
         if (operation != "delete") {
             if (activeCompany != null) {
-                listFDivision = fDivisionJPARepository!!.findAllByParentId(activeCompany!!.id).stream().filter { x: FDivision -> x.statusActive == true && x.kode1 != "" && x.description != "" }.collect(Collectors.toList())
-                listFWarehouse = fWarehouseJPARepository!!.findAllByCompany(activeCompany!!.id).stream().filter { x: FWarehouse -> x.isStatusActive == true && x.kode1 != "" && x.description != "" && x.tipeWarehouse == EnumTipeWarehouse.GS }.collect(Collectors.toList())
-                listFSalesman = fSalesmanJPARepository!!.findAllByCompany(activeCompany!!.id)
+                listFDivision = fDivisionJPARepository.findAllByParentId(activeCompany!!.id).stream().filter { x: FDivision -> x.statusActive == true && x.kode1 != "" && x.description != "" }.collect(Collectors.toList())
+                listFWarehouse = fWarehouseJPARepository.findAllByCompany(activeCompany!!.id).stream().filter { x: FWarehouse -> x.isStatusActive == true && x.kode1 != "" && x.description != "" && x.tipeWarehouse == EnumTipeWarehouse.GS }.collect(Collectors.toList())
+                listFSalesman = fSalesmanJPARepository.findAllByCompany(activeCompany!!.id)
                         .stream().filter { x: FSalesman -> x.statusActive == true && x.spcode != "" && x.spname != "" && (x.salesType == EnumSalesType.TO || x.salesType == EnumSalesType.C || x.salesType == EnumSalesType.C) }.collect(Collectors.toList())
-                listFVendor = fVendorJPARepository!!.findAllByCompany(activeCompany!!.id).stream().filter { x: FVendor -> x.statusActive == true && x.vcode != "" && x.vname != "" }.collect(Collectors.toList())
+                listFVendor = fVendorJPARepository.findAllByCompany(activeCompany!!.id).stream().filter { x: FVendor -> x.statusActive == true && x.vcode != "" && x.vname != "" }.collect(Collectors.toList())
             } else {
-                listFDivision = fDivisionJPARepository!!.findAll()
-                listFWarehouse = fWarehouseJPARepository!!.findAll()
-                listFSalesman = fSalesmanJPARepository!!.findAll()
-                listFVendor = fVendorJPARepository!!.findAll()
+                listFDivision = fDivisionJPARepository.findAll()
+                listFWarehouse = fWarehouseJPARepository.findAll()
+                listFSalesman = fSalesmanJPARepository.findAll()
+                listFVendor = fVendorJPARepository.findAll()
             }
         }
         if (operation == "delete") {
             try {
-                val domainToDelete: FUser = fUsersJPARepository!!.findById(id).get()
-                fUserRolesJPARepository!!.deleteAll(domainToDelete.fuserRoles!!)
+                val domainToDelete: FUser = fUsersJPARepository.findById(id).get()
+                fUserRolesJPARepository.deleteAll(domainToDelete.fuserRoles!!)
                 fUsersJPARepository.delete(domainToDelete)
                 redirectAttributes.addFlashAttribute("msg", "del")
                 redirectAttributes.addFlashAttribute("msgText", " Deleted permanently")
@@ -369,12 +370,12 @@ class UsersController {
             model.addAttribute("domain", newDomain)
             return "users/user_form"
         } else if (operation == "edit_form") {
-            val domain: FUser = fUsersJPARepository!!.findById(id).get()
+            val domain: FUser = fUsersJPARepository.findById(id).get()
             if (domain.id >0) {
                 domain.tempInt1 = 1 //0.New Form, 1.Edit Form, 3.Delete
-                val tempRoles: MutableList<String>? = ArrayList()
+                val tempRoles: MutableList<String> = ArrayList()
                 for (opdUserRole in domain.fuserRoles!!) {
-                    opdUserRole.roleID?.let { tempRoles!!.add(it) }
+                    opdUserRole.roleID?.let { tempRoles.add(it) }
                 }
 
                 // FUserRoles role1 = new FUserRoles();
@@ -391,11 +392,11 @@ class UsersController {
                 redirectAttributes.addFlashAttribute("msg", "notfound")
             }
         } else if (operation == "edit_form_vendor") {
-            val domain: FUser = fUsersJPARepository!!.findById(id).get()
+            val domain: FUser = fUsersJPARepository.findById(id).get()
             if (domain.id >0) {
                 domain.tempInt1 = 5 //0.New Form, 1.Edit Form, 3.Delete , 5.Edit Vendors
                 val tempVendors: MutableList<Int> = ArrayList()
-                for (opdUserRole in domain.getfUserVendors()!!) {
+                for (opdUserRole in domain.fUserVendors) {
                     tempVendors.add(opdUserRole.fvendorBean)
                 }
                 domain.tempVendors = tempVendors
@@ -427,8 +428,8 @@ class UsersController {
         listFUserRoles.add(userRole2)
         newDomain.fuserRoles = listFUserRoles
         try {
-            fUsersJPARepository!!.save<FUser?>(newDomain)
-            fUserRolesJPARepository!!.saveAll(listFUserRoles)
+            fUsersJPARepository.save<FUser?>(newDomain)
+            fUserRolesJPARepository.saveAll(listFUserRoles)
         } catch (ex: Exception) {
             return "redirect:/login?error"
         }

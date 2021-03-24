@@ -394,5 +394,6 @@ data class FtSalesh(
     @Column(name = "MODIFIED_BY", length = 20)
     var modifiedBy: String ="" //User ID
 
-): Serializable
+): Serializable {
+}
 

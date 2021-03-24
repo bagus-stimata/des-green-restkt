@@ -20,7 +20,7 @@ class FtSaleshRestController {
 
     @RequestMapping(value = ["/rest/getFtSaleshById/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getFtSaleshById(@PathVariable("id") id: Long): FtSalesh {
-        return ftSaleshJPARepository!!.findById(id).orElse(FtSalesh())
+        return ftSaleshJPARepository!!.findById(id).get()
     }
 
     @get:RequestMapping(value = ["/rest/getAllFtSalesh"], produces = [MediaType.APPLICATION_JSON_VALUE])
@@ -69,7 +69,7 @@ class FtSaleshRestController {
          */
         var ftSaleshResult : FtSalesh
 
-        val ftSaleshExisting = ftSaleshJPARepository!!.findBySourceIdAndCreated(ftSaleshNew.sourceId, ftSaleshNew.created).orElse(FtSalesh())
+        val ftSaleshExisting = ftSaleshJPARepository!!.findBySourceIdAndCreated(ftSaleshNew.sourceId, ftSaleshNew.created).get()
         if (ftSaleshExisting.refno == 0L) {
             ftSaleshResult = ftSaleshJPARepository!!.save(ftSaleshNew)
             //            System.out.println("Masuk Kesini 1 " + ftSaleshExisting.toString());
