@@ -8,12 +8,17 @@ import com.erp.distribution.desgreenrestkt.domain.repository.FMaterialRepo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.stereotype.Service
 
 
-class FMaterialRepoImpl: FMaterialRepo {
+@Service
+class FMaterialRepoImpl @Autowired constructor(
+    val fMaterialJPARepository: FMaterialJPARepository
+) : FMaterialRepo {
 
-    @Autowired
-    lateinit var fMaterialJPARepository: FMaterialJPARepository
+    override fun findById(id: Int): FMaterialEntity {
+        return fMaterialJPARepository.findById(id).get()
+    }
 
     override fun findAll(): List<FMaterialEntity> {
         return fMaterialJPARepository.findAll()

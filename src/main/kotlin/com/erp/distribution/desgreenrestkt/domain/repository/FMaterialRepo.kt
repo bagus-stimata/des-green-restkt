@@ -6,8 +6,9 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
 interface FMaterialRepo {
-    fun findAll(): List<FMaterialEntity>
 
+    fun findById(id: Int): FMaterialEntity
+    fun findAll(): List<FMaterialEntity>
     fun findByPcode(pcode: String?): List<FMaterialEntity>
     fun findAll(pcode: String, pname: String): List<FMaterialEntity>
     fun findAllByDivision(fdivisionBean: Int): List<FMaterialEntity>

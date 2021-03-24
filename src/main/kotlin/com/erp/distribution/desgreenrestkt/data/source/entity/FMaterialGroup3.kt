@@ -61,4 +61,6 @@ data class FMaterialGroup3 (
     @Column(name = "MODIFIED_BY", length = 20)
     var modifiedBy :String ="" //User ID
 
-): Serializable
+): Serializable{
+    constructor(theId: Int): this(id = theId)
+}

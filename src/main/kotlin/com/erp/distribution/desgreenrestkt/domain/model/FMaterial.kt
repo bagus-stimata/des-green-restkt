@@ -1,7 +1,11 @@
 package com.erp.distribution.desgreenrestkt.domain.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialGroup3
+import com.erp.distribution.desgreenrestkt.data.source.entity.FVendor
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumMaterialType
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumUom
+import com.erp.distribution.desgreenrestkt.presentation.model.FMaterialRes
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.annotations.Type
 import java.io.Serializable
@@ -90,8 +94,8 @@ data class FMaterial(
 
 //    @ManyToOne
 //    @JoinColumn(name = "fvendorBean", referencedColumnName = "ID")
-//    var fvendorBean: FVendor? = FVendor(),
-    var fvendorBean  :Int =0,
+    var fvendorBean: FVendor = FVendor(),
+//    var fvendorBean  :Int =0,
 
 
     //	@ManyToOne
@@ -111,8 +115,8 @@ data class FMaterial(
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
-    //	private FMaterialGroup3 fmaterialGroup3Bean;
-    var fmaterialGroup3Bean  :Int =0,
+    val fmaterialGroup3Bean :FMaterialGroup3 = FMaterialGroup3(),
+//    var fmaterialGroup3Bean  :Int =0,
 
     /*
 	 * KLASIFIKASI: SALES
@@ -354,3 +358,81 @@ data class FMaterial(
 
 
 ): Serializable
+
+
+internal fun FMaterial.toEntity(): FMaterialEntity {
+    return FMaterialEntity(
+        id = id,
+        sourceId = sourceId,
+        pcode = pcode,
+        pname = pname,
+        uom1 = uom1,
+        uom2 = uom2,
+        uom3 = uom3,
+        uom4 = uom4,
+        convfact1 = convfact1,
+        convfact2 = convfact2,
+        convfact3 = convfact3,
+        pprice = pprice,
+        pprice2 = pprice2,
+        ppriceAfterPpn = ppriceAfterPpn,
+        pprice2AfterPpn = pprice2AfterPpn,
+        sprice = sprice,
+        sprice2 = sprice2,
+        spriceAfterPpn = spriceAfterPpn,
+        sprice2AfterPpn = sprice2AfterPpn,
+
+        statusActive = statusActive,
+
+        fmaterialGroup3Bean = fmaterialGroup3Bean.id,
+        fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { it },
+        ftaxBean = ftaxBean?.let { it },
+        taxable = taxable,
+        fvendorBean = fvendorBean,
+        fdivisionBean = fdivisionBean,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+
+    )
+
+}
+internal fun FMaterial.toResponse(): FMaterialRes {
+    return FMaterialRes(
+        id = id,
+        sourceId = sourceId,
+        pcode = pcode,
+        pname = pname,
+        uom1 = uom1,
+        uom2 = uom2,
+        uom3 = uom3,
+        uom4 = uom4,
+        convfact1 = convfact1,
+        convfact2 = convfact2,
+        convfact3 = convfact3,
+        pprice = pprice,
+        pprice2 = pprice2,
+        ppriceAfterPpn = ppriceAfterPpn,
+        pprice2AfterPpn = pprice2AfterPpn,
+        sprice = sprice,
+        sprice2 = sprice2,
+        spriceAfterPpn = spriceAfterPpn,
+        sprice2AfterPpn = sprice2AfterPpn,
+
+        statusActive = statusActive,
+
+        fmaterialGroup3Bean = fmaterialGroup3Bean.id,
+        fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { it },
+        ftaxBean = ftaxBean?.let { it },
+        taxable = taxable,
+        fvendorBean = fvendorBean.id,
+        fdivisionBean = fdivisionBean,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+
+    )
+
+}

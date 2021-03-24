@@ -1,5 +1,6 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
+import com.erp.distribution.desgreenrestkt.domain.model.FMaterial
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumMaterialType
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumUom
 import com.fasterxml.jackson.annotation.JsonIgnore
@@ -112,7 +113,7 @@ data class FMaterialEntity(
 
     @ManyToOne
     @JoinColumn(name = "fvendorBean", referencedColumnName = "ID")
-    var fvendorBean: FVendor? = FVendor(),
+    var fvendorBean: FVendor = FVendor(),
 
     //	@Column(name="fvendorBean", nullable = false)
     //	private Integer fvendorBean  :Int =0,;
@@ -430,5 +431,43 @@ data class FMaterialEntity(
     @Column(name = "MODIFIED_BY", length = 20)
     var modifiedBy :String ="" //User ID
 
-
 ): Serializable
+
+internal fun FMaterialEntity.toDomain(): FMaterial {
+    return FMaterial(
+        id = id,
+        sourceId = sourceId,
+        pcode = pcode,
+        pname = pname,
+        uom1 = uom1,
+        uom2 = uom2,
+        uom3 = uom3,
+        uom4 = uom4,
+        convfact1 = convfact1,
+        convfact2 = convfact2,
+        convfact3 = convfact3,
+        pprice = pprice,
+        pprice2 = pprice2,
+        ppriceAfterPpn = ppriceAfterPpn,
+        pprice2AfterPpn = pprice2AfterPpn,
+        sprice = sprice,
+        sprice2 = sprice2,
+        spriceAfterPpn = spriceAfterPpn,
+        sprice2AfterPpn = sprice2AfterPpn,
+
+        statusActive = statusActive,
+
+        fmaterialGroup3Bean = FMaterialGroup3(fmaterialGroup3Bean),
+        fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { it },
+        ftaxBean = ftaxBean?.let { it },
+        taxable = taxable,
+        fvendorBean = fvendorBean,
+        fdivisionBean = fdivisionBean,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+
+    )
+
+}

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 
 interface FMaterialJPARepository : JpaRepository<FMaterialEntity, Int> {
-//    override fun findById(id: Int): FMaterial?
+
     fun findByPcode(pcode: String?): List<FMaterialEntity>
 
     @Query("SELECT u FROM FMaterialEntity u WHERE u.pcode LIKE :pcode and u.pname LIKE :pname")
