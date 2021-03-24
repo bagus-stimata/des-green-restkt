@@ -53,7 +53,7 @@ data class FPromotionRulesdValidProducts (
 
     @ManyToOne
     @JoinColumn(name ="validMaterialBean", referencedColumnName ="ID")
-    var validMaterialBean: FMaterial? = FMaterial()
+    var validMaterialEntityBean: FMaterialEntity? = FMaterialEntity()
 
 
 ): Serializable

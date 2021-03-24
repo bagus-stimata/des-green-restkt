@@ -291,7 +291,7 @@ data class FPromotionRulesh (
 
     @ManyToOne
     @JoinColumn(name ="freeGood1MaterialBean" ,  referencedColumnName ="ID")
-    var freeGood1MaterialBean: FMaterial? = FMaterial(),
+    var freeGood1MaterialEntityBean: FMaterialEntity? = FMaterialEntity(),
 
     @Column(name ="FG1_HARGA_JUAL_NOL")
     var isFg1HargaJualNol  :Boolean =true,
@@ -352,7 +352,7 @@ data class FPromotionRulesh (
 
     @ManyToOne
     @JoinColumn(name ="freeGood2MaterialBean" ,  referencedColumnName ="ID")
-    var freeGood2MaterialBean: FMaterial? = FMaterial(),
+    var freeGood2MaterialEntityBean: FMaterialEntity? = FMaterialEntity(),
 
     @Column(name ="FG2_HARGA_JUAL_NOL")
     var isFg2HargaJualNol  :Boolean =true,
