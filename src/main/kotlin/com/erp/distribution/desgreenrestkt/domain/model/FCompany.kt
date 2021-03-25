@@ -1,4 +1,4 @@
-package com.erp.distribution.desgreenrestkt.data.source.entity
+package com.erp.distribution.desgreenrestkt.domain.model
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
@@ -6,12 +6,7 @@ import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-@Entity
-@Table(name = "fcompany")
 data class FCompany (
-    @Id
-    @Column(name = "ID", length = 9)
-    @GeneratedValue(strategy = GenerationType.AUTO)
     var id :Int =0,
 
     @Column(name = "KODE1", length = 10)

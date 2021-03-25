@@ -1,6 +1,5 @@
 package com.erp.distribution.desgreenrestkt.domain.usecase
 
-import com.erp.distribution.desgreenrestkt.data.source.entity.FArea
 import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.toDomain
 import com.erp.distribution.desgreenrestkt.domain.model.toResponse

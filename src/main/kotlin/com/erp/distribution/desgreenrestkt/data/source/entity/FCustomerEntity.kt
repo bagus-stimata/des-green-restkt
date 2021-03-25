@@ -12,7 +12,7 @@ import javax.persistence.*
 @JacksonXmlRootElement
 @Entity
 @Table(name = "fcustomer")
-data class FCustomer (
+data class FCustomerEntity (
     @Id
     @Column(name = "ID", length = 9)
     @GeneratedValue(strategy = GenerationType.AUTO)

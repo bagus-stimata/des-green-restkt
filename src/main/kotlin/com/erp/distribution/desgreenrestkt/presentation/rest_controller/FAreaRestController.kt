@@ -1,7 +1,7 @@
 package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FAreaJPARepository
-import com.erp.distribution.desgreenrestkt.data.source.entity.FArea
+import com.erp.distribution.desgreenrestkt.data.source.entity.FAreaEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,13 +15,13 @@ class FAreaRestController {
     lateinit var fAreaJPARepository: FAreaJPARepository
 
     @RequestMapping(value = ["/rest/getFAreaById/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getFAreaById(@PathVariable("id") id: Int): FArea {
+    fun getFAreaById(@PathVariable("id") id: Int): FAreaEntity {
         return fAreaJPARepository.findById(id).get()
     }
 
     //        System.out.println("Hello Get All FArea");
     @get:RequestMapping(value = ["/rest/getAllFArea"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    val allArea: List<FArea?>
+    val allAreaEntity: List<FAreaEntity?>
         get() =//        System.out.println("Hello Get All FArea");
             fAreaJPARepository.findAll()
 //    @RequestMapping(value = ["/rest/getAllFArea"], produces = [MediaType.APPLICATION_JSON_VALUE])
@@ -33,21 +33,21 @@ class FAreaRestController {
 //    }
 
     @RequestMapping(value = ["/rest/getAllFAreaByDivision/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAllFAreaByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FArea?>? {
+    fun getAllFAreaByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FAreaEntity?>? {
         return fAreaJPARepository.findAllByDivision(fdivisionBean)
     }
 
     @RequestMapping(value = ["/rest/getAllFAreaByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAllFAreaByDivisionAndShareToCompany(@PathVariable("fdivisionBean") fdivisionBean: Int, @PathVariable("fcompanyBean") fcompanyBean: Int): List<FArea?>? {
+    fun getAllFAreaByDivisionAndShareToCompany(@PathVariable("fdivisionBean") fdivisionBean: Int, @PathVariable("fcompanyBean") fcompanyBean: Int): List<FAreaEntity?>? {
         return fAreaJPARepository.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean)
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole
     @RequestMapping(value = ["/rest/createFArea"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun createFArea(@RequestBody fAreaNew: FArea): FArea {
+    fun createFArea(@RequestBody fAreaEntityNew: FAreaEntity): FAreaEntity {
 //        System.out.println("hello aku dipanggil saat create FArea");
-        fAreaNew.id = 0 //Memastikan ID adalah Nol
-        return fAreaJPARepository.save(fAreaNew)
+        fAreaEntityNew.id = 0 //Memastikan ID adalah Nol
+        return fAreaJPARepository.save(fAreaEntityNew)
         //        FArea updatedDomain = new FArea();
 //        if (fAreaNew !=null) {
 //            try {
@@ -61,24 +61,24 @@ class FAreaRestController {
     }
 
     @RequestMapping(value = ["/rest/updateFArea/{id}"], method = [RequestMethod.PUT])
-    fun updateFAreaInfo(@PathVariable("id") id: Int, @RequestBody fAreaUpdated: FArea): FArea {
-        val fArea = fAreaJPARepository.findById(id).orElse(FArea())!!
+    fun updateFAreaInfo(@PathVariable("id") id: Int, @RequestBody fAreaEntityUpdated: FAreaEntity): FAreaEntity {
+        val fArea = fAreaJPARepository.findById(id).orElse(FAreaEntity())!!
         //Tidak Meng Update Parent: Hanya Info Saja
 //        var updatedDomain = FArea()
-            fAreaUpdated.id = fArea.id
-            if (fArea.fdivisionBean >0) fAreaUpdated.fdivisionBean = fArea.fdivisionBean
+            fAreaEntityUpdated.id = fArea.id
+            if (fArea.fdivisionBean >0) fAreaEntityUpdated.fdivisionBean = fArea.fdivisionBean
             try {
-                fAreaJPARepository.save(fAreaUpdated)
+                fAreaJPARepository.save(fAreaEntityUpdated)
             } catch (e: Exception) {
             }
 
-        return fAreaUpdated
+        return fAreaEntityUpdated
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole
     @RequestMapping(value = ["/rest/deleteFArea/{id}"], method = [RequestMethod.DELETE])
-    fun deleteFArea(@PathVariable("id") id: Int): FArea? {
-        val fArea = fAreaJPARepository.findById(id).orElse(FArea())
+    fun deleteFArea(@PathVariable("id") id: Int): FAreaEntity? {
+        val fArea = fAreaJPARepository.findById(id).orElse(FAreaEntity())
         if (fArea != null) {
             fAreaJPARepository.delete(fArea)
         }

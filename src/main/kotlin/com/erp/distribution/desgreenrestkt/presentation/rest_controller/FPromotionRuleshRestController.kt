@@ -317,12 +317,12 @@ class FPromotionRuleshRestController {
             val counterCustomer = 0
             for (detilItem in fpromotionRuleshBean.fpromotionRulesdValidCustsSet!!) {
                 try {
-                    if (detilItem.validCustomerBean != null) {
-                        validCustomer += (counterCustomer.inc()).toString() + ". " + detilItem.validCustomerBean!!.custname + " (" + detilItem.validCustomerBean!!.custno + ") "
-                    } else if (detilItem.validAreaBean != null) {
-                        validCustomer += (counterCustomer.inc()).toString() + ". " + detilItem.validAreaBean!!.description + " (" + detilItem.validAreaBean!!.kode1 + ") "
-                    } else if (detilItem.validCustomerGroupBean != null) {
-                        validCustomer += (counterCustomer.inc()).toString() + ". " + detilItem.validCustomerGroupBean!!.description + " (" + detilItem.validCustomerGroupBean!!.kode1 + ") "
+                    if (detilItem.validCustomerEntityBean != null) {
+                        validCustomer += (counterCustomer.inc()).toString() + ". " + detilItem.validCustomerEntityBean!!.custname + " (" + detilItem.validCustomerEntityBean!!.custno + ") "
+                    } else if (detilItem.validAreaEntityBean != null) {
+                        validCustomer += (counterCustomer.inc()).toString() + ". " + detilItem.validAreaEntityBean!!.description + " (" + detilItem.validAreaEntityBean!!.kode1 + ") "
+                    } else if (detilItem.validCustomerGroupEntityBean != null) {
+                        validCustomer += (counterCustomer.inc()).toString() + ". " + detilItem.validCustomerGroupEntityBean!!.description + " (" + detilItem.validCustomerGroupEntityBean!!.kode1 + ") "
                     } else if (detilItem.validDistributionChannelBean != null) {
                         validCustomer += (counterCustomer.inc()).toString() + ". " + detilItem.validDistributionChannelBean!!.description + " (" + detilItem.validDistributionChannelBean!!.kode1 + ") "
                     }

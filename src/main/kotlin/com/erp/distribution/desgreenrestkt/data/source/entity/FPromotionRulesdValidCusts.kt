@@ -25,7 +25,7 @@ data class FPromotionRulesdValidCusts (
 	 */
     @ManyToOne
     @JoinColumn(name ="validCustomerGroupBean", referencedColumnName = "ID")
-    var validCustomerGroupBean: FCustomerGroup? = FCustomerGroup(),
+    var validCustomerGroupEntityBean: FCustomerGroupEntity? = FCustomerGroupEntity(),
 
     @ManyToOne
     @JoinColumn(name ="validDistributionChannelBean", referencedColumnName ="ID")
@@ -33,11 +33,11 @@ data class FPromotionRulesdValidCusts (
 
     @ManyToOne
     @JoinColumn(name ="validAreaBean", referencedColumnName ="ID")
-    var validAreaBean: FArea? = FArea(),
+    var validAreaEntityBean: FAreaEntity? = FAreaEntity(),
 
     @ManyToOne
     @JoinColumn(name ="validCustomerBean", referencedColumnName ="ID")
-    var validCustomerBean: FCustomer? = FCustomer()
+    var validCustomerEntityBean: FCustomerEntity? = FCustomerEntity()
 
 
 ): Serializable

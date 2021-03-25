@@ -1,6 +1,5 @@
 package com.erp.distribution.desgreenrestkt.domain.repository
 
-import com.erp.distribution.desgreenrestkt.data.source.entity.FArea
 import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialEntity
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

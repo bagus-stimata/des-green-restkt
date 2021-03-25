@@ -1,4 +1,4 @@
-package com.erp.distribution.desgreenrestkt.data.source.entity
+package com.erp.distribution.desgreenrestkt.domain.model
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
@@ -6,8 +6,6 @@ import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-@Entity
-@Table(name = "fcustomer_pic")
 data class FCustomerPic (
     //	@ManyToOne
     //	@JoinColumn(name="fcustomerBean")
@@ -15,8 +13,6 @@ data class FCustomerPic (
     @Column(name = "fcustomerBean", nullable = false)
     var fcustomerBean :Int =0,
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     var id: Long =0L,
 

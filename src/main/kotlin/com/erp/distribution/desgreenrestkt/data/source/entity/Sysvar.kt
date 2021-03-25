@@ -107,7 +107,7 @@ data class Sysvar (
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "fcompanyBean", referencedColumnName = "ID")
-    var fcompanyBean: FCompany? = FCompany(),
+    var fcompanyBean: FCompanyEntity? = FCompanyEntity(),
 
     @JsonIgnore
     @ManyToOne
