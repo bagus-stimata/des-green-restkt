@@ -121,8 +121,8 @@ class FMaterialRestController @Autowired constructor(
             fMaterialEntityUpdated.id = fMaterial.id
             if (fMaterial.fdivisionBean >0) fMaterialEntityUpdated.fdivisionBean = fMaterial.fdivisionBean
             if (fMaterial.fdistributionChannelBean >0) fMaterialEntityUpdated.fdistributionChannelBean = fMaterial.fdistributionChannelBean
-            if (fMaterial.fmaterialGroup3Bean >0) fMaterialEntityUpdated.fmaterialGroup3Bean = fMaterial.fmaterialGroup3Bean
-            if (fMaterial.fmaterialSalesBrandBean >0) fMaterialEntityUpdated.fmaterialSalesBrandBean = fMaterial.fmaterialSalesBrandBean
+            if (fMaterial.fmaterialGroup3Bean.id >0) fMaterialEntityUpdated.fmaterialGroup3Bean = fMaterial.fmaterialGroup3Bean
+            if (fMaterial.fmaterialSalesBrandBean.id >0) fMaterialEntityUpdated.fmaterialSalesBrandBean = fMaterial.fmaterialSalesBrandBean
             fMaterial.fvendorBean?.let {
                 if (fMaterial.fvendorBean == null) fMaterialEntityUpdated.fvendorBean = fMaterial.fvendorBean
             }

@@ -2,6 +2,7 @@ package com.erp.distribution.desgreenrestkt.presentation.model
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialGroup3
+import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialSalesBrand
 import com.erp.distribution.desgreenrestkt.data.source.entity.FVendor
 import com.erp.distribution.desgreenrestkt.domain.model.FMaterial
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumMaterialType
@@ -384,7 +385,7 @@ internal fun FMaterialRes.toDomain(): FMaterial {
         statusActive = statusActive,
 
         fmaterialGroup3Bean = FMaterialGroup3(fmaterialGroup3Bean),
-        fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { it },
+        fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { FMaterialSalesBrand(fmaterialSalesBrandBean) },
         ftaxBean = ftaxBean?.let { it },
         taxable = taxable,
         fvendorBean = FVendor(fvendorBean),

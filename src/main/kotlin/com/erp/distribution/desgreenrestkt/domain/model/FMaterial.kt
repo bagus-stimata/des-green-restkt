@@ -2,6 +2,7 @@ package com.erp.distribution.desgreenrestkt.domain.model
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialGroup3
+import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialSalesBrand
 import com.erp.distribution.desgreenrestkt.data.source.entity.FVendor
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumMaterialType
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumUom
@@ -114,7 +115,7 @@ data class FMaterial(
     var fdistributionChannelBean  :Int =0,
 
     //	@ManyToOne
-    //	@JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
+//    @JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
     val fmaterialGroup3Bean :FMaterialGroup3 = FMaterialGroup3(),
 //    var fmaterialGroup3Bean  :Int =0,
 
@@ -123,8 +124,8 @@ data class FMaterial(
 	 */
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialSalesBrandBean", referencedColumnName="ID")
-    //	private FMaterialSalesBrand fmaterialSalesBrandBean;
-    var fmaterialSalesBrandBean  :Int =0,
+    var fmaterialSalesBrandBean :FMaterialSalesBrand = FMaterialSalesBrand(),
+//    var fmaterialSalesBrandBean  :Int =0,
 
     //BATCH CODE --> Berhubungan dengan Stockist atau Gudang
     //PRODUCTION CODE --> Berhubungan dengan TANGGAL DIPRODUKSI DAN EXP.DATE
@@ -132,18 +133,18 @@ data class FMaterial(
     var principalCode :String ="",
 
     @JsonIgnore
-    var batchCode :String ="",
+    var batchCode :String? ="",
 
     @JsonIgnore
-    var productionCode :String ="",
-
-    @JsonIgnore
-    @Temporal(TemporalType.DATE)
-    var productionDate :Date =Date(),
+    var productionCode :String? ="",
 
     @JsonIgnore
     @Temporal(TemporalType.DATE)
-    var expiredDate :Date =Date(),
+    var productionDate :Date? =Date(),
+
+    @JsonIgnore
+    @Temporal(TemporalType.DATE)
+    var expiredDate :Date? =Date(),
 
     @JsonIgnore
     var prodclass  :Int =0,
@@ -354,7 +355,7 @@ data class FMaterial(
     var modified :Date =Date(),
 
     @JsonIgnore
-    var modifiedBy :String ="" //User ID
+    var modifiedBy :String? ="" //User ID
 
 
 ): Serializable
@@ -364,8 +365,29 @@ internal fun FMaterial.toEntity(): FMaterialEntity {
     return FMaterialEntity(
         id = id,
         sourceId = sourceId,
+        noUrut = noUrut,
         pcode = pcode,
+        barcode = barcode,
         pname = pname,
+        description = description,
+        oldKode1 = oldKode1,
+        varianName = varianName,
+        freeGood = freeGood,
+        shortname = shortname,
+        statusActive = statusActive,
+        exclusiveDivisionTransaction = exclusiveDivisionTransaction,
+        exclusiveDivisionView = exclusiveDivisionView,
+
+        taxable = taxable,
+        exclusiveVendorTransaction = exclusiveDivisionTransaction,
+        materialType = materialType,
+        principalCode = principalCode,
+        batchCode = batchCode,
+        productionCode = productionCode,
+        productionDate = productionDate,
+        expiredDate = expiredDate,
+        prodclass = prodclass,
+
         uom1 = uom1,
         uom2 = uom2,
         uom3 = uom3,
@@ -373,6 +395,17 @@ internal fun FMaterial.toEntity(): FMaterialEntity {
         convfact1 = convfact1,
         convfact2 = convfact2,
         convfact3 = convfact3,
+
+        priceUom = priceUom,
+        temp_QtySaldo = temp_QtySaldo,
+
+        hppAwalPprice2 = hppAwalPprice2,
+        hppLifo = hppLifo,
+        hppLifoTotalAmount = hppAverageTotalAmount,
+        hppAverage = hppAverageTotalAmount,
+        hppFifo = hppFifo,
+        hppFifoTotalAmount = hppFifoTotalAmount,
+
         pprice = pprice,
         pprice2 = pprice2,
         ppriceAfterPpn = ppriceAfterPpn,
@@ -382,18 +415,52 @@ internal fun FMaterial.toEntity(): FMaterialEntity {
         spriceAfterPpn = spriceAfterPpn,
         sprice2AfterPpn = sprice2AfterPpn,
 
-        statusActive = statusActive,
+        minQtyStok = minQtyStok,
+        volumeSmalest = volumeSmalest,
+        weightSmalest = weightSmalest,
 
-        fmaterialGroup3Bean = fmaterialGroup3Bean.id,
+        caseWeight = caseWeight,
+        caseWidth = caseWidth,
+        caseHeight = caseHeight,
+        caseDepth = caseDepth,
+
+        flagNewItem = flagNewItem,
+        flagNewPrice = flagNewPrice,
+
+        useSpriceAlt = useSpriceAlt,
+
+        spriceAltRetailBes  = spriceAltRetailBes,
+        spriceAltRetailSed = spriceAltRetailSed,
+        spriceAltRetailKec = spriceAltRetailKec,
+
+        spriceAltGrosir1Bes = spriceAltGrosir1Bes,
+        spriceAltGrosir1Sed = spriceAltGrosir1Sed,
+        spriceAltGrosir1Kec = spriceAltGrosir1Kec,
+
+        spriceAltGrosir2Bes = spriceAltGrosir2Bes,
+        spriceAltGrosir2Sed = spriceAltGrosir2Sed,
+        spriceAltGrosir2Kec = spriceAltGrosir2Kec,
+
+        spriceAltGrosirQtyMoreEqual1 = spriceAltGrosirQtyMoreEqual1,
+        spriceAltGrosirQtyMoreEqual2 = spriceAltGrosirQtyMoreEqual2,
+        spriceAltGrosirQtyMoreEqual3 = spriceAltGrosirQtyMoreEqual3,
+        spriceAltGrosirQtyMoreEqual4 = spriceAltGrosirQtyMoreEqual4,
+
+        spriceAltGrosirQtyValue1 = spriceAltGrosirQtyValue1,
+        spriceAltGrosirQtyValue2 = spriceAltGrosirQtyValue2,
+        spriceAltGrosirQtyValue3 = spriceAltGrosirQtyValue3,
+        spriceAltGrosirQtyValue4 = spriceAltGrosirQtyValue4,
+
+
+        fmaterialGroup3Bean = fmaterialGroup3Bean,
         fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { it },
         ftaxBean = ftaxBean?.let { it },
-        taxable = taxable,
         fvendorBean = fvendorBean,
         fdivisionBean = fdivisionBean,
 
         created = created,
         modified = modified,
-        modifiedBy = modifiedBy
+        modifiedBy = modifiedBy!!
 
     )
 
@@ -423,7 +490,7 @@ internal fun FMaterial.toResponse(): FMaterialRes {
         statusActive = statusActive,
 
         fmaterialGroup3Bean = fmaterialGroup3Bean.id,
-        fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { it },
+        fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { it.id },
         ftaxBean = ftaxBean?.let { it },
         taxable = taxable,
         fvendorBean = fvendorBean.id,
@@ -431,7 +498,7 @@ internal fun FMaterial.toResponse(): FMaterialRes {
 
         created = created,
         modified = modified,
-        modifiedBy = modifiedBy
+        modifiedBy = modifiedBy!!
 
     )
 

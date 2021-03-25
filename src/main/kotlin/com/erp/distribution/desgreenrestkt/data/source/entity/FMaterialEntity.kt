@@ -135,20 +135,20 @@ data class FMaterialEntity(
     @Column(name = "fdistributionChannelBean", nullable = false)
     var fdistributionChannelBean  :Int =0,
 
-    //	@ManyToOne
-    //	@JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
-    //	private FMaterialGroup3 fmaterialGroup3Bean;
-    @Column(name = "fmaterialGroup3Bean", nullable = false)
-    var fmaterialGroup3Bean  :Int =0,
+    @ManyToOne
+    @JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
+    var fmaterialGroup3Bean :FMaterialGroup3 = FMaterialGroup3(),
+//    @Column(name = "fmaterialGroup3Bean", nullable = false)
+//    var fmaterialGroup3Bean  :Int =0,
 
     /*
 	 * KLASIFIKASI: SALES
 	 */
-    //	@ManyToOne
-    //	@JoinColumn(name="fmaterialSalesBrandBean", referencedColumnName="ID")
-    //	private FMaterialSalesBrand fmaterialSalesBrandBean;
-    @Column(name = "fmaterialSalesBrandBean", nullable = false)
-    var fmaterialSalesBrandBean  :Int =0,
+    @ManyToOne
+    @JoinColumn(name="fmaterialSalesBrandBean", referencedColumnName="ID")
+    var fmaterialSalesBrandBean :FMaterialSalesBrand = FMaterialSalesBrand(),
+//    @Column(name = "fmaterialSalesBrandBean", nullable = false)
+//    var fmaterialSalesBrandBean  :Int =0,
 
     //BATCH CODE --> Berhubungan dengan Stockist atau Gudang
     //PRODUCTION CODE --> Berhubungan dengan TANGGAL DIPRODUKSI DAN EXP.DATE
@@ -158,21 +158,21 @@ data class FMaterialEntity(
 
     @JsonIgnore
     @Column(name = "BATCH_CODE", length = 30)
-    var batchCode :String ="",
+    var batchCode :String? ="",
 
     @JsonIgnore
     @Column(name = "PRODUCTION_CODE", length = 30)
-    var productionCode :String ="",
+    var productionCode :String? ="",
 
     @JsonIgnore
     @Temporal(TemporalType.DATE)
     @Column(name = "PRODUCTION_DATE")
-    var productionDate :Date =Date(),
+    var productionDate :Date? =Date(),
 
     @JsonIgnore
     @Temporal(TemporalType.DATE)
     @Column(name = "EXPIRED_DATE")
-    var expiredDate :Date =Date(),
+    var expiredDate :Date? =Date(),
 
     @JsonIgnore
     @Column(name = "PRODCLASS", length = 3)
@@ -437,8 +437,29 @@ internal fun FMaterialEntity.toDomain(): FMaterial {
     return FMaterial(
         id = id,
         sourceId = sourceId,
+        noUrut = noUrut,
         pcode = pcode,
+        barcode = barcode,
         pname = pname,
+        description = description,
+        oldKode1 = oldKode1,
+        varianName = varianName,
+        freeGood = freeGood,
+        shortname = shortname,
+        statusActive = statusActive,
+        exclusiveDivisionTransaction = exclusiveDivisionTransaction,
+        exclusiveDivisionView = exclusiveDivisionView,
+
+        taxable = taxable,
+        exclusiveVendorTransaction = exclusiveDivisionTransaction,
+        materialType = materialType,
+        principalCode = principalCode,
+        batchCode = batchCode,
+        productionCode = productionCode,
+        productionDate = productionDate,
+        expiredDate = expiredDate,
+        prodclass = prodclass,
+
         uom1 = uom1,
         uom2 = uom2,
         uom3 = uom3,
@@ -446,6 +467,17 @@ internal fun FMaterialEntity.toDomain(): FMaterial {
         convfact1 = convfact1,
         convfact2 = convfact2,
         convfact3 = convfact3,
+
+        priceUom = priceUom,
+        temp_QtySaldo = temp_QtySaldo,
+
+        hppAwalPprice2 = hppAwalPprice2,
+        hppLifo = hppLifo,
+        hppLifoTotalAmount = hppAverageTotalAmount,
+        hppAverage = hppAverageTotalAmount,
+        hppFifo = hppFifo,
+        hppFifoTotalAmount = hppFifoTotalAmount,
+
         pprice = pprice,
         pprice2 = pprice2,
         ppriceAfterPpn = ppriceAfterPpn,
@@ -455,12 +487,48 @@ internal fun FMaterialEntity.toDomain(): FMaterial {
         spriceAfterPpn = spriceAfterPpn,
         sprice2AfterPpn = sprice2AfterPpn,
 
-        statusActive = statusActive,
+        minQtyStok = minQtyStok,
+        volumeSmalest = volumeSmalest,
+        weightSmalest = weightSmalest,
 
-        fmaterialGroup3Bean = FMaterialGroup3(fmaterialGroup3Bean),
+        caseWeight = caseWeight,
+        caseWidth = caseWidth,
+        caseHeight = caseHeight,
+        caseDepth = caseDepth,
+
+        flagNewItem = flagNewItem,
+        flagNewPrice = flagNewPrice,
+
+        useSpriceAlt = useSpriceAlt,
+
+        spriceAltRetailBes  = spriceAltRetailBes,
+        spriceAltRetailSed = spriceAltRetailSed,
+        spriceAltRetailKec = spriceAltRetailKec,
+
+        spriceAltGrosir1Bes = spriceAltGrosir1Bes,
+        spriceAltGrosir1Sed = spriceAltGrosir1Sed,
+        spriceAltGrosir1Kec = spriceAltGrosir1Kec,
+
+        spriceAltGrosir2Bes = spriceAltGrosir2Bes,
+        spriceAltGrosir2Sed = spriceAltGrosir2Sed,
+        spriceAltGrosir2Kec = spriceAltGrosir2Kec,
+
+        spriceAltGrosirQtyMoreEqual1 = spriceAltGrosirQtyMoreEqual1,
+        spriceAltGrosirQtyMoreEqual2 = spriceAltGrosirQtyMoreEqual2,
+        spriceAltGrosirQtyMoreEqual3 = spriceAltGrosirQtyMoreEqual3,
+        spriceAltGrosirQtyMoreEqual4 = spriceAltGrosirQtyMoreEqual4,
+
+        spriceAltGrosirQtyValue1 = spriceAltGrosirQtyValue1,
+        spriceAltGrosirQtyValue2 = spriceAltGrosirQtyValue2,
+        spriceAltGrosirQtyValue3 = spriceAltGrosirQtyValue3,
+        spriceAltGrosirQtyValue4 = spriceAltGrosirQtyValue4,
+
+//        fmaterialGroup3Bean = FMaterialGroup3(fmaterialGroup3Bean),
+//        fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { it },
+        fmaterialGroup3Bean = fmaterialGroup3Bean,
         fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { it },
+
         ftaxBean = ftaxBean?.let { it },
-        taxable = taxable,
         fvendorBean = fvendorBean,
         fdivisionBean = fdivisionBean,
 
