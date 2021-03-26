@@ -1,8 +1,10 @@
 package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
+import com.erp.distribution.desgreenrestkt.domain.model.toResponse
 import com.erp.distribution.desgreenrestkt.domain.usecase.GetFAreaUseCase
 import com.erp.distribution.desgreenrestkt.presentation.model.FAreaRes
+import com.erp.distribution.desgreenrestkt.presentation.model.toDomain
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -13,8 +15,6 @@ import org.springframework.web.bind.annotation.*
 class FAreaRestController  @Autowired constructor(
     val fAreaUseCase: GetFAreaUseCase
 ) {
-//    @Autowired
-//    lateinit var fAreaUseCase: FAreaJPARepository
 
     @RequestMapping(value = ["/rest/getFAreaById/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getFAreaById(@PathVariable("id") id: Int): FAreaRes {
@@ -49,7 +49,7 @@ class FAreaRestController  @Autowired constructor(
     fun createFArea(@RequestBody fAreaResNew: FAreaRes): FAreaRes {
 //        System.out.println("hello aku dipanggil saat create FArea");
         fAreaResNew.id = 0 //Memastikan ID adalah Nol
-        return fAreaUseCase.save(fAreaResNew)
+        return fAreaUseCase.save(fAreaResNew.toDomain()).toResponse()
         //        FArea updatedDomain = new FArea();
 //        if (fAreaNew !=null) {
 //            try {
@@ -63,28 +63,27 @@ class FAreaRestController  @Autowired constructor(
     }
 
     @RequestMapping(value = ["/rest/updateFArea/{id}"], method = [RequestMethod.PUT])
-    fun updateFAreaInfo(@PathVariable("id") id: Int, @RequestBody fAreaEntityUpdated: FAreaRes): FAreaRes {
-        val fArea = fAreaUseCase.findById(id).orElse(FAreaRes())!!
+    fun updateFAreaInfo(@PathVariable("id") id: Int, @RequestBody fAreaResUpdated: FAreaRes): FAreaRes {
+        val fArea = fAreaUseCase.findById(id)
         //Tidak Meng Update Parent: Hanya Info Saja
 //        var updatedDomain = FArea()
-            fAreaEntityUpdated.id = fArea.id
-            if (fArea.fdivisionBean >0) fAreaEntityUpdated.fdivisionBean = fArea.fdivisionBean
+            fAreaResUpdated.id = fArea.id
+            if (fArea.fdivisionBean >0) fAreaResUpdated.fdivisionBean = fArea.fdivisionBean
             try {
-                fAreaUseCase.save(fAreaEntityUpdated)
+                fAreaUseCase.save(fAreaResUpdated.toDomain())
             } catch (e: Exception) {
             }
 
-        return fAreaEntityUpdated
+        return fAreaResUpdated
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole
     @RequestMapping(value = ["/rest/deleteFArea/{id}"], method = [RequestMethod.DELETE])
-    fun deleteFArea(@PathVariable("id") id: Int): FAreaRes? {
-        val fArea = fAreaUseCase.findById(id).orElse(FAreaRes())
+    fun deleteFArea(@PathVariable("id") id: Int) {
+        val fArea = fAreaUseCase.findById(id)
         if (fArea != null) {
             fAreaUseCase.delete(fArea)
         }
-        return fArea
     }
 
     companion object {

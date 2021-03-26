@@ -1,6 +1,6 @@
-package com.erp.distribution.desgreenrestkt.data.source.entity
+package com.erp.distribution.desgreenrestkt.presentation.model
 
-import com.erp.distribution.desgreenrestkt.domain.model.FArea
+import com.erp.distribution.desgreenrestkt.data.source.entity.FCustomerEntity
 import com.erp.distribution.desgreenrestkt.domain.model.FCustomer
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumCurrency
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumTipePajakCustomer
@@ -12,12 +12,7 @@ import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-@Entity
-@Table(name = "fcustomer")
-data class FCustomerEntity (
-    @Id
-    @Column(name = "ID", length = 9)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+data class FCustomerRes (
     var id :Long =0L,
 
     /*
@@ -293,7 +288,8 @@ data class FCustomerEntity (
 
 ): Serializable
 
-internal fun FCustomerEntity.toDomain(): FCustomer {
+
+internal fun FCustomerRes.toDomain(): FCustomer {
     return FCustomer(
         id = id,
         sourceID = sourceID,

@@ -1,8 +1,10 @@
 package com.erp.distribution.desgreenrestkt.domain.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FCustomerEntity
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumCurrency
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumTipePajakCustomer
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumTunaiKredit
+import com.erp.distribution.desgreenrestkt.presentation.model.FCustomerRes
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
@@ -116,7 +118,7 @@ data class FCustomer (
     @JsonIgnore
     @Column(name = "TANGGAL_PENGUKUHAN_PKP")
     @Temporal(TemporalType.DATE)
-    var tanggalPengukuhanPkp :Date =Date(),
+    var tanggalPengukuhanPkp :Date? =Date(),
 
     @JsonIgnore
     @Column(name = "TIPE_PAJAK_CUSTOMER")
@@ -179,11 +181,10 @@ data class FCustomer (
     var statusActive :Boolean =false,
 
     //Tidak akan dipkai: 
-    @Column(name = "HARIKUNJUNGAN", length = 3)
-    var harikunjungan :Int =0,
-
-    @Column(name = "PEKANKUNJUNGAN", length = 3)
-    var pekankunjungan :Int =0,
+//    @Column(name = "HARIKUNJUNGAN", length = 3)
+//    var harikunjungan :Int =0,
+//    @Column(name = "PEKANKUNJUNGAN", length = 3)
+//    var pekankunjungan :Int =0,
 
     @JsonIgnore
     @Column(name = "NOEFFCALL")
@@ -286,3 +287,153 @@ data class FCustomer (
     var modifiedBy :String ="" //User ID
 
 ): Serializable
+
+
+internal fun FCustomer.toEntity(): FCustomerEntity {
+    return FCustomerEntity(
+        id = id,
+        sourceID = sourceID,
+
+        custno = custno,
+        outletActive = outletActive,
+        oldKode1 = oldKode1,
+        flagNewItem = flagNewItem,
+        fdivisionBean = fdivisionBean,
+
+        mappingInCode1 = mappingInCode1,
+        mappingInCode2 = mappingInCode2,
+        mappingInCode3 = mappingInCode3,
+
+        mappingOutCode1 = mappingOutCode1,
+        mappingOutCode2 = mappingOutCode2,
+        custGroupPromo1 = custGroupPromo1,
+        custGroupPromo2 = custGroupPromo2,
+
+        custname = custname,
+        currency = currency,
+
+        pkp = pkp,
+        namaPrshFakturPajak = namaPrshFakturPajak,
+        alamatPrshFakturPajak = alamatPrshFakturPajak,
+        namaPengusahaKenaPajak = namaPengusahaKenaPajak,
+        nikPajak = nikPajak,
+        npwp = npwp,
+        tanggalPengukuhanPkp = tanggalPengukuhanPkp,
+        tipePajakCustomer = tipePajakCustomer,
+
+        tunaikredit = tunaikredit,
+        lamaCredit = lamaCredit,
+        creditlimit = creditlimit,
+        maxInvoice = maxInvoice,
+        namaPemilik = namaPemilik,
+        address1 = address1,
+        address2 = address2,
+        address3 = address3,
+        city1 = city1,
+        city2 = city2,
+        state1 = state1,
+        phone1 = phone1,
+        phone2 = phone2,
+        postcode = postcode,
+        email = email,
+        whatsApp = whatsApp,
+        statusActive = statusActive,
+
+        noeffcall = noeffcall,
+        latitude = latitude,
+        longitude = longitude,
+
+        basicDisc1Barang = basicDisc1Barang,
+        basicDisc1PlusBarang = basicDisc1PlusBarang,
+        disc1RegManual = disc1RegManual,
+        discPlusRegManual = discPlusRegManual,
+        priceAltSwalayan = priceAltSwalayan,
+
+        fcustomerGroupBean = fcustomerGroupBean,
+        fsubAreaBean = fsubAreaBean,
+        fdistributionChannelBean = fdistributionChannelBean,
+        ftPriceAlthBean = ftPriceAlthBean,
+        noPromotionRules = noPromotionRules,
+        exclusiveSalesman = exclusiveSalesman,
+        notes = notes,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}
+
+
+internal fun FCustomer.toResponse(): FCustomerRes {
+    return FCustomerRes(
+        id = id,
+        sourceID = sourceID,
+
+        custno = custno,
+        outletActive = outletActive,
+        oldKode1 = oldKode1,
+        flagNewItem = flagNewItem,
+        fdivisionBean = fdivisionBean,
+
+        mappingInCode1 = mappingInCode1,
+        mappingInCode2 = mappingInCode2,
+        mappingInCode3 = mappingInCode3,
+
+        mappingOutCode1 = mappingOutCode1,
+        mappingOutCode2 = mappingOutCode2,
+        custGroupPromo1 = custGroupPromo1,
+        custGroupPromo2 = custGroupPromo2,
+
+        custname = custname,
+        currency = currency,
+
+        pkp = pkp,
+        namaPrshFakturPajak = namaPrshFakturPajak,
+        alamatPrshFakturPajak = alamatPrshFakturPajak,
+        namaPengusahaKenaPajak = namaPengusahaKenaPajak,
+        nikPajak = nikPajak,
+        npwp = npwp,
+        tanggalPengukuhanPkp = tanggalPengukuhanPkp,
+        tipePajakCustomer = tipePajakCustomer,
+
+        tunaikredit = tunaikredit,
+        lamaCredit = lamaCredit,
+        creditlimit = creditlimit,
+        maxInvoice = maxInvoice,
+        namaPemilik = namaPemilik,
+        address1 = address1,
+        address2 = address2,
+        address3 = address3,
+        city1 = city1,
+        city2 = city2,
+        state1 = state1,
+        phone1 = phone1,
+        phone2 = phone2,
+        postcode = postcode,
+        email = email,
+        whatsApp = whatsApp,
+        statusActive = statusActive,
+
+        noeffcall = noeffcall,
+        latitude = latitude,
+        longitude = longitude,
+
+        basicDisc1Barang = basicDisc1Barang,
+        basicDisc1PlusBarang = basicDisc1PlusBarang,
+        disc1RegManual = disc1RegManual,
+        discPlusRegManual = discPlusRegManual,
+        priceAltSwalayan = priceAltSwalayan,
+
+        fcustomerGroupBean = fcustomerGroupBean,
+        fsubAreaBean = fsubAreaBean,
+        fdistributionChannelBean = fdistributionChannelBean,
+        ftPriceAlthBean = ftPriceAlthBean,
+        noPromotionRules = noPromotionRules,
+        exclusiveSalesman = exclusiveSalesman,
+        notes = notes,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}

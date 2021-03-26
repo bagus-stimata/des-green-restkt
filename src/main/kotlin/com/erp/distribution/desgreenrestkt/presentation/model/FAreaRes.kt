@@ -1,20 +1,13 @@
 package com.erp.distribution.desgreenrestkt.presentation.model
 
-import com.erp.distribution.desgreenrestkt.data.source.entity.FAreaEntity
-import com.erp.distribution.desgreenrestkt.data.source.entity.FSubAreaEntity
 import com.erp.distribution.desgreenrestkt.domain.model.FArea
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
-import net.minidev.json.annotate.JsonIgnore
-import org.hibernate.annotations.Fetch
-import org.hibernate.annotations.FetchMode
-import org.hibernate.type.IntegerType
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
-import javax.xml.bind.annotation.XmlTransient
 
 @JacksonXmlRootElement
-class FAreaRes (
+data class FAreaRes (
     var id : Int =0,
 
     /*

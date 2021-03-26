@@ -3,6 +3,7 @@ package com.erp.distribution.desgreenrestkt.domain.usecase
 import com.erp.distribution.desgreenrestkt.data.source.entity.FAreaEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.toDomain
 import com.erp.distribution.desgreenrestkt.domain.model.FArea
+import com.erp.distribution.desgreenrestkt.domain.model.toEntity
 import com.erp.distribution.desgreenrestkt.domain.model.toResponse
 import com.erp.distribution.desgreenrestkt.domain.repository.FAreaRepo
 import com.erp.distribution.desgreenrestkt.presentation.model.FAreaRes
@@ -65,5 +66,22 @@ class GetFAreaUseCase @Autowired constructor(
             it.toDomain().toResponse()
         }
     }
+
+    fun save(fArea: FArea): FArea {
+        return fAreaRepo.save(fArea.toEntity()).toDomain()
+    }
+    fun saveAll(listFArea: List<FArea>): List<FArea> {
+        return fAreaRepo.saveAll(listFArea.map { it.toEntity() })!!.map {
+            it.toDomain()
+        }
+    }
+
+    fun delete(fArea: FArea) {
+        return fAreaRepo.delete(fArea.toEntity())
+    }
+    fun deleteInBatch(listFArea: List<FArea>) {
+        return fAreaRepo.deleteInBatch(listFArea.map { it.toEntity() })
+    }
+
 
 }
