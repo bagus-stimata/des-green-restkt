@@ -1,8 +1,8 @@
-package com.erp.distribution.desgreenrestkt.domain.model
+package com.erp.distribution.desgreenrestkt.presentation.model
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FAreaEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.FSubAreaEntity
-import com.erp.distribution.desgreenrestkt.presentation.model.FAreaRes
+import com.erp.distribution.desgreenrestkt.domain.model.FArea
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import net.minidev.json.annotate.JsonIgnore
 import org.hibernate.annotations.Fetch
@@ -14,7 +14,7 @@ import javax.persistence.*
 import javax.xml.bind.annotation.XmlTransient
 
 @JacksonXmlRootElement
-class FArea (
+class FAreaRes (
     var id : Int =0,
 
     /*
@@ -50,53 +50,32 @@ class FArea (
     @Column(name = "STATUS_ACTIVE")
     var statusActive : Boolean =true,
 
-    @JsonIgnore
-    @XmlTransient
+//    @JsonIgnore
 //    @OneToMany(mappedBy="fareaBean", fetch=FetchType.LAZY)
 //    @Fetch(FetchMode.JOIN)
-    var fsubareaSet :Set<FSubAreaEntity> = HashSet<FSubAreaEntity>(),
+//    var fsubareaSet :Set<FSubAreaEntity> = HashSet<FSubAreaEntity>(),
 
-//    @XmlTransient
+//    @JsonIgnore
 //    @OneToMany(mappedBy="validAreaBean", fetch=FetchType.LAZY)
 //    @Fetch(FetchMode.JOIN)
 //    var fpromotionRulesdValidCustsSet :Set<FPromotionRulesdValidCustsEntity> = HashSet<FPromotionRulesdValidCustsEntity>(),
 
 
-    @Column(name = "CREATED")
-    @Temporal(TemporalType.TIMESTAMP)
-    var created : Date =Date(),
+//    @Column(name = "CREATED")
+//    @Temporal(TemporalType.TIMESTAMP)
+//    var created : Date =Date(),
 
     @Column(name = "MODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
     var modified : Date =Date(),
 
-    @Column(name = "MODIFIED_BY", length = 20)
-    var modifiedBy : String ="" //User ID
+//    @Column(name = "MODIFIED_BY", length = 20)
+//    var modifiedBy : String ="" //User ID
 
 ): Serializable
 
-internal fun FArea.toEntity(): FAreaEntity {
-    return FAreaEntity(
-        id = id,
-        sourceId = sourceId,
-
-        kode1 = kode1,
-        kode2 = kode2,
-        description = description,
-        fdivisionBean = fdivisionBean,
-        fregionBean = fregionBean,
-        statusActive = statusActive,
-
-        fsubareaSet = fsubareaSet,
-
-        created = created,
-        modified = modified,
-        modifiedBy = modifiedBy
-    )
-}
-
-internal fun FArea.toResponse(): FAreaRes {
-    return FAreaRes(
+internal fun FAreaRes.toDomain(): FArea {
+    return FArea(
         id = id,
         sourceId = sourceId,
 

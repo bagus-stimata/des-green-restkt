@@ -1,37 +1,48 @@
-package com.erp.distribution.desgreenrestkt.data.source.entity
+package com.erp.distribution.desgreenrestkt.domain.model
 
-import com.erp.distribution.desgreenrestkt.domain.model.FtSalesh
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumUom
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import javax.persistence.*
 
 @JacksonXmlRootElement
-@Entity
-@Table(name = "ftsalesd_items")
-data class FtSalesdItemsEntity (
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+data class FtPurchasedItems (
     var id: Long =0L,
 
-    @Column(name = "FREE_GOOD")
-    var isFreeGood  :Boolean =false,
-
-    @Column(name = "NOURUT", length = 4)
+    @Column(name = "NO_URUT", length = 4)
     var noUrut  :Int =0,
 
+    /*
+	 * IN PURCHASE REQUESITION TAX USED : APPROVE
+	 */
+    @Column(name = "FREE_GOOD")
+    var freeGood  :Boolean =false,
+
+    /*
+	 * EXCLUDE COGS or No Cogs
+	 * Jika True maka tidak dihitung sebagai HPP/COGS dan Defaultnya adalah Dihitung sebagai COGS
+	 * Syarat: "FreeGood  :Boolean =true," (hanya untuk barang free good)
+	 * Jika Exclude COGS maka nilainya akan secara langsung di jurnal menjadi Jurnal Memorial
+	 * 
+	 * TIDAK JADI
+	 * 
+	 */
+    //	@Column(name="EXCL_COGS")
+    //	private boolean exclCogs=false;
     @Column(name = "NOTES", length = 120)
     var notes :String ="",
 
-    @Column(name = "SPRICE")
-    var sprice  :Double =0.0,
-
-    @Transient
-    var spricePpnRp  :Double =0.0,
-
     /*
 	 * Dasar harga total
+	 */
+    @Column(name = "PPRICE")
+    var pprice  :Double =0.0, //Harga disimpan dalam Satuan Besar Sebelum Ppn
+
+    @Transient
+    var ppricePpnRp  :Double =0.0,
+
+    /*
+	 * IN PURCHASE REQUESITION TAX USED TO : REJECT
 	 */
     @Column(name = "TAX")
     var isTax  :Boolean =true,
@@ -39,9 +50,8 @@ data class FtSalesdItemsEntity (
     //	@ManyToOne
     //	@JoinColumn(name="ftaxBean", referencedColumnName="ID")
     //	private FTax ftaxBean;
-    //Boleh Kosong
-    @Column(name = "ftaxBean", nullable =true)
-    var ftaxBean: Int? =0,
+    @Column(name = "ftaxBean")
+    var ftaxBean  :Int =0,
 
     @Column(name = "TAX_PERCENT")
     var taxPercent  :Double =0.0,
@@ -50,38 +60,54 @@ data class FtSalesdItemsEntity (
 	 * End: Dasar harga total
 	 */
     @Transient
-    var spriceUom2  :Double =0.0,
+    var ppriceUom2  :Double =0.0,
 
     @Transient
-    var spriceUom3  :Double =0.0,
+    var ppriceUom3  :Double =0.0,
 
     @Transient
-    var spriceUom4  :Double =0.0,
+    var ppriceUom4  :Double =0.0,
+
+    //HARGA BELI SEBELUM
+    @Transient
+    var ppriceOldAfterPpn  :Double =0.0, //sama dengan ppriceUom1OldAfterPpn
 
     @Transient
-    var spriceAfterPpn  :Double =0.0,
+    var ppriceUom2OldAfterPpn  :Double =0.0,
 
     @Transient
-    var spriceUom2AfterPpn  :Double =0.0,
+    var ppriceUom3OldAfterPpn  :Double =0.0,
 
     @Transient
-    var spriceUom3AfterPpn  :Double =0.0,
+    var ppriceUom4OldAfterPpn  :Double =0.0,
 
     @Transient
-    var spriceUom4AfterPpn  :Double =0.0,
+    var selisihHargaBeliLama :String ="",
+
+    @Transient
+    var ppriceAfterPpn  :Double =0.0,
+
+    @Transient
+    var ppriceUom2AfterPpn  :Double =0.0,
+
+    @Transient
+    var ppriceUom3AfterPpn  :Double =0.0,
+
+    @Transient
+    var ppriceUom4AfterPpn  :Double =0.0,
 
     //HARGA NET SETELAH Diskon Barang Semua: Ditaruh dibelakang diskon Harusnya
     @Transient
-    var spriceNET_Uom1AfterDiscAfterPpn  :Double =0.0,
+    var ppriceNET_Uom1AfterDiscAfterPpn  :Double =0.0,
 
     @Transient
-    var spriceNET_Uom2AfterDiscAfterPpn  :Double =0.0,
+    var ppriceNET_Uom2AfterDiscAfterPpn  :Double =0.0,
 
     @Transient
-    var spriceNET_Uom3AfterDiscAfterPpn  :Double =0.0,
+    var ppriceNET_Uom3AfterDiscAfterPpn  :Double =0.0,
 
     @Transient
-    var spriceNET_Uom4AfterDiscAfterPpn  :Double =0.0,
+    var ppriceNET_Uom4AfterDiscAfterPpn  :Double =0.0,
 
     //	@Transient
     //	private Integer qty1=0.0;
@@ -103,14 +129,6 @@ data class FtSalesdItemsEntity (
     @Transient
     var qty4  :Double =0.0,
 
-    //	@Transient
-    //	private Integer qty1Kembali=0.0;
-    //	@Transient
-    //	private Integer qty2Kembali=0.0;
-    //	@Transient
-    //	private Integer qty3Kembali=0.0;
-    //	@Transient
-    //	private Integer qty4Kembali=0.0;
     @Transient
     var qty1Kembali  :Double =0.0,
 
@@ -124,15 +142,9 @@ data class FtSalesdItemsEntity (
     var qty4Kembali  :Double =0.0,
 
     /*Setiap pengiriman ada 2 kemungkinan: (1)Coretan Faktur/Tolakan dan (2)Faktur Batal
-	qty = qtyTerkirim
-	Total Jumlah yang diOrder = qty + qtyKembali
 	*/
     //	@Column(name="QTY", length=9)
     //	private Integer qty=0.0;
-    //	@Column(name="QTY_KEMBALI", length=9) //Kembali dari pengiriman
-    //	private Integer qtyKembali  :Int =0,;	
-    //	@Transient
-    //	private Integer qtyNET=0.0;
     @Column(name = "QTY", length = 9)
     var qty  :Double =0.0,
 
@@ -142,13 +154,15 @@ data class FtSalesdItemsEntity (
     @Transient
     var qtyNET  :Double =0.0,
 
-    /*
-	 * Untuk Keperluan Retur
-	 */
-    //	@Column(name="QTYRETURN", length=9)
-    //	private Integer qtyReturn =0.0;
-    @Column(name = "QTYRETURN", length = 9)
+    //	@Column(name="QTY_RETURN", length=9) //Dipakai untuk Algoritma Return: Berbeda dengan kegunaan dari FtSalesditems
+    //	private Integer qtyReturn  :Int =0,;
+    @Column(name = "QTY_RETURN", length = 9) //Dipakai untuk Algoritma Return: Berbeda dengan kegunaan dari FtSalesditems
     var qtyReturn  :Double =0.0,
+
+    //	@Column(name="QTY_USED_BYCHILD", length=9)
+    //	private Integer qty_usedByChild =0.0;
+    @Column(name = "QTY_USED_BYCHILD", length = 9)
+    var qty_usedByChild  :Double =0.0,
 
     /*
 	 * PRICE yang muncul pada faktur dengan menggunakan UOM
@@ -162,7 +176,7 @@ data class FtSalesdItemsEntity (
     @Enumerated(EnumType.ORDINAL)
     var priceUom :EnumUom = EnumUom.UOM1,
 
-    //Sub total sebelum diskon
+    //Subtotal sebelum disc
     @Transient
     var subtotalRp  :Double =0.0,
 
@@ -359,13 +373,13 @@ data class FtSalesdItemsEntity (
     var discNota2RpAfterPpn  :Double =0.0,
 
     @Transient
-    var subtotalAfterDiscNota2Rp  :Double =0.0,
+    var subtotalAfterDiscNota12Rp  :Double =0.0,
 
     @Transient
-    var subtotalAfterDiscNota2PpnRp  :Double =0.0, //ppn
+    var subtotalAfterDiscNota12PpnRp  :Double =0.0, //ppn
 
     @Transient
-    var subtotalAfterDiscNota2RpAfterPpn  :Double =0.0,
+    var subtotalAfterDiscNota12RpAfterPpn  :Double =0.0,
 
     @Transient
     var discNotaPlus_FG  :Double =0.0,
@@ -389,6 +403,27 @@ data class FtSalesdItemsEntity (
     var subtotalAfterDiscNotaPlusRpAfterPpn_FG  :Double =0.0,
 
     @Transient
+    var discNotaExclCogs  :Double =0.0,
+
+    @Transient
+    var discNotaExclCogsRp  :Double =0.0,
+
+    @Transient
+    var discNotaExclCogsPpnRp  :Double =0.0, //ppn
+
+    @Transient
+    var discNotaExclCogsRpAfterPpn  :Double =0.0,
+
+    @Transient
+    var subtotalAfterDiscNotaExclCogsRp  :Double =0.0,
+
+    @Transient
+    var subtotalAfterDiscNotaExclCogsPpnRp  :Double =0.0, //ppn
+
+    @Transient
+    var subtotalAfterDiscNotaExclCogsRpAfterPpn  :Double =0.0,
+
+    @Transient
     var tempString :String ="",
 
     @Transient
@@ -403,18 +438,11 @@ data class FtSalesdItemsEntity (
     @Transient
     var tempDouble31  :Int =0,
 
-    //TPR BARANG DAN UANG
-    //	@Column(name="TPRB")
-    //	private Double tprb=0.0;
-    //	@Column(name="TPRU_DISC")
-    //	private Double tpruDisc=0.0;
-    //	@Column(name="TPRU_CASHBACK")
-    //	private Double tpruCashback=0.0;
-    @ManyToOne
-    @JoinColumn(name="ftSaleshBean", referencedColumnName="refno")
-    var ftSaleshBean :FtSaleshEntity = FtSaleshEntity(),
-//    @Column(name = "ftSaleshBean", nullable = false)
-//    var ftSaleshBean: Long =0L,
+    //	@ManyToOne
+    //	@JoinColumn(name="ftPurchasehBean", referencedColumnName="refno")
+    //	private FtPurchaseh ftPurchasehBean;
+    @Column(name = "ftPurchasehBean", nullable = false)
+    var ftPurchasehBean: Long =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialBean", referencedColumnName="ID")

@@ -43,7 +43,7 @@ data class FtPriceAlth (
      */
     @JsonIgnore
     @Column(name =  "STATUS_ACTIVE" )
-    var isStatusActive  :Boolean =true,
+    var statusActive  :Boolean =true,
 
     @JsonIgnore
     @Column(name =  "CREATED" )

@@ -71,7 +71,7 @@ class FtSalesdItemsRestController {
     fun deleteFtSalesdItems(@PathVariable("id") id: Long): FtSalesdItemsEntity? {
         val ftSalesdItems = ftSalesdItemsJPARepository!!.findById(id).orElse(FtSalesdItemsEntity())
         if (ftSalesdItems != null) {
-            if (ftSalesdItems.id > 0 && ftSalesdItems.ftSaleshBean > 0) {
+            if (ftSalesdItems.id > 0 && ftSalesdItems.ftSaleshBean.refno > 0) {
                 ftSalesdItemsJPARepository!!.delete(ftSalesdItems)
             }
         }

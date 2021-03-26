@@ -1,18 +1,12 @@
-package com.erp.distribution.desgreenrestkt.data.source.entity
+package com.erp.distribution.desgreenrestkt.domain.model
 
-import com.erp.distribution.desgreenrestkt.domain.model.FtSalesh
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumUom
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import javax.persistence.*
 
 @JacksonXmlRootElement
-@Entity
-@Table(name = "ftsalesd_items")
-data class FtSalesdItemsEntity (
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+data class FtSalesdItems (
     var id: Long =0L,
 
     @Column(name = "FREE_GOOD")
@@ -410,11 +404,11 @@ data class FtSalesdItemsEntity (
     //	private Double tpruDisc=0.0;
     //	@Column(name="TPRU_CASHBACK")
     //	private Double tpruCashback=0.0;
-    @ManyToOne
-    @JoinColumn(name="ftSaleshBean", referencedColumnName="refno")
-    var ftSaleshBean :FtSaleshEntity = FtSaleshEntity(),
-//    @Column(name = "ftSaleshBean", nullable = false)
-//    var ftSaleshBean: Long =0L,
+    //	@ManyToOne
+    //	@JoinColumn(name="ftSaleshBean", referencedColumnName="refno")
+    //	private FtSalesh ftSaleshBean;
+    @Column(name = "ftSaleshBean", nullable = false)
+    var ftSaleshBean: Long =0L,
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialBean", referencedColumnName="ID")

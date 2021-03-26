@@ -47,7 +47,7 @@ class FSubAreaRestController {
         //Tidak Meng Update Parent: Hanya Info Saja
         if (fSubAreaEntityUpdated != null) {
             fSubAreaEntityUpdated.id = fSubArea.id
-            if (fSubArea.fareaBean >0) fSubAreaEntityUpdated.fareaBean = fSubArea.fareaBean
+            if (fSubArea.fareaBean.id >0) fSubAreaEntityUpdated.fareaBean = fSubArea.fareaBean
             fSubAreaJPARepository!!.save(fSubAreaEntityUpdated)
             return fSubAreaEntityUpdated
         }

@@ -45,7 +45,7 @@ class FPromotionRulesdValidCustsRestController {
         //Tidak Meng Update Parent: Hanya Info Saja
         if (fPromotionRulesdValidCustsEntityUpdated != null) {
             fPromotionRulesdValidCustsEntityUpdated.id = fPromotionRulesdValidCusts.id
-            if (fPromotionRulesdValidCusts.fpromotionRuleshEntityBean == null) fPromotionRulesdValidCustsEntityUpdated.fpromotionRuleshEntityBean = fPromotionRulesdValidCusts.fpromotionRuleshEntityBean
+            if ( fPromotionRulesdValidCusts.fpromotionRuleshEntityBean == null) fPromotionRulesdValidCustsEntityUpdated.fpromotionRuleshEntityBean = fPromotionRulesdValidCusts.fpromotionRuleshEntityBean
             fPromotionRulesdValidCustsJPARepository!!.save(fPromotionRulesdValidCustsEntityUpdated)
             return fPromotionRulesdValidCustsEntityUpdated
         }

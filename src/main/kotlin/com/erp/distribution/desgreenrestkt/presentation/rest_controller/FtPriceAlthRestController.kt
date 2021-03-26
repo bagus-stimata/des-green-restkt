@@ -26,7 +26,7 @@ class FtPriceAlthRestController {
 
     @RequestMapping(value = ["/rest/getAlltPriceAlthByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAlltPriceAlthByDivisionAndShareToCompany(@PathVariable("fdivisionBean") fdivisionBean: Int, @PathVariable("fcompanyBean") fcompanyBean: Int): List<FtPriceAlthEntity> {
-        return ftPriceAlthJPARepository!!.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).stream().filter { x: FtPriceAlthEntity -> x.isStatusActive == true }.collect(Collectors.toList())
+        return ftPriceAlthJPARepository!!.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).stream().filter { x: FtPriceAlthEntity -> x.statusActive == true }.collect(Collectors.toList())
     }
 
     @RequestMapping(value = ["/rest/createFtPriceAlth"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])

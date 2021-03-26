@@ -32,15 +32,15 @@ data class FSubAreaEntity (
     @Column(name =  "DESCRIPTION" , length = 100)
     var description :String ="",
 
-    //	@ManyToOne
-    //	@JoinColumn(name= fareaBean , referencedColumnName= ID )
-    //	private FArea fareaBean;
-    @Column(name =  "fareaBean" , nullable = false)
-    var fareaBean :Int =0,
+    @ManyToOne
+    @JoinColumn(name= "fareaBean" , referencedColumnName= "ID" )
+    var fareaBean :FAreaEntity = FAreaEntity(),
+//    @Column(name =  "fareaBean" , nullable = false)
+//    var fareaBean :Int =0,
 
     //	@OneToMany(mappedBy= fsubareaBean , fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     @Column(name =  "STATUS_ACTIVE" )
-    var isStatusActive  :Boolean =true,
+    var statusActive  :Boolean =true,
 
     @Column(name =  "CREATED" )
     @Temporal(TemporalType.TIMESTAMP)

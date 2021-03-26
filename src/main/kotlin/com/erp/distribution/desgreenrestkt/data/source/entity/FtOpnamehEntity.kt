@@ -48,10 +48,10 @@ data class FtOpnamehEntity (
     var notes :String ="",
 
     @Column(name =  "POSTING" )
-    var isPosting  :Boolean =false,
+    var posting  :Boolean =false,
 
     @Column(name =  "END_OF_DAY" )
-    var isEndOfDay  :Boolean =false,
+    var endOfDay  :Boolean =false,
 
     @Column(name =  "PRINT_COUNTER" , length = 4)
     var printCounter :Int =0,

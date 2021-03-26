@@ -1,10 +1,17 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
+import com.erp.distribution.desgreenrestkt.domain.model.FArea
+import com.erp.distribution.desgreenrestkt.domain.model.FMaterial
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
+import org.hibernate.annotations.Fetch
+import org.hibernate.annotations.FetchMode
 import org.hibernate.type.IntegerType
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
+import javax.xml.bind.annotation.XmlTransient
+import kotlin.collections.HashSet
 
 @JacksonXmlRootElement
 @Entity
@@ -48,6 +55,17 @@ class FAreaEntity (
     @Column(name = "STATUS_ACTIVE")
     var statusActive : Boolean =true,
 
+
+    @JsonIgnore
+    @OneToMany(mappedBy="fareaBean", fetch=FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
+    var fsubareaSet :Set<FSubAreaEntity> = HashSet<FSubAreaEntity>(),
+
+//    @XmlTransient
+//    @OneToMany(mappedBy="validAreaBean", fetch=FetchType.LAZY)
+//    @Fetch(FetchMode.JOIN)
+//    var fpromotionRulesdValidCustsSet :Set<FPromotionRulesdValidCustsEntity> = HashSet<FPromotionRulesdValidCustsEntity>(),
+
     @Column(name = "CREATED")
     @Temporal(TemporalType.TIMESTAMP)
     var created : Date =Date(),
@@ -60,3 +78,24 @@ class FAreaEntity (
     var modifiedBy : String ="" //User ID
 
 ): Serializable
+
+internal fun FAreaEntity.toDomain(): FArea {
+    return FArea(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        fdivisionBean = fdivisionBean,
+        fregionBean = fregionBean,
+        statusActive = statusActive,
+
+        fsubareaSet = fsubareaSet,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+
+    )
+}

@@ -6,13 +6,13 @@ import org.springframework.data.jpa.repository.Query
 
 interface FAreaJPARepository : JpaRepository<FAreaEntity, Int> {
 //    fun findById(id: Int): FAreaEntity?
-    fun findByKode1(kode1: String?): List<FAreaEntity>
+    fun findByKode1(kode1: String): List<FAreaEntity>
 
     @Query("SELECT u FROM FAreaEntity u WHERE u.kode1 LIKE :kode1 and u.description LIKE :description")
-    fun findAll(kode1: String?, description: String?): List<FAreaEntity>
+    fun findAll(kode1: String, description: String): List<FAreaEntity>
 
     @Query("SELECT u FROM FAreaEntity u WHERE u.kode1 LIKE :kode1 and u.description LIKE :description and u.fdivisionBean = :fdivisionBean")
-    fun findAll(kode1: String?, description: String?, fdivisionBean: Int): List<FAreaEntity>
+    fun findAll(kode1: String?, description: String, fdivisionBean: Int): List<FAreaEntity>
 
     @Query("SELECT u FROM FAreaEntity u WHERE u.fdivisionBean = :fdivisionBean")
     fun findAllByDivision(fdivisionBean: Int): List<FAreaEntity>
