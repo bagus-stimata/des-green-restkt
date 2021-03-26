@@ -1,9 +1,9 @@
 package com.erp.distribution.desgreenrestkt.domain.model
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialEntity
-import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialGroup3
-import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialSalesBrand
-import com.erp.distribution.desgreenrestkt.data.source.entity.FVendor
+import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialGroup3Entity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialSalesBrandEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FVendorEntity
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumMaterialType
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumUom
 import com.erp.distribution.desgreenrestkt.presentation.model.FMaterialRes
@@ -95,7 +95,7 @@ data class FMaterial(
 
 //    @ManyToOne
 //    @JoinColumn(name = "fvendorBean", referencedColumnName = "ID")
-    var fvendorBean: FVendor = FVendor(),
+    var fvendorBean: FVendorEntity = FVendorEntity(),
 //    var fvendorBean  :Int =0,
 
 
@@ -116,7 +116,7 @@ data class FMaterial(
 
     //	@ManyToOne
 //    @JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
-    val fmaterialGroup3Bean :FMaterialGroup3 = FMaterialGroup3(),
+    val fmaterialGroup3EntityBean :FMaterialGroup3Entity = FMaterialGroup3Entity(),
 //    var fmaterialGroup3Bean  :Int =0,
 
     /*
@@ -124,7 +124,7 @@ data class FMaterial(
 	 */
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialSalesBrandBean", referencedColumnName="ID")
-    var fmaterialSalesBrandBean :FMaterialSalesBrand = FMaterialSalesBrand(),
+    var fmaterialSalesBrandEntityBean :FMaterialSalesBrandEntity = FMaterialSalesBrandEntity(),
 //    var fmaterialSalesBrandBean  :Int =0,
 
     //BATCH CODE --> Berhubungan dengan Stockist atau Gudang
@@ -452,8 +452,8 @@ internal fun FMaterial.toEntity(): FMaterialEntity {
         spriceAltGrosirQtyValue4 = spriceAltGrosirQtyValue4,
 
 
-        fmaterialGroup3Bean = fmaterialGroup3Bean,
-        fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { it },
+        fmaterialGroup3EntityBean = fmaterialGroup3EntityBean,
+        fmaterialSalesBrandEntityBean = fmaterialSalesBrandEntityBean?.let { it },
         ftaxBean = ftaxBean?.let { it },
         fvendorBean = fvendorBean,
         fdivisionBean = fdivisionBean,
@@ -489,8 +489,8 @@ internal fun FMaterial.toResponse(): FMaterialRes {
 
         statusActive = statusActive,
 
-        fmaterialGroup3Bean = fmaterialGroup3Bean.id,
-        fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { it.id },
+        fmaterialGroup3Bean = fmaterialGroup3EntityBean.id,
+        fmaterialSalesBrandBean = fmaterialSalesBrandEntityBean?.let { it.id },
         ftaxBean = ftaxBean?.let { it },
         taxable = taxable,
         fvendorBean = fvendorBean.id,

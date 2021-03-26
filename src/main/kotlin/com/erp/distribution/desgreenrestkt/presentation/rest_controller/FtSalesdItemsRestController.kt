@@ -2,7 +2,7 @@ package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FMaterialJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtSalesdItemsJPARepository
-import com.erp.distribution.desgreenrestkt.data.source.entity.FtSalesdItems
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtSalesdItemsEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,26 +19,26 @@ class FtSalesdItemsRestController {
     var fMaterialJPARepository: FMaterialJPARepository? = null
 
     @RequestMapping(value = ["/rest/getFtSalesdItemsById/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getFtSalesdItemsById(@PathVariable("id") id: Long): FtSalesdItems {
-        return ftSalesdItemsJPARepository!!.findById(id).orElse(FtSalesdItems())
+    fun getFtSalesdItemsById(@PathVariable("id") id: Long): FtSalesdItemsEntity {
+        return ftSalesdItemsJPARepository!!.findById(id).orElse(FtSalesdItemsEntity())
     }
 
     @get:RequestMapping(value = ["/rest/getAllFtSalesdItems"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    val alltSalesdItems: List<FtSalesdItems>
+    val alltSalesdItemEntities: List<FtSalesdItemsEntity>
         get() = ftSalesdItemsJPARepository!!.findAll()
 
     @RequestMapping(value = ["/rest/getAllFtSalesdItemsByFtSalesh/{ftSaleshBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAllFtSalesdItemsByFtSalesh(@PathVariable("ftSaleshBean") ftSaleshBean: Long): List<FtSalesdItems> {
+    fun getAllFtSalesdItemsByFtSalesh(@PathVariable("ftSaleshBean") ftSaleshBean: Long): List<FtSalesdItemsEntity> {
         return ftSalesdItemsJPARepository!!.findAllByFtSaleshBean(ftSaleshBean)
     }
 
     @RequestMapping(value = ["/rest/getAllFtSalesdItemsByListParentId"], method = [RequestMethod.POST], produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAllFtSalesdItemsByListParentId(@RequestBody listFtSaleshBean: List<Long>): List<FtSalesdItems> {
+    fun getAllFtSalesdItemsByListParentId(@RequestBody listFtSaleshBean: List<Long>): List<FtSalesdItemsEntity> {
         return ftSalesdItemsJPARepository!!.findAllByListFtSalesh(listFtSaleshBean)
     }
 
     @RequestMapping(value = ["/rest/createFtSalesdItems"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun createFtSalesdItems(@RequestBody ftSalesdItemsNew: FtSalesdItems): FtSalesdItems {
+    fun createFtSalesdItems(@RequestBody ftSalesdItemsEntityNew: FtSalesdItemsEntity): FtSalesdItemsEntity {
         //Sementara TAx Dari Sini
 //        FMaterial fMaterial = fMaterialJPARepository.findById(ftSalesdItemsNew.getFmaterialBean()).orElse( new FMaterial() );
 
@@ -49,27 +49,27 @@ class FtSalesdItemsRestController {
 //            ftSalesdItemsNew.setTaxPercent(10.0);
 //            ftSalesdItemsNew.setTax(true);
 //        }
-        ftSalesdItemsNew.id = 0 //Pastikan ID nya nol untuk Create Baru
-        return ftSalesdItemsJPARepository!!.save(ftSalesdItemsNew)
+        ftSalesdItemsEntityNew.id = 0 //Pastikan ID nya nol untuk Create Baru
+        return ftSalesdItemsJPARepository!!.save(ftSalesdItemsEntityNew)
     }
 
     @RequestMapping(value = ["/rest/updateFtSalesdItems/{id}"], method = [RequestMethod.PUT])
-    fun updateFtSalesdItemsInfo(@PathVariable("id") id: Long, @RequestBody ftSalesdItemsUpdated: FtSalesdItems?): FtSalesdItems {
-        val ftSalesdItems = ftSalesdItemsJPARepository!!.findById(id).orElse(FtSalesdItems())
+    fun updateFtSalesdItemsInfo(@PathVariable("id") id: Long, @RequestBody ftSalesdItemsEntityUpdated: FtSalesdItemsEntity?): FtSalesdItemsEntity {
+        val ftSalesdItems = ftSalesdItemsJPARepository!!.findById(id).orElse(FtSalesdItemsEntity())
         //Tidak Meng Update Parent: Hanya Info Saja
-        if (ftSalesdItemsUpdated != null) {
-            ftSalesdItemsUpdated.id = ftSalesdItems.id
-            if (ftSalesdItems.fmaterialBean >0) ftSalesdItemsUpdated.fmaterialBean = ftSalesdItems.fmaterialBean
-            ftSalesdItemsJPARepository!!.save(ftSalesdItemsUpdated)
-            return ftSalesdItemsUpdated
+        if (ftSalesdItemsEntityUpdated != null) {
+            ftSalesdItemsEntityUpdated.id = ftSalesdItems.id
+            if (ftSalesdItems.fmaterialBean >0) ftSalesdItemsEntityUpdated.fmaterialBean = ftSalesdItems.fmaterialBean
+            ftSalesdItemsJPARepository!!.save(ftSalesdItemsEntityUpdated)
+            return ftSalesdItemsEntityUpdated
         }
         return ftSalesdItems
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole
     @RequestMapping(value = ["/rest/deleteFtSalesdItems/{id}"], method = [RequestMethod.DELETE])
-    fun deleteFtSalesdItems(@PathVariable("id") id: Long): FtSalesdItems? {
-        val ftSalesdItems = ftSalesdItemsJPARepository!!.findById(id).orElse(FtSalesdItems())
+    fun deleteFtSalesdItems(@PathVariable("id") id: Long): FtSalesdItemsEntity? {
+        val ftSalesdItems = ftSalesdItemsJPARepository!!.findById(id).orElse(FtSalesdItemsEntity())
         if (ftSalesdItems != null) {
             if (ftSalesdItems.id > 0 && ftSalesdItems.ftSaleshBean > 0) {
                 ftSalesdItemsJPARepository!!.delete(ftSalesdItems)

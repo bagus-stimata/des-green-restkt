@@ -2,11 +2,11 @@ package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FPromotionRuleshJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FVendorJPARepository
-import com.erp.distribution.desgreenrestkt.data.source.entity.FDivision
-import com.erp.distribution.desgreenrestkt.data.source.entity.FPromotionRulesh
-import com.erp.distribution.desgreenrestkt.data.source.entity.FVendor
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDivisionEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FPromotionRuleshEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FVendorEntity
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumPromoDiscFgMethod
-import com.erp.distribution.desgreenrestkt.domain.model.extended.ZLapTemplate2
+import com.erp.distribution.desgreenrestkt.domain.model.aux.ZLapTemplate2
 import com.erp.distribution.desgreenrestkt.domain.utils.KonversiProductAndStockHelper
 import com.erp.distribution.desgreenrestkt.domain.utils.KonversiProductAndStockHelperImpl
 import org.slf4j.LoggerFactory
@@ -26,41 +26,41 @@ class FPromotionRuleshRestController {
     var fVendorJPARepository: FVendorJPARepository? = null
 
     @RequestMapping(value = ["/rest/getFPromotionRuleshById/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getFPromotionRuleshById(@PathVariable("id") id: Int): FPromotionRulesh {
+    fun getFPromotionRuleshById(@PathVariable("id") id: Int): FPromotionRuleshEntity {
         return fPromotionRuleshJPARepository!!.findById(id).get()
     }
 
     @get:RequestMapping(value = ["/rest/getAllFPromotionRulesh"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    val allPromotionRulesh: List<FPromotionRulesh>
+    val allPromotionRuleshEntities: List<FPromotionRuleshEntity>
         get() = fPromotionRuleshJPARepository!!.findAll()
 
     @RequestMapping(value = ["/rest/getAllFPromotionRuleshByDivision/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAllFPromotionRuleshByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FPromotionRulesh> {
+    fun getAllFPromotionRuleshByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FPromotionRuleshEntity> {
         return fPromotionRuleshJPARepository!!.findAllByDivision(fdivisionBean)
     }
 
     @RequestMapping(value = ["/rest/createFPromotionRulesh"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun createFPromotionRulesh(@RequestBody fPromotionRuleshNew: FPromotionRulesh): FPromotionRulesh {
-        fPromotionRuleshNew.id = 0 //Memastikan ID adalah Nol
-        return fPromotionRuleshJPARepository!!.save(fPromotionRuleshNew)
+    fun createFPromotionRulesh(@RequestBody fPromotionRuleshEntityNew: FPromotionRuleshEntity): FPromotionRuleshEntity {
+        fPromotionRuleshEntityNew.id = 0 //Memastikan ID adalah Nol
+        return fPromotionRuleshJPARepository!!.save(fPromotionRuleshEntityNew)
     }
 
     @RequestMapping(value = ["/rest/updateFPromotionRulesh/{id}"], method = [RequestMethod.PUT])
-    fun updateFPromotionRuleshInfo(@PathVariable("id") id: Int, @RequestBody fPromotionRuleshUpdated: FPromotionRulesh?): FPromotionRulesh {
-        val fPromotionRulesh = fPromotionRuleshJPARepository!!.findById(id).orElse(FPromotionRulesh())
+    fun updateFPromotionRuleshInfo(@PathVariable("id") id: Int, @RequestBody fPromotionRuleshEntityUpdated: FPromotionRuleshEntity?): FPromotionRuleshEntity {
+        val fPromotionRulesh = fPromotionRuleshJPARepository!!.findById(id).orElse(FPromotionRuleshEntity())
         //Tidak Meng Update Parent: Hanya Info Saja
-        if (fPromotionRuleshUpdated != null) {
-            fPromotionRuleshUpdated.id = fPromotionRulesh.id
-            if (fPromotionRulesh.fdivisionBean == null) fPromotionRuleshUpdated.fdivisionBean = fPromotionRulesh.fdivisionBean
-            fPromotionRuleshJPARepository!!.save(fPromotionRuleshUpdated)
-            return fPromotionRuleshUpdated
+        if (fPromotionRuleshEntityUpdated != null) {
+            fPromotionRuleshEntityUpdated.id = fPromotionRulesh.id
+            if (fPromotionRulesh.fdivisionBean == null) fPromotionRuleshEntityUpdated.fdivisionBean = fPromotionRulesh.fdivisionBean
+            fPromotionRuleshJPARepository!!.save(fPromotionRuleshEntityUpdated)
+            return fPromotionRuleshEntityUpdated
         }
         return fPromotionRulesh
     }
 
     @RequestMapping(value = ["/rest/deleteFPromotionRulesh/{id}"], method = [RequestMethod.DELETE])
-    fun deleteFPromotionRulesh(@PathVariable("id") id: Int): FPromotionRulesh? {
-        val fPromotionRulesh = fPromotionRuleshJPARepository!!.findById(id).orElse(FPromotionRulesh())
+    fun deleteFPromotionRulesh(@PathVariable("id") id: Int): FPromotionRuleshEntity? {
+        val fPromotionRulesh = fPromotionRuleshJPARepository!!.findById(id).orElse(FPromotionRuleshEntity())
         if (fPromotionRulesh != null) {
             fPromotionRuleshJPARepository!!.delete(fPromotionRulesh)
         }
@@ -68,7 +68,7 @@ class FPromotionRuleshRestController {
     }
 
     var listLapTemplate: List<ZLapTemplate2> = ArrayList()
-    fun fillDatabaseReportDaftarPromoBerjalan(dateTransactionFrom: Date?, dateTransactionTo: Date, listFDivision: List<FDivision>, listFVendor: List<FVendor?>): List<ZLapTemplate2> {
+    fun fillDatabaseReportDaftarPromoBerjalan(dateTransactionFrom: Date?, dateTransactionTo: Date, listFDivisionEntity: List<FDivisionEntity>, listFVendorEntity: List<FVendorEntity?>): List<ZLapTemplate2> {
         val sdf_lengkap = SimpleDateFormat("dd MMMM yyyy")
         val nf = NumberFormat.getInstance()
         nf.maximumFractionDigits = 0
@@ -86,55 +86,55 @@ class FPromotionRuleshRestController {
         val listLapTemplate1: MutableList<ZLapTemplate2> = ArrayList()
         listLapTemplate = ArrayList()
 //        val posisiTanggal = dateTransactionTo
-        val listFPromotionRulesForThisDay: List<FPromotionRulesh> = ArrayList()
+        val listFPromotionRulesForThisDayEntity: List<FPromotionRuleshEntity> = ArrayList()
         try {
 //            listFPromotionRulesForThisDay = new ArrayList<FPromotionRulesh>( fPromotionRuleshJPARepository
 //                    .findAllBy_ValidByDate( listFDivision,
 //                            posisiTanggal, false) );
         } catch (e: Exception) {
         }
-        for (fpromotionRuleshBean in listFPromotionRulesForThisDay) {
+        for (fpromotionRuleshBean in listFPromotionRulesForThisDayEntity) {
             var status = "AKTIF"
             var vendor = ""
             if (fpromotionRuleshBean.statusActive == false) status = "NON AKTIF"
             var valid_Products = ""
-            val fvendorSet: MutableSet<FVendor?> = HashSet()
-            for (detilItem in fpromotionRuleshBean.fpromotionRulesdValidProductsSet!!) {
-                if (detilItem.validMaterialEntityBean != null) {
-                    fvendorSet.add(detilItem.validMaterialEntityBean!!.fvendorBean)
-                    valid_Products += detilItem.validMaterialEntityBean!!.pname + " (" + detilItem.validMaterialEntityBean!!.pcode + "), "
-                } else if (detilItem.validMaterialGroup3Bean != null) {
-                    val allVendor = FVendor()
-                    allVendor.id = 7777777
-                    allVendor.vcode = "ALL"
-                    allVendor.vname = "ALL VENDOR"
-                    fvendorSet.add(allVendor)
-                    valid_Products += detilItem.validMaterialGroup3Bean!!.description + ", "
-                } else if (detilItem.validMaterialGroup2Bean != null) {
-                    val allVendor = FVendor()
-                    allVendor.id = 7777777
-                    allVendor.vcode = "ALL"
-                    allVendor.vname = "ALL VENDOR"
-                    fvendorSet.add(allVendor)
-                    valid_Products += detilItem.validMaterialGroup2Bean!!.description + ", "
-                } else if (detilItem.validMaterialSalesBrandBean != null) {
-                    val allVendor = FVendor()
-                    allVendor.id = 7777777
-                    allVendor.vcode = "ALL"
-                    allVendor.vname = "ALL VENDOR"
-                    fvendorSet.add(allVendor)
-                    valid_Products += detilItem.validMaterialSalesBrandBean!!.description + ", "
-                } else if (detilItem.validVendorBean != null) {
-                    fvendorSet.add(detilItem.validVendorBean)
-                    valid_Products += detilItem.validVendorBean!!.vname + ", "
-                }
-            } //end for Valid Product
+            val fvendorSet: MutableSet<FVendorEntity?> = HashSet()
+//            for (detilItem in fpromotionRuleshBean.fpromotionRulesdValidProductsEntitySet) {
+//                if (detilItem.validMaterialEntityBean != null) {
+//                    fvendorSet.add(detilItem.validMaterialEntityBean!!.fvendorBean)
+//                    valid_Products += detilItem.validMaterialEntityBean!!.pname + " (" + detilItem.validMaterialEntityBean!!.pcode + "), "
+//                } else if (detilItem.validMaterialGroup3EntityBean != null) {
+//                    val allVendor = FVendorEntity()
+//                    allVendor.id = 7777777
+//                    allVendor.vcode = "ALL"
+//                    allVendor.vname = "ALL VENDOR"
+//                    fvendorSet.add(allVendor)
+//                    valid_Products += detilItem.validMaterialGroup3EntityBean!!.description + ", "
+//                } else if (detilItem.validMaterialGroup2EntityBean != null) {
+//                    val allVendor = FVendorEntity()
+//                    allVendor.id = 7777777
+//                    allVendor.vcode = "ALL"
+//                    allVendor.vname = "ALL VENDOR"
+//                    fvendorSet.add(allVendor)
+//                    valid_Products += detilItem.validMaterialGroup2EntityBean!!.description + ", "
+//                } else if (detilItem.validMaterialSalesBrandEntityBean != null) {
+//                    val allVendor = FVendorEntity()
+//                    allVendor.id = 7777777
+//                    allVendor.vcode = "ALL"
+//                    allVendor.vname = "ALL VENDOR"
+//                    fvendorSet.add(allVendor)
+//                    valid_Products += detilItem.validMaterialSalesBrandEntityBean!!.description + ", "
+//                } else if (detilItem.validVendorEntityBean != null) {
+//                    fvendorSet.add(detilItem.validVendorEntityBean)
+//                    valid_Products += detilItem.validVendorEntityBean!!.vname + ", "
+//                }
+//            } //end for Valid Product
             var isValidVendor = false
             for (fvendorBean in fvendorSet) {
                 vendor += fvendorBean!!.vname + " (" + fvendorBean.vcode + "), "
                 if (fvendorBean.vcode.contains("ALL")) isValidVendor = true
                 if (isValidVendor == false) {
-                    for (fvendorSelected in listFVendor) {
+                    for (fvendorSelected in listFVendorEntity) {
                         if (fvendorBean == fvendorBean) {
                             isValidVendor = true
                             break
@@ -174,7 +174,7 @@ class FPromotionRuleshRestController {
             domainMekanisme.grup2 = "B. Mekanisme"
             domainMekanisme.grup3 = "-"
             var mekanisme = ""
-            if (fpromotionRuleshBean.isValidProductsAccumulation) mekanisme += "Metode Akumulasi untuk "
+            if (fpromotionRuleshBean.validProductsAccumulation) mekanisme += "Metode Akumulasi untuk "
             mekanisme += "Setiap Pembelian Product/Group/Vendor: $valid_Products\n"
             if (fpromotionRuleshBean.promoDiscMethod != null) {
                 val additionTabSpace = ""
@@ -246,7 +246,7 @@ class FPromotionRuleshRestController {
                     mekanisme += "\n"
                 }
                 //				mekanisme += "\n";
-                if (fpromotionRuleshBean.isDiscCashOnly) mekanisme += "TUNAI/CASH SAJA\n"
+                if (fpromotionRuleshBean.discCashOnly) mekanisme += "TUNAI/CASH SAJA\n"
             } //end if diskon method
             if (fpromotionRuleshBean.promoFg1Method != null && fpromotionRuleshBean.freeGood1MaterialEntityBean != null) {
                 mekanisme += "Mendapatkan Bonus Barang    " + "\" " + fpromotionRuleshBean.freeGood1MaterialEntityBean!!.pname.toUpperCase() + " (" + fpromotionRuleshBean.freeGood1MaterialEntityBean!!.pcode + ") " + "\""
@@ -315,22 +315,22 @@ class FPromotionRuleshRestController {
             berlaku += "\nUNTUK\n"
             var validCustomer = ""
             val counterCustomer = 0
-            for (detilItem in fpromotionRuleshBean.fpromotionRulesdValidCustsSet!!) {
-                try {
-                    if (detilItem.validCustomerEntityBean != null) {
-                        validCustomer += (counterCustomer.inc()).toString() + ". " + detilItem.validCustomerEntityBean!!.custname + " (" + detilItem.validCustomerEntityBean!!.custno + ") "
-                    } else if (detilItem.validAreaEntityBean != null) {
-                        validCustomer += (counterCustomer.inc()).toString() + ". " + detilItem.validAreaEntityBean!!.description + " (" + detilItem.validAreaEntityBean!!.kode1 + ") "
-                    } else if (detilItem.validCustomerGroupEntityBean != null) {
-                        validCustomer += (counterCustomer.inc()).toString() + ". " + detilItem.validCustomerGroupEntityBean!!.description + " (" + detilItem.validCustomerGroupEntityBean!!.kode1 + ") "
-                    } else if (detilItem.validDistributionChannelBean != null) {
-                        validCustomer += (counterCustomer.inc()).toString() + ". " + detilItem.validDistributionChannelBean!!.description + " (" + detilItem.validDistributionChannelBean!!.kode1 + ") "
-                    }
-                    validCustomer += "\n"
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
+//            for (detilItem in fpromotionRuleshBean.fpromotionRulesdValidCustsEntitySet) {
+//                try {
+//                    if (detilItem.validCustomerEntityBean != null) {
+//                        validCustomer += (counterCustomer.inc()).toString() + ". " + detilItem.validCustomerEntityBean!!.custname + " (" + detilItem.validCustomerEntityBean!!.custno + ") "
+//                    } else if (detilItem.validAreaEntityBean != null) {
+//                        validCustomer += (counterCustomer.inc()).toString() + ". " + detilItem.validAreaEntityBean!!.description + " (" + detilItem.validAreaEntityBean!!.kode1 + ") "
+//                    } else if (detilItem.validCustomerGroupEntityBean != null) {
+//                        validCustomer += (counterCustomer.inc()).toString() + ". " + detilItem.validCustomerGroupEntityBean!!.description + " (" + detilItem.validCustomerGroupEntityBean!!.kode1 + ") "
+//                    } else if (detilItem.validDistributionChannelEntityBean != null) {
+//                        validCustomer += (counterCustomer.inc()).toString() + ". " + detilItem.validDistributionChannelEntityBean!!.description + " (" + detilItem.validDistributionChannelEntityBean!!.kode1 + ") "
+//                    }
+//                    validCustomer += "\n"
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+//                }
+//            }
             if (validCustomer.trim { it <= ' ' } == "") validCustomer = "SEMUA CUSTOMER"
             berlaku += validCustomer.trim { it <= ' ' }
             domainBerlakuUntuk.string1 = berlaku

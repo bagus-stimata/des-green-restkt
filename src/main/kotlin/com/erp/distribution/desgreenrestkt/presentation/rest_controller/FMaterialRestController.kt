@@ -1,6 +1,5 @@
 package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 
-import com.erp.distribution.desgreenrestkt.data.repository.FMaterialRepoImpl
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FMaterialJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.toDomain
@@ -9,7 +8,6 @@ import com.erp.distribution.desgreenrestkt.data.source.entity_security.FUser
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
 import com.erp.distribution.desgreenrestkt.data.source.local.dao_security.FUsersJPARepository
 import com.erp.distribution.desgreenrestkt.domain.model.toResponse
-import com.erp.distribution.desgreenrestkt.domain.repository.FMaterialRepo
 import com.erp.distribution.desgreenrestkt.domain.usecase.GetFMaterialUseCase
 import com.erp.distribution.desgreenrestkt.presentation.model.FMaterialRes
 import org.slf4j.LoggerFactory
@@ -121,8 +119,8 @@ class FMaterialRestController @Autowired constructor(
             fMaterialEntityUpdated.id = fMaterial.id
             if (fMaterial.fdivisionBean >0) fMaterialEntityUpdated.fdivisionBean = fMaterial.fdivisionBean
             if (fMaterial.fdistributionChannelBean >0) fMaterialEntityUpdated.fdistributionChannelBean = fMaterial.fdistributionChannelBean
-            if (fMaterial.fmaterialGroup3Bean.id >0) fMaterialEntityUpdated.fmaterialGroup3Bean = fMaterial.fmaterialGroup3Bean
-            if (fMaterial.fmaterialSalesBrandBean.id >0) fMaterialEntityUpdated.fmaterialSalesBrandBean = fMaterial.fmaterialSalesBrandBean
+            if (fMaterial.fmaterialGroup3EntityBean.id >0) fMaterialEntityUpdated.fmaterialGroup3EntityBean = fMaterial.fmaterialGroup3EntityBean
+            if (fMaterial.fmaterialSalesBrandEntityBean.id >0) fMaterialEntityUpdated.fmaterialSalesBrandEntityBean = fMaterial.fmaterialSalesBrandEntityBean
             fMaterial.fvendorBean?.let {
                 if (fMaterial.fvendorBean == null) fMaterialEntityUpdated.fvendorBean = fMaterial.fvendorBean
             }

@@ -17,7 +17,7 @@ interface FCustomerJPARepository : JpaRepository<FCustomerEntity, Int> {
     fun findAllByDivision(fdivisionBean: Int): List<FCustomerEntity>
 
     @Query("SELECT u FROM FCustomerEntity u " +
-            " left outer join FDivision f on u.fdivisionBean = f.id " +
+            " left outer join FDivisionEntity f on u.fdivisionBean = f.id " +
             " where f.id = :fdivisionBean OR " +
             "      (f.shareMaterialToCompany = true and f.fcompanyBean = :fcompanyBean ) ")
     fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FCustomerEntity>

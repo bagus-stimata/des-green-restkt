@@ -1,7 +1,7 @@
 package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FVendorJPARepository
-import com.erp.distribution.desgreenrestkt.data.source.entity.FVendor
+import com.erp.distribution.desgreenrestkt.data.source.entity.FVendorEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,49 +15,49 @@ class FVendorRestController {
     var fVendorJPARepository: FVendorJPARepository? = null
 
     @RequestMapping(value = ["/rest/getFVendorById/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getFVendorById(@PathVariable("id") id: Int): FVendor {
+    fun getFVendorById(@PathVariable("id") id: Int): FVendorEntity {
         return fVendorJPARepository!!.findById(id).get()
     }
 
     @get:RequestMapping(value = ["/rest/getAllFVendor"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    val allVendor: List<FVendor>
+    val allVendorEntity: List<FVendorEntity>
         get() = fVendorJPARepository!!.findAll()
 
     @RequestMapping(value = ["/rest/getAllFVendorByDivision/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAllFVendorByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FVendor> {
+    fun getAllFVendorByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FVendorEntity> {
         return fVendorJPARepository!!.findAllByDivision(fdivisionBean)
     }
 
     @RequestMapping(value = ["/rest/getAllFVendorByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAllFVendorByDivisionAndShareToCompany(@PathVariable("fdivisionBean") fdivisionBean: Int, @PathVariable("fcompanyBean") fcompanyBean: Int): List<FVendor> {
+    fun getAllFVendorByDivisionAndShareToCompany(@PathVariable("fdivisionBean") fdivisionBean: Int, @PathVariable("fcompanyBean") fcompanyBean: Int): List<FVendorEntity> {
         return fVendorJPARepository!!.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean)
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole
     @RequestMapping(value = ["/rest/createFVendor"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun createFVendor(@RequestBody fVendorNew: FVendor): FVendor {
-        fVendorNew.id = 0 //Memastikan ID adalah Nol
-        return fVendorJPARepository!!.save(fVendorNew)
+    fun createFVendor(@RequestBody fVendorEntityNew: FVendorEntity): FVendorEntity {
+        fVendorEntityNew.id = 0 //Memastikan ID adalah Nol
+        return fVendorJPARepository!!.save(fVendorEntityNew)
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole
     @RequestMapping(value = ["/rest/updateFVendor/{id}"], method = [RequestMethod.PUT])
-    fun updateFVendorInfo(@PathVariable("id") id: Int, @RequestBody fVendorUpdated: FVendor?): FVendor {
-        val fVendor = fVendorJPARepository!!.findById(id).orElse(FVendor())
+    fun updateFVendorInfo(@PathVariable("id") id: Int, @RequestBody fVendorEntityUpdated: FVendorEntity?): FVendorEntity {
+        val fVendor = fVendorJPARepository!!.findById(id).orElse(FVendorEntity())
         //Tidak Meng Update Parent: Hanya Info Saja
-        if (fVendorUpdated != null) {
-            fVendorUpdated.id = fVendor.id
-            if (fVendor.fdivisionBean >0) fVendorUpdated.fdivisionBean = fVendor.fdivisionBean
-            fVendorJPARepository!!.save(fVendorUpdated)
-            return fVendorUpdated
+        if (fVendorEntityUpdated != null) {
+            fVendorEntityUpdated.id = fVendor.id
+            if (fVendor.fdivisionBean >0) fVendorEntityUpdated.fdivisionBean = fVendor.fdivisionBean
+            fVendorJPARepository!!.save(fVendorEntityUpdated)
+            return fVendorEntityUpdated
         }
         return fVendor
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole
     @RequestMapping(value = ["/rest/deleteFVendor/{id}"], method = [RequestMethod.DELETE])
-    fun deleteFVendor(@PathVariable("id") id: Int): FVendor? {
-        val fVendor = fVendorJPARepository!!.findById(id).orElse(FVendor())
+    fun deleteFVendor(@PathVariable("id") id: Int): FVendorEntity? {
+        val fVendor = fVendorJPARepository!!.findById(id).orElse(FVendorEntity())
         if (fVendor != null) {
             fVendorJPARepository!!.delete(fVendor)
         }

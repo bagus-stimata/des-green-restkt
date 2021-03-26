@@ -1,7 +1,7 @@
 package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtApPaymentdJPARepository
-import com.erp.distribution.desgreenrestkt.data.source.entity.FtApPaymentd
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtApPaymentdEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,47 +15,47 @@ class FtApPaymentdRestController {
     var ftApPaymentdJPARepository: FtApPaymentdJPARepository? = null
 
     @RequestMapping(value = ["/rest/getFtApPaymentdById/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getFtApPaymentdById(@PathVariable("id") id: Long): FtApPaymentd {
-        return ftApPaymentdJPARepository!!.findById(id).orElse(FtApPaymentd())
+    fun getFtApPaymentdById(@PathVariable("id") id: Long): FtApPaymentdEntity {
+        return ftApPaymentdJPARepository!!.findById(id).orElse(FtApPaymentdEntity())
     }
 
     @get:RequestMapping(value = ["/rest/getAllFtApPaymentd"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    val alltApPaymentd: List<FtApPaymentd>
+    val alltApPaymentdEntity: List<FtApPaymentdEntity>
         get() = ftApPaymentdJPARepository!!.findAll()
 
     @RequestMapping(value = ["/rest/getAllFtApPaymentdByParent/{ftApPaymenthBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAllFtApPaymentdByParentId(@PathVariable("ftApPaymenthBean") ftApPaymenthBean: Long): List<FtApPaymentd> {
+    fun getAllFtApPaymentdByParentId(@PathVariable("ftApPaymenthBean") ftApPaymenthBean: Long): List<FtApPaymentdEntity> {
         return ftApPaymentdJPARepository!!.findAllByParentId(ftApPaymenthBean)
     }
 
     @RequestMapping(value = ["/rest/getAllFtApPaymentdByListParentId"], method = [RequestMethod.POST], produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAllFtApPaymentdByListParentId(@RequestBody listFtApPaymenthBean: List<Long>): List<FtApPaymentd> {
+    fun getAllFtApPaymentdByListParentId(@RequestBody listFtApPaymenthBean: List<Long>): List<FtApPaymentdEntity> {
         return ftApPaymentdJPARepository!!.findAllByListParentId(listFtApPaymenthBean)
     }
 
     @RequestMapping(value = ["/rest/createFtApPaymentd"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun createFtApPaymentd(@RequestBody ftApPaymentdNew: FtApPaymentd): FtApPaymentd {
-        ftApPaymentdNew.id = 0 //Memastikan ID adalah Nol
-        return ftApPaymentdJPARepository!!.save(ftApPaymentdNew)
+    fun createFtApPaymentd(@RequestBody ftApPaymentdEntityNew: FtApPaymentdEntity): FtApPaymentdEntity {
+        ftApPaymentdEntityNew.id = 0 //Memastikan ID adalah Nol
+        return ftApPaymentdJPARepository!!.save(ftApPaymentdEntityNew)
     }
 
     @RequestMapping(value = ["/rest/updateFtApPaymentd/{id}"], method = [RequestMethod.PUT])
-    fun updateFtApPaymentdInfo(@PathVariable("id") id: Long, @RequestBody ftApPaymentdUpdated: FtApPaymentd?): FtApPaymentd {
-        val ftApPaymentd = ftApPaymentdJPARepository!!.findById(id).orElse(FtApPaymentd())
+    fun updateFtApPaymentdInfo(@PathVariable("id") id: Long, @RequestBody ftApPaymentdEntityUpdated: FtApPaymentdEntity?): FtApPaymentdEntity {
+        val ftApPaymentd = ftApPaymentdJPARepository!!.findById(id).orElse(FtApPaymentdEntity())
         //Tidak Meng Update Parent: Hanya Info Saja
-        if (ftApPaymentdUpdated != null) {
-            ftApPaymentdUpdated.id = ftApPaymentd.id
+        if (ftApPaymentdEntityUpdated != null) {
+            ftApPaymentdEntityUpdated.id = ftApPaymentd.id
             //            if (ftApPaymentd.getFtApPaymenthBean()==null) ftApPaymentdUpdated.setFtApPaymenthBean(ftApPaymentd.getFtApPaymenthBean());
-            ftApPaymentdJPARepository!!.save(ftApPaymentdUpdated)
-            return ftApPaymentdUpdated
+            ftApPaymentdJPARepository!!.save(ftApPaymentdEntityUpdated)
+            return ftApPaymentdEntityUpdated
         }
         return ftApPaymentd
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole
     @RequestMapping(value = ["/rest/deleteFtApPaymentd/{id}"], method = [RequestMethod.DELETE])
-    fun deleteFtApPaymentd(@PathVariable("id") id: Long): FtApPaymentd? {
-        val ftApPaymentd = ftApPaymentdJPARepository!!.findById(id).orElse(FtApPaymentd())
+    fun deleteFtApPaymentd(@PathVariable("id") id: Long): FtApPaymentdEntity? {
+        val ftApPaymentd = ftApPaymentdJPARepository!!.findById(id).orElse(FtApPaymentdEntity())
         if (ftApPaymentd != null) {
             ftApPaymentdJPARepository!!.delete(ftApPaymentd)
         }

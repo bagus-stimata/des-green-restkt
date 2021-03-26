@@ -30,7 +30,7 @@ class GetFMaterialUseCase @Autowired constructor(
         }
     }
 
-    fun findByPcode(pcode: String?): List<FMaterialEntity> {
+    fun findByPcode(pcode: String): List<FMaterialEntity> {
         return  fMaterialRepo.findByPcode(pcode)
     }
 

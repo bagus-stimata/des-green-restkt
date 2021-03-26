@@ -1,22 +1,22 @@
 package com.erp.distribution.desgreenrestkt.data.source.local.dao
 
-import com.erp.distribution.desgreenrestkt.data.source.entity.FtPriceAlth
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtPriceAlthEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 
-interface FtPriceAlthJPARepository : JpaRepository<FtPriceAlth, Int> {
-//    override fun findById(id: Int): FtPriceAlth
-    fun findByNoRek(noRek: String): List<FtPriceAlth>
+interface FtPriceAlthJPARepository : JpaRepository<FtPriceAlthEntity, Int> {
+//    override fun findById(id: Int): FtPriceAlthEntity
+    fun findByNoRek(noRek: String): List<FtPriceAlthEntity>
 
-    @Query("SELECT u FROM FtPriceAlth u WHERE u.noRek LIKE :noRek ")
-    fun findAll(noRek: String): List<FtPriceAlth>
+    @Query("SELECT u FROM FtPriceAlthEntity u WHERE u.noRek LIKE :noRek ")
+    fun findAll(noRek: String): List<FtPriceAlthEntity>
 
-    @Query("SELECT u FROM FtPriceAlth u WHERE u.fdivisionBean = :fdivisionBean")
-    fun findAllByDivision(fdivisionBean: Int): List<FtPriceAlth>
+    @Query("SELECT u FROM FtPriceAlthEntity u WHERE u.fdivisionBean = :fdivisionBean")
+    fun findAllByDivision(fdivisionBean: Int): List<FtPriceAlthEntity>
 
-    @Query("SELECT u FROM FtPriceAlth u " +
-            " left outer join FDivision f on u.fdivisionBean = f.id " +
+    @Query("SELECT u FROM FtPriceAlthEntity u " +
+            " left outer join FDivisionEntity f on u.fdivisionBean = f.id " +
             " where f.id = :fdivisionBean OR " +
             "      (f.shareMaterialToCompany = true and f.fcompanyBean = :fcompanyBean ) ")
-    fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FtPriceAlth>
+    fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FtPriceAlthEntity>
 }

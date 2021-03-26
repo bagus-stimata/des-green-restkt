@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt.domain.utils
 
-import com.erp.distribution.desgreenrestkt.data.source.entity.FtSalesdItems
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtSalesdItemsEntity
 
 interface HeaderDetilSalesHelper {
     val taxPercentFloat: Double
@@ -102,8 +102,8 @@ interface HeaderDetilSalesHelper {
     fun setDetilSubtotalAfterDiscNotaPlusRp_FG()
     fun setDetilSubtotalAfterDiscNotaPlusPpnRp_FG()
     fun setDetilSubtotalAfterDiscNotaPlusRpAfterPpn_FG()
-    val fillFtSalesd: FtSalesdItems
-    val fillFtSalesdOnly: FtSalesdItems
+    val fillFtSalesdEntity: FtSalesdItemsEntity
+    val fillFtSalesdOnlyEntity: FtSalesdItemsEntity
 
     //GET FIELD AND UPDATE
     //	public FtPurchaseh getFillFtPurchaseh();

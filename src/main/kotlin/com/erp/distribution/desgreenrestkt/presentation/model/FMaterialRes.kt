@@ -1,9 +1,8 @@
 package com.erp.distribution.desgreenrestkt.presentation.model
 
-import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialEntity
-import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialGroup3
-import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialSalesBrand
-import com.erp.distribution.desgreenrestkt.data.source.entity.FVendor
+import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialGroup3Entity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialSalesBrandEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FVendorEntity
 import com.erp.distribution.desgreenrestkt.domain.model.FMaterial
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumMaterialType
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumUom
@@ -384,11 +383,11 @@ internal fun FMaterialRes.toDomain(): FMaterial {
 
         statusActive = statusActive,
 
-        fmaterialGroup3Bean = FMaterialGroup3(fmaterialGroup3Bean),
-        fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { FMaterialSalesBrand(fmaterialSalesBrandBean) },
+        fmaterialGroup3EntityBean = FMaterialGroup3Entity(fmaterialGroup3Bean),
+        fmaterialSalesBrandEntityBean = fmaterialSalesBrandBean?.let { FMaterialSalesBrandEntity(fmaterialSalesBrandBean) },
         ftaxBean = ftaxBean?.let { it },
         taxable = taxable,
-        fvendorBean = FVendor(fvendorBean),
+        fvendorBean = FVendorEntity(fvendorBean),
         fdivisionBean = fdivisionBean,
 
         created = created,

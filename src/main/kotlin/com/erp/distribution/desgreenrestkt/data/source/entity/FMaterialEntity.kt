@@ -113,7 +113,7 @@ data class FMaterialEntity(
 
     @ManyToOne
     @JoinColumn(name = "fvendorBean", referencedColumnName = "ID")
-    var fvendorBean: FVendor = FVendor(),
+    var fvendorBean: FVendorEntity = FVendorEntity(),
 
     //	@Column(name="fvendorBean", nullable = false)
     //	private Integer fvendorBean  :Int =0,;
@@ -137,7 +137,7 @@ data class FMaterialEntity(
 
     @ManyToOne
     @JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
-    var fmaterialGroup3Bean :FMaterialGroup3 = FMaterialGroup3(),
+    var fmaterialGroup3EntityBean :FMaterialGroup3Entity = FMaterialGroup3Entity(),
 //    @Column(name = "fmaterialGroup3Bean", nullable = false)
 //    var fmaterialGroup3Bean  :Int =0,
 
@@ -146,7 +146,7 @@ data class FMaterialEntity(
 	 */
     @ManyToOne
     @JoinColumn(name="fmaterialSalesBrandBean", referencedColumnName="ID")
-    var fmaterialSalesBrandBean :FMaterialSalesBrand = FMaterialSalesBrand(),
+    var fmaterialSalesBrandEntityBean :FMaterialSalesBrandEntity = FMaterialSalesBrandEntity(),
 //    @Column(name = "fmaterialSalesBrandBean", nullable = false)
 //    var fmaterialSalesBrandBean  :Int =0,
 
@@ -525,8 +525,8 @@ internal fun FMaterialEntity.toDomain(): FMaterial {
 
 //        fmaterialGroup3Bean = FMaterialGroup3(fmaterialGroup3Bean),
 //        fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { it },
-        fmaterialGroup3Bean = fmaterialGroup3Bean,
-        fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { it },
+        fmaterialGroup3EntityBean = fmaterialGroup3EntityBean,
+        fmaterialSalesBrandEntityBean = fmaterialSalesBrandEntityBean?.let { it },
 
         ftaxBean = ftaxBean?.let { it },
         fvendorBean = fvendorBean,

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query
 
 interface FMaterialJPARepository : JpaRepository<FMaterialEntity, Int> {
 
-    fun findByPcode(pcode: String?): List<FMaterialEntity>
+    fun findByPcode(pcode: String): List<FMaterialEntity>
 
     @Query("SELECT u FROM FMaterialEntity u WHERE u.pcode LIKE :pcode and u.pname LIKE :pname")
     fun findAll(pcode: String, pname: String): List<FMaterialEntity>
@@ -20,13 +20,13 @@ interface FMaterialJPARepository : JpaRepository<FMaterialEntity, Int> {
     fun findAllByDivisionAndListVendor(fdivisionBean: Int, listVendor: List<Int>): List<FMaterialEntity>
 
     @Query("select u from FMaterialEntity u " +
-            " left outer join FDivision f on u.fdivisionBean = f.id " +
+            " left outer join FDivisionEntity f on u.fdivisionBean = f.id " +
             " where f.id = :fdivisionBean OR " +
             "      (f.shareMaterialToCompany = true and f.fcompanyBean = :fcompanyBean ) ")
     fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FMaterialEntity>
 
     @Query("select u from FMaterialEntity u " +
-            " left outer join FDivision f on u.fdivisionBean = f.id " +
+            " left outer join FDivisionEntity f on u.fdivisionBean = f.id " +
             " where (f.id = :fdivisionBean OR " +
             "      (f.shareMaterialToCompany = true and f.fcompanyBean = :fcompanyBean )) AND  u.fvendorBean IN :listVendor")
     fun findAllByDivisionAndShareToCompanyAndListVendor(fdivisionBean: Int, fcompanyBean: Int, listVendor: List<Int>): List<FMaterialEntity>

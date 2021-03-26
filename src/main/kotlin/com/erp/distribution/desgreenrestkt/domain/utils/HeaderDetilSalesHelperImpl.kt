@@ -1,8 +1,8 @@
 package com.erp.distribution.desgreenrestkt.domain.utils
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialEntity
-import com.erp.distribution.desgreenrestkt.data.source.entity.FtSalesdItems
-import com.erp.distribution.desgreenrestkt.data.source.entity.FtSalesh
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtSalesdItemsEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtSaleshEntity
 
 class HeaderDetilSalesHelperImpl : HeaderDetilSalesHelper {
     private val serialVersionUID = 1L
@@ -12,10 +12,10 @@ class HeaderDetilSalesHelperImpl : HeaderDetilSalesHelper {
     /*
 	 * ***********************
 	 */
-    var ftSalesh:FtSalesh = FtSalesh()
-    var newFtSalesh = FtSalesh()
-    var ftPurchased = FtSalesdItems()
-    var newFtPurchased = FtSalesdItems()
+    var ftSaleshEntity:FtSaleshEntity = FtSaleshEntity()
+    var newFtSalesh = FtSaleshEntity()
+    var ftPurchased = FtSalesdItemsEntity()
+    var newFtPurchased = FtSalesdItemsEntity()
     private var fMaterial = FMaterialEntity()
     private var ppnPercent = 10.0
     var ppnFloat = 1.1 //Mengunakan Default
@@ -26,32 +26,32 @@ class HeaderDetilSalesHelperImpl : HeaderDetilSalesHelper {
         initVariable()
     }
 
-    constructor(ftSalesh: FtSalesh, ftSalesd: FtSalesdItems, fMaterialEntity: FMaterialEntity) {
-        this.ftSalesh = ftSalesh
-        newFtSalesh = ftSalesh
+    constructor(ftSaleshEntity: FtSaleshEntity, ftSalesdEntity: FtSalesdItemsEntity, fMaterialEntity: FMaterialEntity) {
+        this.ftSaleshEntity = ftSaleshEntity
+        newFtSalesh = ftSaleshEntity
         this.fMaterial = fMaterialEntity
 
         //Qty dan Qty Kembai Fungsinya untuk Input Detil
 //		this.konversiProductAndStockQty = new KonversiProductAndStockHelperImpl(ftSalesd.getQty(), ftSalesd.getFmaterialBean());
 //		this.konversiProductAndStockQtyKembali = new KonversiProductAndStockHelperImpl(ftSalesd.getQtyKembali(), ftSalesd.getFmaterialBean());
-        konversiProductAndStock = KonversiProductAndStockHelperImpl(ftSalesd.qty, fMaterialEntity)
-        konversiProductAndStockQtyKembali = KonversiProductAndStockHelperImpl(ftSalesd.qtyKembali, fMaterialEntity)
-        ftPurchased = ftSalesd
-        newFtPurchased = ftSalesd
+        konversiProductAndStock = KonversiProductAndStockHelperImpl(ftSalesdEntity.qty, fMaterialEntity)
+        konversiProductAndStockQtyKembali = KonversiProductAndStockHelperImpl(ftSalesdEntity.qtyKembali, fMaterialEntity)
+        ftPurchased = ftSalesdEntity
+        newFtPurchased = ftSalesdEntity
 
         /*
 		 * Tax Percent
-		 */if (ftSalesd.isTax) {
-            taxPercent = ftSalesd.taxPercent
+		 */if (ftSalesdEntity.isTax) {
+            taxPercent = ftSalesdEntity.taxPercent
         } else {
             ftPurchased.taxPercent = 0.0
         }
         initVariable()
     }
 
-    constructor(ftSalesh: FtSalesh) {
-        this.ftSalesh = ftSalesh
-        newFtSalesh = ftSalesh
+    constructor(ftSaleshEntity: FtSaleshEntity) {
+        this.ftSaleshEntity = ftSaleshEntity
+        newFtSalesh = ftSaleshEntity
         initVariable()
     }
 
@@ -843,7 +843,7 @@ class HeaderDetilSalesHelperImpl : HeaderDetilSalesHelper {
     }
 
     //		setDetilPprice();
-    override val fillFtSalesdOnly: FtSalesdItems
+    override val fillFtSalesdOnlyEntity: FtSalesdItemsEntity
         get() {
 
 //		setDetilPprice();
@@ -921,9 +921,9 @@ class HeaderDetilSalesHelperImpl : HeaderDetilSalesHelper {
     //FILL FtSalesd From Nota
 
     //#TAMBAHAN
-    override val fillFtSalesd: FtSalesdItems
+    override val fillFtSalesdEntity: FtSalesdItemsEntity
         get() {
-            fillFtSalesdOnly
+            fillFtSalesdOnlyEntity
 
             //FILL FtSalesd From Nota
             setDetilDiscNota1Rp()

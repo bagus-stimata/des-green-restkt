@@ -22,7 +22,7 @@ class FMaterialRepoImpl @Autowired constructor(
         return fMaterialJPARepository.findAll()
     }
 
-    override fun findByPcode(pcode: String?): List<FMaterialEntity> {
+    override fun findByPcode(pcode: String): List<FMaterialEntity> {
        return fMaterialJPARepository.findByPcode(pcode)
     }
 

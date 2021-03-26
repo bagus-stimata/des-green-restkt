@@ -1,16 +1,16 @@
 package com.erp.distribution.desgreenrestkt.data.source.local.dao
 
-import com.erp.distribution.desgreenrestkt.data.source.entity.FDivision
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDivisionEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 
-interface FDivisionJPARepository : JpaRepository<FDivision, Int> {
-//    override fun findById(id: Int): FDivision?
-    fun findByKode1(kode1: String?): List<FDivision>
+interface FDivisionJPARepository : JpaRepository<FDivisionEntity, Int> {
+//    override fun findById(id: Int): FDivisionEntity?
+    fun findByKode1(kode1: String): List<FDivisionEntity>
 
-    @Query("SELECT u FROM FDivision u WHERE u.kode1 LIKE :kode1 and u.description LIKE :description")
-    fun findAll(kode1: String?, description: String?): List<FDivision>
+    @Query("SELECT u FROM FDivisionEntity u WHERE u.kode1 LIKE :kode1 and u.description LIKE :description")
+    fun findAll(kode1: String, description: String): List<FDivisionEntity>
 
-    @Query("SELECT u FROM FDivision u WHERE u.fcompanyBean = :fcompanyBean")
-    fun findAllByParentId(fcompanyBean: Int): List<FDivision>
+    @Query("SELECT u FROM FDivisionEntity u WHERE u.fcompanyBean = :fcompanyBean")
+    fun findAllByParentId(fcompanyBean: Int): List<FDivisionEntity>
 }

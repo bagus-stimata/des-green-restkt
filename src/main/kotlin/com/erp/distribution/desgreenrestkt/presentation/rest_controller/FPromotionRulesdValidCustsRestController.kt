@@ -1,7 +1,7 @@
 package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FPromotionRulesdValidCustsJPARepository
-import com.erp.distribution.desgreenrestkt.data.source.entity.FPromotionRulesdValidCusts
+import com.erp.distribution.desgreenrestkt.data.source.entity.FPromotionRulesdValidCustsEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,47 +15,47 @@ class FPromotionRulesdValidCustsRestController {
     var fPromotionRulesdValidCustsJPARepository: FPromotionRulesdValidCustsJPARepository? = null
 
     @RequestMapping(value = ["/rest/getFPromotionRulesdValidCustsById/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getFPromotionRulesdValidCustsById(@PathVariable("id") id: Int): FPromotionRulesdValidCusts {
+    fun getFPromotionRulesdValidCustsById(@PathVariable("id") id: Int): FPromotionRulesdValidCustsEntity {
         return fPromotionRulesdValidCustsJPARepository!!.findById(id).get()
     }
 
     @get:RequestMapping(value = ["/rest/getAllFPromotionRulesdValidCusts"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    val allPromotionRulesdValidCusts: List<FPromotionRulesdValidCusts>
+    val allPromotionRulesdValidCustEntities: List<FPromotionRulesdValidCustsEntity>
         get() = fPromotionRulesdValidCustsJPARepository!!.findAll()
 
-    @RequestMapping(value = ["/rest/getAllFPromotionRulesdValidCustsByParent/{fpromotionRuleshBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAllFPromotionRulesdValidCustsByParentId(@PathVariable("fpromotionRuleshBean") fpromotionRuleshBean: Int): List<FPromotionRulesdValidCusts> {
-        return fPromotionRulesdValidCustsJPARepository!!.findAllByParentId(fpromotionRuleshBean)
-    }
+//    @RequestMapping(value = ["/rest/getAllFPromotionRulesdValidCustsByParent/{fpromotionRuleshBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
+//    fun getAllFPromotionRulesdValidCustsByParentId(@PathVariable("fpromotionRuleshBean") fpromotionRuleshBean: Int): List<FPromotionRulesdValidCustsEntity> {
+//        return fPromotionRulesdValidCustsJPARepository!!.findAllByParentId(fpromotionRuleshBean)
+//    }
 
-    @RequestMapping(value = ["/rest/getAllFPromotionRulesdValidCustsByListParentId"], method = [RequestMethod.POST], produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAllFPromotionRulesdValidCustsByListParentId(@RequestBody listFpromotionRuleshBean: List<Int>): List<FPromotionRulesdValidCusts> {
-        return fPromotionRulesdValidCustsJPARepository!!.findAllByListParentId(listFpromotionRuleshBean)
-    }
+//    @RequestMapping(value = ["/rest/getAllFPromotionRulesdValidCustsByListParentId"], method = [RequestMethod.POST], produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
+//    fun getAllFPromotionRulesdValidCustsByListParentId(@RequestBody listFpromotionRuleshBean: List<Int>): List<FPromotionRulesdValidCustsEntity> {
+//        return fPromotionRulesdValidCustsJPARepository!!.findAllByListParentId(listFpromotionRuleshBean)
+//    }
 
     @RequestMapping(value = ["/rest/createFPromotionRulesdValidCusts"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun createFPromotionRulesdValidCusts(@RequestBody fPromotionRulesdValidCustsNew: FPromotionRulesdValidCusts): FPromotionRulesdValidCusts {
-        fPromotionRulesdValidCustsNew.id = 0 //Memastikan ID adalah Nol
-        return fPromotionRulesdValidCustsJPARepository!!.save(fPromotionRulesdValidCustsNew)
+    fun createFPromotionRulesdValidCusts(@RequestBody fPromotionRulesdValidCustsEntityNew: FPromotionRulesdValidCustsEntity): FPromotionRulesdValidCustsEntity {
+        fPromotionRulesdValidCustsEntityNew.id = 0 //Memastikan ID adalah Nol
+        return fPromotionRulesdValidCustsJPARepository!!.save(fPromotionRulesdValidCustsEntityNew)
     }
 
     @RequestMapping(value = ["/rest/updateFPromotionRulesdValidCusts/{id}"], method = [RequestMethod.PUT])
-    fun updateFPromotionRulesdValidCustsInfo(@PathVariable("id") id: Int, @RequestBody fPromotionRulesdValidCustsUpdated: FPromotionRulesdValidCusts?): FPromotionRulesdValidCusts {
-        val fPromotionRulesdValidCusts = fPromotionRulesdValidCustsJPARepository!!.findById(id).orElse(FPromotionRulesdValidCusts())
+    fun updateFPromotionRulesdValidCustsInfo(@PathVariable("id") id: Int, @RequestBody fPromotionRulesdValidCustsEntityUpdated: FPromotionRulesdValidCustsEntity?): FPromotionRulesdValidCustsEntity {
+        val fPromotionRulesdValidCusts = fPromotionRulesdValidCustsJPARepository!!.findById(id).orElse(FPromotionRulesdValidCustsEntity())
         //Tidak Meng Update Parent: Hanya Info Saja
-        if (fPromotionRulesdValidCustsUpdated != null) {
-            fPromotionRulesdValidCustsUpdated.id = fPromotionRulesdValidCusts.id
-            if (fPromotionRulesdValidCusts.fpromotionRuleshBean == null) fPromotionRulesdValidCustsUpdated.fpromotionRuleshBean = fPromotionRulesdValidCusts.fpromotionRuleshBean
-            fPromotionRulesdValidCustsJPARepository!!.save(fPromotionRulesdValidCustsUpdated)
-            return fPromotionRulesdValidCustsUpdated
+        if (fPromotionRulesdValidCustsEntityUpdated != null) {
+            fPromotionRulesdValidCustsEntityUpdated.id = fPromotionRulesdValidCusts.id
+            if (fPromotionRulesdValidCusts.fpromotionRuleshEntityBean == null) fPromotionRulesdValidCustsEntityUpdated.fpromotionRuleshEntityBean = fPromotionRulesdValidCusts.fpromotionRuleshEntityBean
+            fPromotionRulesdValidCustsJPARepository!!.save(fPromotionRulesdValidCustsEntityUpdated)
+            return fPromotionRulesdValidCustsEntityUpdated
         }
         return fPromotionRulesdValidCusts
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole
     @RequestMapping(value = ["/rest/deleteFPromotionRulesdValidCusts/{id}"], method = [RequestMethod.DELETE])
-    fun deleteFPromotionRulesdValidCusts(@PathVariable("id") id: Int): FPromotionRulesdValidCusts? {
-        val fPromotionRulesdValidCusts = fPromotionRulesdValidCustsJPARepository!!.findById(id).orElse(FPromotionRulesdValidCusts())
+    fun deleteFPromotionRulesdValidCusts(@PathVariable("id") id: Int): FPromotionRulesdValidCustsEntity? {
+        val fPromotionRulesdValidCusts = fPromotionRulesdValidCustsJPARepository!!.findById(id).orElse(FPromotionRulesdValidCustsEntity())
         if (fPromotionRulesdValidCusts != null) {
             fPromotionRulesdValidCustsJPARepository!!.delete(fPromotionRulesdValidCusts)
         }
