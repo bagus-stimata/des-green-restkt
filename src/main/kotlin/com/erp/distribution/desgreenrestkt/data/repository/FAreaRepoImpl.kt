@@ -41,6 +41,18 @@ class FAreaRepoImpl @Autowired constructor(
     override fun save(fAreaEntity: FAreaEntity): FAreaEntity? {
         return fAreaJPARepository.save(fAreaEntity)
     }
+    override fun saveAll(fAreaEntity: FAreaEntity): FAreaEntity? {
+        return fAreaJPARepository.save
+    }
+
+
+    override fun delete(fAreaEntity: FAreaEntity) {
+        return fAreaJPARepository.delete(fAreaEntity)
+    }
+    override fun deleteInBatch(listFArea: List<FAreaEntity>) {
+        return fAreaJPARepository.deleteInBatch(listFArea)
+    }
+
 //    @Autowired
 //    lateinit var fAreaJPARepository: FAreaJPARepository
 

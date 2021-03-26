@@ -13,5 +13,6 @@ interface FAreaRepo {
     fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FAreaEntity>
 
     fun save(fAreaEntity: FAreaEntity): FAreaEntity?
+    fun delete(fAreaEntity: FAreaEntity)
 
 }

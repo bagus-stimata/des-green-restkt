@@ -1,10 +1,7 @@
 package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 
-import com.erp.distribution.desgreenrestkt.data.source.local.dao.FAreaJPARepository
-import com.erp.distribution.desgreenrestkt.data.source.entity.FAreaRes
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
 import com.erp.distribution.desgreenrestkt.domain.usecase.GetFAreaUseCase
-import com.erp.distribution.desgreenrestkt.domain.usecase.GetFMaterialUseCase
 import com.erp.distribution.desgreenrestkt.presentation.model.FAreaRes
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -49,10 +46,10 @@ class FAreaRestController  @Autowired constructor(
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole
     @RequestMapping(value = ["/rest/createFArea"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun createFArea(@RequestBody fAreaEntityNew: FAreaRes): FAreaRes {
+    fun createFArea(@RequestBody fAreaResNew: FAreaRes): FAreaRes {
 //        System.out.println("hello aku dipanggil saat create FArea");
-        fAreaEntityNew.id = 0 //Memastikan ID adalah Nol
-        return fAreaUseCase.save(fAreaEntityNew)
+        fAreaResNew.id = 0 //Memastikan ID adalah Nol
+        return fAreaUseCase.save(fAreaResNew)
         //        FArea updatedDomain = new FArea();
 //        if (fAreaNew !=null) {
 //            try {
