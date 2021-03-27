@@ -1,5 +1,7 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
+import com.erp.distribution.desgreenrestkt.domain.model.FDistributionChannel
+import com.erp.distribution.desgreenrestkt.domain.model.FMaterialSalesBrand
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
@@ -62,3 +64,24 @@ data class FMaterialSalesBrandEntity (
     var modifiedBy :String = "" //User ID
 
 ): Serializable
+
+internal fun FMaterialSalesBrandEntity.toDomain(): FMaterialSalesBrand {
+    return FMaterialSalesBrand(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+        disc2Margin = disc2Margin,
+        disc1PlusMargin = disc1PlusMargin,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}
+

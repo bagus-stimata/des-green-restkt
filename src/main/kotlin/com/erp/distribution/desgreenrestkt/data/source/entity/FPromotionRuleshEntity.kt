@@ -2,6 +2,8 @@ package com.erp.distribution.desgreenrestkt.data.source.entity
 
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumPromoDiscFgMethod
 import com.erp.distribution.desgreenrestkt.data.source.entity_acc_cb.AccAccount
+import com.erp.distribution.desgreenrestkt.domain.model.FDistributionChannel
+import com.erp.distribution.desgreenrestkt.domain.model.FPromotionRulesh
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
@@ -28,7 +30,7 @@ data class FPromotionRuleshEntity (
 	 * 2.
 	 */
     @Column(name ="SOURCE_ID")
-    var sourceID:Int =0,
+    var sourceId:Int =0,
 
     @Column(name ="KODE1" ,  length = 15)
     var kode1  :String ="",
@@ -443,3 +445,21 @@ data class FPromotionRuleshEntity (
 
 
 ): Serializable
+
+
+internal fun FPromotionRuleshEntity.toDomain(): FPromotionRulesh {
+    return FPromotionRulesh(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}

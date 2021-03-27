@@ -1,6 +1,8 @@
 package com.erp.distribution.desgreenrestkt.domain.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
+import java.io.Serializable
 import java.util.*
 import javax.persistence.*
 
@@ -21,7 +23,7 @@ data class FDistributionChannel (
 	 * 2. 
 	 */
     @Column(name = "SOURCE_ID", length = 9)
-    var sourceID :Int =0,
+    var sourceId :Int =0,
 
     @Column(name = "KODE1", length = 10)
     var kode1 :String ="",
@@ -52,4 +54,22 @@ data class FDistributionChannel (
     @Column(name = "MODIFIED_BY", length = 20)
     var modifiedBy :String ="" //User ID
 
-)
+): Serializable
+
+
+internal fun FDistributionChannel.toEntity(): FDistributionChannelEntity {
+    return FDistributionChannelEntity(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}

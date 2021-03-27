@@ -1,5 +1,7 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
+import com.erp.distribution.desgreenrestkt.domain.model.FDistributionChannel
+import com.erp.distribution.desgreenrestkt.domain.model.FMaterialPic
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
@@ -64,3 +66,20 @@ data class FMaterialPicEntity(
     var modifiedBy: String = "" //User ID
 
 ): Serializable
+
+internal fun FMaterialPicEntity.toDomain(): FMaterialPic {
+    return FMaterialPic(
+        id = id,
+
+        fmaterialBean = fmaterialBean,
+        nomorUrut = nomorUrut,
+        tipeFile = tipeFile,
+        imageName = imageName,
+        title = title,
+        description = description,
+        uploadFrom = uploadFrom,
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}

@@ -1,5 +1,7 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
+import com.erp.distribution.desgreenrestkt.domain.model.FDistributionChannel
+import com.erp.distribution.desgreenrestkt.domain.model.FMaterialGroup3
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
@@ -63,4 +65,25 @@ data class FMaterialGroup3Entity (
 
 ): Serializable{
     constructor(theId: Int): this(id = theId)
+}
+
+internal fun FMaterialGroup3Entity.toDomain(): FMaterialGroup3 {
+    return FMaterialGroup3(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        fmaterialGroup2Bean = fmaterialGroup2Bean,
+        statusActive = statusActive,
+
+        tempInt1 = tempInt1,
+        tempInt2 = tempInt2,
+        tempInt3 = tempInt3,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
 }

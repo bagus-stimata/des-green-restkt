@@ -1,5 +1,7 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
+import com.erp.distribution.desgreenrestkt.domain.model.FDistributionChannel
+import com.erp.distribution.desgreenrestkt.domain.model.FMaterialGroup1
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
@@ -45,7 +47,7 @@ data class FMaterialGroup1Entity (
     var fdivisionBean  :Int =0,
 
     @Column(name = "STATUS_ACTIVE")
-    var isStatusActive  :Boolean =true,
+    var statusActive  :Boolean =true,
 
     @Column(name = "CREATED")
     @Temporal(TemporalType.TIMESTAMP)
@@ -59,3 +61,21 @@ data class FMaterialGroup1Entity (
     var modifiedBy :String ="" //User ID
 
 ): Serializable
+
+internal fun FMaterialGroup1Entity.toDomain(): FMaterialGroup1 {
+    return FMaterialGroup1(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        imageName = imageName,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}

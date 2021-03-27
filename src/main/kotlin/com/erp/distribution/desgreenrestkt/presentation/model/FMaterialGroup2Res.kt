@@ -1,25 +1,15 @@
-package com.erp.distribution.desgreenrestkt.data.source.entity
+package com.erp.distribution.desgreenrestkt.presentation.model
 
-import com.erp.distribution.desgreenrestkt.domain.model.FDistributionChannel
+import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialGroup2Entity
+import com.erp.distribution.desgreenrestkt.domain.model.FMaterialGroup2
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-@Entity
-@Table(name = "fchannel")
-data class FDistributionChannelEntity (
-    /*
-	 * ex. 
-	 * DISRIBUTORS
-	 * MODEREN TRADES
-	 * STORE CHAINS	
-	 */
-    @Id
-    @Column(name = "ID", length = 9)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id :Int =0,
+data class FMaterialGroup2Res (
+    var id  :Int =0,
 
     /*
 	 * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -28,7 +18,7 @@ data class FDistributionChannelEntity (
 	 * 2. 
 	 */
     @Column(name = "SOURCE_ID", length = 9)
-    var sourceId :Int =0,
+    var sourceId  :Int =0,
 
     @Column(name = "KODE1", length = 10)
     var kode1 :String ="",
@@ -39,14 +29,14 @@ data class FDistributionChannelEntity (
     @Column(name = "DESCRIPTION", length = 100)
     var description :String ="",
 
-    @Column(name = "STATUS_ACTIVE")
-    var statusActive :Boolean =true,
-
     //	@ManyToOne
-    //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
-    //	private FDivision fdivisionBean;
-    @Column(name = "fdivisionBean", nullable = false)
-    var fdivisionBean :Int =0,
+    //	@JoinColumn(name="fmaterialGroup1Bean", referencedColumnName="ID")
+    //	private FMaterialGroup1 fmaterialGroup1Bean;
+    @Column(name = "fmaterialGroup1Bean", nullable = false)
+    var fmaterialGroup1Bean  :Int =0,
+
+    @Column(name = "STATUS_ACTIVE")
+    var statusActive  :Boolean =true,
 
     @Column(name = "CREATED")
     @Temporal(TemporalType.TIMESTAMP)
@@ -61,15 +51,15 @@ data class FDistributionChannelEntity (
 
 ): Serializable
 
-internal fun FDistributionChannelEntity.toDomain(): FDistributionChannel {
-    return FDistributionChannel(
+internal fun FMaterialGroup2Res.toDomain(): FMaterialGroup2 {
+    return FMaterialGroup2(
         id = id,
         sourceId = sourceId,
 
         kode1 = kode1,
         kode2 = kode2,
         description = description,
-        fdivisionBean = fdivisionBean,
+        fmaterialGroup1Bean = fmaterialGroup1Bean,
         statusActive = statusActive,
 
         created = created,

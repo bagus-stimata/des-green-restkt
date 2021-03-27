@@ -1,24 +1,17 @@
-package com.erp.distribution.desgreenrestkt.data.source.entity
+package com.erp.distribution.desgreenrestkt.presentation.model
 
-import com.erp.distribution.desgreenrestkt.domain.model.FDistributionChannel
+import com.erp.distribution.desgreenrestkt.data.source.entity.FAreaEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FCustomerGroupEntity
+import com.erp.distribution.desgreenrestkt.domain.model.FCustomerGroup
+import com.erp.distribution.desgreenrestkt.presentation.model.FAreaRes
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-@Entity
-@Table(name = "fchannel")
-data class FDistributionChannelEntity (
-    /*
-	 * ex. 
-	 * DISRIBUTORS
-	 * MODEREN TRADES
-	 * STORE CHAINS	
-	 */
-    @Id
-    @Column(name = "ID", length = 9)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+data class FCustomerGroupRes (
     var id :Int =0,
 
     /*
@@ -36,11 +29,11 @@ data class FDistributionChannelEntity (
     @Column(name = "KODE2", length = 20)
     var kode2 :String ="",
 
-    @Column(name = "DESCRIPTION", length = 100)
-    var description :String ="",
+    @Column(name = "DESCRIPTION", length = 70)
+    var description: String = "",
 
     @Column(name = "STATUS_ACTIVE")
-    var statusActive :Boolean =true,
+    var statusActive :Boolean = true,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
@@ -48,6 +41,13 @@ data class FDistributionChannelEntity (
     @Column(name = "fdivisionBean", nullable = false)
     var fdivisionBean :Int =0,
 
+    //	@ManyToOne
+    //	@JoinColumn(name="ftPriceAlthBean", referencedColumnName="ID", nullable=true)
+    //	private FtPriceAlth ftPriceAlthBean;
+    @Column(name = "ftPriceAlthBean", nullable = true)
+    var ftPriceAlthBean :Int? =0,
+
+    @JsonIgnore
     @Column(name = "CREATED")
     @Temporal(TemporalType.TIMESTAMP)
     var created :Date =Date(),
@@ -56,13 +56,14 @@ data class FDistributionChannelEntity (
     @Temporal(TemporalType.TIMESTAMP)
     var modified :Date =Date(),
 
+    @JsonIgnore
     @Column(name = "MODIFIED_BY", length = 20)
-    var modifiedBy :String ="" //User ID
+    var modifiedBy :String ="" //User I
 
 ): Serializable
 
-internal fun FDistributionChannelEntity.toDomain(): FDistributionChannel {
-    return FDistributionChannel(
+internal fun FCustomerGroupRes.toDomain(): FCustomerGroup {
+    return FCustomerGroup(
         id = id,
         sourceId = sourceId,
 
@@ -70,6 +71,7 @@ internal fun FDistributionChannelEntity.toDomain(): FDistributionChannel {
         kode2 = kode2,
         description = description,
         fdivisionBean = fdivisionBean,
+        ftPriceAlthBean = ftPriceAlthBean,
         statusActive = statusActive,
 
         created = created,

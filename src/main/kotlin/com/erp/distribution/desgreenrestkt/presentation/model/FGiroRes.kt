@@ -1,5 +1,6 @@
-package com.erp.distribution.desgreenrestkt.data.source.entity
+package com.erp.distribution.desgreenrestkt.presentation.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FGiroEntity
 import com.erp.distribution.desgreenrestkt.domain.model.FDistributionChannel
 import com.erp.distribution.desgreenrestkt.domain.model.FGiro
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumAccTransactionType
@@ -14,18 +15,13 @@ import javax.persistence.*
  *
  */
 @JacksonXmlRootElement
-@Entity
-@Table(name = "fgiro")
-data class FGiroEntity(
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+data class FGiroRes(
     var id  :Int =0,
 
     @Column(name = "SOURCE_ID")
     var sourceId :Int =0,
 
-/*
+    /*
 	 * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
 	 * keperluan diantaranya:
 	 * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
@@ -127,7 +123,8 @@ data class FGiroEntity(
 
 ): Serializable
 
-internal fun FGiroEntity.toDomain(): FGiro{
+
+internal fun FGiroRes.toDomain(): FGiro{
     return FGiro(
         id = id,
         sourceId = sourceId,

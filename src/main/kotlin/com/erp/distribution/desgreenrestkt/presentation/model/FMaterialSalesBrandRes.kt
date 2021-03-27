@@ -1,25 +1,15 @@
-package com.erp.distribution.desgreenrestkt.data.source.entity
+package com.erp.distribution.desgreenrestkt.presentation.model
 
-import com.erp.distribution.desgreenrestkt.domain.model.FDistributionChannel
+import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialSalesBrandEntity
+import com.erp.distribution.desgreenrestkt.domain.model.FMaterialSalesBrand
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-@Entity
-@Table(name = "fchannel")
-data class FDistributionChannelEntity (
-    /*
-	 * ex. 
-	 * DISRIBUTORS
-	 * MODEREN TRADES
-	 * STORE CHAINS	
-	 */
-    @Id
-    @Column(name = "ID", length = 9)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id :Int =0,
+data class FMaterialSalesBrandRes (
+    var id: Int = 0,
 
     /*
 	 * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -27,42 +17,51 @@ data class FDistributionChannelEntity (
 	 * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
 	 * 2. 
 	 */
-    @Column(name = "SOURCE_ID", length = 9)
-    var sourceId :Int =0,
+    @Column(name ="SOURCE_ID")
+    var sourceId :Int = 0,
 
-    @Column(name = "KODE1", length = 10)
+    @Column(name ="KODE1", length = 10)
     var kode1 :String ="",
 
     @Column(name = "KODE2", length = 20)
     var kode2 :String ="",
 
-    @Column(name = "DESCRIPTION", length = 100)
+    @Column(name ="DESCRIPTION", length = 100)
     var description :String ="",
 
-    @Column(name = "STATUS_ACTIVE")
-    var statusActive :Boolean =true,
-
     //	@ManyToOne
-    //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
+    //	@JoinColumn(name= :Int =0,fdivisionBean :Int =0,, referencedColumnName= :Int =0,ID :Int =0,)
     //	private FDivision fdivisionBean;
     @Column(name = "fdivisionBean", nullable = false)
-    var fdivisionBean :Int =0,
+    var fdivisionBean   :Int = 0,
 
-    @Column(name = "CREATED")
+    @Column(name ="STATUS_ACTIVE")
+    var statusActive  :Boolean =true,
+
+    /*
+	 * Diskon Margin Barang: disc2 & Disc2Plus
+	 */
+    @Column(name =  "DISC2_MARGIN")
+    var disc2Margin  :Double =0.0,
+
+    @Column(name ="DISC1PLUS_MARGIN")
+    var disc1PlusMargin  :Double =0.0,
+
+    @Column(name ="CREATED")
     @Temporal(TemporalType.TIMESTAMP)
     var created :Date =Date(),
 
-    @Column(name = "MODIFIED")
+    @Column(name ="MODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
     var modified :Date =Date(),
 
-    @Column(name = "MODIFIED_BY", length = 20)
-    var modifiedBy :String ="" //User ID
+    @Column(name ="MODIFIED_BY", length = 20)
+    var modifiedBy :String = "" //User ID
 
 ): Serializable
 
-internal fun FDistributionChannelEntity.toDomain(): FDistributionChannel {
-    return FDistributionChannel(
+internal fun FMaterialSalesBrandRes.toDomain(): FMaterialSalesBrand {
+    return FMaterialSalesBrand(
         id = id,
         sourceId = sourceId,
 
@@ -71,6 +70,9 @@ internal fun FDistributionChannelEntity.toDomain(): FDistributionChannel {
         description = description,
         fdivisionBean = fdivisionBean,
         statusActive = statusActive,
+
+        disc2Margin = disc2Margin,
+        disc1PlusMargin = disc1PlusMargin,
 
         created = created,
         modified = modified,

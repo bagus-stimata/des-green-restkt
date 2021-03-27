@@ -1,5 +1,6 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
+import com.erp.distribution.desgreenrestkt.domain.model.FCustomerGroup
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
@@ -59,3 +60,21 @@ data class FCustomerGroupEntity (
     var modifiedBy :String ="" //User I
 
 ): Serializable
+
+internal fun FCustomerGroupEntity.toDomain(): FCustomerGroup {
+    return FCustomerGroup(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        fdivisionBean = fdivisionBean,
+        ftPriceAlthBean = ftPriceAlthBean,
+        statusActive = statusActive,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}

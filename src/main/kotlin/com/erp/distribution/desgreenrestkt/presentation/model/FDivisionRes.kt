@@ -1,14 +1,14 @@
-package com.erp.distribution.desgreenrestkt.domain.model
+package com.erp.distribution.desgreenrestkt.presentation.model
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FDivisionEntity
-import com.erp.distribution.desgreenrestkt.presentation.model.FDivisionRes
+import com.erp.distribution.desgreenrestkt.domain.model.FDivision
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-data class FDivision (
+data class FDivisionRes (
     var id  :Int =0,
 
     /*
@@ -182,59 +182,8 @@ data class FDivision (
 
 ): Serializable
 
-internal fun FDivision.toEntity(): FDivisionEntity {
-    return FDivisionEntity(
-        id = id,
-        sourceId = sourceId,
-
-        kode1 = kode1,
-        kode2 = kode2,
-        description = description,
-
-        diffCompanyAccount = diffCompanyAccount,
-        accCostCenterBean = accCostCenterBean,
-
-        useNomorUrutMaterialToCompany = useNomorUrutMaterialToCompany,
-        useNomorUrutCustomerToCompany = useNomorUrutCustomerToCompany,
-        useNomorUrutVendorToCompany = useNomorUrutVendorToCompany,
-        useNomorUrutTransaksiToCompany = useNomorUrutTransaksiToCompany,
-        useNomorUrutJurnalToCompany = useNomorUrutJurnalToCompany,
-        shareMaterialToCompany = shareMaterialToCompany,
-        shareMaterialOrgToCompany = shareMaterialOrgToCompany,
-        shareCustomerToCompany = shareCustomerToCompany,
-        shareCustomerOrgToCompany = shareCustomerOrgToCompany,
-        shareSalesmanToCompany = shareSalesmanToCompany,
-        shareWarehouseToCompany = shareWarehouseToCompany,
-        shareVendorToCompany = shareVendorToCompany,
-
-        shareCoaToCompany = shareCoaToCompany,
-        shareCoaOrgToCompany = shareCoaOrgToCompany,
-
-        shareTransaksiToCompany = shareTransaksiToCompany,
-
-        sharePromotionRulesToCompany = sharePromotionRulesToCompany,
-        shareDiskonNotaToCompany = shareDiskonNotaToCompany,
-
-        userOnlyRead_HisDivision_Coa_WhenInput = userOnlyRead_HisDivision_Coa_WhenInput,
-        noTax_Trans = noTax_Trans,
-
-
-        fcompanyBean = fcompanyBean,
-        webServiceActive = webServiceActive,
-        sysvarNomorUrutMasterFollowCorp = sysvarNomorUrutMasterFollowCorp,
-        sysvarFormatFakturFollowCorp = sysvarFormatFakturFollowCorp,
-
-        statusActive = statusActive,
-
-        created = created,
-        modified = modified,
-        modifiedBy = modifiedBy
-    )
-}
-
-
-internal fun FDivision.toResponse(): FDivisionRes {
-    return FDivisionRes(
+internal fun FDivisionRes.toDomain(): FDivision {
+    return FDivision(
         id = id,
         sourceId = sourceId,
 

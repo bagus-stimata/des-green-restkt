@@ -1,14 +1,14 @@
-package com.erp.distribution.desgreenrestkt.domain.model
+package com.erp.distribution.desgreenrestkt.presentation.model
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialPicEntity
-import com.erp.distribution.desgreenrestkt.presentation.model.FMaterialPicRes
+import com.erp.distribution.desgreenrestkt.domain.model.FMaterialPic
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-data class FMaterialPic(
+data class FMaterialPicRes(
     var id: Long  =0L,
 
     //	@ManyToOne
@@ -62,8 +62,8 @@ data class FMaterialPic(
 
 ): Serializable
 
-internal fun FMaterialPic.toEntity(): FMaterialPicEntity {
-    return FMaterialPicEntity(
+internal fun FMaterialPicRes.toDomain(): FMaterialPic {
+    return FMaterialPic(
         id = id,
 
         fmaterialBean = fmaterialBean,
@@ -78,20 +78,3 @@ internal fun FMaterialPic.toEntity(): FMaterialPicEntity {
         modifiedBy = modifiedBy
     )
 }
-internal fun FMaterialPic.toResponse(): FMaterialPicRes {
-    return FMaterialPicRes (
-        id = id,
-
-        fmaterialBean = fmaterialBean,
-        nomorUrut = nomorUrut,
-        tipeFile = tipeFile,
-        imageName = imageName,
-        title = title,
-        description = description,
-        uploadFrom = uploadFrom,
-        created = created,
-        modified = modified,
-        modifiedBy = modifiedBy
-    )
-}
-

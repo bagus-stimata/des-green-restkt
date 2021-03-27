@@ -23,7 +23,7 @@ data class FPromotionRulesh (
 	 * 2.
 	 */
     @Column(name ="SOURCE_ID")
-    var sourceID:Int =0,
+    var sourceId:Int =0,
 
     @Column(name ="KODE1" ,  length = 15)
     var kode1  :String ="",
