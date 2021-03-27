@@ -1,5 +1,8 @@
 package com.erp.distribution.desgreenrestkt.domain.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtPriceAltdItemsEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtPriceAlthEntity
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
@@ -41,11 +44,11 @@ data class FtPriceAltdItems (
     @Column(name =  "SPRICE2_AFTERPPN" )
     var sprice2AfterPpn  :Double =0.0,
 
-    //	@ManyToOne
-    //	@JoinColumn(name= ftPriceAlthBean , referencedColumnName= ID )
-    //	private FtPriceAlth  ftPriceAlthBean;
-    @Column(name =  "ftPriceAlthBean" , nullable = false)
-    var ftPriceAlthBean :Int =0,
+    @ManyToOne
+    @JoinColumn(name= "ftPriceAlthBean" , referencedColumnName= "ID" )
+    var ftPriceAlthBean : FtPriceAlth =  FtPriceAlth(),
+//    @Column(name =  "ftPriceAlthBean" , nullable = false)
+//    var ftPriceAlthBean :Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name= fmaterialBean , referencedColumnName= ID )
@@ -54,3 +57,23 @@ data class FtPriceAltdItems (
     var fmaterialBean :Int =0
 
 ): Serializable
+
+internal fun FtPriceAltdItems.toEntity(): FtPriceAltdItemsEntity {
+    return FtPriceAltdItemsEntity(
+        id = id,
+        noUrut = noUrut,
+
+        pprice = pprice,
+        ppriceAfterPpn = ppriceAfterPpn,
+        pprice2 = pprice2,
+        pprice2AfterPpn = pprice2AfterPpn,
+        sprice = sprice,
+        spriceAfterPpn = spriceAfterPpn,
+        sprice2 = sprice2,
+        sprice2AfterPpn = sprice2AfterPpn,
+
+        ftPriceAlthBean = ftPriceAlthBean?.let { FtPriceAlthEntity((ftPriceAlthBean.id)) },
+        fmaterialBean = fmaterialBean
+
+    )
+}

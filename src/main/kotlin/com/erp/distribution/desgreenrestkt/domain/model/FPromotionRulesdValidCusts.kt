@@ -57,12 +57,12 @@ internal fun FPromotionRulesdValidCusts.toResponse(): FPromotionRulesdValidCusts
         id = id,
         noUrut = noUrut,
 
-        fpromotionRuleshEntityBean = FPromotionRuleshRes(fpromotionRuleshEntityBean.id),
-
-        validCustomerGroupEntityBean = validCustomerGroupEntityBean?.let {  FCustomerGroupRes(validCustomerGroupEntityBean!!.id) },
-        validDistributionChannelEntityBean = validDistributionChannelEntityBean?.let {  FDistributionChannelRes(validDistributionChannelEntityBean!!.id) },
-        validAreaEntityBean = validAreaEntityBean?.let {  FAreaRes(validAreaEntityBean!!.id) },
-        validCustomerEntityBean = validCustomerEntityBean?.let {  FCustomerRes(validCustomerEntityBean!!.id) },
+//        fpromotionRuleshEntityBean = FPromotionRuleshRes(fpromotionRuleshEntityBean.id),
+//
+//        validCustomerGroupEntityBean = validCustomerGroupEntityBean?.let {  FCustomerGroupRes(validCustomerGroupEntityBean!!.id) },
+//        validDistributionChannelEntityBean = validDistributionChannelEntityBean?.let {  FDistributionChannelRes(validDistributionChannelEntityBean!!.id) },
+//        validAreaEntityBean = validAreaEntityBean?.let {  FAreaRes(validAreaEntityBean!!.id) },
+//        validCustomerEntityBean = validCustomerEntityBean?.let {  FCustomerRes(validCustomerEntityBean!!.id) },
 
         )
 }

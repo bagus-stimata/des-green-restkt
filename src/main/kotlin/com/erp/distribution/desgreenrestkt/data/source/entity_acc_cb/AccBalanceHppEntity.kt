@@ -8,7 +8,7 @@ import javax.persistence.*
 @JacksonXmlRootElement
 @Entity
 @Table(name = "acc_balancehpp")
-class AccBalanceHpp : Serializable {
+class AccBalanceHppEntity : Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) //	@GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "ID")

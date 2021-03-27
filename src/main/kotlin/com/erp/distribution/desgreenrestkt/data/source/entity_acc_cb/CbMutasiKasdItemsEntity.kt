@@ -7,7 +7,7 @@ import javax.persistence.*
 @JacksonXmlRootElement
 @Entity
 @Table(name = "cb_mutasikasd_items")
-class CbMutasiKasdItems : Serializable {
+class CbMutasiKasdItemsEntity : Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")

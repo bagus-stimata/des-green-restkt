@@ -1,10 +1,14 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
+import com.erp.distribution.desgreenrestkt.domain.model.FtPriceAlth
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
+import org.hibernate.annotations.Fetch
+import org.hibernate.annotations.FetchMode
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
+import kotlin.collections.HashSet
 
 @JacksonXmlRootElement
 @Entity
@@ -50,6 +54,24 @@ data class FtPriceAlthEntity (
     @Column(name =  "STATUS_ACTIVE" )
     var statusActive  :Boolean =true,
 
+
+    @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
+    var ftPriceAltdSet : Set<FtPriceAltdItemsEntity> = HashSet<FtPriceAltdItemsEntity>(),
+
+    @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
+    var fCustomerSet :Set<FCustomerEntity> = HashSet<FCustomerEntity>(),
+
+    @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
+    var fSalesmanSet :Set<FSalesmanEntity> = HashSet<FSalesmanEntity>(),
+
+    @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
+    var fCustomerGroupSet :Set<FCustomerGroupEntity> = HashSet<FCustomerGroupEntity>(),
+
+
     @JsonIgnore
     @Column(name =  "CREATED" )
     @Temporal(TemporalType.TIMESTAMP)
@@ -64,3 +86,26 @@ data class FtPriceAlthEntity (
     var modifiedBy :String =""    //User ID
 
 ): Serializable
+
+
+internal fun FtPriceAlthEntity.toDomain(): FtPriceAlth {
+    return FtPriceAlth(
+        id = id,
+        sourceId = sourceId,
+
+        noRek = noRek,
+        trDate = trDate,
+        description = description,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+//        ftPriceAltdSet = ftPriceAltdSet,
+//        fCustomerSet = fCustomerSet,
+//        fSalesmanSet = fSalesmanSet,
+//        fCustomerGroupSet = fCustomerGroupSet,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}

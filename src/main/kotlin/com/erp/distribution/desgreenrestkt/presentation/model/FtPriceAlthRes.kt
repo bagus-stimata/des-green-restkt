@@ -1,17 +1,16 @@
-package com.erp.distribution.desgreenrestkt.domain.model
+package com.erp.distribution.desgreenrestkt.presentation.model
 
-import com.erp.distribution.desgreenrestkt.data.source.entity.*
-import com.erp.distribution.desgreenrestkt.presentation.model.FtPriceAlthRes
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtPriceAlthEntity
+import com.erp.distribution.desgreenrestkt.domain.model.FtPriceAlth
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
-import org.hibernate.annotations.Fetch
-import org.hibernate.annotations.FetchMode
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-data class FtPriceAlth (
+data class FtPriceAlthRes (
     //** Tools: Jangan dihapus
     //** End Tools
     var id :Int =0,
@@ -49,23 +48,6 @@ data class FtPriceAlth (
     @Column(name =  "STATUS_ACTIVE" )
     var statusActive  :Boolean =true,
 
-
-//    @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
-//    @Fetch(FetchMode.JOIN)
-    var ftPriceAltdSet : Set<FtPriceAltdItems> = HashSet<FtPriceAltdItems>(),
-
-//    @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
-//    @Fetch(FetchMode.JOIN)
-    var fCustomerSet :Set<FCustomer> = HashSet<FCustomer>(),
-
-//    @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
-//    @Fetch(FetchMode.JOIN)
-    var fSalesmanSet :Set<FSalesman> = HashSet<FSalesman>(),
-
-    @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
-    @Fetch(FetchMode.JOIN)
-    var fCustomerGroupSet :Set<FCustomerGroup> = HashSet<FCustomerGroup>(),
-
     @JsonIgnore
     @Column(name =  "CREATED" )
     @Temporal(TemporalType.TIMESTAMP)
@@ -81,30 +63,8 @@ data class FtPriceAlth (
 
 ): Serializable
 
-internal fun FtPriceAlth.toEntity(): FtPriceAlthEntity {
-    return FtPriceAlthEntity(
-        id = id,
-        sourceId = sourceId,
-
-        noRek = noRek,
-        trDate = trDate,
-        description = description,
-        fdivisionBean = fdivisionBean,
-        statusActive = statusActive,
-
-//        ftPriceAltdSet = ftPriceAltdSet,
-//        fCustomerSet = fCustomerSet,
-//        fSalesmanSet = fSalesmanSet,
-//        fCustomerGroupSet = fCustomerGroupSet,
-
-
-        created = created,
-        modified = modified,
-        modifiedBy = modifiedBy
-    )
-}
-internal fun FtPriceAlth.toResponse(): FtPriceAlthRes {
-    return FtPriceAlthRes(
+internal fun FtPriceAlthRes.toDomain(): FtPriceAlth {
+    return FtPriceAlth(
         id = id,
         sourceId = sourceId,
 
@@ -119,4 +79,3 @@ internal fun FtPriceAlth.toResponse(): FtPriceAlthRes {
         modifiedBy = modifiedBy
     )
 }
-

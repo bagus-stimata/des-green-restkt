@@ -1,16 +1,16 @@
-package com.erp.distribution.desgreenrestkt.domain.model
+package com.erp.distribution.desgreenrestkt.presentation.model
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FSalesmanEntity
+import com.erp.distribution.desgreenrestkt.domain.model.FSalesman
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumReligion
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumSalesType
-import com.erp.distribution.desgreenrestkt.presentation.model.FSalesmanRes
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-data class FSalesman (
+data class FSalesmanRes (
     var id :Int =0,
 
     /*
@@ -129,45 +129,8 @@ data class FSalesman (
 
 ): Serializable
 
-internal fun FSalesman.toEntity(): FSalesmanEntity {
-    return FSalesmanEntity(
-        id = id,
-        sourceId = sourceId,
-
-        spcode = spcode,
-        spname = spname,
-        salesType = salesType,
-        fdivisionBean = fdivisionBean,
-        statusActive = statusActive,
-
-
-        address1 = address1,
-        city1 = city1,
-        state1 = state1,
-        phone = phone,
-        mobile = mobile,
-        whatsApp = whatsApp,
-        email = email,
-        joinDate = joinDate,
-        lastTrans = lastTrans,
-        bornPlace = bornPlace,
-        bornDate = bornDate,
-        religion = religion,
-        webServiceActive = webServiceActive,
-        kassaStatusOpen = kassaStatusOpen,
-        kassaIp = kassaIp,
-        ftPriceAlthBean = ftPriceAlthBean,
-        noPromotionRules = noPromotionRules,
-        vendorcovered = vendorcovered,
-
-        created = created,
-        modified = modified,
-        modifiedBy = modifiedBy
-    )
-}
-
-internal fun FSalesman.toResponse(): FSalesmanRes {
-    return FSalesmanRes(
+internal fun FSalesmanRes.toDomain(): FSalesman {
+    return FSalesman(
         id = id,
         sourceId = sourceId,
 

@@ -1,5 +1,8 @@
 package com.erp.distribution.desgreenrestkt.domain.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FTaxEntity
+import com.erp.distribution.desgreenrestkt.presentation.model.FTaxRes
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
@@ -34,13 +37,13 @@ data class FTax (
     //	@JoinColumn(name= accAccountTaxPurchaseBean , referencedColumnName= ID )
     //	private AccAccount accAccountTaxPurchaseBean;
     @Column(name =  "accAccountTaxPurchaseBean" , nullable = false)
-    var accAccountTaxPurchaseBean :Int =0,
+    var accAccountTaxPurchaseBean :Int? =0,
 
     //	@ManyToOne
     //	@JoinColumn(name= accAccountTaxSalesBean , referencedColumnName= ID )
     //	private AccAccount accAccountTaxSalesBean;
     @Column(name =  "accAccountTaxSalesBean" , nullable = false)
-    var accAccountTaxSalesBean :Int =0,
+    var accAccountTaxSalesBean :Int? =0,
 
     //	@ManyToOne
     //	@JoinColumn(name= fdivisionBean , referencedColumnName= ID )
@@ -63,3 +66,45 @@ data class FTax (
     var modifiedBy :String =""    //User ID
 
 ): Serializable
+
+
+internal fun FTax.toEntity(): FTaxEntity {
+    return FTaxEntity(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        taxPercent = taxPercent,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+        accAccountTaxPurchaseBean = accAccountTaxPurchaseBean,
+        accAccountTaxSalesBean = accAccountTaxSalesBean,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}
+internal fun FTax.toResponse(): FTaxRes {
+    return FTaxRes(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        taxPercent = taxPercent,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+        accAccountTaxPurchaseBean = accAccountTaxPurchaseBean,
+        accAccountTaxSalesBean = accAccountTaxSalesBean,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}

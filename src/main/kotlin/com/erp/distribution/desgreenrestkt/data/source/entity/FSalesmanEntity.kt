@@ -1,5 +1,7 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
+import com.erp.distribution.desgreenrestkt.domain.model.FDistributionChannel
+import com.erp.distribution.desgreenrestkt.domain.model.FSalesman
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumReligion
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumSalesType
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
@@ -131,3 +133,41 @@ data class FSalesmanEntity (
     var modifiedBy :String =""   //User ID
 
 ): Serializable
+
+
+internal fun FSalesmanEntity.toDomain(): FSalesman {
+    return FSalesman(
+        id = id,
+        sourceId = sourceId,
+
+        spcode = spcode,
+        spname = spname,
+        salesType = salesType,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+
+        address1 = address1,
+        city1 = city1,
+        state1 = state1,
+        phone = phone,
+        mobile = mobile,
+        whatsApp = whatsApp,
+        email = email,
+        joinDate = joinDate,
+        lastTrans = lastTrans,
+        bornPlace = bornPlace,
+        bornDate = bornDate,
+        religion = religion,
+        webServiceActive = webServiceActive,
+        kassaStatusOpen = kassaStatusOpen,
+        kassaIp = kassaIp,
+        ftPriceAlthBean = ftPriceAlthBean,
+        noPromotionRules = noPromotionRules,
+        vendorcovered = vendorcovered,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}

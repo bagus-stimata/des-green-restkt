@@ -161,7 +161,7 @@ class FPromotionRuleshRestController {
             description += """${fpromotionRuleshBean.description} (${fpromotionRuleshBean.kode1}) ref: ${fpromotionRuleshBean.kode2}
 """
             var string_IsClaimPabrik = ""
-            if (fpromotionRuleshBean.claimPabrik && fpromotionRuleshBean.accAccountBean != null && fpromotionRuleshBean.accAccount_CreditBean != null) string_IsClaimPabrik = "CLAIM PABRIK"
+            if (fpromotionRuleshBean.claimPabrik && fpromotionRuleshBean.accAccountEntityBean != null && fpromotionRuleshBean.accAccount_CreditBean != null) string_IsClaimPabrik = "CLAIM PABRIK"
             description += "Vendor: " + vendor + "   DIV: " + fpromotionRuleshBean.fdivisionBean!!.kode1 + "  " + (if (fpromotionRuleshBean.sharedToCompany == true) "SHARED" else "") + "  " + string_IsClaimPabrik
             domainDescription.string1 = description
             domainDescription.string23 = vendor //BUAT VENDOR
@@ -248,8 +248,8 @@ class FPromotionRuleshRestController {
                 //				mekanisme += "\n";
                 if (fpromotionRuleshBean.discCashOnly) mekanisme += "TUNAI/CASH SAJA\n"
             } //end if diskon method
-            if (fpromotionRuleshBean.promoFg1Method != null && fpromotionRuleshBean.freeGood1MaterialEntityBean != null) {
-                mekanisme += "Mendapatkan Bonus Barang    " + "\" " + fpromotionRuleshBean.freeGood1MaterialEntityBean!!.pname.toUpperCase() + " (" + fpromotionRuleshBean.freeGood1MaterialEntityBean!!.pcode + ") " + "\""
+            if (fpromotionRuleshBean.promoFg1Method != null && fpromotionRuleshBean.freeGood1MaterialBean != null) {
+//                mekanisme += "Mendapatkan Bonus Barang    " + "\" " + fpromotionRuleshBean.freeGood1MaterialBean!!.pname.toUpperCase() + " (" + fpromotionRuleshBean.freeGood1MaterialBean!!.pcode + ") " + "\""
                 mekanisme += "\n"
                 val additionTabSpace = ""
                 var satuan = ""
@@ -264,38 +264,38 @@ class FPromotionRuleshRestController {
                     var stringSampai = nf.format(fpromotionRuleshBean.forFg1QtyOrValueLev2 - 1.toLong())
                     if (fpromotionRuleshBean.forFg1QtyOrValueLev2 == 0) stringSampai = "~"
                     mekanisme += "\t" + nf.format(fpromotionRuleshBean.forFg1QtyOrValueLev1) + " - " + stringSampai + satuan + additionTabSpace + "\t mendapat Bonus "
-                    val kps: KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(fpromotionRuleshBean.fg1QtyGetLev1.toDouble(), fpromotionRuleshBean.freeGood1MaterialEntityBean)
-                    if (fpromotionRuleshBean.fg1QtyGetLev1 > 0) mekanisme += kps.uom1234StringUom
+//                    val kps: KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(fpromotionRuleshBean.fg1QtyGetLev1.toDouble(), fpromotionRuleshBean.freeGood1MaterialBean)
+//                    if (fpromotionRuleshBean.fg1QtyGetLev1 > 0) mekanisme += kps.uom1234StringUom
                     mekanisme += "\n"
                 }
                 if (fpromotionRuleshBean.forFg1QtyOrValueLev2 > 0) {
                     var stringSampai = nf.format(fpromotionRuleshBean.forFg1QtyOrValueLev3 - 1.toLong())
                     if (fpromotionRuleshBean.forFg1QtyOrValueLev3 == 0) stringSampai = "~"
                     mekanisme += "\t" + nf.format(fpromotionRuleshBean.forFg1QtyOrValueLev2) + " - " + stringSampai + satuan + additionTabSpace + "\t mendapat Bonus "
-                    val kps: KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(fpromotionRuleshBean.fg1QtyGetLev2.toDouble(), fpromotionRuleshBean.freeGood1MaterialEntityBean)
-                    if (fpromotionRuleshBean.fg1QtyGetLev2 > 0) mekanisme += kps.uom1234StringUom
+//                    val kps: KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(fpromotionRuleshBean.fg1QtyGetLev2.toDouble(), fpromotionRuleshBean.freeGood1MaterialBean)
+//                    if (fpromotionRuleshBean.fg1QtyGetLev2 > 0) mekanisme += kps.uom1234StringUom
                     mekanisme += "\n"
                 }
                 if (fpromotionRuleshBean.forFg1QtyOrValueLev3 > 0) {
                     var stringSampai = nf.format(fpromotionRuleshBean.forFg1QtyOrValueLev4 - 1.toLong())
                     if (fpromotionRuleshBean.forFg1QtyOrValueLev4 == 0) stringSampai = "~"
                     mekanisme += "\t" + nf.format(fpromotionRuleshBean.forFg1QtyOrValueLev3) + " - " + stringSampai + satuan + additionTabSpace + "\t mendapat Bonus "
-                    val kps: KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(fpromotionRuleshBean.fg1QtyGetLev3.toDouble(), fpromotionRuleshBean.freeGood1MaterialEntityBean)
-                    if (fpromotionRuleshBean.fg1QtyGetLev3 > 0) mekanisme += kps.uom1234StringUom
+//                    val kps: KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(fpromotionRuleshBean.fg1QtyGetLev3.toDouble(), fpromotionRuleshBean.freeGood1MaterialBean)
+//                    if (fpromotionRuleshBean.fg1QtyGetLev3 > 0) mekanisme += kps.uom1234StringUom
                     mekanisme += "\n"
                 }
                 if (fpromotionRuleshBean.forFg1QtyOrValueLev4 > 0) {
                     var stringSampai = nf.format(fpromotionRuleshBean.forFg1QtyOrValueLev5 - 1.toLong())
                     if (fpromotionRuleshBean.forFg1QtyOrValueLev5 == 0) stringSampai = "~"
                     mekanisme += "\t" + nf.format(fpromotionRuleshBean.forFg1QtyOrValueLev4) + " - " + stringSampai + satuan + additionTabSpace + "\t mendapat Bonus "
-                    val kps: KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(fpromotionRuleshBean.fg1QtyGetLev4.toDouble(), fpromotionRuleshBean.freeGood1MaterialEntityBean)
-                    if (fpromotionRuleshBean.fg1QtyGetLev4 > 0) mekanisme += kps.uom1234StringUom
+//                    val kps: KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(fpromotionRuleshBean.fg1QtyGetLev4.toDouble(), fpromotionRuleshBean.freeGood1MaterialBean)
+//                    if (fpromotionRuleshBean.fg1QtyGetLev4 > 0) mekanisme += kps.uom1234StringUom
                     mekanisme += "\n"
                 }
                 if (fpromotionRuleshBean.forFg1QtyOrValueLev5 > 0) {
                     mekanisme += "\t" + nf.format(fpromotionRuleshBean.forFg1QtyOrValueLev5) + " - ~ " + satuan + additionTabSpace + "\t mendapat Bonus "
-                    val kps: KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(fpromotionRuleshBean.fg1QtyGetLev5.toDouble(), fpromotionRuleshBean.freeGood1MaterialEntityBean)
-                    if (fpromotionRuleshBean.fg1QtyGetLev5 > 0) mekanisme += kps.uom1234StringUom
+//                    val kps: KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(fpromotionRuleshBean.fg1QtyGetLev5.toDouble(), fpromotionRuleshBean.freeGood1MaterialBean)
+//                    if (fpromotionRuleshBean.fg1QtyGetLev5 > 0) mekanisme += kps.uom1234StringUom
                     mekanisme += "\n"
                 }
             } //endfor FG1

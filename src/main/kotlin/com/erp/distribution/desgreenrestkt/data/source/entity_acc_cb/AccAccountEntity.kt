@@ -9,7 +9,7 @@ import javax.persistence.*
 @JacksonXmlRootElement
 @Entity
 @Table(name = "acc_account")
-class AccAccount : Serializable {
+class AccAccountEntity : Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", length = 9)

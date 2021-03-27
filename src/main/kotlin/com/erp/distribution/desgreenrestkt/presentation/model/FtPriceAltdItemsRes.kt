@@ -1,20 +1,17 @@
-package com.erp.distribution.desgreenrestkt.data.source.entity
+package com.erp.distribution.desgreenrestkt.presentation.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtPriceAltdItemsEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtPriceAlthEntity
 import com.erp.distribution.desgreenrestkt.domain.model.FtPriceAltdItems
 import com.erp.distribution.desgreenrestkt.domain.model.FtPriceAlth
-import com.erp.distribution.desgreenrestkt.presentation.model.FtPriceAltdItemsRes
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import javax.persistence.*
 
 @JacksonXmlRootElement
-@Entity
-@Table(name =  "ftpricealtd_items" )
-data class FtPriceAltdItemsEntity (
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name =  "ID" , length = 9)
+data class FtPriceAltdItemsRes (
     var id :Int =0,
 
     @JsonIgnore
@@ -49,11 +46,11 @@ data class FtPriceAltdItemsEntity (
     @Column(name =  "SPRICE2_AFTERPPN" )
     var sprice2AfterPpn  :Double =0.0,
 
-    @ManyToOne
-    @JoinColumn(name= "ftPriceAlthBean" , referencedColumnName= "ID" )
-    var ftPriceAlthBean : FtPriceAlthEntity =  FtPriceAlthEntity(),
-//    @Column(name =  "ftPriceAlthBean" , nullable = false)
-//    var ftPriceAlthBean :Int =0,
+//    @ManyToOne
+//    @JoinColumn(name= "ftPriceAlthBean" , referencedColumnName= "ID" )
+//    var ftPriceAlthBean : FtPriceAlth =  FtPriceAlth(),
+    @Column(name =  "ftPriceAlthBean" , nullable = false)
+    var ftPriceAlthBean :Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name= fmaterialBean , referencedColumnName= ID )
@@ -63,7 +60,7 @@ data class FtPriceAltdItemsEntity (
 
 ): Serializable
 
-internal fun FtPriceAltdItemsEntity.toDomain(): FtPriceAltdItems {
+internal fun FtPriceAltdItemsRes.toDomain(): FtPriceAltdItems {
     return FtPriceAltdItems(
         id = id,
         noUrut = noUrut,
@@ -77,29 +74,8 @@ internal fun FtPriceAltdItemsEntity.toDomain(): FtPriceAltdItems {
         sprice2 = sprice2,
         sprice2AfterPpn = sprice2AfterPpn,
 
-        ftPriceAlthBean = ftPriceAlthBean?.let { FtPriceAlth((ftPriceAlthBean.id)) },
+        ftPriceAlthBean = ftPriceAlthBean?.let { FtPriceAlth(ftPriceAlthBean) },
         fmaterialBean = fmaterialBean
 
     )
 }
-internal fun FtPriceAltdItems.toResponse(): FtPriceAltdItemsRes {
-    return FtPriceAltdItemsRes(
-        id = id,
-        noUrut = noUrut,
-
-        pprice = pprice,
-        ppriceAfterPpn = ppriceAfterPpn,
-        pprice2 = pprice2,
-        pprice2AfterPpn = pprice2AfterPpn,
-        sprice = sprice,
-        spriceAfterPpn = spriceAfterPpn,
-        sprice2 = sprice2,
-        sprice2AfterPpn = sprice2AfterPpn,
-
-        ftPriceAlthBean = ftPriceAlthBean.id,
-        fmaterialBean = fmaterialBean
-
-    )
-}
-
-

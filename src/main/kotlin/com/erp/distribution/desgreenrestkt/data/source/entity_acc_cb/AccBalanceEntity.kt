@@ -7,7 +7,7 @@ import javax.persistence.*
 @JacksonXmlRootElement
 @Entity
 @Table(name = "acc_balance")
-class AccBalance : Serializable {
+class AccBalanceEntity : Serializable {
     /*
 	 * ID of Balance
 	 */

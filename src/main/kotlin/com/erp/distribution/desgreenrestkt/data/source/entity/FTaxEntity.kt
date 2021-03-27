@@ -1,5 +1,6 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
+import com.erp.distribution.desgreenrestkt.domain.model.FTax
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
@@ -39,13 +40,13 @@ data class FTaxEntity (
     //	@JoinColumn(name= accAccountTaxPurchaseBean , referencedColumnName= ID )
     //	private AccAccount accAccountTaxPurchaseBean;
     @Column(name =  "accAccountTaxPurchaseBean" , nullable = false)
-    var accAccountTaxPurchaseBean :Int =0,
+    var accAccountTaxPurchaseBean :Int? =0,
 
     //	@ManyToOne
     //	@JoinColumn(name= accAccountTaxSalesBean , referencedColumnName= ID )
     //	private AccAccount accAccountTaxSalesBean;
     @Column(name =  "accAccountTaxSalesBean" , nullable = false)
-    var accAccountTaxSalesBean :Int =0,
+    var accAccountTaxSalesBean :Int? =0,
 
     //	@ManyToOne
     //	@JoinColumn(name= fdivisionBean , referencedColumnName= ID )
@@ -68,3 +69,25 @@ data class FTaxEntity (
     var modifiedBy :String =""    //User ID
 
 ): Serializable
+
+
+internal fun FTaxEntity.toDomain(): FTax {
+    return FTax(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        taxPercent = taxPercent,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+        accAccountTaxPurchaseBean = accAccountTaxPurchaseBean,
+        accAccountTaxSalesBean = accAccountTaxSalesBean,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}

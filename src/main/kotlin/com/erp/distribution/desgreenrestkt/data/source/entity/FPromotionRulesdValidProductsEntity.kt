@@ -1,5 +1,6 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
+import com.erp.distribution.desgreenrestkt.domain.model.*
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import javax.persistence.*
@@ -57,3 +58,27 @@ data class FPromotionRulesdValidProductsEntity (
 
 
 ): Serializable
+
+internal fun FPromotionRulesdValidProductsEntity.toDomain(): FPromotionRulesdValidProducts {
+    return FPromotionRulesdValidProducts(
+        id = id,
+        noUrut = noUrut,
+
+        fpromotionRuleshEntityBean = FPromotionRulesh(fpromotionRuleshEntityBean.id),
+
+        validVendorEntityBean = validVendorEntityBean?.let {  FVendor(validVendorEntityBean!!.id) },
+        validVendorAccumulation = validVendorAccumulation,
+
+        validMaterialSalesBrandEntityBean = validMaterialSalesBrandEntityBean?.let {  FMaterialSalesBrand(validMaterialSalesBrandEntityBean!!.id) },
+        validSalesBrandAccumulation = validSalesBrandAccumulation,
+
+        validMaterialGroup2EntityBean = validMaterialGroup2EntityBean?.let {  FMaterialGroup2(validMaterialGroup2EntityBean!!.id) },
+        validMaterialGroup2Accumulation = validMaterialGroup2Accumulation,
+
+        validMaterialGroup3EntityBean = validMaterialGroup3EntityBean?.let {  FMaterialGroup3(validMaterialGroup3EntityBean!!.id) },
+        validMaterialGroup3Accumulation = validMaterialGroup3Accumulation,
+
+        validMaterialEntityBean = validMaterialEntityBean?.let {  FMaterial(validMaterialEntityBean!!.id) },
+
+        )
+}

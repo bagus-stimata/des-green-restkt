@@ -1,7 +1,9 @@
 package com.erp.distribution.desgreenrestkt.domain.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDivisionEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FPromotionRuleshEntity
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumPromoDiscFgMethod
-import com.erp.distribution.desgreenrestkt.data.source.entity_acc_cb.AccAccount
+import com.erp.distribution.desgreenrestkt.data.source.entity_acc_cb.AccAccountEntity
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
@@ -36,7 +38,7 @@ data class FPromotionRulesh (
 
     @ManyToOne
     @JoinColumn(name ="fdivisionBean" ,  referencedColumnName ="ID")
-    var fdivisionBean: FDivision? = FDivision(),
+    var fdivisionBean: FDivision = FDivision(),
 
     @Temporal(TemporalType.DATE)
     @Column(name ="VALID_PERIODE_PERIODE_FROM")
@@ -72,13 +74,15 @@ data class FPromotionRulesh (
 	 * Account Mapping
 	 * Account Biaya Diskon jika: Yang akan terbit saat akan membuat jurnal saat transaksi penjualan
 	 */
-    @ManyToOne
-    @JoinColumn(name ="accAccountBean" ,  referencedColumnName ="ID")
-    var accAccountBean : AccAccount? = AccAccount(),
+//    @ManyToOne
+//    @JoinColumn(name ="accAccountBean" ,  referencedColumnName ="ID")
+//    var accAccountEntityBean : AccAccountEntity? = AccAccountEntity(),
+    var accAccountEntityBean : Int? = 0,
 
-    @ManyToOne
-    @JoinColumn(name ="accAccount_CreditBean" ,  referencedColumnName ="ID")
-    var accAccount_CreditBean : AccAccount? = AccAccount(),
+//    @ManyToOne
+//    @JoinColumn(name ="accAccount_CreditBean" ,  referencedColumnName ="ID")
+//    var accAccount_Entity_CreditBean : AccAccountEntity? = AccAccountEntity(),
+    var accAccount_CreditBean : Int? = 0,
 
     @Column(name ="CLAIM_PABRIK")
     var claimPabrik  :Boolean =false,
@@ -286,9 +290,10 @@ data class FPromotionRulesh (
     @Column(name ="FG1_KELIPATAN")
     var fg1Kelipatan  :Boolean =true,
 
-    @ManyToOne
-    @JoinColumn(name ="freeGood1MaterialBean" ,  referencedColumnName ="ID")
-    var freeGood1MaterialEntityBean: FMaterial? = FMaterial(),
+//    @ManyToOne
+//    @JoinColumn(name ="freeGood1MaterialBean" ,  referencedColumnName ="ID")
+//    var freeGood1MaterialEntityBean: FMaterial? = FMaterial(),
+    var freeGood1MaterialBean: Int? = 0,
 
     @Column(name ="FG1_HARGA_JUAL_NOL")
     var fg1HargaJualNol  :Boolean =true,
@@ -347,9 +352,10 @@ data class FPromotionRulesh (
     @Column(name ="FG2_KELIPATAN")
     var fg2Kelipatan  :Boolean =true,
 
-    @ManyToOne
-    @JoinColumn(name ="freeGood2MaterialBean" ,  referencedColumnName ="ID")
-    var freeGood2MaterialEntityBean: FMaterial? = FMaterial(),
+//    @ManyToOne
+//    @JoinColumn(name ="freeGood2MaterialBean" ,  referencedColumnName ="ID")
+//    var freeGood2MaterialEntityBean: FMaterial? = FMaterial(),
+    var freeGood2MaterialBean: Int? = 0,
 
     @Column(name ="FG2_HARGA_JUAL_NOL")
     var fg2HargaJualNol  :Boolean =true,
@@ -438,3 +444,124 @@ data class FPromotionRulesh (
 
 
 ): Serializable
+
+
+internal fun FPromotionRulesh.toEntity(): FPromotionRuleshEntity {
+    return FPromotionRuleshEntity(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        fdivisionBean = FDivisionEntity(fdivisionBean.id),
+        statusActive = statusActive,
+        validPeriodDateFrom = validPeriodDateFrom,
+        validPeriodDateTo = validPeriodDateTo,
+        sharedToCompany = sharedToCompany,
+
+//        ftApPaymentdEntitySet = ftApPaymentdEntitySet,
+        accAccountEntityBean = accAccountEntityBean,
+        accAccount_CreditBean = accAccount_CreditBean,
+        claimPabrik = claimPabrik,
+        maxTargetValue = maxTargetValue,
+        maxTargetQty = maxTargetQty,
+        totalValueApplied = totalValueApplied,
+        totalQtyApplied = totalQtyApplied,
+        totalQtyAppliedUom1234 = totalQtyAppliedUom1234,
+        amountPayRp = amountPayRp,
+//        fpromotionRulesdValidCustsEntitySet = fpromotionRulesdValidCustsEntitySet,
+
+        validProductsAccumulation = validProductsAccumulation,
+//        fpromotionRulesdValidProductsEntitySet = fpromotionRulesdValidProductsEntitySet,
+//        ftSalesdPromoTprbEntitySet = ftSalesdPromoTprbEntitySet,
+//        ftSalesdPromoTpruDiscEntitySet = ftSalesdPromoTpruDiscEntitySet,
+
+        promoDiscMethod = promoDiscMethod,
+        discMinQtyOrValue = discMinQtyOrValue,
+        discMaxQtyOrValue = discMaxQtyOrValue,
+
+        discKelipatan = discKelipatan,
+        discCashOnly = discCashOnly,
+        forDiscQtyOrValueLev1 = forDiscQtyOrValueLev1,
+        disc1GetLev1 = disc1GetLev1,
+        disc1GetLev1_Value = disc1GetLev1_Value,
+        disc2GetLev1 = disc2GetLev1,
+        disc3GetLev1 = disc3GetLev1,
+        disc1PlusGetLev1 = disc1PlusGetLev1,
+        disc2PlusGetLev1 = disc2PlusGetLev1,
+        forDiscQtyOrValueLev2 = forDiscQtyOrValueLev2,
+        disc1GetLev2 = disc1GetLev2,
+        disc1GetLev2_Value = disc1GetLev2_Value,
+        disc2GetLev2 = disc2GetLev2,
+        disc3GetLev2 = disc3GetLev2,
+        disc1PlusGetLev2 = disc1PlusGetLev2,
+        disc2PlusGetLev2 = disc2PlusGetLev2,
+        forDiscQtyOrValueLev3 = forDiscQtyOrValueLev3,
+        disc1GetLev3 = disc1GetLev3,
+        disc1GetLev3_Value = disc1GetLev3_Value,
+        disc2GetLev3 = disc2GetLev3,
+        disc3GetLev3 = disc3GetLev3,
+        disc1PlusGetLev3 = disc1PlusGetLev3,
+        disc2PlusGetLev3 = disc2PlusGetLev3,
+        forDiscQtyOrValueLev4 = forDiscQtyOrValueLev4,
+        disc1GetLev4 = disc1GetLev4,
+        disc1GetLev4_Value = disc1GetLev4_Value,
+        disc2GetLev4 = disc2GetLev4,
+        disc3GetLev4 = disc3GetLev4,
+        disc1PlusGetLev4 = disc1PlusGetLev4,
+        disc2PlusGetLev4 = disc2PlusGetLev4,
+        forDiscQtyOrValueLev5 = forDiscQtyOrValueLev5,
+        disc1GetLev5 = disc1GetLev5,
+        disc1GetLev5_Value = disc1GetLev5_Value,
+        disc2GetLev5 = disc2GetLev5,
+        disc3GetLev5 = disc3GetLev5,
+        disc1PlusGetLev5 = disc1PlusGetLev5,
+        disc2PlusGetLev5 = disc2PlusGetLev5,
+        promoFg1Method = promoFg1Method,
+        fg1MinQtyOrValue = fg1MinQtyOrValue,
+        fg1Kelipatan = fg1Kelipatan,
+        freeGood1MaterialBean = freeGood1MaterialBean,
+        fg1HargaJualNol = fg1HargaJualNol,
+        fg1PricePcs = fg1PricePcs,
+        forFg1QtyOrValueLev1 = forFg1QtyOrValueLev1,
+        fg1QtyGetLev1 = fg1QtyGetLev1,
+        forFg1QtyOrValueLev2 = forFg1QtyOrValueLev2,
+        fg1QtyGetLev2 = fg1QtyGetLev2,
+        forFg1QtyOrValueLev3 = forFg1QtyOrValueLev3,
+        fg1QtyGetLev3 = fg1QtyGetLev3,
+        forFg1QtyOrValueLev4 = forFg1QtyOrValueLev4,
+        fg1QtyGetLev4 = fg1QtyGetLev4,
+        forFg1QtyOrValueLev5 = forFg1QtyOrValueLev5,
+        fg1QtyGetLev5 = fg1QtyGetLev5,
+
+        promoFg2Method = promoFg2Method,
+        fg2MinQtyOrValue = fg2MinQtyOrValue,
+        fg2Kelipatan = fg2Kelipatan,
+        freeGood2MaterialBean = freeGood2MaterialBean,
+        fg2HargaJualNol = fg2HargaJualNol,
+        fg2PricePcs = fg2PricePcs,
+        forFg2QtyOrValueLev1 = forFg2QtyOrValueLev1,
+        fg2QtyGetLev1 = fg2QtyGetLev1,
+        forFg2QtyOrValueLev2 = forFg2QtyOrValueLev2,
+        fg2QtyGetLev2 = fg2QtyGetLev2,
+        forFg2QtyOrValueLev3 = forFg2QtyOrValueLev3,
+        fg2QtyGetLev3 = fg2QtyGetLev3,
+        forFg2QtyOrValueLev4 = forFg2QtyOrValueLev4,
+        fg2QtyGetLev4 = fg2QtyGetLev4,
+        forFg2QtyOrValueLev5 = forFg2QtyOrValueLev5,
+        fg2QtyGetLev5 = fg2QtyGetLev5,
+        cashBackValue1 = cashBackValue1,
+        cashBackGet1 = cashBackGet1,
+        cashBackValue2 = cashBackValue2,
+        cashBackGet2 = cashBackGet2,
+        cashBackValue3 = cashBackValue3,
+        cashBackGet3 = cashBackGet3,
+        cashBackValue4 = cashBackValue4,
+        cashBackGet4 = cashBackGet4,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}

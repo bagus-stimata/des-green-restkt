@@ -1,16 +1,15 @@
-package com.erp.distribution.desgreenrestkt.domain.model
+package com.erp.distribution.desgreenrestkt.presentation.model
 
-import com.erp.distribution.desgreenrestkt.data.source.entity.FAreaEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
-import com.erp.distribution.desgreenrestkt.data.source.entity.FSubAreaEntity
-import com.erp.distribution.desgreenrestkt.presentation.model.FSubAreaRes
+import com.erp.distribution.desgreenrestkt.data.source.entity.FTaxEntity
+import com.erp.distribution.desgreenrestkt.domain.model.FTax
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-data class FSubArea (
+data class FTaxRes (
     var id :Int =0,
 
     /*
@@ -31,13 +30,27 @@ data class FSubArea (
     @Column(name =  "DESCRIPTION" , length = 100)
     var description :String ="",
 
-    @ManyToOne
-    @JoinColumn(name= "fareaBean" , referencedColumnName= "ID" )
-    var fareaBean :FArea = FArea(),
-//    @Column(name =  "fareaBean" , nullable = false)
-//    var fareaBean :Int =0,
+    @Column(name =  "TAX_PERCENT" )
+    var taxPercent  :Double =0.0,
 
-    //	@OneToMany(mappedBy= fsubareaBean , fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    //	@ManyToOne
+    //	@JoinColumn(name= accAccountTaxPurchaseBean , referencedColumnName= ID )
+    //	private AccAccount accAccountTaxPurchaseBean;
+    @Column(name =  "accAccountTaxPurchaseBean" , nullable = false)
+    var accAccountTaxPurchaseBean :Int? =0,
+
+    //	@ManyToOne
+    //	@JoinColumn(name= accAccountTaxSalesBean , referencedColumnName= ID )
+    //	private AccAccount accAccountTaxSalesBean;
+    @Column(name =  "accAccountTaxSalesBean" , nullable = false)
+    var accAccountTaxSalesBean :Int? =0,
+
+    //	@ManyToOne
+    //	@JoinColumn(name= fdivisionBean , referencedColumnName= ID )
+    //	private FDivision fdivisionBean;
+    @Column(name =  "fdivisionBean" , nullable = false)
+    var fdivisionBean :Int =0,
+
     @Column(name =  "STATUS_ACTIVE" )
     var statusActive  :Boolean =true,
 
@@ -50,40 +63,28 @@ data class FSubArea (
     var modified :Date =Date(),
 
     @Column(name =  "MODIFIED_BY" , length = 20)
-    var modifiedBy :String =""   //User ID
+    var modifiedBy :String =""    //User ID
 
-) :Serializable
+): Serializable
 
-internal fun FSubArea.toEntity(): FSubAreaEntity {
-    return FSubAreaEntity(
+
+internal fun FTaxRes.toDomain(): FTax {
+    return FTax(
         id = id,
         sourceId = sourceId,
 
         kode1 = kode1,
         kode2 = kode2,
         description = description,
-        fareaBean = fareaBean?.let { FAreaEntity(fareaBean.id) },
+        taxPercent = taxPercent,
+        fdivisionBean = fdivisionBean,
         statusActive = statusActive,
+
+        accAccountTaxPurchaseBean = accAccountTaxPurchaseBean,
+        accAccountTaxSalesBean = accAccountTaxSalesBean,
 
         created = created,
         modified = modified,
         modifiedBy = modifiedBy
     )
 }
-internal fun FSubArea.toResponse(): FSubAreaRes {
-    return FSubAreaRes(
-        id = id,
-        sourceId = sourceId,
-
-        kode1 = kode1,
-        kode2 = kode2,
-        description = description,
-        fareaBean = fareaBean?.let { fareaBean.id },
-        statusActive = statusActive,
-
-        created = created,
-        modified = modified,
-        modifiedBy = modifiedBy
-    )
-}
-

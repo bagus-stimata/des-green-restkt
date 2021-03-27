@@ -12,7 +12,7 @@ import javax.persistence.*
 @JacksonXmlRootElement
 @Entity
 @Table(name = "acc_costcenter")
-class AccCostCenter : Serializable {
+class AccCostCenterEntity : Serializable {
     @Id
     @Column(name = "ID", length = 9)
     @GeneratedValue(strategy = GenerationType.AUTO)

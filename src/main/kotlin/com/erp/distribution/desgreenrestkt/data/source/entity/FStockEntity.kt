@@ -1,5 +1,7 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
+import com.erp.distribution.desgreenrestkt.domain.model.FDistributionChannel
+import com.erp.distribution.desgreenrestkt.domain.model.FStock
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
@@ -93,3 +95,21 @@ data class FStockEntity (
     var fmaterialBean :Int =0
 
 ): Serializable
+
+internal fun FStockEntity.toDomain(): FStock {
+    return FStock(
+        refno = refno,
+        sourceId = sourceId,
+
+        stockDate = stockDate,
+        saldoAwal = saldoAwal,
+        qtyIn = qtyIn,
+        qtyOut = qtyOut,
+        qtyAdjust = qtyAdjust,
+        saldoAkhir = saldoAkhir,
+        qtyHold = qtyHold,
+        closingPprice2_AfterPpn = closingPprice2_AfterPpn,
+        fwarehouseBean = fwarehouseBean,
+        fmaterialBean = fmaterialBean,
+    )
+}

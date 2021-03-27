@@ -1,7 +1,7 @@
-package com.erp.distribution.desgreenrestkt.domain.model
+package com.erp.distribution.desgreenrestkt.presentation.model
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FStockEntity
-import com.erp.distribution.desgreenrestkt.presentation.model.FStockRes
+import com.erp.distribution.desgreenrestkt.domain.model.FStock
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
@@ -9,7 +9,7 @@ import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-data class FStock (
+data class FStockRes (
     var refno: Long = 0,
 
     /*
@@ -91,8 +91,8 @@ data class FStock (
 
 ): Serializable
 
-internal fun FStock.toEntity(): FStockEntity {
-    return FStockEntity(
+internal fun FStockRes.toDomain(): FStock {
+    return FStock(
         refno = refno,
         sourceId = sourceId,
 
@@ -108,21 +108,3 @@ internal fun FStock.toEntity(): FStockEntity {
         fmaterialBean = fmaterialBean,
     )
 }
-internal fun FStock.toResponse(): FStockRes {
-    return FStockRes(
-        refno = refno,
-        sourceId = sourceId,
-
-        stockDate = stockDate,
-        saldoAwal = saldoAwal,
-        qtyIn = qtyIn,
-        qtyOut = qtyOut,
-        qtyAdjust = qtyAdjust,
-        saldoAkhir = saldoAkhir,
-        qtyHold = qtyHold,
-        closingPprice2_AfterPpn = closingPprice2_AfterPpn,
-        fwarehouseBean = fwarehouseBean,
-        fmaterialBean = fmaterialBean,
-    )
-}
-

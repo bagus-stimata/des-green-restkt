@@ -1,16 +1,17 @@
-package com.erp.distribution.desgreenrestkt.domain.model
+package com.erp.distribution.desgreenrestkt.presentation.model
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FAreaEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.FSubAreaEntity
-import com.erp.distribution.desgreenrestkt.presentation.model.FSubAreaRes
+import com.erp.distribution.desgreenrestkt.domain.model.FArea
+import com.erp.distribution.desgreenrestkt.domain.model.FSubArea
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-data class FSubArea (
+data class FSubAreaRes (
     var id :Int =0,
 
     /*
@@ -31,11 +32,11 @@ data class FSubArea (
     @Column(name =  "DESCRIPTION" , length = 100)
     var description :String ="",
 
-    @ManyToOne
-    @JoinColumn(name= "fareaBean" , referencedColumnName= "ID" )
-    var fareaBean :FArea = FArea(),
+//    @ManyToOne
+//    @JoinColumn(name= "fareaBean" , referencedColumnName= "ID" )
+//    var fareaBean :FArea = FAreaRes(),
 //    @Column(name =  "fareaBean" , nullable = false)
-//    var fareaBean :Int =0,
+    var fareaBean :Int =0,
 
     //	@OneToMany(mappedBy= fsubareaBean , fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     @Column(name =  "STATUS_ACTIVE" )
@@ -54,15 +55,15 @@ data class FSubArea (
 
 ) :Serializable
 
-internal fun FSubArea.toEntity(): FSubAreaEntity {
-    return FSubAreaEntity(
+internal fun FSubAreaRes.toDomain(): FSubArea {
+    return FSubArea(
         id = id,
         sourceId = sourceId,
 
         kode1 = kode1,
         kode2 = kode2,
         description = description,
-        fareaBean = fareaBean?.let { FAreaEntity(fareaBean.id) },
+        fareaBean = fareaBean?.let { FArea(fareaBean) },
         statusActive = statusActive,
 
         created = created,
@@ -70,20 +71,3 @@ internal fun FSubArea.toEntity(): FSubAreaEntity {
         modifiedBy = modifiedBy
     )
 }
-internal fun FSubArea.toResponse(): FSubAreaRes {
-    return FSubAreaRes(
-        id = id,
-        sourceId = sourceId,
-
-        kode1 = kode1,
-        kode2 = kode2,
-        description = description,
-        fareaBean = fareaBean?.let { fareaBean.id },
-        statusActive = statusActive,
-
-        created = created,
-        modified = modified,
-        modifiedBy = modifiedBy
-    )
-}
-
