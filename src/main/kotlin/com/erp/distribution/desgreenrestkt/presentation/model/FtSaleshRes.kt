@@ -1,7 +1,9 @@
-package com.erp.distribution.desgreenrestkt.domain.model
+package com.erp.distribution.desgreenrestkt.presentation.model
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.FtSaleshEntity
+import com.erp.distribution.desgreenrestkt.domain.model.FtSalesdItems
+import com.erp.distribution.desgreenrestkt.domain.model.FtSalesh
 import com.erp.distribution.desgreenrestkt.domain.model.enum.*
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
@@ -9,7 +11,7 @@ import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-data class FtSalesh(
+data class FtSaleshRes(
     var refno: Long =0L,
 
     /*
@@ -360,8 +362,8 @@ data class FtSalesh(
     /**
      * Seharusnya menggunakan interface Class Sendiri
      */
-    @Transient
-    var listFtsalesdItems: List<FtSalesdItems> = ArrayList(),
+//    @Transient
+//    var listFtsalesdItems: List<FtSalesdItems> = ArrayList(),
 
     //PEGIRIMAN:
     //	@ManyToOne
@@ -393,8 +395,8 @@ data class FtSalesh(
 
 ): Serializable
 
-internal fun FtSalesh.toEntity(): FtSaleshEntity {
-    return FtSaleshEntity(
+internal fun FtSaleshRes.toDomain(): FtSalesh {
+    return FtSalesh(
         refno = refno,
         sourceId = sourceId,
 

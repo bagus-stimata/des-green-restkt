@@ -4,6 +4,8 @@
  */
 package com.erp.distribution.desgreenrestkt.domain.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.SysvarEntity
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
@@ -21,7 +23,7 @@ data class Sysvar (
 	 * 2. 
 	 */
     @Column(name = "SOURCE_ID")
-    var sourceID :String ="",
+    var sourceId :String ="",
 
     @JsonIgnore
     @Column(name = "NOMOR_URUT")
@@ -29,7 +31,7 @@ data class Sysvar (
 
     @JsonIgnore
     @Column(name = "VISIBLE")
-    var isVisible  :Boolean =true,
+    var visible  :Boolean =true,
 
     @Column(name = "GROUPSYSVAR", length = 30)
     var groupSysvar :String ="",
@@ -100,15 +102,17 @@ data class Sysvar (
      * Level 2= Level Company
      * Level 3= Level Division
      */
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "fcompanyBean", referencedColumnName = "ID")
-    var fcompanyBean: FCompany? = FCompany(),
+//    @JsonIgnore
+//    @ManyToOne
+//    @JoinColumn(name = "fcompanyBean", referencedColumnName = "ID")
+//    var fcompanyBean: FCompany? = FCompany(),
+    var fcompanyBean: Int? = 0,
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "fdivisionBean", referencedColumnName = "ID")
-    var fdivisionBean: FDivision? = FDivision(),
+//    @JsonIgnore
+//    @ManyToOne
+//    @JoinColumn(name = "fdivisionBean", referencedColumnName = "ID")
+//    var fdivisionBean: FDivision? = FDivision(),
+    var fdivisionBean: Int? = 0,
 
     @JsonIgnore
     @Column(name = "CREATED")
@@ -127,3 +131,42 @@ data class Sysvar (
 
 
 ): Serializable
+
+
+internal fun Sysvar.toEntity(): SysvarEntity {
+    return SysvarEntity(
+        id = id,
+        sourceId = sourceId,
+
+        nomorUrut = nomorUrut,
+        visible = visible,
+        groupSysvar = groupSysvar,
+        deskripsi = deskripsi,
+        notes = notes,
+        tipeData = tipeData,
+        lenghtData = lenghtData,
+        prefix = prefix,
+        suffix = suffix,
+
+        nilaiString1 = nilaiString1,
+        nilaiString2 = nilaiString2,
+        nilaiBol1 = nilaiBol1,
+        nilaiBol2 = nilaiBol2,
+        nilaiInt1 = nilaiInt1,
+        nilaiInt2 = nilaiInt2,
+        nilaiDouble1 = nilaiDouble1,
+        nilaiDouble2 = nilaiDouble2,
+
+        nilaiDate1 = nilaiDate1,
+        nilaiDate2 = nilaiDate2,
+        nilaiTime1 = nilaiTime1,
+        nilaiTime2 = nilaiTime2,
+
+        fcompanyBean = fcompanyBean,
+        fdivisionBean = fdivisionBean,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}

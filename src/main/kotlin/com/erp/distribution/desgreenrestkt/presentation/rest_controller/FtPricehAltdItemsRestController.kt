@@ -45,7 +45,7 @@ class FtPricehAltdItemsRestController {
         //Tidak Meng Update Parent: Hanya Info Saja
         if (ftPriceAltdItemsEntityUpdated != null) {
             ftPriceAltdItemsEntityUpdated.id = ftPriceAltdItems.id
-            if (ftPriceAltdItems.ftPriceAlthBean >0) ftPriceAltdItemsEntityUpdated.ftPriceAlthBean = ftPriceAltdItems.ftPriceAlthBean
+            if (ftPriceAltdItems.ftPriceAlthBean.id >0) ftPriceAltdItemsEntityUpdated.ftPriceAlthBean = ftPriceAltdItems.ftPriceAlthBean
             if (ftPriceAltdItems.fmaterialBean >0) ftPriceAltdItemsEntityUpdated.fmaterialBean = ftPriceAltdItems.fmaterialBean
             ftPriceAltdItemsJPARepository!!.save(ftPriceAltdItemsEntityUpdated)
             return ftPriceAltdItemsEntityUpdated

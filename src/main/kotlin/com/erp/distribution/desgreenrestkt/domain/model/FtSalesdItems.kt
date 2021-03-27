@@ -1,6 +1,10 @@
 package com.erp.distribution.desgreenrestkt.domain.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtSalesdItemsEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtSaleshEntity
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumUom
+import com.erp.distribution.desgreenrestkt.presentation.model.FtSalesdItemsRes
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import javax.persistence.*
@@ -10,7 +14,7 @@ data class FtSalesdItems (
     var id: Long =0L,
 
     @Column(name = "FREE_GOOD")
-    var isFreeGood  :Boolean =false,
+    var freeGood  :Boolean =false,
 
     @Column(name = "NOURUT", length = 4)
     var noUrut  :Int =0,
@@ -28,7 +32,7 @@ data class FtSalesdItems (
 	 * Dasar harga total
 	 */
     @Column(name = "TAX")
-    var isTax  :Boolean =true,
+    var tax  :Boolean =true,
 
     //	@ManyToOne
     //	@JoinColumn(name="ftaxBean", referencedColumnName="ID")
@@ -404,11 +408,12 @@ data class FtSalesdItems (
     //	private Double tpruDisc=0.0;
     //	@Column(name="TPRU_CASHBACK")
     //	private Double tpruCashback=0.0;
-    //	@ManyToOne
-    //	@JoinColumn(name="ftSaleshBean", referencedColumnName="refno")
-    //	private FtSalesh ftSaleshBean;
-    @Column(name = "ftSaleshBean", nullable = false)
-    var ftSaleshBean: Long =0L,
+
+    @ManyToOne
+    @JoinColumn(name="ftSaleshBean", referencedColumnName="refno")
+    var ftSaleshBean : FtSalesh = FtSalesh(),
+//    @Column(name = "ftSaleshBean", nullable = false)
+//    var ftSaleshBean: Long =0L,
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialBean", referencedColumnName="ID")
@@ -417,3 +422,285 @@ data class FtSalesdItems (
     var fmaterialBean  :Int =0
 
 ): Serializable
+
+internal fun FtSalesdItems.toEntity(): FtSalesdItemsEntity {
+    return FtSalesdItemsEntity(
+        id = id,
+        freeGood = freeGood,
+        noUrut = noUrut,
+        notes = notes,
+
+        sprice = sprice,
+        spricePpnRp = spricePpnRp,
+        tax = tax,
+        ftaxBean = ftaxBean,
+        taxPercent = taxPercent,
+
+        spriceUom2 = spriceUom2,
+        spriceUom3 = spriceUom3,
+        spriceUom4 = spriceUom4,
+        spriceAfterPpn = spriceAfterPpn,
+        spriceUom2AfterPpn = spriceUom2AfterPpn,
+        spriceUom3AfterPpn = spriceUom3AfterPpn,
+        spriceUom4AfterPpn = spriceUom4AfterPpn,
+
+        spriceNET_Uom1AfterDiscAfterPpn = spriceNET_Uom1AfterDiscAfterPpn,
+        spriceNET_Uom2AfterDiscAfterPpn = spriceNET_Uom2AfterDiscAfterPpn,
+        spriceNET_Uom3AfterDiscAfterPpn = spriceNET_Uom3AfterDiscAfterPpn,
+        spriceNET_Uom4AfterDiscAfterPpn = spriceNET_Uom4AfterDiscAfterPpn,
+        qty1 = qty1,
+        qty2 = qty2,
+        qty3 = qty3,
+        qty4 = qty4,
+
+        qty1Kembali = qty1Kembali,
+        qty2Kembali = qty2Kembali,
+        qty3Kembali = qty3Kembali,
+        qty4Kembali = qty4Kembali,
+
+        qty = qty,
+        qtyKembali = qtyKembali,
+        qtyNET = qtyNET,
+        qtyReturn = qtyReturn,
+
+        priceUom = priceUom,
+        subtotalRp = subtotalRp,
+        subtotalPpnRp = subtotalPpnRp,
+        subtotalRpAfterPpn = subtotalRpAfterPpn,
+        disc1 = disc1,
+        disc1Rp = disc1Rp,
+        disc1PpnRp = disc1PpnRp,
+        disc1RpAfterPpn = disc1RpAfterPpn,
+
+        disc1RpAfterPpnUom1 = disc1RpAfterPpnUom1,
+        disc1RpAfterPpnUom2 = disc1RpAfterPpnUom2,
+        disc1RpAfterPpnUom3 = disc1RpAfterPpnUom3,
+        disc1RpAfterPpnUom4 = disc1RpAfterPpnUom4,
+
+        disc2 = disc2,
+        disc2Rp = disc2Rp,
+        disc2PpnRp = disc2PpnRp,
+        disc2RpAfterPpn = disc2RpAfterPpn,
+
+        disc2RpAfterPpnUom1 = disc2RpAfterPpnUom1,
+        disc2RpAfterPpnUom2 = disc2RpAfterPpnUom2,
+        disc2RpAfterPpnUom3 = disc2RpAfterPpnUom3,
+        disc2RpAfterPpnUom4 = disc2RpAfterPpnUom4,
+
+        disc3 = disc3,
+        disc3Rp = disc3Rp,
+        disc3PpnRp = disc3PpnRp,
+        disc3RpAfterPpn = disc3RpAfterPpn,
+
+        disc3RpAfterPpnUom1 = disc3RpAfterPpnUom1,
+        disc3RpAfterPpnUom2 = disc3RpAfterPpnUom2,
+        disc3RpAfterPpnUom3 = disc3RpAfterPpnUom3,
+        disc3RpAfterPpnUom4 = disc3RpAfterPpnUom4,
+
+        subtotalAfterDisc123Rp = subtotalAfterDisc123Rp,
+        subtotalAfterDisc123PpnRp = subtotalAfterDisc123PpnRp,
+        subtotalAfterDisc123RpAfterPpn = subtotalAfterDisc123RpAfterPpn,
+
+        disc1Plus = disc1Plus,
+        disc1PlusRp = disc1PlusRp,
+        disc1PlusPpnRp = disc1PlusPpnRp,
+        disc1PlusRpAfterPpn = disc1PlusRpAfterPpn,
+
+        disc1PlusRpAfterPpnUom1 = disc1PlusRpAfterPpnUom1,
+        disc1PlusRpAfterPpnUom2 = disc1PlusRpAfterPpnUom2,
+        disc1PlusRpAfterPpnUom3 = disc1PlusRpAfterPpnUom3,
+        disc1PlusRpAfterPpnUom4 = disc1PlusRpAfterPpnUom4,
+
+        subtotalAfterDisc1PlusRp = subtotalAfterDisc1PlusRp,
+        subtotalAfterDisc1PlusPpnRp = subtotalAfterDisc1PlusPpnRp,
+        subtotalAfterDisc1PlusRpAfterPpn = subtotalAfterDisc1PlusRpAfterPpn,
+        disc2Plus = disc2Plus,
+        disc2PlusRp = disc2PlusRp,
+        disc2PlusPpnRp = disc2PlusPpnRp,
+        disc2PlusRpAfterPpn = disc2PlusRpAfterPpn,
+
+        disc2PlusRpAfterPpnUom1 = disc2PlusRpAfterPpnUom1,
+        disc2PlusRpAfterPpnUom2 = disc2PlusRpAfterPpnUom2,
+        disc2PlusRpAfterPpnUom3 = disc2PlusRpAfterPpnUom3,
+        disc2PlusRpAfterPpnUom4 = disc2PlusRpAfterPpnUom4,
+
+        subtotalAfterDisc2PlusRp = subtotalAfterDisc2PlusRp,
+        subtotalAfterDisc2PlusPpnRp = subtotalAfterDisc2PlusPpnRp,
+        subtotalAfterDisc2PlusRpAfterPpn = subtotalAfterDisc2PlusRpAfterPpn,
+
+        discNota1 = discNota1,
+        discNota1Rp = discNota1Rp,
+        discNota1PpnRp = discNota1PpnRp,
+        discNota1RpAfterPpn = discNota1RpAfterPpn,
+
+        subtotalAfterDiscNota1Rp = subtotalAfterDiscNota1Rp,
+        subtotalAfterDiscNota1PpnRp = subtotalAfterDiscNota1PpnRp,
+        subtotalAfterDiscNota1RpAfterPpn = subtotalAfterDiscNota1RpAfterPpn,
+
+        discNota2 = discNota2,
+        discNota2Rp = discNota2Rp,
+        discNota2PpnRp = discNota2PpnRp,
+        discNota2RpAfterPpn = discNota2RpAfterPpn,
+        subtotalAfterDiscNota2Rp = subtotalAfterDiscNota2Rp,
+        subtotalAfterDiscNota2PpnRp = subtotalAfterDiscNota2PpnRp,
+        subtotalAfterDiscNota2RpAfterPpn = subtotalAfterDiscNota2RpAfterPpn,
+
+        discNotaPlus_FG = discNotaPlus_FG,
+        discNotaPlusRp_FG = discNotaPlusRp_FG,
+        discNotaPlusPpnRp_FG = discNotaPlusPpnRp_FG,
+        discNotaPlusRpAfterPpn_FG = discNotaPlusRpAfterPpn_FG,
+        subtotalAfterDiscNotaPlusRp_FG = subtotalAfterDiscNotaPlusRp_FG,
+        subtotalAfterDiscNotaPlusPpnRp_FG = subtotalAfterDiscNotaPlusPpnRp_FG,
+        subtotalAfterDiscNotaPlusRpAfterPpn_FG = subtotalAfterDiscNotaPlusRpAfterPpn_FG,
+
+        tempString = tempString,
+        tempInt = tempInt,
+        tempDouble1 = tempDouble1,
+        tempDouble2 = tempDouble2,
+        tempDouble31 = tempDouble31,
+
+        ftSaleshBean = ftSaleshBean?.let { FtSaleshEntity(ftSaleshBean.refno) },
+        fmaterialBean = fmaterialBean,
+    )
+}
+
+internal fun FtSalesdItems.toResponse(): FtSalesdItemsRes {
+    return FtSalesdItemsRes(
+        id = id,
+        freeGood = freeGood,
+        noUrut = noUrut,
+        notes = notes,
+
+        sprice = sprice,
+        spricePpnRp = spricePpnRp,
+        tax = tax,
+        ftaxBean = ftaxBean,
+        taxPercent = taxPercent,
+
+        spriceUom2 = spriceUom2,
+        spriceUom3 = spriceUom3,
+        spriceUom4 = spriceUom4,
+        spriceAfterPpn = spriceAfterPpn,
+        spriceUom2AfterPpn = spriceUom2AfterPpn,
+        spriceUom3AfterPpn = spriceUom3AfterPpn,
+        spriceUom4AfterPpn = spriceUom4AfterPpn,
+
+        spriceNET_Uom1AfterDiscAfterPpn = spriceNET_Uom1AfterDiscAfterPpn,
+        spriceNET_Uom2AfterDiscAfterPpn = spriceNET_Uom2AfterDiscAfterPpn,
+        spriceNET_Uom3AfterDiscAfterPpn = spriceNET_Uom3AfterDiscAfterPpn,
+        spriceNET_Uom4AfterDiscAfterPpn = spriceNET_Uom4AfterDiscAfterPpn,
+        qty1 = qty1,
+        qty2 = qty2,
+        qty3 = qty3,
+        qty4 = qty4,
+
+        qty1Kembali = qty1Kembali,
+        qty2Kembali = qty2Kembali,
+        qty3Kembali = qty3Kembali,
+        qty4Kembali = qty4Kembali,
+
+        qty = qty,
+        qtyKembali = qtyKembali,
+        qtyNET = qtyNET,
+        qtyReturn = qtyReturn,
+
+        priceUom = priceUom,
+        subtotalRp = subtotalRp,
+        subtotalPpnRp = subtotalPpnRp,
+        subtotalRpAfterPpn = subtotalRpAfterPpn,
+        disc1 = disc1,
+        disc1Rp = disc1Rp,
+        disc1PpnRp = disc1PpnRp,
+        disc1RpAfterPpn = disc1RpAfterPpn,
+
+        disc1RpAfterPpnUom1 = disc1RpAfterPpnUom1,
+        disc1RpAfterPpnUom2 = disc1RpAfterPpnUom2,
+        disc1RpAfterPpnUom3 = disc1RpAfterPpnUom3,
+        disc1RpAfterPpnUom4 = disc1RpAfterPpnUom4,
+
+        disc2 = disc2,
+        disc2Rp = disc2Rp,
+        disc2PpnRp = disc2PpnRp,
+        disc2RpAfterPpn = disc2RpAfterPpn,
+
+        disc2RpAfterPpnUom1 = disc2RpAfterPpnUom1,
+        disc2RpAfterPpnUom2 = disc2RpAfterPpnUom2,
+        disc2RpAfterPpnUom3 = disc2RpAfterPpnUom3,
+        disc2RpAfterPpnUom4 = disc2RpAfterPpnUom4,
+
+        disc3 = disc3,
+        disc3Rp = disc3Rp,
+        disc3PpnRp = disc3PpnRp,
+        disc3RpAfterPpn = disc3RpAfterPpn,
+
+        disc3RpAfterPpnUom1 = disc3RpAfterPpnUom1,
+        disc3RpAfterPpnUom2 = disc3RpAfterPpnUom2,
+        disc3RpAfterPpnUom3 = disc3RpAfterPpnUom3,
+        disc3RpAfterPpnUom4 = disc3RpAfterPpnUom4,
+
+        subtotalAfterDisc123Rp = subtotalAfterDisc123Rp,
+        subtotalAfterDisc123PpnRp = subtotalAfterDisc123PpnRp,
+        subtotalAfterDisc123RpAfterPpn = subtotalAfterDisc123RpAfterPpn,
+
+        disc1Plus = disc1Plus,
+        disc1PlusRp = disc1PlusRp,
+        disc1PlusPpnRp = disc1PlusPpnRp,
+        disc1PlusRpAfterPpn = disc1PlusRpAfterPpn,
+
+        disc1PlusRpAfterPpnUom1 = disc1PlusRpAfterPpnUom1,
+        disc1PlusRpAfterPpnUom2 = disc1PlusRpAfterPpnUom2,
+        disc1PlusRpAfterPpnUom3 = disc1PlusRpAfterPpnUom3,
+        disc1PlusRpAfterPpnUom4 = disc1PlusRpAfterPpnUom4,
+
+        subtotalAfterDisc1PlusRp = subtotalAfterDisc1PlusRp,
+        subtotalAfterDisc1PlusPpnRp = subtotalAfterDisc1PlusPpnRp,
+        subtotalAfterDisc1PlusRpAfterPpn = subtotalAfterDisc1PlusRpAfterPpn,
+        disc2Plus = disc2Plus,
+        disc2PlusRp = disc2PlusRp,
+        disc2PlusPpnRp = disc2PlusPpnRp,
+        disc2PlusRpAfterPpn = disc2PlusRpAfterPpn,
+
+        disc2PlusRpAfterPpnUom1 = disc2PlusRpAfterPpnUom1,
+        disc2PlusRpAfterPpnUom2 = disc2PlusRpAfterPpnUom2,
+        disc2PlusRpAfterPpnUom3 = disc2PlusRpAfterPpnUom3,
+        disc2PlusRpAfterPpnUom4 = disc2PlusRpAfterPpnUom4,
+
+        subtotalAfterDisc2PlusRp = subtotalAfterDisc2PlusRp,
+        subtotalAfterDisc2PlusPpnRp = subtotalAfterDisc2PlusPpnRp,
+        subtotalAfterDisc2PlusRpAfterPpn = subtotalAfterDisc2PlusRpAfterPpn,
+
+        discNota1 = discNota1,
+        discNota1Rp = discNota1Rp,
+        discNota1PpnRp = discNota1PpnRp,
+        discNota1RpAfterPpn = discNota1RpAfterPpn,
+
+        subtotalAfterDiscNota1Rp = subtotalAfterDiscNota1Rp,
+        subtotalAfterDiscNota1PpnRp = subtotalAfterDiscNota1PpnRp,
+        subtotalAfterDiscNota1RpAfterPpn = subtotalAfterDiscNota1RpAfterPpn,
+
+        discNota2 = discNota2,
+        discNota2Rp = discNota2Rp,
+        discNota2PpnRp = discNota2PpnRp,
+        discNota2RpAfterPpn = discNota2RpAfterPpn,
+        subtotalAfterDiscNota2Rp = subtotalAfterDiscNota2Rp,
+        subtotalAfterDiscNota2PpnRp = subtotalAfterDiscNota2PpnRp,
+        subtotalAfterDiscNota2RpAfterPpn = subtotalAfterDiscNota2RpAfterPpn,
+
+        discNotaPlus_FG = discNotaPlus_FG,
+        discNotaPlusRp_FG = discNotaPlusRp_FG,
+        discNotaPlusPpnRp_FG = discNotaPlusPpnRp_FG,
+        discNotaPlusRpAfterPpn_FG = discNotaPlusRpAfterPpn_FG,
+        subtotalAfterDiscNotaPlusRp_FG = subtotalAfterDiscNotaPlusRp_FG,
+        subtotalAfterDiscNotaPlusPpnRp_FG = subtotalAfterDiscNotaPlusPpnRp_FG,
+        subtotalAfterDiscNotaPlusRpAfterPpn_FG = subtotalAfterDiscNotaPlusRpAfterPpn_FG,
+
+        tempString = tempString,
+        tempInt = tempInt,
+        tempDouble1 = tempDouble1,
+        tempDouble2 = tempDouble2,
+        tempDouble31 = tempDouble31,
+
+        ftSaleshBean = ftSaleshBean.refno,
+        fmaterialBean = fmaterialBean,
+    )
+}

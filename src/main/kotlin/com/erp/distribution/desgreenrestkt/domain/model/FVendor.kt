@@ -1,6 +1,9 @@
 package com.erp.distribution.desgreenrestkt.domain.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FVendorEntity
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumCurrency
+import com.erp.distribution.desgreenrestkt.presentation.model.FVendorRes
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
@@ -156,3 +159,100 @@ data class FVendor (
 
 
 ): Serializable
+
+internal fun FVendor.toEntity(): FVendorEntity {
+    return FVendorEntity(
+        id = id,
+        sourceId = sourceId,
+
+        vcode = vcode,
+        vname = vname,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+        address1 = address1,
+        address2 = address2,
+        city1 = city1,
+        state1 = state1,
+        phone = phone,
+        email = email,
+        joinDate = joinDate,
+        lastTrans = lastTrans,
+        noRekening = noRekening,
+        currency = currency,
+
+        disc2Margin = disc2Margin,
+        disc1PlusMargin = disc1PlusMargin,
+        pkp = pkp,
+        namaPrshFakturPajak = namaPrshFakturPajak,
+        namaPengusahaKenaPajak = namaPengusahaKenaPajak,
+        tanggalPengukuhanPkp = tanggalPengukuhanPkp,
+
+        top = top,
+        wsport = wsport,
+        disc1RegManual = disc1RegManual,
+        isDiscPlusRegManual = isDiscPlusRegManual,
+
+        tempString1 = tempString1,
+        tempString2 = tempString2,
+        tempInt1 = tempInt1,
+        tempInt2 = tempInt2,
+        tempDouble1 = tempDouble1,
+        tempDouble2 = tempDouble2,
+        tempDouble31 = tempDouble31,
+        tempDouble32 = tempDouble32,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}
+
+
+internal fun FVendor.toReponse(): FVendorRes {
+    return FVendorRes(
+        id = id,
+        sourceId = sourceId,
+
+        vcode = vcode,
+        vname = vname,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+        address1 = address1,
+        address2 = address2,
+        city1 = city1,
+        state1 = state1,
+        phone = phone,
+        email = email,
+        joinDate = joinDate,
+        lastTrans = lastTrans,
+        noRekening = noRekening,
+        currency = currency,
+
+        disc2Margin = disc2Margin,
+        disc1PlusMargin = disc1PlusMargin,
+        pkp = pkp,
+        namaPrshFakturPajak = namaPrshFakturPajak,
+        namaPengusahaKenaPajak = namaPengusahaKenaPajak,
+        tanggalPengukuhanPkp = tanggalPengukuhanPkp,
+
+        top = top,
+        wsport = wsport,
+        disc1RegManual = disc1RegManual,
+        isDiscPlusRegManual = isDiscPlusRegManual,
+
+        tempString1 = tempString1,
+        tempString2 = tempString2,
+        tempInt1 = tempInt1,
+        tempInt2 = tempInt2,
+        tempDouble1 = tempDouble1,
+        tempDouble2 = tempDouble2,
+        tempDouble31 = tempDouble31,
+        tempDouble32 = tempDouble32,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}

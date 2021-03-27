@@ -1,5 +1,8 @@
-package com.erp.distribution.desgreenrestkt.data.source.entity
+package com.erp.distribution.desgreenrestkt.presentation.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FWarehouseEntity
+import com.erp.distribution.desgreenrestkt.domain.model.FWarehouse
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumTipeWarehouse
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
@@ -7,12 +10,7 @@ import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-@Entity
-@Table(name = "fwarehouse")
-data class FWarehouseEntity (
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", length = 9)
+data class FWarehouseRes (
     var id  :Int =0,
 
     /*
@@ -101,3 +99,37 @@ data class FWarehouseEntity (
     var modifiedBy :String ="" //User ID
 
 ): Serializable
+
+internal fun FWarehouseRes.toDomain(): FWarehouse {
+    return FWarehouse(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+        productHppSaved = productHppSaved,
+        numberPriority = numberPriority,
+        gudangUtama = gudangUtama,
+        address1 = address1,
+        city1 = city1,
+        state1 = state1,
+        phone = phone,
+        gudangPo = gudangPo,
+        gudangSo = gudangSo,
+        gudangTransfer = gudangTransfer,
+        gudangRetail = gudangRetail,
+        gudangPusatCompany = gudangPusatCompany,
+        gudangTransitDiv = gudangTransitDiv,
+        tipeWarehouse = tipeWarehouse,
+        wsport = wsport,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}
+

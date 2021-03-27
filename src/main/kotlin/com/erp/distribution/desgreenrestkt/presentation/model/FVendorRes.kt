@@ -1,5 +1,7 @@
-package com.erp.distribution.desgreenrestkt.data.source.entity
+package com.erp.distribution.desgreenrestkt.presentation.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FVendorEntity
 import com.erp.distribution.desgreenrestkt.domain.model.FVendor
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumCurrency
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
@@ -8,12 +10,7 @@ import java.util.*
 import javax.persistence.*
 
 @JacksonXmlRootElement
-@Entity
-@Table(name = "fvendor")
-data class FVendorEntity (
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", length = 9)
+data class FVendorRes (
     var id  :Int =0,
 
     /*
@@ -163,8 +160,7 @@ data class FVendorEntity (
 
 ): Serializable
 
-
-internal fun FVendorEntity.toDomain(): FVendor {
+internal fun FVendorRes.toDomain(): FVendor {
     return FVendor(
         id = id,
         sourceId = sourceId,

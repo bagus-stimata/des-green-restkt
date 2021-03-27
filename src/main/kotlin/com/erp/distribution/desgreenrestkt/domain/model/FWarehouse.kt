@@ -1,6 +1,9 @@
 package com.erp.distribution.desgreenrestkt.domain.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FWarehouseEntity
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumTipeWarehouse
+import com.erp.distribution.desgreenrestkt.presentation.model.FWarehouseRes
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
@@ -32,7 +35,7 @@ data class FWarehouse (
     var fdivisionBean  :Int =0,
 
     @Column(name = "PRODUCT_HPP_SAVED")
-    var isProductHppSaved  :Boolean =false,
+    var productHppSaved  :Boolean =false,
 
     @Column(name = "NUMBER_PRIORITY")
     var numberPriority: Int? = 0,
@@ -41,7 +44,7 @@ data class FWarehouse (
     var description :String ="",
 
     @Column(name = "GUDANG_UTAMA")
-    var isGudangUtama  :Boolean =false,
+    var gudangUtama  :Boolean =false,
 
     @Column(name = "ADDRESS1", length = 100)
     var address1 :String ="",
@@ -56,25 +59,25 @@ data class FWarehouse (
     var phone :String ="",
 
     @Column(name = "STATUS_ACTIVE")
-    var isStatusActive  :Boolean =false,
+    var statusActive  :Boolean =false,
 
     @Column(name = "GDG_PO")
-    var isGudangPo  :Boolean =true,
+    var gudangPo  :Boolean =true,
 
     @Column(name = "GDG_SO")
-    var isGudangSo  :Boolean =true,
+    var gudangSo  :Boolean =true,
 
     @Column(name = "GDG_TRANSFER")
-    var isGudangTransfer  :Boolean =true,
+    var gudangTransfer  :Boolean =true,
 
     @Column(name = "GDG_RETAIL")
-    var isGudangRetail  :Boolean =true,
+    var gudangRetail  :Boolean =true,
 
     @Column(name = "GDG_PUSAT_COMPANY")
-    var isGudangPusatCompany  :Boolean =true,
+    var gudangPusatCompany  :Boolean =true,
 
     @Column(name = "GDG_TRANSIT_DIV")
-    var isGudangTransitDiv  :Boolean =true,
+    var gudangTransitDiv  :Boolean =true,
 
     @Column(length = 5, name = "TIPE_WAREHOUSE")
     @Enumerated(EnumType.STRING)
@@ -96,3 +99,70 @@ data class FWarehouse (
     var modifiedBy :String ="" //User ID
 
 ): Serializable
+
+internal fun FWarehouse.toEntity(): FWarehouseEntity {
+    return FWarehouseEntity(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+        productHppSaved = productHppSaved,
+        numberPriority = numberPriority,
+        gudangUtama = gudangUtama,
+        address1 = address1,
+        city1 = city1,
+        state1 = state1,
+        phone = phone,
+        gudangPo = gudangPo,
+        gudangSo = gudangSo,
+        gudangTransfer = gudangTransfer,
+        gudangRetail = gudangRetail,
+        gudangPusatCompany = gudangPusatCompany,
+        gudangTransitDiv = gudangTransitDiv,
+        tipeWarehouse = tipeWarehouse,
+        wsport = wsport,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}
+
+
+internal fun FWarehouse.toResponse(): FWarehouseRes {
+    return FWarehouseRes(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+        productHppSaved = productHppSaved,
+        numberPriority = numberPriority,
+        gudangUtama = gudangUtama,
+        address1 = address1,
+        city1 = city1,
+        state1 = state1,
+        phone = phone,
+        gudangPo = gudangPo,
+        gudangSo = gudangSo,
+        gudangTransfer = gudangTransfer,
+        gudangRetail = gudangRetail,
+        gudangPusatCompany = gudangPusatCompany,
+        gudangTransitDiv = gudangTransitDiv,
+        tipeWarehouse = tipeWarehouse,
+        wsport = wsport,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}

@@ -1,5 +1,8 @@
-package com.erp.distribution.desgreenrestkt.data.source.entity
+package com.erp.distribution.desgreenrestkt.presentation.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtSalesdItemsEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity.FtSaleshEntity
 import com.erp.distribution.desgreenrestkt.domain.model.FtSalesdItems
 import com.erp.distribution.desgreenrestkt.domain.model.FtSalesh
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumUom
@@ -8,12 +11,7 @@ import java.io.Serializable
 import javax.persistence.*
 
 @JacksonXmlRootElement
-@Entity
-@Table(name = "ftsalesd_items")
-data class FtSalesdItemsEntity (
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+data class FtSalesdItemsRes (
     var id: Long =0L,
 
     @Column(name = "FREE_GOOD")
@@ -411,11 +409,12 @@ data class FtSalesdItemsEntity (
     //	private Double tpruDisc=0.0;
     //	@Column(name="TPRU_CASHBACK")
     //	private Double tpruCashback=0.0;
-    @ManyToOne
-    @JoinColumn(name="ftSaleshBean", referencedColumnName="refno")
-    var ftSaleshBean :FtSaleshEntity = FtSaleshEntity(),
-//    @Column(name = "ftSaleshBean", nullable = false)
-//    var ftSaleshBean: Long =0L,
+
+//    @ManyToOne
+//    @JoinColumn(name="ftSaleshBean", referencedColumnName="refno")
+//    var ftSaleshBean : FtSalesh = FtSalesh(),
+    @Column(name = "ftSaleshBean", nullable = false)
+    var ftSaleshBean: Long =0L,
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialBean", referencedColumnName="ID")
@@ -425,7 +424,7 @@ data class FtSalesdItemsEntity (
 
 ): Serializable
 
-internal fun FtSalesdItemsEntity.toDomain(): FtSalesdItems {
+internal fun FtSalesdItemsRes.toDomain(): FtSalesdItems {
     return FtSalesdItems(
         id = id,
         freeGood = freeGood,
@@ -561,7 +560,7 @@ internal fun FtSalesdItemsEntity.toDomain(): FtSalesdItems {
         tempDouble2 = tempDouble2,
         tempDouble31 = tempDouble31,
 
-        ftSaleshBean = ftSaleshBean?.let { FtSalesh(ftSaleshBean.refno) },
+        ftSaleshBean = ftSaleshBean?.let { FtSalesh(ftSaleshBean) },
         fmaterialBean = fmaterialBean,
     )
 }
