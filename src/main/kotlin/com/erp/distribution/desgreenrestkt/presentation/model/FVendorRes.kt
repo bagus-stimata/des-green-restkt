@@ -61,7 +61,7 @@ data class FVendorRes (
     var lastTrans :Date =Date(),
 
     @Column(name = "NO_REKENING", length = 150)
-    var noRekening :String ="",
+    var noRekening :String? ="",
 
     @Column(name = "CURRENCY", length = 5)
     @Enumerated(EnumType.STRING)
@@ -178,7 +178,7 @@ internal fun FVendorRes.toDomain(): FVendor {
         email = email,
         joinDate = joinDate,
         lastTrans = lastTrans,
-        noRekening = noRekening,
+        noRekening = noRekening?.let {  noRekening },
         currency = currency,
 
         disc2Margin = disc2Margin,

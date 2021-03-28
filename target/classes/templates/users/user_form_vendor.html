@@ -232,13 +232,9 @@
                                                     <tr th:each="vedorBean : ${listFVendor}">
                                                         <td>
                                                             <div class="custom-control custom-checkbox">
-<!--                                                                <input type="checkbox" th:id="${{vedorBean}}" th:value="${{vedorBean}}" th:field="*{tempRoles}" class="custom-control-input"> &nbsp;-->
                                                                 <input type="checkbox" th:id="${{vedorBean}}" th:value="${{vedorBean}}"  th:field="*{tempVendors}" class="custom-control-input"> &nbsp;
                                                                 <label class="custom-control-label" th:for="${{vedorBean}}" th:text="${vedorBean.vname} +  ' (' + ${vedorBean.vcode} +  ')' "></label>
                                                             </div>
-
-                                                            <!-- <input type="checkbox" th:id="${{myRole}}" th:value="${{myRole}}" th:field="*{tempRoles}" />&nbsp;
-                                                            <label th:for="${{myRole}}" th:text="${myRole}"></label> -->
                                                         </td>
                                                     </tr>
                                                 </tbody>

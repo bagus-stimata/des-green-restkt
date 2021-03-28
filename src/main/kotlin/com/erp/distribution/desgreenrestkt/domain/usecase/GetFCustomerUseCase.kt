@@ -31,12 +31,12 @@ class GetFCustomerUseCase @Autowired constructor(
         }
     }
     fun findByKode1(kode1: String): List<FCustomer> {
-        return  fCustomerRepo.findByKode1(kode1).map {
+        return  fCustomerRepo.findByCustno(kode1).map {
             it.toDomain()
         }
     }
     fun findByKode1Res(kode1: String): List<FCustomerRes> {
-        return  fCustomerRepo.findByKode1(kode1).map {
+        return  fCustomerRepo.findByCustno(kode1).map {
             it.toDomain().toResponse()
         }
     }

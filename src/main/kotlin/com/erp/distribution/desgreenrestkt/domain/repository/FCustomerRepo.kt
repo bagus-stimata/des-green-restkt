@@ -7,8 +7,8 @@ import org.springframework.data.domain.Pageable
 interface FCustomerRepo {
     fun findById(id: Int): FCustomerEntity
     fun findAll(): List<FCustomerEntity>
-    fun findByKode1(kode1: String): List<FCustomerEntity>
-    fun findAll(kode1: String, description: String): List<FCustomerEntity>
+    fun findByCustno(custno: String): List<FCustomerEntity>
+    fun findAll(custno: String, custname: String): List<FCustomerEntity>
     fun findByDivision(fdivisionBean: Int): List<FCustomerEntity>
     fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FCustomerEntity>
 

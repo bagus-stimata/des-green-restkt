@@ -9,7 +9,7 @@ interface FDivisionRepo {
     fun findAll(): List<FDivisionEntity>
     fun findByKode1(kode1: String): List<FDivisionEntity>
     fun findAll(kode1: String, description: String): List<FDivisionEntity>
-    fun findByCompany(fdivisionBean: Int): List<FDivisionEntity>
+    fun findByCompany(fcompanyBean: Int): List<FDivisionEntity>
 
     fun save(fDivisionEntity: FDivisionEntity): FDivisionEntity
     fun saveAll(listFDivision: List<FDivisionEntity>): List<FDivisionEntity>

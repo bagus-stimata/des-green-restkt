@@ -61,7 +61,7 @@ data class FVendor (
     var lastTrans :Date =Date(),
 
     @Column(name = "NO_REKENING", length = 150)
-    var noRekening :String ="",
+    var noRekening :String? ="",
 
     @Column(name = "CURRENCY", length = 5)
     @Enumerated(EnumType.STRING)
@@ -178,7 +178,7 @@ internal fun FVendor.toEntity(): FVendorEntity {
         email = email,
         joinDate = joinDate,
         lastTrans = lastTrans,
-        noRekening = noRekening,
+        noRekening = noRekening?.let {  noRekening },
         currency = currency,
 
         disc2Margin = disc2Margin,
@@ -227,7 +227,7 @@ internal fun FVendor.toResponse(): FVendorRes {
         email = email,
         joinDate = joinDate,
         lastTrans = lastTrans,
-        noRekening = noRekening,
+        noRekening = noRekening?.let {  noRekening },
         currency = currency,
 
         disc2Margin = disc2Margin,
@@ -238,7 +238,7 @@ internal fun FVendor.toResponse(): FVendorRes {
         tanggalPengukuhanPkp = tanggalPengukuhanPkp,
 
         top = top,
-        wsport = wsport,
+        wsport = wsport?.let { wsport },
         disc1RegManual = disc1RegManual,
         isDiscPlusRegManual = isDiscPlusRegManual,
 

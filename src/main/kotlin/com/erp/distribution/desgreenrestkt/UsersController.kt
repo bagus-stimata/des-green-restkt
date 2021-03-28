@@ -17,6 +17,7 @@ import com.erp.distribution.desgreenrestkt.data.source.local.dao_security.FUsers
 import com.erp.distribution.desgreenrestkt.domain.model.*
 import com.erp.distribution.desgreenrestkt.domain.model.toEntity
 import com.erp.distribution.desgreenrestkt.domain.usecase.*
+import com.erp.distribution.desgreenrestkt.presentation.model.FVendorRes
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.ComponentScan
@@ -46,19 +47,23 @@ class UsersController @Autowired constructor(
     val getFDivisionUseCase: GetFDivisionUseCase,
     val getFSalesmanUseCase: GetFSalesmanUseCase,
     val getFVendorUseCase: GetFVendorUseCase,
-    val getFWarehouseUseCase: GetFWarehouseUseCase
+    val getFWarehouseUseCase: GetFWarehouseUseCase,
+    val fUsersJPARepository: FUsersJPARepository,
+    val fUserRolesJPARepository: FUserRolesJPARepository,
+    val fUserVendorsJPARepository: FUserVendorsJPARepository,
+    val securityUtils: SecurityUtils
 ) {
-    @Autowired
-    lateinit var fUsersJPARepository: FUsersJPARepository
-
-    @Autowired
-    lateinit var fUserRolesJPARepository: FUserRolesJPARepository
-
-    @Autowired
-    lateinit var fUserVendorsJPARepository: FUserVendorsJPARepository
-
-    @Autowired
-    lateinit var securityUtils: SecurityUtils
+//    @Autowired
+//    lateinit var fUsersJPARepository: FUsersJPARepository
+//
+//    @Autowired
+//    lateinit var fUserRolesJPARepository: FUserRolesJPARepository
+//
+//    @Autowired
+//    lateinit var fUserVendorsJPARepository: FUserVendorsJPARepository
+//
+//    @Autowired
+//    lateinit var securityUtils: SecurityUtils
 
     var listFDivision: List<FDivision> = ArrayList()
     var listFWarehouse: List<FWarehouse> = ArrayList()
@@ -96,9 +101,12 @@ class UsersController @Autowired constructor(
             return list
         }
 
+    //Karena berhubungan dengan FUser yang mengambil data dari Entity
     @ModelAttribute("listFVendor")
-    fun listFVendor(): List<FVendor> {
-        return listFVendor
+    fun listFVendor(): List<FVendorEntity> {
+        return listFVendor.map {
+            it.toEntity()
+        }
     }
 
     @ModelAttribute("listFWarehouse")

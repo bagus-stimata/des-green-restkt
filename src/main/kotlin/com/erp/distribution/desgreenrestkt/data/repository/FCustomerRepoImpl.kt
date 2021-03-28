@@ -22,7 +22,7 @@ class FCustomerRepoImpl @Autowired constructor(
         return fCustomerJPARepository.findAll(custno, custname)
     }
 
-    override fun findByKode1(custno: String): List<FCustomerEntity> {
+    override fun findByCustno(custno: String): List<FCustomerEntity> {
         return fCustomerJPARepository.findByCustno(custno)
     }
 
