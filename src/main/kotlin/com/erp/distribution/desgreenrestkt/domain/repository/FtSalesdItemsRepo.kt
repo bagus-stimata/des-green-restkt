@@ -9,8 +9,8 @@ interface FtSalesdItemsRepo {
     fun findAll(): List<FtSalesdItemsEntity>
     fun findByKode1(kode1: String): List<FtSalesdItemsEntity>
     fun findAll(kode1: String, description: String): List<FtSalesdItemsEntity>
-    fun findAllByDivision(fdivisionBean: Int): List<FtSalesdItemsEntity>
-    fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FtSalesdItemsEntity>
+    fun findByDivision(fdivisionBean: Int): List<FtSalesdItemsEntity>
+    fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FtSalesdItemsEntity>
 
     fun save(ftSalesdItemsEntity: FtSalesdItemsEntity): FtSalesdItemsEntity
     fun saveAll(listFtSalesdItems: List<FtSalesdItemsEntity>): List<FtSalesdItemsEntity>

@@ -9,8 +9,8 @@ interface FMaterialGroup1Repo {
     fun findAll(): List<FMaterialGroup1Entity>
     fun findByKode1(kode1: String): List<FMaterialGroup1Entity>
     fun findAll(kode1: String, description: String): List<FMaterialGroup1Entity>
-    fun findAllByDivision(fdivisionBean: Int): List<FMaterialGroup1Entity>
-    fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FMaterialGroup1Entity>
+    fun findByDivision(fdivisionBean: Int): List<FMaterialGroup1Entity>
+    fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FMaterialGroup1Entity>
 
     fun save(fMaterialGroup1Entity: FMaterialGroup1Entity): FMaterialGroup1Entity
     fun saveAll(listFMaterialGroup1: List<FMaterialGroup1Entity>): List<FMaterialGroup1Entity>

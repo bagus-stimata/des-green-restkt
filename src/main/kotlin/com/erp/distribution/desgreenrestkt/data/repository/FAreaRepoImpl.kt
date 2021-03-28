@@ -26,11 +26,11 @@ class FAreaRepoImpl @Autowired constructor(
         return fAreaJPARepository.findByKode1(kode1)
     }
 
-    override fun findAllByDivision(fdivisionBean: Int): List<FAreaEntity> {
+    override fun findByDivision(fdivisionBean: Int): List<FAreaEntity> {
         return fAreaJPARepository.findAllByDivision(fdivisionBean)
     }
 
-    override fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FAreaEntity> {
+    override fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FAreaEntity> {
         return fAreaJPARepository.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean)
     }
 

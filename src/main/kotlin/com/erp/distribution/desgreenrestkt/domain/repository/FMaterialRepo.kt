@@ -10,10 +10,10 @@ interface FMaterialRepo {
     fun findAll(): List<FMaterialEntity>
     fun findByPcode(pcode: String): List<FMaterialEntity>
     fun findAll(pcode: String, pname: String): List<FMaterialEntity>
-    fun findAllByDivision(fdivisionBean: Int): List<FMaterialEntity>
-    fun findAllByDivisionAndListVendor(fdivisionBean: Int, listVendor: List<Int>): List<FMaterialEntity>
-    fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FMaterialEntity>
-    fun findAllByDivisionAndShareToCompanyAndListVendor(fdivisionBean: Int, fcompanyBean: Int, listVendor: List<Int>): List<FMaterialEntity>
-    fun findAllByDivision(fdivisionBean: Int, pageable: Pageable?): Page<FMaterialEntity>
+    fun findByDivision(fdivisionBean: Int): List<FMaterialEntity>
+    fun findByDivisionAndListVendor(fdivisionBean: Int, listVendor: List<Int>): List<FMaterialEntity>
+    fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FMaterialEntity>
+    fun findByDivisionAndShareToCompanyAndListVendor(fdivisionBean: Int, fcompanyBean: Int, listVendor: List<Int>): List<FMaterialEntity>
+    fun findByDivision(fdivisionBean: Int, pageable: Pageable?): Page<FMaterialEntity>
 
 }

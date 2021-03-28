@@ -48,17 +48,17 @@ class GetFCustomerUseCase @Autowired constructor(
     }
 
     fun findAllByDivision(fdivisionBean: Int): List<FCustomer> {
-        return  fCustomerRepo.findAllByDivision(fdivisionBean).map {
+        return  fCustomerRepo.findByDivision(fdivisionBean).map {
             it.toDomain()
         }
     }
     fun findAllByDivisionRes(fdivisionBean: Int): List<FCustomerRes> {
-        return  fCustomerRepo.findAllByDivision(fdivisionBean).map {
+        return  fCustomerRepo.findByDivision(fdivisionBean).map {
             it.toDomain().toResponse()
         }
     }
     fun findAllByDivisionAndShareToCompanyRes(fdivisionBean: Int, fcompanyBean: Int): List<FCustomerRes> {
-        return  fCustomerRepo.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).map {
+        return  fCustomerRepo.findByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).map {
             it.toDomain().toResponse()
         }
     }

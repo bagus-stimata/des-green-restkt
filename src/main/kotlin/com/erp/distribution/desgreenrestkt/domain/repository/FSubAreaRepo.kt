@@ -9,8 +9,7 @@ interface FSubAreaRepo {
     fun findAll(): List<FSubAreaEntity>
     fun findByKode1(kode1: String): List<FSubAreaEntity>
     fun findAll(kode1: String, description: String): List<FSubAreaEntity>
-    fun findAllByDivision(fdivisionBean: Int): List<FSubAreaEntity>
-    fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FSubAreaEntity>
+    fun findByParent(fparentBean: Int): List<FSubAreaEntity>
 
     fun save(fSubAreaEntity: FSubAreaEntity): FSubAreaEntity
     fun saveAll(listFSubArea: List<FSubAreaEntity>): List<FSubAreaEntity>

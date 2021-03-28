@@ -9,7 +9,7 @@ interface FStockJPARepository : JpaRepository<FStockEntity, Int> {
 //    override fun findById(id: Int): FStockEntity
 
     @Query("SELECT u FROM FStockEntity u WHERE u.fmaterialBean = :fmaterialBean")
-    fun findAllBy(fmaterialBean: Int): List<FStockEntity>
+    fun findAllByFMaterial(fmaterialBean: Int): List<FStockEntity>
 
     @Query("SELECT u FROM FStockEntity u WHERE u.fmaterialBean = :fmaterialBean and u.stockDate >= :stockDateFrom and u.stockDate <= :stockDateTo")
     fun findAllByFMaterial(fmaterialBean: Int, stockDateFrom: Date, stockDateTo: Date): List<FStockEntity>

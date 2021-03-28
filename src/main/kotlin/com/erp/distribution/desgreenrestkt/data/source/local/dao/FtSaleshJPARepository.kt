@@ -8,7 +8,7 @@ import java.util.*
 
 @Transactional
 interface FtSaleshJPARepository : JpaRepository<FtSaleshEntity, Long> {
-    fun findByRefno(id: Long): FtSaleshEntity
+    fun findByRefno(refno: Long): FtSaleshEntity
     fun findByOrderno(orderno: String): List<FtSaleshEntity>
     fun findByInvoiceno(invoiceno: String): List<FtSaleshEntity>
 

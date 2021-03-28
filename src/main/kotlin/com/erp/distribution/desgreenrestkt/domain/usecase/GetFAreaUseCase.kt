@@ -1,16 +1,12 @@
 package com.erp.distribution.desgreenrestkt.domain.usecase
 
-import com.erp.distribution.desgreenrestkt.data.source.entity.FAreaEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.toDomain
 import com.erp.distribution.desgreenrestkt.domain.model.FArea
 import com.erp.distribution.desgreenrestkt.domain.model.toEntity
 import com.erp.distribution.desgreenrestkt.domain.model.toResponse
 import com.erp.distribution.desgreenrestkt.domain.repository.FAreaRepo
 import com.erp.distribution.desgreenrestkt.presentation.model.FAreaRes
-import jdk.jfr.Description
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -52,17 +48,17 @@ class GetFAreaUseCase @Autowired constructor(
     }
 
     fun findAllByDivision(fdivisionBean: Int): List<FArea> {
-        return  fAreaRepo.findAllByDivision(fdivisionBean).map {
+        return  fAreaRepo.findByDivision(fdivisionBean).map {
             it.toDomain()
         }
     }
     fun findAllByDivisionRes(fdivisionBean: Int): List<FAreaRes> {
-        return  fAreaRepo.findAllByDivision(fdivisionBean).map {
+        return  fAreaRepo.findByDivision(fdivisionBean).map {
             it.toDomain().toResponse()
         }
     }
     fun findAllByDivisionAndShareToCompanyRes(fdivisionBean: Int, fcompanyBean: Int): List<FAreaRes> {
-        return  fAreaRepo.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).map {
+        return  fAreaRepo.findByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).map {
             it.toDomain().toResponse()
         }
     }

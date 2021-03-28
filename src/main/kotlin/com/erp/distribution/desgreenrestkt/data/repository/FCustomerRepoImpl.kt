@@ -26,11 +26,11 @@ class FCustomerRepoImpl @Autowired constructor(
         return fCustomerJPARepository.findByCustno(custno)
     }
 
-    override fun findAllByDivision(fdivisionBean: Int): List<FCustomerEntity> {
+    override fun findByDivision(fdivisionBean: Int): List<FCustomerEntity> {
         return fCustomerJPARepository.findAllByDivision(fdivisionBean)
     }
 
-    override fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FCustomerEntity> {
+    override fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FCustomerEntity> {
         return fCustomerJPARepository.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean)
     }
 

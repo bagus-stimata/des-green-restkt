@@ -9,8 +9,8 @@ interface FPromotionRulesdValidProductsRepo {
     fun findAll(): List<FPromotionRulesdValidProductsEntity>
     fun findByKode1(kode1: String): List<FPromotionRulesdValidProductsEntity>
     fun findAll(kode1: String, description: String): List<FPromotionRulesdValidProductsEntity>
-    fun findAllByDivision(fdivisionBean: Int): List<FPromotionRulesdValidProductsEntity>
-    fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FPromotionRulesdValidProductsEntity>
+    fun findByDivision(fdivisionBean: Int): List<FPromotionRulesdValidProductsEntity>
+    fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FPromotionRulesdValidProductsEntity>
 
     fun save(fPromotionRulesdValidProductsEntity: FPromotionRulesdValidProductsEntity): FPromotionRulesdValidProductsEntity
     fun saveAll(listFPromotionRulesdValidProducts: List<FPromotionRulesdValidProductsEntity>): List<FPromotionRulesdValidProductsEntity>

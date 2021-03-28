@@ -9,8 +9,8 @@ interface FTaxRepo {
     fun findAll(): List<FTaxEntity>
     fun findByKode1(kode1: String): List<FTaxEntity>
     fun findAll(kode1: String, description: String): List<FTaxEntity>
-    fun findAllByDivision(fdivisionBean: Int): List<FTaxEntity>
-    fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FTaxEntity>
+    fun findByDivision(fdivisionBean: Int): List<FTaxEntity>
+    fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FTaxEntity>
 
     fun save(fTaxEntity: FTaxEntity): FTaxEntity
     fun saveAll(listFTax: List<FTaxEntity>): List<FTaxEntity>

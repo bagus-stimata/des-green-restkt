@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.Query
 
 interface FtPriceAlthJPARepository : JpaRepository<FtPriceAlthEntity, Int> {
 //    override fun findById(id: Int): FtPriceAlthEntity
-    fun findByNoRek(noRek: String): List<FtPriceAlthEntity>
+//    fun findByNoRek(noRek: String): List<FtPriceAlthEntity>
 
     @Query("SELECT u FROM FtPriceAlthEntity u WHERE u.noRek LIKE :noRek ")
-    fun findAll(noRek: String): List<FtPriceAlthEntity>
+    fun findAllByNoRek(noRek: String): List<FtPriceAlthEntity>
 
     @Query("SELECT u FROM FtPriceAlthEntity u WHERE u.fdivisionBean = :fdivisionBean")
     fun findAllByDivision(fdivisionBean: Int): List<FtPriceAlthEntity>

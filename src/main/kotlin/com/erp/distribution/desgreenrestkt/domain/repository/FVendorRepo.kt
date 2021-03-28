@@ -7,10 +7,10 @@ import org.springframework.data.domain.Pageable
 interface FVendorRepo {
     fun findById(id: Int): FVendorEntity
     fun findAll(): List<FVendorEntity>
-    fun findByKode1(kode1: String): List<FVendorEntity>
+    fun findByVcode(vcode: String): List<FVendorEntity>
     fun findAll(kode1: String, description: String): List<FVendorEntity>
-    fun findAllByDivision(fdivisionBean: Int): List<FVendorEntity>
-    fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FVendorEntity>
+    fun findByDivision(fdivisionBean: Int): List<FVendorEntity>
+    fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FVendorEntity>
 
     fun save(fVendorEntity: FVendorEntity): FVendorEntity
     fun saveAll(listFVendor: List<FVendorEntity>): List<FVendorEntity>

@@ -30,23 +30,23 @@ class FMaterialRepoImpl @Autowired constructor(
        return fMaterialJPARepository.findAll(pcode, pname)
     }
 
-    override fun findAllByDivision(fdivisionBean: Int): List<FMaterialEntity> {
+    override fun findByDivision(fdivisionBean: Int): List<FMaterialEntity> {
         return fMaterialJPARepository.findAllByDivision(fdivisionBean)
     }
 
-    override fun findAllByDivision(fdivisionBean: Int, pageable: Pageable?): Page<FMaterialEntity> {
+    override fun findByDivision(fdivisionBean: Int, pageable: Pageable?): Page<FMaterialEntity> {
         return fMaterialJPARepository.findAllByDivision(fdivisionBean, pageable)
     }
 
-    override fun findAllByDivisionAndListVendor(fdivisionBean: Int, listVendor: List<Int>): List<FMaterialEntity> {
+    override fun findByDivisionAndListVendor(fdivisionBean: Int, listVendor: List<Int>): List<FMaterialEntity> {
         return fMaterialJPARepository.findAllByDivisionAndListVendor(fdivisionBean, listVendor)
     }
 
-    override fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FMaterialEntity> {
+    override fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FMaterialEntity> {
         return fMaterialJPARepository.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean)
     }
 
-    override fun findAllByDivisionAndShareToCompanyAndListVendor(
+    override fun findByDivisionAndShareToCompanyAndListVendor(
         fdivisionBean: Int,
         fcompanyBean: Int,
         listVendor: List<Int>

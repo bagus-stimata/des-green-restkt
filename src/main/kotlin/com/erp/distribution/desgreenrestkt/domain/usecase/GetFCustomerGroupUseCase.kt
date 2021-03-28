@@ -1,16 +1,12 @@
 package com.erp.distribution.desgreenrestkt.domain.usecase
 
-import com.erp.distribution.desgreenrestkt.data.source.entity.FCustomerGroupEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.toDomain
 import com.erp.distribution.desgreenrestkt.domain.model.FCustomerGroup
 import com.erp.distribution.desgreenrestkt.domain.model.toEntity
 import com.erp.distribution.desgreenrestkt.domain.model.toResponse
 import com.erp.distribution.desgreenrestkt.domain.repository.FCustomerGroupRepo
 import com.erp.distribution.desgreenrestkt.presentation.model.FCustomerGroupRes
-import jdk.jfr.Description
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -52,17 +48,17 @@ class GetFCustomerGroupUseCase @Autowired constructor(
     }
 
     fun findAllByDivision(fdivisionBean: Int): List<FCustomerGroup> {
-        return  fCustomerGroupRepo.findAllByDivision(fdivisionBean).map {
+        return  fCustomerGroupRepo.findByDivision(fdivisionBean).map {
             it.toDomain()
         }
     }
     fun findAllByDivisionRes(fdivisionBean: Int): List<FCustomerGroupRes> {
-        return  fCustomerGroupRepo.findAllByDivision(fdivisionBean).map {
+        return  fCustomerGroupRepo.findByDivision(fdivisionBean).map {
             it.toDomain().toResponse()
         }
     }
     fun findAllByDivisionAndShareToCompanyRes(fdivisionBean: Int, fcompanyBean: Int): List<FCustomerGroupRes> {
-        return  fCustomerGroupRepo.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).map {
+        return  fCustomerGroupRepo.findByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).map {
             it.toDomain().toResponse()
         }
     }

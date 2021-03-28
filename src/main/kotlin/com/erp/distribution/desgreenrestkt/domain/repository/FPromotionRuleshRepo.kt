@@ -9,8 +9,7 @@ interface FPromotionRuleshRepo {
     fun findAll(): List<FPromotionRuleshEntity>
     fun findByKode1(kode1: String): List<FPromotionRuleshEntity>
     fun findAll(kode1: String, description: String): List<FPromotionRuleshEntity>
-    fun findAllByDivision(fdivisionBean: Int): List<FPromotionRuleshEntity>
-    fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FPromotionRuleshEntity>
+    fun findByDivision(fdivisionBean: Int): List<FPromotionRuleshEntity>
 
     fun save(fPromotionRuleshEntity: FPromotionRuleshEntity): FPromotionRuleshEntity
     fun saveAll(listFPromotionRulesh: List<FPromotionRuleshEntity>): List<FPromotionRuleshEntity>

@@ -29,13 +29,13 @@ class FDivisionRestController {
 
     @RequestMapping(value = ["/rest/getAllFDivisionByParent/{fcompanyBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllFDivisionByParentId(@PathVariable("fcompanyBean") fcompanyBean: Int): List<FDivisionEntity> {
-        return fDivisionJPARepository!!.findAllByParentId(fcompanyBean)
+        return fDivisionJPARepository!!.findAllByCompanyId(fcompanyBean)
     }
 
     @RequestMapping(value = ["/rest/getAllFDivisionBySameCompany/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllFDivisionBySameCompany(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FDivisionEntity> {
         val fDivision = fDivisionJPARepository!!.findById(fdivisionBean).get()
-        return fDivisionJPARepository!!.findAllByParentId(fDivision.fcompanyBean)
+        return fDivisionJPARepository!!.findAllByCompanyId(fDivision.fcompanyBean)
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole

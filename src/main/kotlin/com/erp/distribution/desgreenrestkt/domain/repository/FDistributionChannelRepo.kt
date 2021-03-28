@@ -9,8 +9,8 @@ interface FDistributionChannelRepo {
     fun findAll(): List<FDistributionChannelEntity>
     fun findByKode1(kode1: String): List<FDistributionChannelEntity>
     fun findAll(kode1: String, description: String): List<FDistributionChannelEntity>
-    fun findAllByDivision(fdivisionBean: Int): List<FDistributionChannelEntity>
-    fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FDistributionChannelEntity>
+    fun findByDivision(fdivisionBean: Int): List<FDistributionChannelEntity>
+    fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FDistributionChannelEntity>
 
     fun save(fDistributionChannelEntity: FDistributionChannelEntity): FDistributionChannelEntity
     fun saveAll(listFDistributionChannel: List<FDistributionChannelEntity>): List<FDistributionChannelEntity>

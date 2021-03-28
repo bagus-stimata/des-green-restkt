@@ -9,8 +9,8 @@ interface FCustomerGroupRepo {
     fun findAll(): List<FCustomerGroupEntity>
     fun findByKode1(kode1: String): List<FCustomerGroupEntity>
     fun findAll(kode1: String, description: String): List<FCustomerGroupEntity>
-    fun findAllByDivision(fdivisionBean: Int): List<FCustomerGroupEntity>
-    fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FCustomerGroupEntity>
+    fun findByDivision(fdivisionBean: Int): List<FCustomerGroupEntity>
+    fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FCustomerGroupEntity>
 
     fun save(fCustomerGroupEntity: FCustomerGroupEntity): FCustomerGroupEntity
     fun saveAll(listFCustomerGroup: List<FCustomerGroupEntity>): List<FCustomerGroupEntity>

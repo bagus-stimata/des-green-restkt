@@ -12,5 +12,5 @@ interface FDivisionJPARepository : JpaRepository<FDivisionEntity, Int> {
     fun findAll(kode1: String, description: String): List<FDivisionEntity>
 
     @Query("SELECT u FROM FDivisionEntity u WHERE u.fcompanyBean = :fcompanyBean")
-    fun findAllByParentId(fcompanyBean: Int): List<FDivisionEntity>
+    fun findAllByCompanyId(fcompanyBean: Int): List<FDivisionEntity>
 }
