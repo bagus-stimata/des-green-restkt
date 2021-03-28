@@ -18,6 +18,22 @@ interface FtSaleshJPARepository : JpaRepository<FtSaleshEntity, Long> {
     @Query("SELECT u FROM FtSaleshEntity u WHERE u.fdivisionBean = :fdivisionBean")
     fun findAllByDivision(fdivisionBean: Int): List<FtSaleshEntity>
 
+    @Query("SELECT u FROM FtSaleshEntity u WHERE u.fdivisionBean = :fdivisionBean " +
+            " AND u.orderDate BETWEEN :orderDateFrom AND :orderDateTo " +
+            " AND u.invoiceDate BETWEEN :invoiceDateFrom AND :invoiceDateTo "
+    )
+    fun findAllByDivision(fdivisionBean: Int, orderDateFrom: Date, orderDateTo: Date, invoiceDateFrom: Date, invoiceDateTo: Date): List<FtSaleshEntity>
+
+    @Query("SELECT u FROM FtSaleshEntity u WHERE u.fdivisionBean = :fdivisionBean " +
+            " AND u.orderDate BETWEEN :orderDateFrom AND :orderDateTo "
+    )
+    fun findAllByDivisionAndOrderDate(fdivisionBean: Int, orderDateFrom: Date, orderDateTo: Date): List<FtSaleshEntity>
+
+    @Query("SELECT u FROM FtSaleshEntity u WHERE u.fdivisionBean = :fdivisionBean " +
+            " AND u.invoiceDate BETWEEN :invoiceDateFrom AND :invoiceDateTo "
+    )
+    fun findAllByDivisionAndInvoiceDate(fdivisionBean: Int, invoiceDateFrom: Date, invoiceDateTo: Date): List<FtSaleshEntity>
+
     @Query("SELECT u FROM FtSaleshEntity u WHERE u.sourceId = :sourceId and u.created = :created ")
     fun findBySourceIdAndCreated(sourceId: Long, created: Date): Optional<FtSaleshEntity>
 

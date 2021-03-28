@@ -397,7 +397,7 @@ data class FtSaleshEntity(
 
 ): Serializable
 
-internal fun FtSaleshEntity.toEntity(): FtSalesh {
+internal fun FtSaleshEntity.toDomain(): FtSalesh {
     return FtSalesh(
         refno = refno,
         sourceId = sourceId,

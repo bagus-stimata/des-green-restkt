@@ -36,12 +36,12 @@ class FAreaRestController  @Autowired constructor(
 
     @RequestMapping(value = ["/rest/getAllFAreaByDivision/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllFAreaByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FAreaRes?>? {
-        return fAreaUseCase.findAllByDivisionRes(fdivisionBean)
+        return fAreaUseCase.findByDivisionRes(fdivisionBean)
     }
 
     @RequestMapping(value = ["/rest/getAllFAreaByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllFAreaByDivisionAndShareToCompany(@PathVariable("fdivisionBean") fdivisionBean: Int, @PathVariable("fcompanyBean") fcompanyBean: Int): List<FAreaRes?>? {
-        return fAreaUseCase.findAllByDivisionAndShareToCompanyRes(fdivisionBean, fcompanyBean)
+        return fAreaUseCase.findByDivisionAndShareToCompanyRes(fdivisionBean, fcompanyBean)
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole

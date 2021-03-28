@@ -21,6 +21,9 @@ class FtPriceAltdItemsRepoImpl @Autowired constructor(
     override fun findByParent(fparentBean: Int): List<FtPriceAltdItemsEntity> {
         return ftPriceAltdItemsJPARepository.findAllByParent(fparentBean)
     }
+    override fun findByListOfParent(listFParent: List<Int>): List<FtPriceAltdItemsEntity> {
+        return ftPriceAltdItemsJPARepository.findAllByListParent(listFParent)
+    }
 
     override fun save(ftPriceAltdItemsEntity: FtPriceAltdItemsEntity): FtPriceAltdItemsEntity {
         return ftPriceAltdItemsJPARepository.save(ftPriceAltdItemsEntity)

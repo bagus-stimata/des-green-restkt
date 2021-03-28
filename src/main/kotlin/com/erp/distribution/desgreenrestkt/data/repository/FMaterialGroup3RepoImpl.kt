@@ -29,6 +29,9 @@ class FMaterialGroup3RepoImpl @Autowired constructor(
     override fun findByParent(fparentBean: Int): List<FMaterialGroup3Entity> {
         return fMaterialGroup3JPARepository.findAllByParentId(fparentBean)
     }
+    override fun findByListOfParent(listFMaterialGroup2: List<Int>): List<FMaterialGroup3Entity> {
+        return fMaterialGroup3JPARepository.findAllByListOfParent(listFMaterialGroup2)
+    }
 
     override fun save(fMaterialGroup3Entity: FMaterialGroup3Entity): FMaterialGroup3Entity {
         return fMaterialGroup3JPARepository.save(fMaterialGroup3Entity)

@@ -29,6 +29,9 @@ class FWarehouseRepoImpl @Autowired constructor(
     override fun findByDivision(fdivisionBean: Int): List<FWarehouseEntity> {
         return fWarehouseJPARepository.findAllByDivision(fdivisionBean)
     }
+    override fun findByCompany(fcompanyBean: Int): List<FWarehouseEntity> {
+        return fWarehouseJPARepository.findAllByCompany(fcompanyBean)
+    }
 
     override fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FWarehouseEntity> {
         return fWarehouseJPARepository.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean)

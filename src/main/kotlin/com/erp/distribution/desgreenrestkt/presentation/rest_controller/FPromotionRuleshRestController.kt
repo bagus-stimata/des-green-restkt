@@ -1,14 +1,12 @@
 package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 
-import com.erp.distribution.desgreenrestkt.data.source.local.dao.FPromotionRuleshJPARepository
-import com.erp.distribution.desgreenrestkt.data.source.local.dao.FVendorJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.entity.FDivisionEntity
-import com.erp.distribution.desgreenrestkt.data.source.entity.FPromotionRuleshEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.FVendorEntity
+import com.erp.distribution.desgreenrestkt.domain.model.FPromotionRulesh
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumPromoDiscFgMethod
 import com.erp.distribution.desgreenrestkt.domain.model.aux.ZLapTemplate2
-import com.erp.distribution.desgreenrestkt.domain.utils.KonversiProductAndStockHelper
-import com.erp.distribution.desgreenrestkt.domain.utils.KonversiProductAndStockHelperImpl
+import com.erp.distribution.desgreenrestkt.domain.usecase.GetFPromotionRuleshUseCase
+import com.erp.distribution.desgreenrestkt.domain.usecase.GetFVendorUseCase
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -18,51 +16,49 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @RestController
-class FPromotionRuleshRestController {
-    @Autowired
-    var fPromotionRuleshJPARepository: FPromotionRuleshJPARepository? = null
-
-    @Autowired
-    var fVendorJPARepository: FVendorJPARepository? = null
+class FPromotionRuleshRestController @Autowired constructor(
+    val getFPromotionRuleshUseCase: GetFPromotionRuleshUseCase,
+    val getFVendorUseCase: GetFVendorUseCase
+){
 
     @RequestMapping(value = ["/rest/getFPromotionRuleshById/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getFPromotionRuleshById(@PathVariable("id") id: Int): FPromotionRuleshEntity {
-        return fPromotionRuleshJPARepository!!.findById(id).get()
+    fun getFPromotionRuleshById(@PathVariable("id") id: Int): FPromotionRulesh {
+        return getFPromotionRuleshUseCase.findById(id)
     }
 
     @get:RequestMapping(value = ["/rest/getAllFPromotionRulesh"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    val allPromotionRuleshEntities: List<FPromotionRuleshEntity>
-        get() = fPromotionRuleshJPARepository!!.findAll()
+    val allPromotionRuleshEntities: List<FPromotionRulesh>
+        get() = getFPromotionRuleshUseCase.findAll()
 
     @RequestMapping(value = ["/rest/getAllFPromotionRuleshByDivision/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAllFPromotionRuleshByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FPromotionRuleshEntity> {
-        return fPromotionRuleshJPARepository!!.findAllByDivision(fdivisionBean)
+    fun getAllFPromotionRuleshByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FPromotionRulesh> {
+        return getFPromotionRuleshUseCase.findByDivision(fdivisionBean)
     }
 
     @RequestMapping(value = ["/rest/createFPromotionRulesh"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun createFPromotionRulesh(@RequestBody fPromotionRuleshEntityNew: FPromotionRuleshEntity): FPromotionRuleshEntity {
+    fun createFPromotionRulesh(@RequestBody fPromotionRuleshEntityNew: FPromotionRulesh): FPromotionRulesh {
         fPromotionRuleshEntityNew.id = 0 //Memastikan ID adalah Nol
-        return fPromotionRuleshJPARepository!!.save(fPromotionRuleshEntityNew)
+        return getFPromotionRuleshUseCase.save(fPromotionRuleshEntityNew)
     }
 
     @RequestMapping(value = ["/rest/updateFPromotionRulesh/{id}"], method = [RequestMethod.PUT])
-    fun updateFPromotionRuleshInfo(@PathVariable("id") id: Int, @RequestBody fPromotionRuleshEntityUpdated: FPromotionRuleshEntity?): FPromotionRuleshEntity {
-        val fPromotionRulesh = fPromotionRuleshJPARepository!!.findById(id).orElse(FPromotionRuleshEntity())
+    fun updateFPromotionRuleshInfo(@PathVariable("id") id: Int, @RequestBody fPromotionRuleshEntityUpdated: FPromotionRulesh?): FPromotionRulesh {
+        val fPromotionRulesh = getFPromotionRuleshUseCase.findById(id)
         //Tidak Meng Update Parent: Hanya Info Saja
         if (fPromotionRuleshEntityUpdated != null) {
             fPromotionRuleshEntityUpdated.id = fPromotionRulesh.id
             if (fPromotionRulesh.fdivisionBean == null) fPromotionRuleshEntityUpdated.fdivisionBean = fPromotionRulesh.fdivisionBean
-            fPromotionRuleshJPARepository!!.save(fPromotionRuleshEntityUpdated)
+            getFPromotionRuleshUseCase.save(fPromotionRuleshEntityUpdated)
             return fPromotionRuleshEntityUpdated
         }
         return fPromotionRulesh
     }
 
     @RequestMapping(value = ["/rest/deleteFPromotionRulesh/{id}"], method = [RequestMethod.DELETE])
-    fun deleteFPromotionRulesh(@PathVariable("id") id: Int): FPromotionRuleshEntity? {
-        val fPromotionRulesh = fPromotionRuleshJPARepository!!.findById(id).orElse(FPromotionRuleshEntity())
+    fun deleteFPromotionRulesh(@PathVariable("id") id: Int): FPromotionRulesh? {
+        val fPromotionRulesh = getFPromotionRuleshUseCase.findById(id)
         if (fPromotionRulesh != null) {
-            fPromotionRuleshJPARepository!!.delete(fPromotionRulesh)
+            getFPromotionRuleshUseCase.delete(fPromotionRulesh)
         }
         return fPromotionRulesh
     }
@@ -86,7 +82,7 @@ class FPromotionRuleshRestController {
         val listLapTemplate1: MutableList<ZLapTemplate2> = ArrayList()
         listLapTemplate = ArrayList()
 //        val posisiTanggal = dateTransactionTo
-        val listFPromotionRulesForThisDayEntity: List<FPromotionRuleshEntity> = ArrayList()
+        val listFPromotionRulesForThisDayEntity: List<FPromotionRulesh> = ArrayList()
         try {
 //            listFPromotionRulesForThisDay = new ArrayList<FPromotionRulesh>( fPromotionRuleshJPARepository
 //                    .findAllBy_ValidByDate( listFDivision,

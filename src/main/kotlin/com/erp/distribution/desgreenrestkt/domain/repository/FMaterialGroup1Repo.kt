@@ -10,6 +10,7 @@ interface FMaterialGroup1Repo {
     fun findByKode1(kode1: String): List<FMaterialGroup1Entity>
     fun findAll(kode1: String, description: String): List<FMaterialGroup1Entity>
     fun findByDivision(fdivisionBean: Int): List<FMaterialGroup1Entity>
+    fun findByCompany(fcompanyBean: Int): List<FMaterialGroup1Entity>
     fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FMaterialGroup1Entity>
 
     fun save(fMaterialGroup1Entity: FMaterialGroup1Entity): FMaterialGroup1Entity

@@ -10,6 +10,7 @@ interface FWarehouseRepo {
     fun findByKode1(kode1: String): List<FWarehouseEntity>
     fun findAll(kode1: String, description: String): List<FWarehouseEntity>
     fun findByDivision(fdivisionBean: Int): List<FWarehouseEntity>
+    fun findByCompany(fcompanyBean: Int): List<FWarehouseEntity>
     fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FWarehouseEntity>
 
     fun save(fWarehouseEntity: FWarehouseEntity): FWarehouseEntity

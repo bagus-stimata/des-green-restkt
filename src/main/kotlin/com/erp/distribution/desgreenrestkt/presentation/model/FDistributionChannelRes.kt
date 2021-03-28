@@ -23,7 +23,7 @@ data class FDistributionChannelRes (
 	 * 2. 
 	 */
     @Column(name = "SOURCE_ID", length = 9)
-    var sourceID :Int =0,
+    var sourceId :Int =0,
 
     @Column(name = "KODE1", length = 10)
     var kode1 :String ="",
@@ -60,7 +60,7 @@ data class FDistributionChannelRes (
 internal fun FDistributionChannelRes.toDomain(): FDistributionChannel {
     return FDistributionChannel(
         id = id,
-        sourceId = sourceID,
+        sourceId = sourceId,
 
         kode1 = kode1,
         kode2 = kode2,

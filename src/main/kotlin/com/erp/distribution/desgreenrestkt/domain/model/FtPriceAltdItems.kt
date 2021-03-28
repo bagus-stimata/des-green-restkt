@@ -3,6 +3,9 @@ package com.erp.distribution.desgreenrestkt.domain.model
 import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.FtPriceAltdItemsEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.FtPriceAlthEntity
+import com.erp.distribution.desgreenrestkt.domain.repository.FtPriceAltdItemsRepo
+import com.erp.distribution.desgreenrestkt.presentation.model.FtPriceAltdItemsRes
+import com.erp.distribution.desgreenrestkt.presentation.model.FtPriceAlthRes
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
@@ -73,6 +76,25 @@ internal fun FtPriceAltdItems.toEntity(): FtPriceAltdItemsEntity {
         sprice2AfterPpn = sprice2AfterPpn,
 
         ftPriceAlthBean = ftPriceAlthBean?.let { FtPriceAlthEntity((ftPriceAlthBean.id)) },
+        fmaterialBean = fmaterialBean
+
+    )
+}
+internal fun FtPriceAltdItems.toResponse(): FtPriceAltdItemsRes {
+    return FtPriceAltdItemsRes(
+        id = id,
+        noUrut = noUrut,
+
+        pprice = pprice,
+        ppriceAfterPpn = ppriceAfterPpn,
+        pprice2 = pprice2,
+        pprice2AfterPpn = pprice2AfterPpn,
+        sprice = sprice,
+        spriceAfterPpn = spriceAfterPpn,
+        sprice2 = sprice2,
+        sprice2AfterPpn = sprice2AfterPpn,
+
+        ftPriceAlthBean = ftPriceAlthBean?.let { ftPriceAlthBean.id },
         fmaterialBean = fmaterialBean
 
     )

@@ -1,6 +1,8 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
+import com.erp.distribution.desgreenrestkt.domain.model.FWarehouse
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumTipeWarehouse
+import com.erp.distribution.desgreenrestkt.presentation.model.FWarehouseRes
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
@@ -101,3 +103,37 @@ data class FWarehouseEntity (
     var modifiedBy :String ="" //User ID
 
 ): Serializable
+
+internal fun FWarehouseEntity.toDomain(): FWarehouse {
+    return FWarehouse(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+        productHppSaved = productHppSaved,
+        numberPriority = numberPriority,
+        gudangUtama = gudangUtama,
+        address1 = address1,
+        city1 = city1,
+        state1 = state1,
+        phone = phone,
+        gudangPo = gudangPo,
+        gudangSo = gudangSo,
+        gudangTransfer = gudangTransfer,
+        gudangRetail = gudangRetail,
+        gudangPusatCompany = gudangPusatCompany,
+        gudangTransitDiv = gudangTransitDiv,
+        tipeWarehouse = tipeWarehouse,
+        wsport = wsport,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}
+

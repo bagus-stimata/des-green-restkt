@@ -1,6 +1,7 @@
 package com.erp.distribution.desgreenrestkt.domain.model
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
+import com.erp.distribution.desgreenrestkt.presentation.model.FDistributionChannelRes
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
@@ -59,6 +60,23 @@ data class FDistributionChannel (
 
 internal fun FDistributionChannel.toEntity(): FDistributionChannelEntity {
     return FDistributionChannelEntity(
+        id = id,
+        sourceId = sourceId,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+        fdivisionBean = fdivisionBean,
+        statusActive = statusActive,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}
+
+internal fun FDistributionChannel.toResponse(): FDistributionChannelRes {
+    return FDistributionChannelRes(
         id = id,
         sourceId = sourceId,
 

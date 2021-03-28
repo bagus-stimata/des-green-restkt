@@ -10,6 +10,7 @@ interface FSalesmanRepo {
     fun findBySpcode(kode1: String): List<FSalesmanEntity>
     fun findAll(kode1: String, description: String): List<FSalesmanEntity>
     fun findByDivision(fdivisionBean: Int): List<FSalesmanEntity>
+    fun findByCompany(fcompanyBean: Int): List<FSalesmanEntity>
     fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FSalesmanEntity>
 
     fun save(fSalesmanEntity: FSalesmanEntity): FSalesmanEntity

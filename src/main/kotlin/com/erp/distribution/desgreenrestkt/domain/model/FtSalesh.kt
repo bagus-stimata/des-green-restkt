@@ -3,6 +3,7 @@ package com.erp.distribution.desgreenrestkt.domain.model
 import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.FtSaleshEntity
 import com.erp.distribution.desgreenrestkt.domain.model.enum.*
+import com.erp.distribution.desgreenrestkt.presentation.model.FtSaleshRes
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
@@ -476,4 +477,87 @@ internal fun FtSalesh.toEntity(): FtSaleshEntity {
     )
 }
 
+
+internal fun FtSalesh.toResponse(): FtSaleshRes {
+    return FtSaleshRes(
+        refno = refno,
+        sourceId = sourceId,
+
+        orderno = orderno,
+        validOrder = validOrder,
+        invoiceno = invoiceno,
+        priority = priority,
+        noPromotionRules = noPromotionRules,
+        taxNumber = taxNumber,
+        taxDate = taxDate,
+        fakturSOBean = fakturSOBean,
+        statusPengiriman = statusPengiriman,
+        sjPengirimanNo = sjPengirimanNo,
+        sjPengirimanDate = sjPengirimanDate,
+        driverBean = driverBean,
+        nopol = nopol,
+        sjPenagihanNo = sjPenagihanNo,
+        sjPenagihanDate = sjPenagihanDate,
+        collectorBean = collectorBean,
+        invoiceDate = invoiceDate,
+        orderDate = orderDate,
+        top = top,
+        dueDate = dueDate,
+        amountRp = amountRp,
+        amountPpnRp = amountPpnRp,
+        amountRpAfterPpn = amountRpAfterPpn,
+        fuangMuka_SOBean = fuangMuka_SOBean,
+        disc1 = disc1,
+        disc1Rp = disc1Rp,
+        disc1PpnRp = disc1PpnRp,
+        disc1RpAfterPpn = disc1RpAfterPpn,
+        amountAfterDisc1Rp = amountAfterDisc1Rp,
+        amountAfterDisc1PpnRp = amountAfterDisc1PpnRp,
+        amountAfterDisc1RpAfterPpn = amountAfterDisc1RpAfterPpn,
+        disc2 = disc2,
+        disc2Rp = disc2Rp,
+        disc2PpnRp = disc2PpnRp,
+        disc2RpAfterPpn = disc2RpAfterPpn,
+        amountAfterDisc2Rp = amountAfterDisc2Rp,
+        amountAfterDisc2PpnRp = amountAfterDisc2PpnRp,
+        amountAfterDisc2RpAfterPpn = amountAfterDisc2RpAfterPpn,
+        discPlus_FG = discPlus_FG,
+        discPlusRp_FG = discPlusRp_FG,
+        discPlusPpnRp_FG = discPlusPpnRp_FG,
+        discPlusRpAfterPpn_FG = discPlusRpAfterPpn_FG,
+        calcCashBackFg = calcCashBackFg,
+
+        amountAfterDiscPlusRp_FG = amountAfterDiscPlusRp_FG,
+        ppnRp = ppnRp,
+        amountAfterDiscPlusRpAfterPpn_FG = amountAfterDiscPlusRpAfterPpn_FG,
+        amountPayRp = amountPayRp,
+        endOfDay = endOfDay,
+        openLockInputPriceAndDiscount = openLockInputPriceAndDiscount,
+        statusRequestDiscount = statusRequestDiscount,
+        statusRequestPlafon = statusRequestPlafon,
+        notes = notes,
+        tunaiKredit = tunaiKredit,
+        tipeFaktur = tipeFaktur,
+        salesType = salesType,
+        printCounter = printCounter,
+        proses = proses,
+        usedSO = usedSO,
+        tipeBayarPos = tipeBayarPos,
+        amountKasirBayar = amountKasirBayar,
+
+        fdivisionBean = fdivisionBean,
+        fsalesmanBean = fsalesmanBean,
+        fcustomerBean = fcustomerBean,
+        fcustomerShipToBean = fcustomerShipToBean,
+        fwarehouseBean = fwarehouseBean,
+        accAccountArKbBean = accAccountArKbBean,
+        accAccountFtSaleshCredit = accAccountFtSaleshCredit,
+//        listFtsalesdItems = listFtsalesdItems,
+        fexpedisiBean = fexpedisiBean,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}
 

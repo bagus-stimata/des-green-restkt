@@ -15,5 +15,5 @@ interface FMaterialGroup2JPARepository : JpaRepository<FMaterialGroup2Entity, In
     fun findAllByParentId(fmaterialGroup1Bean: Int): List<FMaterialGroup2Entity>
 
     @Query("SELECT u FROM FMaterialGroup2Entity u WHERE u.fmaterialGroup1Bean IN :listFMaterialGroup1Bean")
-    fun findAllByListParentId(listFMaterialGroup1Bean: List<Int>): List<FMaterialGroup2Entity>
+    fun findAllByListOfParent(listFMaterialGroup1Bean: List<Int>): List<FMaterialGroup2Entity>
 }

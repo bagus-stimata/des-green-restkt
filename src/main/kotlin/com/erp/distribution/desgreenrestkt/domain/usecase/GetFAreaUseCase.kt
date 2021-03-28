@@ -20,6 +20,17 @@ class GetFAreaUseCase @Autowired constructor(
     fun findByIdRes(id: Int): FAreaRes {
         return fAreaRepo.findById(id).toDomain().toResponse()
     }
+    fun findByKode1(kode1: String): List<FArea> {
+        return  fAreaRepo.findByKode1(kode1).map {
+            it.toDomain()
+        }
+    }
+    fun findByKode1Res(kode1: String): List<FAreaRes> {
+        return  fAreaRepo.findByKode1(kode1).map {
+            it.toDomain().toResponse()
+        }
+    }
+
     fun findAll(): List<FArea> {
         return fAreaRepo.findAll().map {
             it.toDomain()
@@ -30,12 +41,6 @@ class GetFAreaUseCase @Autowired constructor(
             it.toDomain().toResponse()
         }
     }
-    fun findByKode1(kode1: String): List<FArea> {
-        return  fAreaRepo.findByKode1(kode1).map {
-            it.toDomain()
-        }
-    }
-
     fun findAll(kode1: String, description: String): List<FArea> {
         return  fAreaRepo.findAll(kode1, description).map {
             it.toDomain()
@@ -47,17 +52,22 @@ class GetFAreaUseCase @Autowired constructor(
         }
     }
 
-    fun findAllByDivision(fdivisionBean: Int): List<FArea> {
+    fun findByDivision(fdivisionBean: Int): List<FArea> {
         return  fAreaRepo.findByDivision(fdivisionBean).map {
             it.toDomain()
         }
     }
-    fun findAllByDivisionRes(fdivisionBean: Int): List<FAreaRes> {
+    fun findByDivisionRes(fdivisionBean: Int): List<FAreaRes> {
         return  fAreaRepo.findByDivision(fdivisionBean).map {
             it.toDomain().toResponse()
         }
     }
-    fun findAllByDivisionAndShareToCompanyRes(fdivisionBean: Int, fcompanyBean: Int): List<FAreaRes> {
+    fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FArea> {
+        return  fAreaRepo.findByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).map {
+            it.toDomain()
+        }
+    }
+    fun findByDivisionAndShareToCompanyRes(fdivisionBean: Int, fcompanyBean: Int): List<FAreaRes> {
         return  fAreaRepo.findByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).map {
             it.toDomain().toResponse()
         }

@@ -34,6 +34,15 @@ class FtSaleshRepoImpl @Autowired constructor(
     override fun findByDivision(fdivisionBean: Int): List<FtSaleshEntity> {
         return ftSaleshJPARepository.findAllByDivision(fdivisionBean)
     }
+    override fun findByDivision(fdivisionBean: Int, orderDateFrom: Date, orderDateTo: Date, invoiceDateFrom: Date, invoiceDateTo: Date): List<FtSaleshEntity> {
+        return ftSaleshJPARepository.findAllByDivision(fdivisionBean, orderDateFrom, orderDateTo, invoiceDateFrom, invoiceDateTo)
+    }
+    override fun findByDivisionAndOrderDate(fdivisionBean: Int, orderDateFrom: Date, orderDateTo: Date): List<FtSaleshEntity> {
+        return ftSaleshJPARepository.findAllByDivisionAndOrderDate(fdivisionBean, orderDateFrom, orderDateTo)
+    }
+    override fun findByDivisionAndInvoiceDate(fdivisionBean: Int, invoiceDateFrom: Date, invoiceDateTo: Date): List<FtSaleshEntity> {
+        return ftSaleshJPARepository.findAllByDivisionAndInvoiceDate(fdivisionBean, invoiceDateFrom, invoiceDateTo)
+    }
 
     override fun findBySourceIdAndCreated(sourceId: Long, created: Date): Optional<FtSaleshEntity> {
         return ftSaleshJPARepository.findBySourceIdAndCreated(sourceId, created)

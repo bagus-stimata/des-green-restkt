@@ -29,6 +29,9 @@ class FSubAreaRepoImpl @Autowired constructor(
     override fun findByParent(fparentBean: Int): List<FSubAreaEntity> {
         return fSubAreaJPARepository.findAllByParent(fparentBean)
     }
+    override fun findByListOfParent(listFArea: List<Int>): List<FSubAreaEntity> {
+        return fSubAreaJPARepository.findAllByListParent(listFArea)
+    }
 
     override fun save(fSubAreaEntity: FSubAreaEntity): FSubAreaEntity {
         return fSubAreaJPARepository.save(fSubAreaEntity)

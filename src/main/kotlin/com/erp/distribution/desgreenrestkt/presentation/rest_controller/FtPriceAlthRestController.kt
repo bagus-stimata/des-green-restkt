@@ -1,8 +1,10 @@
 package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 
-import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtPriceAlthJPARepository
-import com.erp.distribution.desgreenrestkt.data.source.entity.FtPriceAlthEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
+import com.erp.distribution.desgreenrestkt.domain.model.toResponse
+import com.erp.distribution.desgreenrestkt.domain.usecase.GetFtPriceAlthUseCase
+import com.erp.distribution.desgreenrestkt.presentation.model.FtPriceAlthRes
+import com.erp.distribution.desgreenrestkt.presentation.model.toDomain
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -11,51 +13,51 @@ import org.springframework.web.bind.annotation.*
 import java.util.stream.Collectors
 
 @RestController
-class FtPriceAlthRestController {
-    @Autowired
-    var ftPriceAlthJPARepository: FtPriceAlthJPARepository? = null
+class FtPriceAlthRestController @Autowired constructor(
+    val getFtPriceAlthUseCase: GetFtPriceAlthUseCase
+) {
 
     @RequestMapping(value = ["/rest/getFtPriceAlthById/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getFtPriceAlthById(@PathVariable("id") id: Int): FtPriceAlthEntity {
-        return ftPriceAlthJPARepository!!.findById(id).orElse(FtPriceAlthEntity())
+    fun getFtPriceAlthById(@PathVariable("id") id: Int): FtPriceAlthRes {
+        return getFtPriceAlthUseCase.findByIdRes(id)
     }
 
     @get:RequestMapping(value = ["/rest/getAllFtPriceAlth"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    val alltPriceAlthEntity: List<FtPriceAlthEntity>
-        get() = ftPriceAlthJPARepository!!.findAll()
+    val alltPriceAlthEntity: List<FtPriceAlthRes>
+        get() = getFtPriceAlthUseCase.findAllRes()
 
     @RequestMapping(value = ["/rest/getAlltPriceAlthByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAlltPriceAlthByDivisionAndShareToCompany(@PathVariable("fdivisionBean") fdivisionBean: Int, @PathVariable("fcompanyBean") fcompanyBean: Int): List<FtPriceAlthEntity> {
-        return ftPriceAlthJPARepository!!.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).stream().filter { x: FtPriceAlthEntity -> x.statusActive == true }.collect(Collectors.toList())
+    fun getAlltPriceAlthByDivisionAndShareToCompany(@PathVariable("fdivisionBean") fdivisionBean: Int, @PathVariable("fcompanyBean") fcompanyBean: Int): List<FtPriceAlthRes> {
+        return getFtPriceAlthUseCase.findByDivisionAndShareToCompanyRes(fdivisionBean, fcompanyBean).stream().filter { x: FtPriceAlthRes -> x.statusActive == true }.collect(Collectors.toList())
     }
 
     @RequestMapping(value = ["/rest/createFtPriceAlth"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun createFtPriceAlth(@RequestBody ftPriceAlthEntityNew: FtPriceAlthEntity): FtPriceAlthEntity {
+    fun createFtPriceAlth(@RequestBody ftPriceAlthEntityNew: FtPriceAlthRes): FtPriceAlthRes {
         ftPriceAlthEntityNew.id = 0 //Pastikan ID nya nol untuk Create Baru
-        return ftPriceAlthJPARepository!!.save(ftPriceAlthEntityNew)
+        return getFtPriceAlthUseCase.save(ftPriceAlthEntityNew.toDomain()).toResponse()
     }
 
     @RequestMapping(value = ["/rest/updateFtPriceAlth/{id}"], method = [RequestMethod.PUT])
-    fun updateFtPriceAlthInfo(@PathVariable("id") id: Int, @RequestBody ftPriceAlthEntityUpdated: FtPriceAlthEntity?): FtPriceAlthEntity {
-        val ftPriceAlth = ftPriceAlthJPARepository!!.findById(id).orElse(FtPriceAlthEntity())
+    fun updateFtPriceAlthInfo(@PathVariable("id") id: Int, @RequestBody ftPriceAlthEntityUpdated: FtPriceAlthRes?): FtPriceAlthRes {
+        val ftPriceAlth = getFtPriceAlthUseCase.findById(id)
         //Tidak Meng Update Parent: Hanya Info Saja
         if (ftPriceAlthEntityUpdated != null) {
             ftPriceAlthEntityUpdated.id = ftPriceAlth.id
             if (ftPriceAlth.fdivisionBean >0) ftPriceAlthEntityUpdated.fdivisionBean = ftPriceAlth.fdivisionBean
-            ftPriceAlthJPARepository!!.save(ftPriceAlthEntityUpdated)
+            getFtPriceAlthUseCase.save(ftPriceAlthEntityUpdated.toDomain()).toResponse()
             return ftPriceAlthEntityUpdated
         }
-        return ftPriceAlth
+        return ftPriceAlth.toResponse()
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole
     @RequestMapping(value = ["/rest/deleteFtPriceAlth/{id}"], method = [RequestMethod.DELETE])
-    fun deleteFtPriceAlth(@PathVariable("id") id: Int): FtPriceAlthEntity? {
-        val ftPriceAlth = ftPriceAlthJPARepository!!.findById(id).orElse(FtPriceAlthEntity())
+    fun deleteFtPriceAlth(@PathVariable("id") id: Int): FtPriceAlthRes {
+        val ftPriceAlth = getFtPriceAlthUseCase.findById(id)
         if (ftPriceAlth != null) {
-            ftPriceAlthJPARepository!!.delete(ftPriceAlth)
+            getFtPriceAlthUseCase.delete(ftPriceAlth)
         }
-        return ftPriceAlth
+        return ftPriceAlth.toResponse()
     }
 
     companion object {

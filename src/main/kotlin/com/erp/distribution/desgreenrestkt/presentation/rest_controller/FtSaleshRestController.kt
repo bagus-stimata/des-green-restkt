@@ -4,6 +4,7 @@ import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtSalesdItemsJP
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtSaleshJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.entity.FtSaleshEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
+import com.erp.distribution.desgreenrestkt.domain.usecase.GetFtSaleshUseCase
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -11,7 +12,10 @@ import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class FtSaleshRestController {
+class FtSaleshRestController @Autowired constructor(
+    val getFtSaleshUseCase: GetFtSaleshUseCase,
+    val getFtSalesdItemsUseCase: GetFtSaleshUseCase
+){
     @Autowired
     var ftSaleshJPARepository: FtSaleshJPARepository? = null
 

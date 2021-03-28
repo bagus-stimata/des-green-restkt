@@ -51,7 +51,7 @@ data class FMaterialGroup2 (
 
 ): Serializable
 
-internal fun FMaterialGroup2.toDomain(): FMaterialGroup2Entity {
+internal fun FMaterialGroup2.toEntity(): FMaterialGroup2Entity {
     return FMaterialGroup2Entity(
         id = id,
         sourceId = sourceId,

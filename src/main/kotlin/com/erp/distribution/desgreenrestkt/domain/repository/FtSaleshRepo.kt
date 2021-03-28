@@ -12,6 +12,9 @@ interface FtSaleshRepo {
     fun findByInvoiceno(invoiceno: String): List<FtSaleshEntity>
     fun findAll(orderno: String, invoiceno: String): List<FtSaleshEntity>
     fun findByDivision(fdivisionBean: Int): List<FtSaleshEntity>
+    fun findByDivision(fdivisionBean: Int, orderDateFrom: Date, orderDateTo: Date, invoiceDateFrom: Date, invoiceDateTo: Date): List<FtSaleshEntity>
+    fun findByDivisionAndOrderDate(fdivisionBean: Int, orderDateFrom: Date, orderDateTo: Date): List<FtSaleshEntity>
+    fun findByDivisionAndInvoiceDate(fdivisionBean: Int, invoiceDateFrom: Date, invoiceDateTo: Date): List<FtSaleshEntity>
 
     fun findBySourceIdAndCreated(sourceId: Long, created: Date): Optional<FtSaleshEntity>
     fun findBySourceId(sourceId: Long): Optional<FtSaleshEntity>

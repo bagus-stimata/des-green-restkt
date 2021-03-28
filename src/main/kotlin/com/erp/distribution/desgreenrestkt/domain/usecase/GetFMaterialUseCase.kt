@@ -2,6 +2,7 @@ package com.erp.distribution.desgreenrestkt.domain.usecase
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FMaterialEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.toDomain
+import com.erp.distribution.desgreenrestkt.domain.model.FMaterial
 import com.erp.distribution.desgreenrestkt.domain.model.toResponse
 import com.erp.distribution.desgreenrestkt.domain.repository.FMaterialRepo
 import com.erp.distribution.desgreenrestkt.presentation.model.FMaterialRes
@@ -30,12 +31,21 @@ class GetFMaterialUseCase @Autowired constructor(
         }
     }
 
-    fun findByPcode(pcode: String): List<FMaterialEntity> {
-        return  fMaterialRepo.findByPcode(pcode)
+    fun findByPcode(pcode: String): List<FMaterial> {
+        return  fMaterialRepo.findByPcode(pcode).map {
+            it.toDomain()
+        }
+    }
+    fun findByPcodeRes(pcode: String): List<FMaterialRes> {
+        return  fMaterialRepo.findByPcode(pcode).map {
+            it.toDomain().toResponse()
+        }
     }
 
-    fun findAll(pcode: String, pname: String): List<FMaterialEntity> {
-        return  fMaterialRepo.findAll(pcode, pname)
+    fun findAll(pcode: String, pname: String): List<FMaterial> {
+        return  fMaterialRepo.findAll(pcode, pname).map {
+            it.toDomain()
+        }
     }
     fun findAllRes(pcode: String, pname: String): List<FMaterialRes> {
         return  fMaterialRepo.findAll(pcode, pname).map {
@@ -43,43 +53,43 @@ class GetFMaterialUseCase @Autowired constructor(
         }
     }
 
-    fun findAllByDivision(fdivisionBean: Int): List<FMaterialEntity> {
+    fun findByDivision(fdivisionBean: Int): List<FMaterialEntity> {
         return  fMaterialRepo.findByDivision(fdivisionBean)
     }
-    fun findAllByDivisionRes(fdivisionBean: Int): List<FMaterialRes> {
+    fun findByDivisionRes(fdivisionBean: Int): List<FMaterialRes> {
         return  fMaterialRepo.findByDivision(fdivisionBean).map {
             it.toDomain().toResponse()
         }
     }
 
-    fun findAllByDivision(fdivisionBean: Int, pageable: Pageable?): Page<FMaterialEntity> {
+    fun findByDivision(fdivisionBean: Int, pageable: Pageable?): Page<FMaterialEntity> {
         return  fMaterialRepo.findByDivision(fdivisionBean, pageable)
     }
-    fun findAllByDivisionRes(fdivisionBean: Int, pageable: Pageable?): Page<FMaterialRes> {
+    fun findByDivisionRes(fdivisionBean: Int, pageable: Pageable?): Page<FMaterialRes> {
         return  fMaterialRepo.findByDivision(fdivisionBean, pageable).map {
             it.toDomain().toResponse()
         }
     }
 
-    fun findAllByDivisionAndListVendor(fdivisionBean: Int, listVendor: List<Int>): List<FMaterialEntity> {
+    fun findByDivisionAndListVendor(fdivisionBean: Int, listVendor: List<Int>): List<FMaterialEntity> {
         return  fMaterialRepo.findByDivisionAndListVendor(fdivisionBean, listVendor)
     }
-    fun findAllByDivisionAndListVendorRes(fdivisionBean: Int, listVendor: List<Int>): List<FMaterialRes> {
+    fun findByDivisionAndListVendorRes(fdivisionBean: Int, listVendor: List<Int>): List<FMaterialRes> {
         return  fMaterialRepo.findByDivisionAndListVendor(fdivisionBean, listVendor).map {
             it.toDomain().toResponse()
         }
     }
 
-    fun findAllByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FMaterialEntity> {
+    fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FMaterialEntity> {
         return  fMaterialRepo.findByDivisionAndShareToCompany(fdivisionBean, fcompanyBean)
     }
-    fun findAllByDivisionAndShareToCompanyRes(fdivisionBean: Int, fcompanyBean: Int): List<FMaterialRes> {
+    fun findByDivisionAndShareToCompanyRes(fdivisionBean: Int, fcompanyBean: Int): List<FMaterialRes> {
         return  fMaterialRepo.findByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).map {
             it.toDomain().toResponse()
         }
     }
 
-    fun findAllByDivisionAndShareToCompanyAndListVendor(
+    fun findByDivisionAndShareToCompanyAndListVendor(
         fdivisionBean: Int,
         fcompanyBean: Int,
         listVendor: List<Int>

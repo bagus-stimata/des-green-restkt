@@ -7,8 +7,6 @@ import com.erp.distribution.desgreenrestkt.presentation.model.FCustomerRes
 import com.erp.distribution.desgreenrestkt.presentation.model.toDomain
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Pageable
 import org.springframework.http.MediaType
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
@@ -39,12 +37,12 @@ class FCustomerRestController @Autowired constructor(
 
     @RequestMapping(value = ["/rest/getAllFCustomerByDivision/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllFCustomerByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FCustomerRes> {
-        return fCustomerUseCase.findAllByDivisionRes(fdivisionBean).stream().filter(Predicate<FCustomerRes> { x: FCustomerRes -> x.statusActive == true && x.custno != "" && x.custname != "" }).collect(Collectors.toList()).toList()
+        return fCustomerUseCase.findByDivisionRes(fdivisionBean).stream().filter(Predicate<FCustomerRes> { x: FCustomerRes -> x.statusActive == true && x.custno != "" && x.custname != "" }).collect(Collectors.toList()).toList()
     }
 
     @RequestMapping(value = ["/rest/getAllFCustomerByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllFCustomerByDivisionAndShareToCompany(@PathVariable("fdivisionBean") fdivisionBean: Int, @PathVariable("fcompanyBean") fcompanyBean: Int): MutableList<FCustomerRes> {
-        return fCustomerUseCase.findAllByDivisionAndShareToCompanyRes(fdivisionBean, fcompanyBean).stream().filter(Predicate<FCustomerRes> { x: FCustomerRes? -> x!!.statusActive == true && x.custno != "" && x.custname != "" }).collect(Collectors.toList())
+        return fCustomerUseCase.findByDivisionAndShareToCompanyRes(fdivisionBean, fcompanyBean).stream().filter(Predicate<FCustomerRes> { x: FCustomerRes? -> x!!.statusActive == true && x.custno != "" && x.custname != "" }).collect(Collectors.toList())
     }
 
 //    @RequestMapping(value = ["/rest/getAllFCustomerByDivisionPage/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])

@@ -209,7 +209,7 @@ internal fun FVendor.toEntity(): FVendorEntity {
 }
 
 
-internal fun FVendor.toReponse(): FVendorRes {
+internal fun FVendor.toResponse(): FVendorRes {
     return FVendorRes(
         id = id,
         sourceId = sourceId,

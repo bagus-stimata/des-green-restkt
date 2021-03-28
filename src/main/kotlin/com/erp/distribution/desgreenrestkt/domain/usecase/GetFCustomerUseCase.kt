@@ -35,6 +35,11 @@ class GetFCustomerUseCase @Autowired constructor(
             it.toDomain()
         }
     }
+    fun findByKode1Res(kode1: String): List<FCustomerRes> {
+        return  fCustomerRepo.findByKode1(kode1).map {
+            it.toDomain().toResponse()
+        }
+    }
 
     fun findAll(kode1: String, description: String): List<FCustomer> {
         return  fCustomerRepo.findAll(kode1, description).map {
@@ -47,17 +52,22 @@ class GetFCustomerUseCase @Autowired constructor(
         }
     }
 
-    fun findAllByDivision(fdivisionBean: Int): List<FCustomer> {
+    fun findByDivision(fdivisionBean: Int): List<FCustomer> {
         return  fCustomerRepo.findByDivision(fdivisionBean).map {
             it.toDomain()
         }
     }
-    fun findAllByDivisionRes(fdivisionBean: Int): List<FCustomerRes> {
+    fun findByDivisionRes(fdivisionBean: Int): List<FCustomerRes> {
         return  fCustomerRepo.findByDivision(fdivisionBean).map {
             it.toDomain().toResponse()
         }
     }
-    fun findAllByDivisionAndShareToCompanyRes(fdivisionBean: Int, fcompanyBean: Int): List<FCustomerRes> {
+    fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FCustomer> {
+        return  fCustomerRepo.findByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).map {
+            it.toDomain()
+        }
+    }
+    fun findByDivisionAndShareToCompanyRes(fdivisionBean: Int, fcompanyBean: Int): List<FCustomerRes> {
         return  fCustomerRepo.findByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).map {
             it.toDomain().toResponse()
         }

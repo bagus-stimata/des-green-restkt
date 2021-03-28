@@ -10,6 +10,7 @@ interface FVendorRepo {
     fun findByVcode(vcode: String): List<FVendorEntity>
     fun findAll(kode1: String, description: String): List<FVendorEntity>
     fun findByDivision(fdivisionBean: Int): List<FVendorEntity>
+    fun findByCompany(fcompanyBean: Int): List<FVendorEntity>
     fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FVendorEntity>
 
     fun save(fVendorEntity: FVendorEntity): FVendorEntity

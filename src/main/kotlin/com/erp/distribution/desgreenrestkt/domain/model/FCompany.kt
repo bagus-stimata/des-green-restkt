@@ -1,5 +1,8 @@
 package com.erp.distribution.desgreenrestkt.domain.model
 
+import com.erp.distribution.desgreenrestkt.data.source.entity.FCompanyEntity
+import com.erp.distribution.desgreenrestkt.presentation.model.FAreaRes
+import com.erp.distribution.desgreenrestkt.presentation.model.FCompanyRes
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
@@ -71,3 +74,41 @@ data class FCompany (
     var modifiedBy :String ="" //User ID
 
 ): Serializable
+
+internal fun FCompany.toEntity(): FCompanyEntity {
+    return FCompanyEntity(
+        id = id,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+
+        shareDataToBeClone = shareDataToBeClone,
+        shareDataToBeCloneSecurityCode = shareDataToBeCloneSecurityCode,
+        statusActive = statusActive,
+        webServiceActive = webServiceActive,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}
+
+internal fun FCompany.toResponse(): FCompanyRes {
+    return FCompanyRes(
+        id = id,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+
+        shareDataToBeClone = shareDataToBeClone,
+        shareDataToBeCloneSecurityCode = shareDataToBeCloneSecurityCode,
+        statusActive = statusActive,
+        webServiceActive = webServiceActive,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}

@@ -29,6 +29,9 @@ class FSalesmanRepoImpl @Autowired constructor(
     override fun findByDivision(fdivisionBean: Int): List<FSalesmanEntity> {
         return fSalesmanJPARepository.findAllByDivision(fdivisionBean)
     }
+    override fun findByCompany(fcompanyBean: Int): List<FSalesmanEntity> {
+        return fSalesmanJPARepository.findAllByCompany(fcompanyBean)
+    }
 
     override fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FSalesmanEntity> {
         return fSalesmanJPARepository.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean)

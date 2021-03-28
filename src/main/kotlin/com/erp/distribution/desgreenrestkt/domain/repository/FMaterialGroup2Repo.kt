@@ -9,7 +9,8 @@ interface FMaterialGroup2Repo {
     fun findAll(): List<FMaterialGroup2Entity>
     fun findByKode1(kode1: String): List<FMaterialGroup2Entity>
     fun findAll(kode1: String, description: String): List<FMaterialGroup2Entity>
-    fun findByParent(fdivisionBean: Int): List<FMaterialGroup2Entity>
+    fun findByParent(fparentBean: Int): List<FMaterialGroup2Entity>
+    fun findByListOfParent(listFMaterialGroup1Bean: List<Int>): List<FMaterialGroup2Entity>
 
     fun save(fMaterialGroup2Entity: FMaterialGroup2Entity): FMaterialGroup2Entity
     fun saveAll(listFMaterialGroup2: List<FMaterialGroup2Entity>): List<FMaterialGroup2Entity>

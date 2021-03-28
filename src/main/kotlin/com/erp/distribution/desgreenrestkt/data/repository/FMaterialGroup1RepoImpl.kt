@@ -29,6 +29,9 @@ class FMaterialGroup1RepoImpl @Autowired constructor(
     override fun findByDivision(fdivisionBean: Int): List<FMaterialGroup1Entity> {
         return fMaterialGroup1JPARepository.findAllByDivision(fdivisionBean)
     }
+    override fun findByCompany(fcompanyBean: Int): List<FMaterialGroup1Entity> {
+        return fMaterialGroup1JPARepository.findAllByCompany(fcompanyBean)
+    }
 
     override fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FMaterialGroup1Entity> {
         return fMaterialGroup1JPARepository.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean)

@@ -8,6 +8,7 @@ interface FtPriceAltdItemsRepo {
     fun findById(id: Int): FtPriceAltdItemsEntity
     fun findAll(): List<FtPriceAltdItemsEntity>
     fun findByParent(fparentBean: Int): List<FtPriceAltdItemsEntity>
+    fun findByListOfParent(listFParent: List<Int>): List<FtPriceAltdItemsEntity>
 
     fun save(ftPriceAltdItemsEntity: FtPriceAltdItemsEntity): FtPriceAltdItemsEntity
     fun saveAll(listFtPriceAltdItems: List<FtPriceAltdItemsEntity>): List<FtPriceAltdItemsEntity>

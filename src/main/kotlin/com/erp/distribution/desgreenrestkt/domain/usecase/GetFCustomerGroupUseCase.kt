@@ -35,6 +35,11 @@ class GetFCustomerGroupUseCase @Autowired constructor(
             it.toDomain()
         }
     }
+    fun findByKode1Res(kode1: String): List<FCustomerGroupRes> {
+        return  fCustomerGroupRepo.findByKode1(kode1).map {
+            it.toDomain().toResponse()
+        }
+    }
 
     fun findAll(kode1: String, description: String): List<FCustomerGroup> {
         return  fCustomerGroupRepo.findAll(kode1, description).map {
@@ -47,17 +52,22 @@ class GetFCustomerGroupUseCase @Autowired constructor(
         }
     }
 
-    fun findAllByDivision(fdivisionBean: Int): List<FCustomerGroup> {
+    fun findByDivision(fdivisionBean: Int): List<FCustomerGroup> {
         return  fCustomerGroupRepo.findByDivision(fdivisionBean).map {
             it.toDomain()
         }
     }
-    fun findAllByDivisionRes(fdivisionBean: Int): List<FCustomerGroupRes> {
+    fun findByDivisionRes(fdivisionBean: Int): List<FCustomerGroupRes> {
         return  fCustomerGroupRepo.findByDivision(fdivisionBean).map {
             it.toDomain().toResponse()
         }
     }
-    fun findAllByDivisionAndShareToCompanyRes(fdivisionBean: Int, fcompanyBean: Int): List<FCustomerGroupRes> {
+    fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FCustomerGroup> {
+        return  fCustomerGroupRepo.findByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).map {
+            it.toDomain()
+        }
+    }
+    fun findByDivisionAndShareToCompanyRes(fdivisionBean: Int, fcompanyBean: Int): List<FCustomerGroupRes> {
         return  fCustomerGroupRepo.findByDivisionAndShareToCompany(fdivisionBean, fcompanyBean).map {
             it.toDomain().toResponse()
         }

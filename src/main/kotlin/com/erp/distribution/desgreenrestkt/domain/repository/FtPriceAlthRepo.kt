@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable
 interface FtPriceAlthRepo {
     fun findById(id: Int): FtPriceAlthEntity
     fun findAll(): List<FtPriceAlthEntity>
-    fun findByNoRek(kode1: String): List<FtPriceAlthEntity>
+    fun findByNoRek(noRek: String): List<FtPriceAlthEntity>
     fun findByDivision(fdivisionBean: Int): List<FtPriceAlthEntity>
     fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FtPriceAlthEntity>
 

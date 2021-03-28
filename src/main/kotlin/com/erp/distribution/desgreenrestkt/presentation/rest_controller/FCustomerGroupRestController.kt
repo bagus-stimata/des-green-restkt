@@ -1,6 +1,5 @@
 package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 
-import com.erp.distribution.desgreenrestkt.data.source.local.dao.FCustomerGroupJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
 import com.erp.distribution.desgreenrestkt.domain.model.toResponse
 import com.erp.distribution.desgreenrestkt.domain.usecase.GetFAreaUseCase
@@ -14,7 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class FCustomerGroupRestController   @Autowired constructor(
+class FCustomerGroupRestController  @Autowired constructor(
     val fCustomerGroupUseCase: GetFCustomerGroupUseCase
 ) {
 //    @Autowired
@@ -31,12 +30,12 @@ class FCustomerGroupRestController   @Autowired constructor(
 
     @RequestMapping(value = ["/rest/getAllFCustomerGroupByDivision/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllFCustomerGroupByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FCustomerGroupRes?>? {
-        return fCustomerGroupUseCase.findAllByDivisionRes(fdivisionBean)
+        return fCustomerGroupUseCase.findByDivisionRes(fdivisionBean)
     }
 
     @RequestMapping(value = ["/rest/getAllFCustomerGroupByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllFCustomerGroupByDivisionAndShareToCompany(@PathVariable("fdivisionBean") fdivisionBean: Int, @PathVariable("fcompanyBean") fcompanyBean: Int): List<FCustomerGroupRes?>? {
-        return fCustomerGroupUseCase.findAllByDivisionAndShareToCompanyRes(fdivisionBean, fcompanyBean)
+        return fCustomerGroupUseCase.findByDivisionAndShareToCompanyRes(fdivisionBean, fcompanyBean)
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole

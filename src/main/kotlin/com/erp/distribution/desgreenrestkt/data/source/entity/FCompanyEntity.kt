@@ -1,5 +1,6 @@
 package com.erp.distribution.desgreenrestkt.data.source.entity
 
+import com.erp.distribution.desgreenrestkt.domain.model.FCompany
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
@@ -76,3 +77,22 @@ data class FCompanyEntity (
     var modifiedBy :String ="" //User ID
 
 ): Serializable
+
+internal fun FCompanyEntity.toDomain(): FCompany {
+    return FCompany(
+        id = id,
+
+        kode1 = kode1,
+        kode2 = kode2,
+        description = description,
+
+        shareDataToBeClone = shareDataToBeClone,
+        shareDataToBeCloneSecurityCode = shareDataToBeCloneSecurityCode,
+        statusActive = statusActive,
+        webServiceActive = webServiceActive,
+
+        created = created,
+        modified = modified,
+        modifiedBy = modifiedBy
+    )
+}
