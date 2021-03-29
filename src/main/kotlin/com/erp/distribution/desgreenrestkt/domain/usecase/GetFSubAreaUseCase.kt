@@ -55,7 +55,7 @@ class GetFSubAreaUseCase @Autowired constructor(
     }
 
     fun findByParent(fparentBean: Int): List<FSubArea> {
-        return  fSubAreaRepo.findByParent(fparentBean).map {
+        return  fSubAreaRepo.findByParent(fparentBean)!!.map {
             it.toDomain()
         }
     }

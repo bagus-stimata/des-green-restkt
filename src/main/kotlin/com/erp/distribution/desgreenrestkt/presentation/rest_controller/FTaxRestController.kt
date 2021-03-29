@@ -60,8 +60,11 @@ class FTaxRestController @Autowired constructor(
     @RequestMapping(value = ["/rest/deleteFTax/{id}"], method = [RequestMethod.DELETE])
     fun deleteFTax(@PathVariable("id") id: Int): FTaxRes? {
         val fTax = getFTaxUseCase.findById(id)
-        if (fTax != null) {
-            getFTaxUseCase.delete(fTax)
+//        if (fTax != null) {
+//            getFTaxUseCase.delete(fTax)
+//        }
+        fTax?.let {
+            getFTaxUseCase.delete(it)
         }
         return fTax.toResponse()
     }

@@ -56,10 +56,14 @@ class FPromotionRuleshRestController @Autowired constructor(
 
     @RequestMapping(value = ["/rest/deleteFPromotionRulesh/{id}"], method = [RequestMethod.DELETE])
     fun deleteFPromotionRulesh(@PathVariable("id") id: Int): FPromotionRulesh? {
-        val fPromotionRulesh = getFPromotionRuleshUseCase.findById(id)
-        if (fPromotionRulesh != null) {
-            getFPromotionRuleshUseCase.delete(fPromotionRulesh)
+        val fPromotionRulesh = getFPromotionRuleshUseCase.findById(id).also {
+            try {
+                getFPromotionRuleshUseCase.delete(it)
+            }catch (ex: Exception){}
         }
+//        if (fPromotionRulesh != null) {
+//            getFPromotionRuleshUseCase.delete(fPromotionRulesh)
+//        }
         return fPromotionRulesh
     }
 

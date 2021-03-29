@@ -76,8 +76,11 @@ class FStockRestController @Autowired  constructor(
     @RequestMapping(value = ["/rest/deleteFStock/{id}"], method = [RequestMethod.DELETE])
     fun deleteFStock(@PathVariable("id") id: Int): FStockRes? {
         val fStock = getFStockUseCase.findById(id)
-        if (fStock != null) {
-            getFStockUseCase.delete(fStock)
+//        if (fStock != null) {
+//            getFStockUseCase.delete(fStock)
+//        }
+        fStock?.let {
+            getFStockUseCase.delete(it)
         }
         return fStock.toResponse()
     }

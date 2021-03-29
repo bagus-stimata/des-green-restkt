@@ -11,7 +11,7 @@ interface FPromotionRuleshJPARepository : JpaRepository<FPromotionRuleshEntity, 
     @Query("SELECT u FROM FPromotionRuleshEntity u WHERE u.kode1 LIKE :kode1 and u.description LIKE :description")
     fun findAll(kode1: String, description: String): List<FPromotionRuleshEntity>
 
-    @Query("SELECT u FROM FPromotionRuleshEntity u WHERE u.fdivisionBean = :fdivisionBean")
+    @Query("SELECT u FROM FPromotionRuleshEntity u WHERE u.fdivisionBean.id = :fdivisionBean")
     fun findAllByDivision(fdivisionBean: Int): List<FPromotionRuleshEntity> //    @Query("SELECT u FROM FPromotionRuleshEntity u WHERE "
     //            + " ( a.fdivisionBean IN :listFdivisionBean OR a.sharedToCompany = true)"
     //            + " AND a.validPeriodDateFrom <= :posisiDate AND a.validPeriodDateTo >= :posisiDate "

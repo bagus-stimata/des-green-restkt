@@ -42,10 +42,10 @@ data class FtApPaymenthEntity (
 
     //PENGGUNAAN UTAMA PADA END_OF_DAY
     @Column(name =  "END_OF_DAY" )
-    var isEndOfDay  :Boolean =false,
+    var endOfDay  :Boolean =false,
 
     @Column(name =  "CLOSING" )
-    var isClosing  :Boolean =false,
+    var closing  :Boolean =false,
 
     //	@ManyToOne
     //	@JoinColumn(name= fdivisionBean , referencedColumnName= ID )

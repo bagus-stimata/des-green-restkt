@@ -27,7 +27,7 @@ class FAreaRepoImpl @Autowired constructor(
     }
 
     override fun findByDivision(fdivisionBean: Int): List<FAreaEntity> {
-        return fAreaJPARepository.findAllByDivision(fdivisionBean)
+        return fAreaJPARepository.findAllByDivision(fdivisionBean).orEmpty()
     }
 
     override fun findByDivisionAndShareToCompany(fdivisionBean: Int, fcompanyBean: Int): List<FAreaEntity> {

@@ -59,8 +59,11 @@ class FtPricehAltdItemsRestController @Autowired constructor(
     @RequestMapping(value = ["/rest/deleteFtPriceAltdItems/{id}"], method = [RequestMethod.DELETE])
     fun deleteFtPriceAltdItems(@PathVariable("id") id: Int): FtPriceAltdItemsRes? {
         val ftPriceAltdItems = getFtPriceAltdItemsUseCase.findById(id)
-        if (ftPriceAltdItems != null) {
-            getFtPriceAltdItemsUseCase.delete(ftPriceAltdItems)
+//        ftPriceAltdItems?.let {
+//            getFtPriceAltdItemsUseCase.delete(ftPriceAltdItems)
+//        }
+        ftPriceAltdItems?.let {
+            getFtPriceAltdItemsUseCase.delete(it)
         }
         return ftPriceAltdItems.toResponse()
     }

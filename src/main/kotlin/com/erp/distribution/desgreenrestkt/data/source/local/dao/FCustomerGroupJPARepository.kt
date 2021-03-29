@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.Query
 
 interface FCustomerGroupJPARepository : JpaRepository<FCustomerGroupEntity, Int> {
 //    override fun findById(id: Int): FCustomerGroupEntity?
-    fun findByKode1(kode1: String?): List<FCustomerGroupEntity>
+    fun findByKode1(kode1: String): List<FCustomerGroupEntity>
 
     @Query("SELECT u FROM FCustomerGroupEntity u WHERE u.kode1 LIKE :kode1 and u.description LIKE :description ")
-    fun findAll(kode1: String?, description: String?): List<FCustomerGroupEntity>
+    fun findAll(kode1: String, description: String): List<FCustomerGroupEntity>
 
     @Query("SELECT u FROM FCustomerGroupEntity u WHERE u.fdivisionBean = :fdivisionBean")
     fun findAllByDivision(fdivisionBean: Int): List<FCustomerGroupEntity>

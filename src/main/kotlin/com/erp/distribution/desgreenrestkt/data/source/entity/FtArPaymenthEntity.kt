@@ -35,14 +35,14 @@ data class FtArPaymenthEntity (
     var entryDate :Date =Date(),
 
     @Column(name =  "NOTES" , length = 150)
-    var notes :String ="",   
+    var notes :String ="",
 
     @Column(name =  "PRINT_COUNTER" , length = 4)
     var printCounter :Int =0,
 
     //PENGGUNAAN UTAMA PADA END_OF_DAY
     @Column(name =  "END_OF_DAY" )
-    var isEndOfDay  :Boolean =false,
+    var endOfDay  :Boolean =false,
 
     //	@ManyToOne
     //	@JoinColumn(name= fdivisionBean , referencedColumnName= ID )

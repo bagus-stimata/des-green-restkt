@@ -13,14 +13,14 @@ interface FtSalesdItemsJPARepository : JpaRepository<FtSalesdItemsEntity, Long> 
     @Query("SELECT u FROM FtSalesdItemsEntity u WHERE u.noUrut LIKE :noUrut")
     fun findAll(noUrut: String): List<FtSalesdItemsEntity>
 
-    @Query("SELECT u FROM FtSalesdItemsEntity u WHERE u.ftSaleshBean = :ftSaleshBean")
+    @Query("SELECT u FROM FtSalesdItemsEntity u WHERE u.ftSaleshBean.refno = :ftSaleshBean")
     fun findAllByFtSaleshBean(ftSaleshBean: Long): List<FtSalesdItemsEntity>
 
-    @Query("SELECT u FROM FtSalesdItemsEntity u WHERE u.ftSaleshBean IN :listFtSaleshBean")
+    @Query("SELECT u FROM FtSalesdItemsEntity u WHERE u.ftSaleshBean.refno IN :listFtSaleshBean")
     fun findAllByListFtSalesh(listFtSaleshBean: List<Long>): List<FtSalesdItemsEntity>
 
     @Modifying
-    @Query("delete from FtSalesdItemsEntity u where u.ftSaleshBean = :ftSaleshBean")
+    @Query("delete from FtSalesdItemsEntity u where u.ftSaleshBean.refno = :ftSaleshBean")
     fun deleteByFtSalesh(@Param("ftSaleshBean") ftSaleshBean: Long): Int
     override fun deleteInBatch(iterable: Iterable<FtSalesdItemsEntity>)
 }

@@ -15,22 +15,22 @@ class FSubAreaRepoImpl @Autowired constructor(
     }
 
     override fun findAll(): List<FSubAreaEntity> {
-        return fSubAreaJPARepository.findAll()
+        return fSubAreaJPARepository.findAll().orEmpty()
     }
 
     override fun findAll(kode1: String, description: String): List<FSubAreaEntity> {
-        return fSubAreaJPARepository.findAll(kode1, description)
+        return fSubAreaJPARepository.findAll(kode1, description).orEmpty()
     }
 
     override fun findByKode1(kode1: String): List<FSubAreaEntity> {
-        return fSubAreaJPARepository.findByKode1(kode1)
+        return fSubAreaJPARepository.findByKode1(kode1).orEmpty()
     }
 
     override fun findByParent(fparentBean: Int): List<FSubAreaEntity> {
-        return fSubAreaJPARepository.findAllByParent(fparentBean)
+        return fSubAreaJPARepository.findAllByParent(fparentBean).orEmpty()
     }
     override fun findByListOfParent(listFArea: List<Int>): List<FSubAreaEntity> {
-        return fSubAreaJPARepository.findAllByListParent(listFArea)
+        return fSubAreaJPARepository.findAllByListParent(listFArea).orEmpty()
     }
 
     override fun save(fSubAreaEntity: FSubAreaEntity): FSubAreaEntity {

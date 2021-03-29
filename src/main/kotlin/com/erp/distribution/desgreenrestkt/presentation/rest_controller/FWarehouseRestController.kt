@@ -60,8 +60,11 @@ class FWarehouseRestController @Autowired constructor(
     @RequestMapping(value = ["/rest/deleteFWarehouse/{id}"], method = [RequestMethod.DELETE])
     fun deleteFWarehouse(@PathVariable("id") id: Int): FWarehouseRes? {
         val fWarehouse = getFWarehouseUseCase.findById(id)
-        if (fWarehouse != null) {
-            getFWarehouseUseCase.delete(fWarehouse)
+//        if (fWarehouse != null) {
+//            getFWarehouseUseCase.delete(fWarehouse)
+//        }
+        fWarehouse?.let {
+            getFWarehouseUseCase.delete(it)
         }
         return fWarehouse.toResponse()
     }

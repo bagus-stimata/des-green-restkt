@@ -44,12 +44,12 @@ class FtSaleshRepoImpl @Autowired constructor(
         return ftSaleshJPARepository.findAllByDivisionAndInvoiceDate(fdivisionBean, invoiceDateFrom, invoiceDateTo)
     }
 
-    override fun findBySourceIdAndCreated(sourceId: Long, created: Date): Optional<FtSaleshEntity> {
-        return ftSaleshJPARepository.findBySourceIdAndCreated(sourceId, created)
+    override fun findBySourceIdAndCreated(sourceId: Long, created: Date): FtSaleshEntity {
+        return ftSaleshJPARepository.findBySourceIdAndCreated(sourceId, created).orElse(FtSaleshEntity())
     }
 
-    override fun findBySourceId(sourceId: Long): Optional<FtSaleshEntity> {
-        return ftSaleshJPARepository.findBySourceId(sourceId)
+    override fun findBySourceId(sourceId: Long): FtSaleshEntity {
+        return ftSaleshJPARepository.findBySourceId(sourceId).orElse(FtSaleshEntity())
     }
 
 

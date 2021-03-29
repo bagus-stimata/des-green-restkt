@@ -11,9 +11,9 @@ interface FtPriceAltdItemsJPARepository : JpaRepository<FtPriceAltdItemsEntity, 
     @Query("SELECT u FROM FtPriceAltdItemsEntity u WHERE u.noUrut LIKE :noUrut")
     fun findAll(noUrut: String): List<FtPriceAltdItemsEntity>
 
-    @Query("SELECT u FROM FtPriceAltdItemsEntity u WHERE u.ftPriceAlthBean = :ftPriceAlthBean")
+    @Query("SELECT u FROM FtPriceAltdItemsEntity u WHERE u.ftPriceAlthBean.id = :ftPriceAlthBean")
     fun findAllByParent(ftPriceAlthBean: Int): List<FtPriceAltdItemsEntity>
 
-    @Query("SELECT u FROM FtPriceAltdItemsEntity u WHERE u.ftPriceAlthBean IN :listFtPriceAlthBean")
+    @Query("SELECT u FROM FtPriceAltdItemsEntity u WHERE u.ftPriceAlthBean.id IN :listFtPriceAlthBean")
     fun findAllByListParent(listFtPriceAlthBean: List<Int>): List<FtPriceAltdItemsEntity>
 }

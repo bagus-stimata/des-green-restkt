@@ -119,5 +119,9 @@ class GetFtSaleshUseCase @Autowired constructor(
         }
     }
 
+    fun findBySourceIdAndCreated(sourceId: Long, created: Date): FtSalesh {
+        return  ftSaleshRepo.findBySourceIdAndCreated(sourceId, created).toDomain()
+    }
+
 
 }

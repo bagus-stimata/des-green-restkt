@@ -27,12 +27,16 @@ class FSubAreaRestController @Autowired constructor(
 
     @RequestMapping(value = ["/rest/getAllFSubAreaByParent/{fareaBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllFSubAreaByParentId(@PathVariable("fareaBean") fareaBean: Int): List<FSubAreaRes> {
-        return getFSubAreaUseCase.findByParentRes(fareaBean)
+        return getFSubAreaUseCase.findByParentRes(fareaBean).ifEmpty {
+            listOf()
+        }
     }
 
     @RequestMapping(value = ["/rest/getAllFSubAreaByListParentId"], method = [RequestMethod.POST], produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllFSubAreaByListParentId(@RequestBody listFareaBean: List<Int>): List<FSubAreaRes> {
-        return getFSubAreaUseCase.findByListOfParentRes(listFareaBean)
+        return getFSubAreaUseCase.findByListOfParentRes(listFareaBean).ifEmpty {
+            listOf()
+        }
     }
 
     @PreAuthorize("hasAnyRole({'" + Role.ADMIN + "', '" + Role.ADMIN + "'})") //Perhatikan hasRole dan hasAnyRole
@@ -60,8 +64,11 @@ class FSubAreaRestController @Autowired constructor(
     @RequestMapping(value = ["/rest/deleteFSubArea/{id}"], method = [RequestMethod.DELETE])
     fun deleteFSubArea(@PathVariable("id") id: Int): FSubAreaRes? {
         val fSubArea = getFSubAreaUseCase.findById(id)
-        if (fSubArea != null) {
-            getFSubAreaUseCase.delete(fSubArea)
+//        if (fSubArea != null) {
+//            getFSubAreaUseCase.delete(fSubArea)
+//        }
+        fSubArea?.let {
+            getFSubAreaUseCase.delete(it)
         }
         return fSubArea.toResponse()
     }
