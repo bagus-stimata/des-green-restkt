@@ -167,7 +167,7 @@ data class FtSalesh(
     //	@ManyToOne
     //	@JoinColumn(name="fuangMuka_SOBean", referencedColumnName="ID", nullable=true)
     //	private FUangMuka fuangMuka_SOBean;
-    @Column(name = "fuangMuka_SOBean", nullable = false)
+    @Column(name = "fuangMuka_SOBean", nullable = true)
     var fuangMuka_SOBean: Int? =0,
 
     @Column(name = "DISC1")
@@ -369,7 +369,7 @@ data class FtSalesh(
     //	@JoinColumn(name="fexpedisiBean", referencedColumnName="ID", nullable=true)
     //	private FExpedisi fexpedisiBean;
     @Column(name = "fexpedisiBean", nullable =true)
-    var fexpedisiBean: Int? =0,
+    var fexpedisiBean: Int? =null,
 
     /*
 	 * MAPPING ACCOUNT

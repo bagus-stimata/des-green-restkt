@@ -5,6 +5,7 @@ import com.erp.distribution.desgreenrestkt.data.source.entity.FtSaleshEntity
 import com.erp.distribution.desgreenrestkt.domain.model.FtSalesdItems
 import com.erp.distribution.desgreenrestkt.domain.model.FtSalesh
 import com.erp.distribution.desgreenrestkt.domain.model.enum.*
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import java.io.Serializable
 import java.util.*
@@ -168,7 +169,7 @@ data class FtSaleshRes(
     //	@ManyToOne
     //	@JoinColumn(name="fuangMuka_SOBean", referencedColumnName="ID", nullable=true)
     //	private FUangMuka fuangMuka_SOBean;
-    @Column(name = "fuangMuka_SOBean", nullable = false)
+    @Column(name = "fuangMuka_SOBean", nullable = true)
     var fuangMuka_SOBean: Int? =0,
 
     @Column(name = "DISC1")
@@ -370,7 +371,7 @@ data class FtSaleshRes(
     //	@JoinColumn(name="fexpedisiBean", referencedColumnName="ID", nullable=true)
     //	private FExpedisi fexpedisiBean;
     @Column(name = "fexpedisiBean", nullable =true)
-    var fexpedisiBean: Int? =0,
+    var fexpedisiBean: Int? =null,
 
     /*
 	 * MAPPING ACCOUNT
@@ -382,14 +383,17 @@ data class FtSaleshRes(
 	 * 1. Kas Besar
 	 * 2. Piutang
 	 */
+    @JsonIgnore
     @Column(name = "CREATED")
     @Temporal(TemporalType.TIMESTAMP)
     var created :Date =Date(),
 
+    @JsonIgnore
     @Column(name = "MODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
     var modified :Date =Date(),
 
+    @JsonIgnore
     @Column(name = "MODIFIED_BY", length = 20)
     var modifiedBy: String ="" //User ID
 

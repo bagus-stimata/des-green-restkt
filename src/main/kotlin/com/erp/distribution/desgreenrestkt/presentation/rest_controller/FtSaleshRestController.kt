@@ -40,8 +40,8 @@ class FtSaleshRestController @Autowired constructor(
     }
 
     @RequestMapping(value = ["/rest/createFtSalesh"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun createFtSalesh(@RequestBody ftSaleshEntityNew: FtSaleshRes): FtSaleshRes {
-        ftSaleshEntityNew.fcustomerShipToBean = ftSaleshEntityNew.fcustomerBean
+    fun createFtSalesh(@RequestBody ftSaleshResNew: FtSaleshRes): FtSaleshRes {
+        ftSaleshResNew.fcustomerShipToBean = ftSaleshResNew.fcustomerBean
 
 //        logger.debug(">> FtSaelsh Export: "  + ftSaleshNew.getRefno() + " >> " + ftSaleshNew.getFdivisionBean() + " >> " +
 //                ftSaleshNew.getFcustomerBean() + " >> " + ftSaleshNew.getFwarehouseBean() + ftSaleshNew.getFsalesmanBean() );
@@ -55,18 +55,18 @@ class FtSaleshRestController @Autowired constructor(
          * a. Jika Sudah Terbit Nomor Order -> Maka ditolak tidak bisa update -> Mengembalikan nilai balik
          * b. Jika Belum Terbit Nomor Order maka -> Update FtSalesh -> Hapus Item -> Insert Lagi
          */
-        return getFtSaleshUseCase.save(ftSaleshEntityNew.toDomain()).toResponse()
+        return getFtSaleshUseCase.save(ftSaleshResNew.toDomain()).toResponse()
     }
 
     @RequestMapping(value = ["/rest/createFtSaleshFromAndroid"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun createFtSaleshFromAndroid(@RequestBody ftSaleshEntityNew: FtSaleshRes): FtSaleshRes {
-        ftSaleshEntityNew.fcustomerShipToBean = ftSaleshEntityNew.fcustomerBean
+    fun createFtSaleshFromAndroid(@RequestBody ftSaleshResNew: FtSaleshRes): FtSaleshRes {
+        ftSaleshResNew.fcustomerShipToBean = ftSaleshResNew.fcustomerBean
 
-//        logger.debug(">> FtSaelsh Export: "  + ftSaleshNew.getRefno() + " >> " + ftSaleshNew.getFdivisionBean() + " >> " +
-//                ftSaleshNew.getFcustomerBean() + " >> " + ftSaleshNew.getFwarehouseBean() + ftSaleshNew.getFsalesmanBean() );
+//        logger.debug(">> FtSalesh Export: "  + ftSaleshResNew.refno + " >> " + ftSaleshResNew.fdivisionBean + " >> " +
+//                ftSaleshResNew.fcustomerBean+ " >> " + ftSaleshResNew.fwarehouseBean  + " >> " + ftSaleshResNew.fsalesmanBean  + " >> End");
 
-//        System.out.println(">> FtSalesh Export: "  + ftSaleshNew.getRefno() + " >> " + ftSaleshNew.getFdivisionBean() + " >> " +
-//                ftSaleshNew.getFcustomerBean() + " >> " + ftSaleshNew.getFwarehouseBean()  + " >> " + ftSaleshNew.getFsalesmanBean()  + " >> End");
+        System.out.println(">> FtSalesh Export: "  + ftSaleshResNew.refno + " >> " + ftSaleshResNew.fdivisionBean + " >> " +
+                ftSaleshResNew.fcustomerBean+ " >> " + ftSaleshResNew.fwarehouseBean  + " >> " + ftSaleshResNew.fsalesmanBean  + " >> End");
         /**
          * 1. Check tanggal Created dan sourceID
          * 2. Jika Tidak ada maka CREATE NEW
@@ -74,46 +74,61 @@ class FtSaleshRestController @Autowired constructor(
          * a. Jika Sudah Terbit Nomor Order -> Maka ditolak tidak bisa update -> Mengembalikan nilai balik
          * b. Jika Belum Terbit Nomor Order maka -> Update FtSalesh -> Hapus Item -> Insert Lagi
          */
-        var ftSaleshEntityResult : FtSaleshRes
+        var ftSaleshResResult : FtSaleshRes = FtSaleshRes()
 
-        val ftSaleshExisting = getFtSaleshUseCase.findBySourceIdAndCreated(ftSaleshEntityNew.sourceId, ftSaleshEntityNew.created)
+        val ftSaleshExisting = getFtSaleshUseCase.findBySourceIdAndCreated(ftSaleshResNew.sourceId, ftSaleshResNew.created)
+
+        if (ftSaleshResNew.fexpedisiBean==0) ftSaleshResNew.fexpedisiBean = null
+        if (ftSaleshResNew.driverBean==0) ftSaleshResNew.driverBean = null
+        if (ftSaleshResNew.collectorBean==0) ftSaleshResNew.collectorBean = null
+        if (ftSaleshResNew.fakturSOBean==0L) ftSaleshResNew.fakturSOBean = null
+        if (ftSaleshResNew.fcustomerShipToBean==0) ftSaleshResNew.fcustomerShipToBean = ftSaleshResNew.fcustomerBean
+        if (ftSaleshResNew.accAccountArKbBean==0) ftSaleshResNew.accAccountArKbBean = null
+        if (ftSaleshResNew.accAccountFtSaleshCredit==0) ftSaleshResNew.accAccountFtSaleshCredit = null
+//        if (ftSaleshResNew.fuangMuka_SOBean==0) ftSaleshResNew.fuangMuka_SOBean = null
+
+
         if (ftSaleshExisting.refno == 0L) {
-            ftSaleshEntityResult = getFtSaleshUseCase.save(ftSaleshEntityNew.toDomain()).toResponse()
-            //            System.out.println("Masuk Kesini 1 " + ftSaleshExisting.toString());
+            return getFtSaleshUseCase.save(ftSaleshResNew.toDomain()).toResponse()
+
+            System.out.println("Masuk Kesini 1 >> FtSalesh Export: "  + ftSaleshResNew.refno + " >> " + ftSaleshResNew.fdivisionBean + " >> " +
+                    ftSaleshResNew.fcustomerBean+ " >> " + ftSaleshResNew.fwarehouseBean  + " >> " + ftSaleshResNew.fsalesmanBean  + " >> End");
+
         } else {
             if (ftSaleshExisting.orderno.trim { it <= ' ' }.toLowerCase().contains("new") || ftSaleshExisting.orderno.trim { it <= ' ' } == "") {
                 if (ftSaleshExisting.refno > 0 && ftSaleshExisting.sourceId > 0) { //source menunjukkan Asal dari Source
-//                System.out.println("Masuk Kesini 2");
+                System.out.println("Masuk Kesini 2")
 
 //                ftSalesdItemsJPARepository.deleteByFtSalesh(ftSaleshExisting.getRefno());
                     getFtSalesdItemsUseCase.deleteInBatch(getFtSalesdItemsUseCase.findByParent(ftSaleshExisting.refno))
-                    ftSaleshEntityNew.refno = ftSaleshExisting.refno
-                    getFtSaleshUseCase.save(ftSaleshEntityNew.toDomain())
+                    ftSaleshResNew.refno = ftSaleshExisting.refno
+
+                    getFtSaleshUseCase.save(ftSaleshResNew.toDomain())
                 }
-                ftSaleshEntityResult = ftSaleshEntityNew
+                ftSaleshResResult = ftSaleshResNew
             } else {
-                ftSaleshEntityResult = ftSaleshExisting.toResponse()
-                //                System.out.println("Masuk Kesini 3");
+                ftSaleshResResult = ftSaleshExisting.toResponse()
+                                System.out.println("Masuk Kesini 3")
             }
         }
-        return ftSaleshEntityResult
+        return ftSaleshResResult
     }
 
     @RequestMapping(value = ["/rest/createFtSaleshTest"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun createFtSaleshTest(@RequestBody ftSaleshEntityNew: FtSaleshRes): FtSaleshRes {
-        ftSaleshEntityNew.refno = 0 //Pastikan ID nya nol untuk Create Baru
-        return getFtSaleshUseCase.save(ftSaleshEntityNew.toDomain()).toResponse()
+    fun createFtSaleshTest(@RequestBody ftSaleshResNew: FtSaleshRes): FtSaleshRes {
+        ftSaleshResNew.refno = 0 //Pastikan ID nya nol untuk Create Baru
+        return getFtSaleshUseCase.save(ftSaleshResNew.toDomain()).toResponse()
     }
 
     @RequestMapping(value = ["/rest/updateFtSalesh/{id}"], method = [RequestMethod.PUT])
-    fun updateFtSaleshInfo(@PathVariable("id") id: Long?, @RequestBody ftSaleshEntityUpdated: FtSaleshRes?): FtSaleshRes {
+    fun updateFtSaleshInfo(@PathVariable("id") id: Long?, @RequestBody ftSaleshResUpdated: FtSaleshRes?): FtSaleshRes {
         val ftSalesh = getFtSaleshUseCase.findByRefno(id!!)
         //Tidak Meng Update Parent: Hanya Info Saja
-        if (ftSaleshEntityUpdated != null) {
-            ftSaleshEntityUpdated.refno = ftSalesh.refno
-            if (ftSalesh.fdivisionBean > 0) ftSaleshEntityUpdated.fdivisionBean = ftSalesh.fdivisionBean
-            getFtSaleshUseCase.save(ftSaleshEntityUpdated.toDomain()).toResponse()
-            return ftSaleshEntityUpdated
+        if (ftSaleshResUpdated != null) {
+            ftSaleshResUpdated.refno = ftSalesh.refno
+            if (ftSalesh.fdivisionBean > 0) ftSaleshResUpdated.fdivisionBean = ftSalesh.fdivisionBean
+            getFtSaleshUseCase.save(ftSaleshResUpdated.toDomain()).toResponse()
+            return ftSaleshResUpdated
         }
         return ftSalesh.toResponse()
     }
