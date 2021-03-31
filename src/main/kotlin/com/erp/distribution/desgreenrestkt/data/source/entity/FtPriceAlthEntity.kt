@@ -50,23 +50,27 @@ data class FtPriceAlthEntity (
     /**
      * Pastikan yang ditarik pasti aktif
      */
-    @JsonIgnore
+//    @JsonIgnore
     @Column(name =  "STATUS_ACTIVE" )
     var statusActive  :Boolean =true,
 
 
+    @Transient
     @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
     var ftPriceAltdSet : Set<FtPriceAltdItemsEntity> = HashSet<FtPriceAltdItemsEntity>(),
 
+//    @Transient
     @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
     var fCustomerSet :Set<FCustomerEntity> = HashSet<FCustomerEntity>(),
 
+//    @Transient
     @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
     var fSalesmanSet :Set<FSalesmanEntity> = HashSet<FSalesmanEntity>(),
 
+//    @Transient
     @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
     var fCustomerGroupSet :Set<FCustomerGroupEntity> = HashSet<FCustomerGroupEntity>(),

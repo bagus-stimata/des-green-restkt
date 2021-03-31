@@ -74,7 +74,7 @@ class FMaterialRestController @Autowired constructor(
 //        }
         activeUser = fUsersJPARepository.findById(securityUtils.loginUser!!.id).get()
 
-//        System.out.println("aktif user: " + activeUser.getUsername() + " >> " + activeUser.getfUserVendors());
+        System.out.println("aktif user: " + activeUser.username + " >> " + activeUser.fUserVendors);
         return if (activeUser.fUserVendors.size > 0) {
             val listVendorsBean: MutableList<Int> = ArrayList()
             for (fUserVendorBean in activeUser.fUserVendors) {
@@ -84,6 +84,7 @@ class FMaterialRestController @Autowired constructor(
         } else {
             getFMaterialUseCase.findByDivisionAndShareToCompanyRes(fdivisionBean, fcompanyBean).stream().filter { x: FMaterialRes -> x.statusActive == true && x.pcode != "" && x.pname != "" }.collect(Collectors.toList())
         }
+//        return listOf()
     }
 
     @RequestMapping(value = ["/rest/getAllFMaterialByDivisionPage/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])

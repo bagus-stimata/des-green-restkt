@@ -45,7 +45,7 @@ class FtSalesdItemsRestController @Autowired constructor(
     }
 
     @RequestMapping(value = ["/rest/createFtSalesdItems"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun createFtSalesdItems(@RequestBody ftSalesdItemsEntityNew: FtSalesdItemsRes): FtSalesdItemsRes {
+    fun createFtSalesdItems(@RequestBody ftSalesdItemsResNew: FtSalesdItemsRes): FtSalesdItemsRes {
         //Sementara TAx Dari Sini
 //        FMaterial fMaterial = getFMaterialUseCase.findById(ftSalesdItemsNew.getFmaterialBean()).orElse( new FMaterial() );
 
@@ -56,19 +56,19 @@ class FtSalesdItemsRestController @Autowired constructor(
 //            ftSalesdItemsNew.setTaxPercent(10.0);
 //            ftSalesdItemsNew.setTax(true);
 //        }
-        ftSalesdItemsEntityNew.id = 0 //Pastikan ID nya nol untuk Create Baru
-        return getFtSalesdItemsUseCase.save(ftSalesdItemsEntityNew.toDomain()).toResponse()
+        ftSalesdItemsResNew.id = 0 //Pastikan ID nya nol untuk Create Baru
+        return getFtSalesdItemsUseCase.save(ftSalesdItemsResNew.toDomain()).toResponse()
     }
 
     @RequestMapping(value = ["/rest/updateFtSalesdItems/{id}"], method = [RequestMethod.PUT])
-    fun updateFtSalesdItemsInfo(@PathVariable("id") id: Long, @RequestBody ftSalesdItemsEntityUpdated: FtSalesdItemsRes?): FtSalesdItemsRes {
+    fun updateFtSalesdItemsInfo(@PathVariable("id") id: Long, @RequestBody ftSalesdItemsResUpdated: FtSalesdItemsRes?): FtSalesdItemsRes {
         val ftSalesdItems = getFtSalesdItemsUseCase.findByIdRes(id)
         //Tidak Meng Update Parent: Hanya Info Saja
-        if (ftSalesdItemsEntityUpdated != null) {
-            ftSalesdItemsEntityUpdated.id = ftSalesdItems.id
-            if (ftSalesdItems.fmaterialBean >0) ftSalesdItemsEntityUpdated.fmaterialBean = ftSalesdItems.fmaterialBean
-            getFtSalesdItemsUseCase.save(ftSalesdItemsEntityUpdated.toDomain())
-            return ftSalesdItemsEntityUpdated
+        if (ftSalesdItemsResUpdated != null) {
+            ftSalesdItemsResUpdated.id = ftSalesdItems.id
+            if (ftSalesdItems.fmaterialBean >0) ftSalesdItemsResUpdated.fmaterialBean = ftSalesdItems.fmaterialBean
+            getFtSalesdItemsUseCase.save(ftSalesdItemsResUpdated.toDomain())
+            return ftSalesdItemsResUpdated
         }
         return ftSalesdItems
     }

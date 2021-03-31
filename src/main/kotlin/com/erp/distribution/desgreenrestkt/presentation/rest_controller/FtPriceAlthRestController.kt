@@ -28,7 +28,9 @@ class FtPriceAlthRestController @Autowired constructor(
 
     @RequestMapping(value = ["/rest/getAlltPriceAlthByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAlltPriceAlthByDivisionAndShareToCompany(@PathVariable("fdivisionBean") fdivisionBean: Int, @PathVariable("fcompanyBean") fcompanyBean: Int): List<FtPriceAlthRes> {
+        System.out.println((">> ${fdivisionBean} >> ${fcompanyBean}" ))
         return getFtPriceAlthUseCase.findByDivisionAndShareToCompanyRes(fdivisionBean, fcompanyBean).stream().filter { x: FtPriceAlthRes -> x.statusActive == true }.collect(Collectors.toList())
+//        return listOf<FtPriceAlthRes>()
     }
 
     @RequestMapping(value = ["/rest/createFtPriceAlth"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
