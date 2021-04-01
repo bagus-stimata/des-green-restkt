@@ -79,7 +79,23 @@ data class FtPriceAlth (
     @Column(name =  "MODIFIED_BY" , length = 20)
     var modifiedBy :String =""    //User ID
 
-): Serializable
+
+): Serializable{
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as FtPriceAlth
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id
+    }
+}
 
 internal fun FtPriceAlth.toEntity(): FtPriceAlthEntity {
     return FtPriceAlthEntity(
@@ -92,7 +108,7 @@ internal fun FtPriceAlth.toEntity(): FtPriceAlthEntity {
         fdivisionBean = fdivisionBean,
         statusActive = statusActive,
 
-//        ftPriceAltdSet = ftPriceAltdSet,
+//        ftPriceAltdSet = ftPriceAltdSet.map { it.toEntity() }.toSet(),
 //        fCustomerSet = fCustomerSet,
 //        fSalesmanSet = fSalesmanSet,
 //        fCustomerGroupSet = fCustomerGroupSet,
@@ -113,6 +129,8 @@ internal fun FtPriceAlth.toResponse(): FtPriceAlthRes {
         description = description,
         fdivisionBean = fdivisionBean,
         statusActive = statusActive,
+
+//        ftPriceAltdSet = ftPriceAltdSet.map { it.toResponse() }.toSet(),
 
         created = created,
         modified = modified,

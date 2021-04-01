@@ -2,9 +2,11 @@ package com.erp.distribution.desgreenrestkt.presentation.model
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FDistributionChannelEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.FtPriceAlthEntity
-import com.erp.distribution.desgreenrestkt.domain.model.FtPriceAlth
+import com.erp.distribution.desgreenrestkt.domain.model.*
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
+import org.hibernate.annotations.Fetch
+import org.hibernate.annotations.FetchMode
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
@@ -41,6 +43,23 @@ data class FtPriceAlthRes (
     @Column(name =  "TR_DATE" )
     var trDate :Date =Date(),
 
+
+//    @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
+//    @Fetch(FetchMode.JOIN)
+    var ftPriceAltdSet : Set<FtPriceAltdItemsRes> = HashSet<FtPriceAltdItemsRes>(),
+
+//    @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
+//    @Fetch(FetchMode.JOIN)
+    var fCustomerSet :Set<FCustomerRes> = HashSet<FCustomerRes>(),
+
+//    @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
+//    @Fetch(FetchMode.JOIN)
+    var fSalesmanSet :Set<FSalesmanRes> = HashSet<FSalesmanRes>(),
+
+    @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
+    var fCustomerGroupSet :Set<FCustomerGroupRes> = HashSet<FCustomerGroupRes>(),
+
     /**
      * Pastikan yang ditarik pasti aktif
      */
@@ -73,6 +92,9 @@ internal fun FtPriceAlthRes.toDomain(): FtPriceAlth {
         description = description,
         fdivisionBean = fdivisionBean,
         statusActive = statusActive,
+
+//        ftPriceAltdSet = ftPriceAltdSet.map { it.toDomain() }.toSet(),
+
 
         created = created,
         modified = modified,

@@ -55,10 +55,11 @@ data class FtPriceAlthEntity (
     var statusActive  :Boolean =true,
 
 
-    @Transient
+//    @Transient
     @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
-    var ftPriceAltdSet : Set<FtPriceAltdItemsEntity> = HashSet<FtPriceAltdItemsEntity>(),
+    var ftPriceAltdSet : Set<FtPriceAltdItemsEntity?>? = HashSet<FtPriceAltdItemsEntity>(),
+//    var ftPriceAltdSet : Set<FtPriceAltdItemsEntity> = HashSet<FtPriceAltdItemsEntity>(),
 
 //    @Transient
     @OneToMany(mappedBy="ftPriceAlthBean", fetch=FetchType.LAZY)
@@ -103,7 +104,7 @@ internal fun FtPriceAlthEntity.toDomain(): FtPriceAlth {
         fdivisionBean = fdivisionBean,
         statusActive = statusActive,
 
-//        ftPriceAltdSet = ftPriceAltdSet,
+//        ftPriceAltdSet = ftPriceAltdSet.map { it.toDomain() }.toSet(),
 //        fCustomerSet = fCustomerSet,
 //        fSalesmanSet = fSalesmanSet,
 //        fCustomerGroupSet = fCustomerGroupSet,
