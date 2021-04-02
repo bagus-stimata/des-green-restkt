@@ -17,7 +17,13 @@ data class FtPriceAlthEntity (
     //** Tools: Jangan dihapus
     //** End Tools
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="hibernate_sequence")
+    @SequenceGenerator(
+        name = "hibernate_sequence",
+        sequenceName = "hibernate_sequence_header",
+        allocationSize = 20,
+        initialValue = 912345668
+    )
     @Column(name =  "ID" , length = 9)
     var id :Int =0,
 

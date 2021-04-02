@@ -3,6 +3,7 @@ package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FMaterialJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtSalesdItemsJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
+import com.erp.distribution.desgreenrestkt.domain.model.FMaterial
 import com.erp.distribution.desgreenrestkt.domain.model.toResponse
 import com.erp.distribution.desgreenrestkt.domain.usecase.GetFMaterialUseCase
 import com.erp.distribution.desgreenrestkt.domain.usecase.GetFtSalesdItemsUseCase
@@ -59,6 +60,27 @@ class FtSalesdItemsRestController @Autowired constructor(
         ftSalesdItemsResNew.id = 0 //Pastikan ID nya nol untuk Create Baru
         return getFtSalesdItemsUseCase.save(ftSalesdItemsResNew.toDomain()).toResponse()
     }
+
+    @RequestMapping(value = ["/rest/createListFtSalesdItems"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    fun createListFtSalesdItems(@RequestBody listFtSalesdItemsResNew: List<FtSalesdItemsRes>): List<FtSalesdItemsRes> {
+
+//        if (fMaterial.getId() <= 0){
+//            System.out.println("Tidak Ketemu bos >> " + ftSalesdItemsNew.getFmaterialBean() );
+//        }else {
+//            ftSalesdItemsNew.setFtaxBean(fMaterial.getFtaxBean());
+//            ftSalesdItemsNew.setTaxPercent(10.0);
+//            ftSalesdItemsNew.setTax(true);
+//        }
+//        ftSalesdItemsResNew.id = 0 //Pastikan ID nya nol untuk Create Baru
+//        System.out.println("#result Hello bos masuk sini lho")
+        return getFtSalesdItemsUseCase.saveAll(listFtSalesdItemsResNew.map {
+            it.id = 0
+            it.toDomain()
+        }).map {
+            it.toResponse()
+        }
+    }
+
 
     @RequestMapping(value = ["/rest/updateFtSalesdItems/{id}"], method = [RequestMethod.PUT])
     fun updateFtSalesdItemsInfo(@PathVariable("id") id: Long, @RequestBody ftSalesdItemsResUpdated: FtSalesdItemsRes?): FtSalesdItemsRes {

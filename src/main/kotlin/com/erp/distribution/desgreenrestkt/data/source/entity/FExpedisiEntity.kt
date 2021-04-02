@@ -8,8 +8,14 @@ import javax.persistence.*
 //@Table(name="fexpedisi")
 data class FExpedisiEntity (
     @Id
-    @Column(name = "ID", length = 9)
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(
+        name = "hibernate_sequence",
+        sequenceName = "hibernate_sequence_master",
+        allocationSize = 20,
+        initialValue = 912345668
+    )
+    @Column(name = "ID", length = 9)
     var id  :Int =0,
 
     //	@ManyToOne

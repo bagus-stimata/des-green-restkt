@@ -16,7 +16,13 @@ import javax.persistence.*
 data class FParamDiskonNotaEntity(
     @Id
     @Column(name ="ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(
+        name = "hibernate_sequence",
+        sequenceName = "hibernate_sequence_master",
+        allocationSize = 20,
+        initialValue = 912345668
+    )
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="hibernate_sequence")
     var id : Int= 0,
 
     //	@ManyToOne

@@ -9,7 +9,13 @@ import javax.persistence.*
 @Table(name = "ftpurchased_expenses")
 data class FtPurchasedExpensesEntity (
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="hibernate_sequence")
+    @SequenceGenerator(
+        name = "hibernate_sequence",
+        sequenceName = "hibernate_sequence_detil",
+        allocationSize = 60,
+        initialValue = 912345668
+    )
     @Column(name = "ID")
     val id: Long =0L,
 

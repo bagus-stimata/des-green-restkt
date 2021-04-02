@@ -11,7 +11,13 @@ import javax.persistence.*
 data class FRegionEntity(
     @Id
     @Column(name =  "ID" , length = 9)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(
+        name = "hibernate_sequence",
+        sequenceName = "hibernate_sequence_master",
+        allocationSize = 20,
+        initialValue = 912345668
+    )
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="hibernate_sequence")
     var id :Int =0,
 
     /*

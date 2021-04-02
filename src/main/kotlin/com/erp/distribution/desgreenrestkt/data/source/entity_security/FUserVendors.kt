@@ -8,8 +8,9 @@ class FUserVendors {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id = 0
-    var fvendorBean = 0
 
+
+    var fvendorBean = 0
     @ManyToOne
     @JoinColumn(name = "fuserBean", referencedColumnName = "id")
     var fuserBean: FUser? = null

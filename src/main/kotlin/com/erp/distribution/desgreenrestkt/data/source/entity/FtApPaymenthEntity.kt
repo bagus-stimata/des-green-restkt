@@ -10,7 +10,13 @@ import javax.persistence.*
 @Table(name =  "ftappaymenth" )
 data class FtApPaymenthEntity (
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="hibernate_sequence")
+    @SequenceGenerator(
+        name = "hibernate_sequence",
+        sequenceName = "hibernate_sequence_header",
+        allocationSize = 20,
+        initialValue = 912345668
+    )
     @Column(name =  "REFNO" )
     var refno: Long =0L,
 

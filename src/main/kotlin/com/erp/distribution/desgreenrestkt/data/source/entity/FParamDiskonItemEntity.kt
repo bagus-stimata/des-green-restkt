@@ -13,7 +13,13 @@ import javax.persistence.*
 @Table(name ="fparam_diskonitem")
 data class FParamDiskonItemEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="hibernate_sequence")
+    @SequenceGenerator(
+        name = "hibernate_sequence",
+        sequenceName = "hibernate_sequence_master",
+        allocationSize = 20,
+        initialValue = 912345668
+    )
     @Column(name ="ID")
     var id: Int = 0,
 

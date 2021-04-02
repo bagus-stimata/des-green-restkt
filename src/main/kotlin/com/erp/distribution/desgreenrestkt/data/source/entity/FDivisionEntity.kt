@@ -12,8 +12,14 @@ import javax.persistence.*
 @Table(name = "fdivision")
 data class FDivisionEntity (
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="hibernate_sequence")
+    @SequenceGenerator(
+        name = "hibernate_sequence",
+        sequenceName = "hibernate_sequence_master",
+        allocationSize = 20,
+        initialValue = 912345668
+    )
     @Column(name = "ID", length = 9)
-    @GeneratedValue(strategy = GenerationType.AUTO)
     var id  :Int =0,
 
     /*

@@ -395,13 +395,17 @@ class UsersController @Autowired constructor(
             }
         } else if (operation == "edit_form_vendor") {
             val domain: FUser = fUsersJPARepository.findById(id).get()
+            println("aktif user: " + domain.id + " >> " + domain.username + " >> " + domain.fUserVendors + " >> " + domain.fUserVendors)
+
             if (domain.id >0) {
+
                 domain.tempInt1 = 5 //0.New Form, 1.Edit Form, 3.Delete , 5.Edit Vendors
                 val tempVendors: MutableList<Int> = ArrayList()
                 for (opdUserRole in domain.fUserVendors) {
                     tempVendors.add(opdUserRole.fvendorBean)
                 }
                 domain.tempVendors = tempVendors
+
                 model.addAttribute("domain", domain)
                 return "users/user_form_vendor"
             } else {

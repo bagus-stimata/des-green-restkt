@@ -55,7 +55,10 @@ class FMaterialRestController @Autowired constructor(
     @RequestMapping(value = ["/rest/getAllFMaterialByDivision/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllFMaterialByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FMaterialRes> {
         activeUser = fUsersJPARepository.findById(securityUtils.loginUser!!.id).get()
-        println("aktif user: " + activeUser.username + " >> " + activeUser.fUserVendors)
+
+        val domain: FUser = fUsersJPARepository.findById(activeUser.id).get()
+
+        println("aktif user: " + activeUser.username + " >> " + activeUser.fUserVendors + " >> " + domain.fUserVendors)
         return if (activeUser.fUserVendors.size > 0) {
             val listVendorsBean: MutableList<Int> = ArrayList()
             for (fUserVendorBean in activeUser.fUserVendors ) {
@@ -73,8 +76,10 @@ class FMaterialRestController @Autowired constructor(
 //            System.out.println(">> " + fMaterialBean.getPcode() + " >> " + fMaterialBean.getPname() + " >> " + fMaterialBean.isStatusActive());
 //        }
         activeUser = fUsersJPARepository.findById(securityUtils.loginUser!!.id).get()
+        val domain: FUser = fUsersJPARepository.findById(activeUser.id).get()
 
-        System.out.println("aktif user: " + activeUser.username + " >> " + activeUser.fUserVendors);
+        System.out.println("#result aktif user: " + activeUser.username + " >> " + activeUser.fUserVendors + " >> " + domain.fUserVendors);
+
         return if (activeUser.fUserVendors.size > 0) {
             val listVendorsBean: MutableList<Int> = ArrayList()
             for (fUserVendorBean in activeUser.fUserVendors) {

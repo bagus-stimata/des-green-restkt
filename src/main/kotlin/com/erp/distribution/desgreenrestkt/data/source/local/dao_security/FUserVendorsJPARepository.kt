@@ -8,5 +8,5 @@ interface FUserVendorsJPARepository : JpaRepository<FUserVendors?, Int?> {
     // Optional<FUser> findByEmail(String email);
     // Optional<FUser> findByUsername(String username);
     @Query("SELECT u FROM FUserVendors u WHERE u.fuserBean.id = :fuserBean")
-    fun findAllByParentId(fuserBean: Int): List<FUserVendors?>?
+    fun findAllByParentId(fuserBean: Int): List<FUserVendors>
 }
