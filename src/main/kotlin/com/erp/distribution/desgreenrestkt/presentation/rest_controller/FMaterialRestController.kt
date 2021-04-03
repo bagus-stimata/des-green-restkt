@@ -76,9 +76,9 @@ class FMaterialRestController @Autowired constructor(
 //            System.out.println(">> " + fMaterialBean.getPcode() + " >> " + fMaterialBean.getPname() + " >> " + fMaterialBean.isStatusActive());
 //        }
         activeUser = fUsersJPARepository.findById(securityUtils.loginUser!!.id).get()
-        val domain: FUser = fUsersJPARepository.findById(activeUser.id).get()
 
-        System.out.println("#result aktif user: " + activeUser.username + " >> " + activeUser.fUserVendors + " >> " + domain.fUserVendors);
+//        val domain: FUser = fUsersJPARepository.findById(activeUser.id).get()
+//        System.out.println("#result aktif user: " + activeUser.username + " >> " + activeUser.fUserVendors + " >> " + domain.fUserVendors);
 
         return if (activeUser.fUserVendors.size > 0) {
             val listVendorsBean: MutableList<Int> = ArrayList()

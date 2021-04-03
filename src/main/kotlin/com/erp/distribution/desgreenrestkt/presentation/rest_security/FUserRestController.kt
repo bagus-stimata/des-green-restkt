@@ -1,7 +1,9 @@
-package com.erp.distribution.desgreenrestkt.data.source.local.dao_security
+package com.erp.distribution.desgreenrestkt.presentation.rest_security
 
 import com.erp.distribution.desgreenrestkt.security_config.PassEncoding
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.FUser
+import com.erp.distribution.desgreenrestkt.data.source.local.dao_security.FUsersJPARepository
+import com.erp.distribution.desgreenrestkt.security_config.SecurityUtils
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -11,24 +13,28 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class FUserRestController {
-    @Autowired
-    lateinit var fUserJPARepository: FUsersJPARepository
+class FUserRestController @Autowired constructor(
+    val fUsersJPARepository: FUsersJPARepository,
+    val securityUtils: SecurityUtils
+) {
+//    @Autowired
+//    lateinit var fUserJPARepository: FUsersJPARepository
 
     @RequestMapping(value = ["/rest/getFUserById2/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getFUserById(@PathVariable("id") id: Int): FUser {
-        return fUserJPARepository.findById(id).get()
+        return fUsersJPARepository.findById(id).get()
     }
 
     @RequestMapping(value = ["/rest/getFUserByUsername/{username}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getFUserByUsername(@PathVariable("username") username: String?): FUser? {
-        return fUserJPARepository.findByUsername(username)
+        println("#result Masuk sini >> ${username}")
+        return fUsersJPARepository.findByUsername(username)
     }
 
     @RequestMapping(value = ["/rest/getFUserByUsernamePassword/{username}/{password}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getFUserByUsernamePassword(@PathVariable("username") username: String, @PathVariable("password") password: String): FUser {
         val encodedPasword = PassEncoding.instance!!.passwordEncoder.encode(password.trim { it <= ' ' })
-        val findUser = fUserJPARepository.findByUsername(username)
+        val findUser = fUsersJPARepository.findByUsername(username)
         println("Pasword: " + username + " >> " + encodedPasword + " >> " + findUser!!.password)
 //        var returnUser = FUser()
 //        if (findUser != null) {
@@ -48,7 +54,7 @@ class FUserRestController {
 
     @RequestMapping(value = ["/rest/getFUserByEmail/{username}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getFUserByEmail(@PathVariable("email") email: String?): FUser? {
-        return fUserJPARepository.findByEmail(email)
+        return fUsersJPARepository.findByEmail(email)
     }//        return new ArrayList<>();
 
     /**
@@ -58,7 +64,7 @@ class FUserRestController {
     @get:RequestMapping(value = ["/rest/getAllFUser"], produces = [MediaType.APPLICATION_JSON_VALUE])
     val allUser: List<FUser?>
         get() =//        return new ArrayList<>();
-            fUserJPARepository.findAll()
+            fUsersJPARepository.findAll()
     //    @RequestMapping(value = "/rest/createFUser", method = RequestMethod.POST,  consumes = MediaType.APPLICATION_JSON_VALUE)
     //    public FUser createFUser(@RequestBody FUser fUserNew) {
     //        FUser updatedDomain = new FUser();
@@ -102,12 +108,12 @@ class FUserRestController {
      */
     @RequestMapping(value = ["/rest/pendaftaran/{id}"], method = [RequestMethod.POST])
     fun pendaftaranFUser(@PathVariable("id") id: Int): FUser? {
-        val fUser: FUser? = fUserJPARepository.findById(id).get()
+        val fUser: FUser? = fUsersJPARepository.findById(id).get()
 //        if (fUser != null) {
 //            fUserJPARepository.delete(fUser)
 //        }
         fUser?.let {
-            fUserJPARepository.delete(fUser)
+            fUsersJPARepository.delete(fUser)
         }
         return fUser
     }

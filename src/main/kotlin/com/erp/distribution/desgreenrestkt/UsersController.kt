@@ -395,7 +395,7 @@ class UsersController @Autowired constructor(
             }
         } else if (operation == "edit_form_vendor") {
             val domain: FUser = fUsersJPARepository.findById(id).get()
-            println("aktif user: " + domain.id + " >> " + domain.username + " >> " + domain.fUserVendors + " >> " + domain.fUserVendors)
+//            println("aktif user: " + domain.id + " >> " + domain.username + " >> " + domain.fUserVendors + " >> " + domain.fUserVendors)
 
             if (domain.id >0) {
 
