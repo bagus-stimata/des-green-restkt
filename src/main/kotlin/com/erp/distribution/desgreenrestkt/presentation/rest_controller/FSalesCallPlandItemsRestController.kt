@@ -12,21 +12,21 @@ class FSalesCallPlandItemsRestController @Autowired constructor(
     val getFSalesCallPlandItemsUseCase: GetFSalesCallPlandItemsUseCase
 ){
 
-    @RequestMapping(value = ["/rest/findById/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @RequestMapping(value = ["/rest/getFSalesCallPlandItemsById/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun findById(@PathVariable("id") id: Long): FSalesCallPlandItemsRes {
         return getFSalesCallPlandItemsUseCase.findByIdRes(id)
     }
 
-    @get:RequestMapping(value = ["/rest/findAll"], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @get:RequestMapping(value = ["/rest/getAllFSalesCallPlandItems"], produces = [MediaType.APPLICATION_JSON_VALUE])
     val findAll: List<FSalesCallPlandItemsRes>
         get() = getFSalesCallPlandItemsUseCase.findAllRes()
 
-    @RequestMapping(value = ["/rest/findByParent/{fparentBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @RequestMapping(value = ["/rest/getAllFSalesCallPlandItemsByParent/{fparentBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun findByParent(@PathVariable("fparentBean") fparentBean: Long): List<FSalesCallPlandItemsRes> {
         return getFSalesCallPlandItemsUseCase.findByParentRes(fparentBean)
     }
 
-    @RequestMapping(value = ["/rest/findByListOfParent"], method = [RequestMethod.POST], produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @RequestMapping(value = ["/rest/getAllFSalesCallPlandItemsByListOfParent"], method = [RequestMethod.POST], produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun findByListOfParent(@RequestBody listFtPricehAlthBean: List<Long>): List<FSalesCallPlandItemsRes> {
         return getFSalesCallPlandItemsUseCase.findByListOfParentRes(listFtPricehAlthBean)
     }

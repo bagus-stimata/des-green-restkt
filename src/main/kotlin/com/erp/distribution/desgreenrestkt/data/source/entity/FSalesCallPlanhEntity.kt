@@ -63,9 +63,12 @@ data class FSalesCallPlanhEntity (
     @JoinColumn(name = "fsalesmanBean", referencedColumnName = "ID")
     var fsalesmanBean: FSalesmanEntity = FSalesmanEntity(),
 
+    @Transient
     @OneToMany(mappedBy = "fsalesCallPlanhBean", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @Fetch(FetchMode.JOIN)
     var fSalesCallPlandItemsSet: Set<FSalesCallPlandItemsEntity> = HashSet<FSalesCallPlandItemsEntity>(),
+//    var fSalesCallPlandItemsSet: Set<FSalesCallPlandItemsEntity>? = null,
+
 
     @Column(name = "STATUS_ACTIVE")
     var statusActive :Boolean = true,
