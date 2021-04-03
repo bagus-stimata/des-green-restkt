@@ -77,7 +77,7 @@ class GetFTaxUseCase @Autowired constructor(
         return fTaxRepo.save(fTax.toEntity()).toDomain()
     }
     fun saveAll(listFTax: List<FTax>): List<FTax> {
-        return fTaxRepo.saveAll(listFTax.map { it.toEntity() })!!.map {
+        return fTaxRepo.saveAll(listFTax.map { it.toEntity() }).map {
             it.toDomain()
         }
     }

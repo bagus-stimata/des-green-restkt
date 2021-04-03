@@ -57,7 +57,7 @@ class GetFtSalesdItemsUseCase @Autowired constructor(
         return ftSalesdItemsRepo.save(ftSalesdItems.toEntity()).toDomain()
     }
     fun saveAll(listFtSalesdItems: List<FtSalesdItems>): List<FtSalesdItems> {
-        return ftSalesdItemsRepo.saveAll(listFtSalesdItems.map { it.toEntity() })!!.map {
+        return ftSalesdItemsRepo.saveAll(listFtSalesdItems.map { it.toEntity() }).map {
             it.toDomain()
         }
     }

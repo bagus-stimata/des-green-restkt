@@ -88,7 +88,7 @@ class GetFMaterialGroup1UseCase @Autowired constructor(
         return fMaterialGroup1Repo.save(fMaterialGroup1.toEntity()).toDomain()
     }
     fun saveAll(listFMaterialGroup1: List<FMaterialGroup1>): List<FMaterialGroup1> {
-        return fMaterialGroup1Repo.saveAll(listFMaterialGroup1.map { it.toEntity() })!!.map {
+        return fMaterialGroup1Repo.saveAll(listFMaterialGroup1.map { it.toEntity() }).map {
             it.toDomain()
         }
     }

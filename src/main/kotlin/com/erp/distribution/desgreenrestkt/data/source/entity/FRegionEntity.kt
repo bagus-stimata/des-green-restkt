@@ -10,14 +10,14 @@ import javax.persistence.*
 @Table(name =  "fregion" )
 data class FRegionEntity(
     @Id
-    @Column(name =  "ID" , length = 9)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="hibernate_sequence")
     @SequenceGenerator(
         name = "hibernate_sequence",
         sequenceName = "hibernate_sequence_master",
         allocationSize = 20,
         initialValue = 912345668
     )
-    @GeneratedValue(strategy = GenerationType.AUTO, generator="hibernate_sequence")
+    @Column(name =  "ID" , length = 9)
     var id :Int =0,
 
     /*
@@ -61,4 +61,4 @@ data class FRegionEntity(
     @Column(name =  "MODIFIED_BY" , length = 20)
     var modifiedBy :String =""    //User ID
 
-)
+): Serializable

@@ -23,12 +23,12 @@ class FtPriceAlthRestController @Autowired constructor(
     }
 
     @get:RequestMapping(value = ["/rest/getAllFtPriceAlth"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    val alltPriceAlthEntity: List<FtPriceAlthRes>
+    val getAllFtPriceAlth: List<FtPriceAlthRes>
         get() = getFtPriceAlthUseCase.findAllRes()
 
     @RequestMapping(value = ["/rest/getAlltPriceAlthByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAlltPriceAlthByDivisionAndShareToCompany(@PathVariable("fdivisionBean") fdivisionBean: Int, @PathVariable("fcompanyBean") fcompanyBean: Int): List<FtPriceAlthRes> {
-        System.out.println((">> ${fdivisionBean} >> ${fcompanyBean}" ))
+//        System.out.println((">> ${fdivisionBean} >> ${fcompanyBean}" ))
         return getFtPriceAlthUseCase.findByDivisionAndShareToCompanyRes(fdivisionBean, fcompanyBean).stream().filter { x: FtPriceAlthRes -> x.statusActive == true }.collect(Collectors.toList())
 //        return listOf<FtPriceAlthRes>()
     }

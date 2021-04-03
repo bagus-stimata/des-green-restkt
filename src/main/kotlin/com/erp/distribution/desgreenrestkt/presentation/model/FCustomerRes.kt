@@ -13,7 +13,7 @@ import javax.persistence.*
 
 @JacksonXmlRootElement
 data class FCustomerRes (
-    var id :Long =0L,
+    var id :Int =0,
 
     /*
 	 * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -22,7 +22,7 @@ data class FCustomerRes (
 	 * 2. 
 	 */
     @Column(name = "SOURCE_ID", length = 9)
-    var sourceID :Long =0L,
+    var sourceID :Int =0,
 
     @Column(name = "CUSTNO", length = 25)
     var custno :String ="",

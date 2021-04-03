@@ -87,7 +87,7 @@ class GetFSalesmanUseCase @Autowired constructor(
         return fSalesmanRepo.save(fSalesman.toEntity()).toDomain()
     }
     fun saveAll(listFSalesman: List<FSalesman>): List<FSalesman> {
-        return fSalesmanRepo.saveAll(listFSalesman.map { it.toEntity() })!!.map {
+        return fSalesmanRepo.saveAll(listFSalesman.map { it.toEntity() }).map {
             it.toDomain()
         }
     }

@@ -87,7 +87,7 @@ class GetFWarehouseUseCase @Autowired constructor(
         return fWarehouseRepo.save(fWarehouse.toEntity()).toDomain()
     }
     fun saveAll(listFWarehouse: List<FWarehouse>): List<FWarehouse> {
-        return fWarehouseRepo.saveAll(listFWarehouse.map { it.toEntity() })!!.map {
+        return fWarehouseRepo.saveAll(listFWarehouse.map { it.toEntity() }).map {
             it.toDomain()
         }
     }

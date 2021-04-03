@@ -57,7 +57,7 @@ class GetFCompanyUseCase @Autowired constructor(
         return fCompanyRepo.save(fCompany.toEntity()).toDomain()
     }
     fun saveAll(listFCompany: List<FCompany>): List<FCompany> {
-        return fCompanyRepo.saveAll(listFCompany.map { it.toEntity() })!!.map {
+        return fCompanyRepo.saveAll(listFCompany.map { it.toEntity() }).map {
             it.toDomain()
         }
     }

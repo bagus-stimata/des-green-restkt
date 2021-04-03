@@ -83,7 +83,7 @@ class GetFVendorUseCase @Autowired constructor(
         return fVendorRepo.save(fVendor.toEntity()).toDomain()
     }
     fun saveAll(listFVendor: List<FVendor>): List<FVendor> {
-        return fVendorRepo.saveAll(listFVendor.map { it.toEntity() })!!.map {
+        return fVendorRepo.saveAll(listFVendor.map { it.toEntity() }).map {
             it.toDomain()
         }
     }

@@ -55,7 +55,7 @@ class GetFSubAreaUseCase @Autowired constructor(
     }
 
     fun findByParent(fparentBean: Int): List<FSubArea> {
-        return  fSubAreaRepo.findByParent(fparentBean)!!.map {
+        return  fSubAreaRepo.findByParent(fparentBean).map {
             it.toDomain()
         }
     }
@@ -79,7 +79,7 @@ class GetFSubAreaUseCase @Autowired constructor(
         return fSubAreaRepo.save(fSubArea.toEntity()).toDomain()
     }
     fun saveAll(listFSubArea: List<FSubArea>): List<FSubArea> {
-        return fSubAreaRepo.saveAll(listFSubArea.map { it.toEntity() })!!.map {
+        return fSubAreaRepo.saveAll(listFSubArea.map { it.toEntity() }).map {
             it.toDomain()
         }
     }

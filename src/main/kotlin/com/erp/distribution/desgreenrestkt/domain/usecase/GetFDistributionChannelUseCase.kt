@@ -77,7 +77,7 @@ class GetFDistributionChannelUseCase @Autowired constructor(
         return fDistributionChannelRepo.save(fDistributionChannel.toEntity()).toDomain()
     }
     fun saveAll(listFDistributionChannel: List<FDistributionChannel>): List<FDistributionChannel> {
-        return fDistributionChannelRepo.saveAll(listFDistributionChannel.map { it.toEntity() })!!.map {
+        return fDistributionChannelRepo.saveAll(listFDistributionChannel.map { it.toEntity() }).map {
             it.toDomain()
         }
     }

@@ -81,7 +81,7 @@ class GetFtSaleshUseCase @Autowired constructor(
         return ftSaleshRepo.save(ftSalesh.toEntity()).toDomain()
     }
     fun saveAll(listFtSalesh: List<FtSalesh>): List<FtSalesh> {
-        return ftSaleshRepo.saveAll(listFtSalesh.map { it.toEntity() })!!.map {
+        return ftSaleshRepo.saveAll(listFtSalesh.map { it.toEntity() }).map {
             it.toDomain()
         }
     }

@@ -57,7 +57,7 @@ class GetFtPriceAltdItemsUseCase @Autowired constructor(
         return ftPriceAltdItemsRepo.save(ftPriceAltdItems.toEntity()).toDomain()
     }
     fun saveAll(listFtPriceAltdItems: List<FtPriceAltdItems>): List<FtPriceAltdItems> {
-        return ftPriceAltdItemsRepo.saveAll(listFtPriceAltdItems.map { it.toEntity() })!!.map {
+        return ftPriceAltdItemsRepo.saveAll(listFtPriceAltdItems.map { it.toEntity() }).map {
             it.toDomain()
         }
     }

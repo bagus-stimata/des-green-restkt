@@ -77,7 +77,7 @@ class GetFCustomerUseCase @Autowired constructor(
         return fCustomerRepo.save(fCustomer.toEntity()).toDomain()
     }
     fun saveAll(listFCustomer: List<FCustomer>): List<FCustomer> {
-        return fCustomerRepo.saveAll(listFCustomer.map { it.toEntity() })!!.map {
+        return fCustomerRepo.saveAll(listFCustomer.map { it.toEntity() }).map {
             it.toDomain()
         }
     }

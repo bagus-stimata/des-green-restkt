@@ -66,7 +66,7 @@ class GetFDivisionUseCase @Autowired constructor(
         return fDivisionRepo.save(fDivision.toEntity()).toDomain()
     }
     fun saveAll(listFDivision: List<FDivision>): List<FDivision> {
-        return fDivisionRepo.saveAll(listFDivision.map { it.toEntity() })!!.map {
+        return fDivisionRepo.saveAll(listFDivision.map { it.toEntity() }).map {
             it.toDomain()
         }
     }
