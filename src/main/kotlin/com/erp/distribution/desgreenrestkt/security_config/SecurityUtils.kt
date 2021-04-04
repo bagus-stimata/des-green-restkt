@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt.security_config
 
-import com.erp.distribution.desgreenrestkt.data.source.entity_security.FUser
+import com.erp.distribution.desgreenrestkt.data.source.entity_security.FUserEntity
 import com.erp.distribution.desgreenrestkt.data.source.local.dao_security.FUsersJPARepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
@@ -30,7 +30,7 @@ class SecurityUtils {
     //        }
     //        return loginUser;
     //    }
-    val loginUser: FUser?
+    val loginUserEntity: FUserEntity?
         get() {
             val auth = SecurityContextHolder.getContext().authentication
             return FUsersJPARepository!!.findByUsername(auth.name)

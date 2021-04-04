@@ -6,11 +6,10 @@ import java.io.Serializable
 import java.util.*
 import javax.persistence.*
 
-//@Entity(name="tb_user")
-@JacksonXmlRootElement
+//@JacksonXmlRootElement
 @Entity
 @Table(name = "tb_user")
-class FUser : Serializable {
+class FUserEntity : Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id = 0
@@ -36,7 +35,7 @@ class FUser : Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "fuserBean")
-    var fuserRoles: List<FUserRoles>? = null
+    var fuserRoles: List<FUserRolesEntity>? = null
 
     @JsonIgnore
     @Transient
@@ -44,15 +43,12 @@ class FUser : Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "fuserBean")
-    var fUserVendors: List<FUserVendors> = listOf()
+    var fUserVendorEntities: List<FUserVendorsEntity> = listOf()
 
     @JsonIgnore
     @Transient
     var tempVendors: List<Int> = listOf()
 
-    // @NotBlank
-    // @Size(max = 255)
-    // private String role;
     var locked = false
 
     /**
@@ -80,16 +76,8 @@ class FUser : Serializable {
     @Column(name = "modified_by")
     var modifiedBy = ""
 
-    override fun toString(): String {
-        return "FUser [id=$id]"
-    }
-
-//    fun getfUserVendors(): List<FUserVendors> {
-//        return fUserVendors
-//    }
-//
-//    fun setfUserVendors(fUserVendors: List<FUserVendors>) {
-//        this.fUserVendors = fUserVendors
+//    override fun toString(): String {
+//        return "FUser [id=$id]"
 //    }
 
 }

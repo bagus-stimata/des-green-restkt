@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt.security_config
 
-import com.erp.distribution.desgreenrestkt.data.source.entity_security.FUser
+import com.erp.distribution.desgreenrestkt.data.source.entity_security.FUserEntity
 import com.erp.distribution.desgreenrestkt.data.source.local.dao_security.FUsersJPARepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -64,7 +64,7 @@ class AuthUserDetailsService : UserDetailsService {
         return authList
     }
 
-    fun getAuthorities(fuser: FUser): List<GrantedAuthority> {
+    fun getAuthorities(fuser: FUserEntity): List<GrantedAuthority> {
         val authList: MutableList<GrantedAuthority> = ArrayList()
         /**
          * Spring Security Selalu membutuhkan SimplleGranted Autority menggunanakn awalan ROLE_
@@ -82,7 +82,7 @@ class AuthUserDetailsService : UserDetailsService {
         return authList
     }
 
-    private fun getUserDetail(usernameOrEmail: String): FUser? {
+    private fun getUserDetail(usernameOrEmail: String): FUserEntity? {
         var user = FUsersJPARepository!!.findByUsername(usernameOrEmail)
         if (user == null) {
             user = FUsersJPARepository.findByEmail(usernameOrEmail)

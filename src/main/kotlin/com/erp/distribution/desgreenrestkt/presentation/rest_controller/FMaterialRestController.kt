@@ -1,7 +1,7 @@
 package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 
 import com.erp.distribution.desgreenrestkt.security_config.SecurityUtils
-import com.erp.distribution.desgreenrestkt.data.source.entity_security.FUser
+import com.erp.distribution.desgreenrestkt.data.source.entity_security.FUserEntity
 import com.erp.distribution.desgreenrestkt.data.source.local.dao_security.FUsersJPARepository
 import com.erp.distribution.desgreenrestkt.domain.usecase.GetFMaterialUseCase
 import com.erp.distribution.desgreenrestkt.presentation.model.FMaterialRes
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.http.MediaType
-import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import java.util.*
 import java.util.stream.Collectors
@@ -27,11 +26,11 @@ class FMaterialRestController @Autowired constructor(
 
     @Autowired
     lateinit var securityUtils: SecurityUtils
-    lateinit var activeUser: FUser
+    lateinit var activeUserEntity: FUserEntity
 
     @PostConstruct
     fun init() {
-        activeUser = fUsersJPARepository.findById(securityUtils.loginUser!!.id).get()
+        activeUserEntity = fUsersJPARepository.findById(securityUtils.loginUserEntity!!.id).get()
     }
 
     @RequestMapping(value = ["/rest/getFMaterialById/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
@@ -54,14 +53,14 @@ class FMaterialRestController @Autowired constructor(
 
     @RequestMapping(value = ["/rest/getAllFMaterialByDivision/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllFMaterialByDivision(@PathVariable("fdivisionBean") fdivisionBean: Int): List<FMaterialRes> {
-        activeUser = fUsersJPARepository.findById(securityUtils.loginUser!!.id).get()
+        activeUserEntity = fUsersJPARepository.findById(securityUtils.loginUserEntity!!.id).get()
 
-        val domain: FUser = fUsersJPARepository.findById(activeUser.id).get()
+        val domain: FUserEntity = fUsersJPARepository.findById(activeUserEntity.id).get()
 
-        println("aktif user: " + activeUser.username + " >> " + activeUser.fUserVendors + " >> " + domain.fUserVendors)
-        return if (activeUser.fUserVendors.size > 0) {
+        println("aktif user: " + activeUserEntity.username + " >> " + activeUserEntity.fUserVendorEntities + " >> " + domain.fUserVendorEntities)
+        return if (activeUserEntity.fUserVendorEntities.size > 0) {
             val listVendorsBean: MutableList<Int> = ArrayList()
-            for (fUserVendorBean in activeUser.fUserVendors ) {
+            for (fUserVendorBean in activeUserEntity.fUserVendorEntities ) {
                 listVendorsBean.add(fUserVendorBean.fvendorBean)
             }
             getFMaterialUseCase.findByDivisionAndListVendorRes(fdivisionBean, listVendorsBean).stream().filter { x: FMaterialRes -> x.statusActive == true && x.pcode != "" && x.pname != "" }.collect(Collectors.toList())
@@ -75,14 +74,14 @@ class FMaterialRestController @Autowired constructor(
 //        for (FMaterial fMaterialBean: getFMaterialUseCase.findAllByDivisionAndShareToCompany(fdivisionBean, fcompanyBean)) {
 //            System.out.println(">> " + fMaterialBean.getPcode() + " >> " + fMaterialBean.getPname() + " >> " + fMaterialBean.isStatusActive());
 //        }
-        activeUser = fUsersJPARepository.findById(securityUtils.loginUser!!.id).get()
+        activeUserEntity = fUsersJPARepository.findById(securityUtils.loginUserEntity!!.id).get()
 
 //        val domain: FUser = fUsersJPARepository.findById(activeUser.id).get()
 //        System.out.println("#result aktif user: " + activeUser.username + " >> " + activeUser.fUserVendors + " >> " + domain.fUserVendors);
 
-        return if (activeUser.fUserVendors.size > 0) {
+        return if (activeUserEntity.fUserVendorEntities.size > 0) {
             val listVendorsBean: MutableList<Int> = ArrayList()
-            for (fUserVendorBean in activeUser.fUserVendors) {
+            for (fUserVendorBean in activeUserEntity.fUserVendorEntities) {
                 listVendorsBean.add(fUserVendorBean.fvendorBean)
             }
             getFMaterialUseCase.findAllByDivisionAndShareToCompanyAndListVendorRes(fdivisionBean, fcompanyBean, listVendorsBean).stream().filter { x: FMaterialRes -> x.statusActive == true && x.pcode != "" && x.pname != "" }.collect(Collectors.toList())

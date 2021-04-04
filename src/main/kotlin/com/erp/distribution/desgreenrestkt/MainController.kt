@@ -1,6 +1,6 @@
 package com.erp.distribution.desgreenrestkt
 
-import com.erp.distribution.desgreenrestkt.data.source.entity_security.FUser
+import com.erp.distribution.desgreenrestkt.data.source.entity_security.FUserEntity
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -29,7 +29,7 @@ class MainController {
     // }
     @RequestMapping(value = ["/login"], method = [RequestMethod.GET])
     fun login(model: Model): String {
-        val fuser = FUser()
+        val fuser = FUserEntity()
         fuser.username = "@gmail.com"
         fuser.password = ""
         model.addAttribute("fuser", fuser)
