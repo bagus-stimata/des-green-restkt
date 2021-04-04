@@ -31,7 +31,7 @@ class FUserRestController @Autowired constructor(
     @RequestMapping(value = ["/rest/getFUserByUsername/{username}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getFUserByUsername(@PathVariable("username") username: String): FUserRes {
 
-        println("#result Masuk sini 1 >> ${username}")
+//        println("#result Masuk sini 1 >> ${username}")
 
         var fUser =FUserEntity()
         var fUserB =FUserEntity()
@@ -47,7 +47,7 @@ class FUserRestController @Autowired constructor(
     fun getFUserByUsernamePassword(@PathVariable("username") username: String, @PathVariable("password") password: String): FUserRes {
         val encodedPasword = PassEncoding.instance!!.passwordEncoder.encode(password.trim { it <= ' ' })
         val findUser = fUsersJPARepository.findByUsername(username)
-        println("Pasword: " + username + " >> " + encodedPasword + " >> " + findUser!!.password)
+//        println("Pasword: " + username + " >> " + encodedPasword + " >> " + findUser!!.password)
 //        var returnUser = FUser()
 //        if (findUser != null) {
 //            if (findUser.password == encodedPasword) {
