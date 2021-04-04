@@ -2,7 +2,10 @@ package com.erp.distribution.desgreenrestkt.presentation.rest_security
 
 import com.erp.distribution.desgreenrestkt.security_config.PassEncoding
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.FUserEntity
+import com.erp.distribution.desgreenrestkt.data.source.entity_security.toDomain
 import com.erp.distribution.desgreenrestkt.data.source.local.dao_security.FUsersJPARepository
+import com.erp.distribution.desgreenrestkt.domain.model_security.toResponse
+import com.erp.distribution.desgreenrestkt.presentation.model_security.FUserRes
 import com.erp.distribution.desgreenrestkt.security_config.SecurityUtils
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,22 +29,22 @@ class FUserRestController @Autowired constructor(
     }
 
     @RequestMapping(value = ["/rest/getFUserByUsername/{username}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getFUserByUsername(@PathVariable("username") username: String?): FUserEntity? {
+    fun getFUserByUsername(@PathVariable("username") username: String): FUserRes {
+
         println("#result Masuk sini 1 >> ${username}")
+
         var fUser =FUserEntity()
         var fUserB =FUserEntity()
         try{
-            fUser = fUsersJPARepository.findByUsername(username)!!
-
-            println("#result Masuk sini 2 >> ${fUser}")
+            fUser = fUsersJPARepository.findByUsername(username)
         }catch (e: Exception){
         }
 
-        return fUser
+        return fUser.toDomain().toResponse()
     }
 
     @RequestMapping(value = ["/rest/getFUserByUsernamePassword/{username}/{password}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getFUserByUsernamePassword(@PathVariable("username") username: String, @PathVariable("password") password: String): FUserEntity {
+    fun getFUserByUsernamePassword(@PathVariable("username") username: String, @PathVariable("password") password: String): FUserRes {
         val encodedPasword = PassEncoding.instance!!.passwordEncoder.encode(password.trim { it <= ' ' })
         val findUser = fUsersJPARepository.findByUsername(username)
         println("Pasword: " + username + " >> " + encodedPasword + " >> " + findUser!!.password)
@@ -53,27 +56,27 @@ class FUserRestController @Autowired constructor(
 //        }
 //        return returnUser
         if (findUser.password == encodedPasword) {
-            return findUser
+            return findUser.toDomain().toResponse()
         }else {
-            return FUserEntity()
+            return FUserRes()
         }
-
-//        return  findUser
     }
 
     @RequestMapping(value = ["/rest/getFUserByEmail/{username}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getFUserByEmail(@PathVariable("email") email: String?): FUserEntity? {
-        return fUsersJPARepository.findByEmail(email)
-    }//        return new ArrayList<>();
+    fun getFUserByEmail(@PathVariable("email") email: String): FUserRes {
+        return fUsersJPARepository.findByEmail(email).toDomain().toResponse()
+    }
 
     /**
      * THIS BELOW IS DANGEROUS IF OPEN
      * @return
      */
     @get:RequestMapping(value = ["/rest/getAllFUser"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    val allUserEntity: List<FUserEntity?>
+    val allUserEntity: List<FUserRes>
         get() =//        return new ArrayList<>();
-            fUsersJPARepository.findAll()
+            fUsersJPARepository.findAll().map {
+                it.toDomain().toResponse()
+            }
     //    @RequestMapping(value = "/rest/createFUser", method = RequestMethod.POST,  consumes = MediaType.APPLICATION_JSON_VALUE)
     //    public FUser createFUser(@RequestBody FUser fUserNew) {
     //        FUser updatedDomain = new FUser();
@@ -116,7 +119,7 @@ class FUserRestController @Autowired constructor(
      * 1. Meng Aktifkan Link Aktifasi menjadi Unlock
      */
     @RequestMapping(value = ["/rest/pendaftaran/{id}"], method = [RequestMethod.POST])
-    fun pendaftaranFUser(@PathVariable("id") id: Int): FUserEntity? {
+    fun pendaftaranFUser(@PathVariable("id") id: Int): FUserRes {
         val fUserEntity: FUserEntity? = fUsersJPARepository.findById(id).get()
 //        if (fUser != null) {
 //            fUserJPARepository.delete(fUser)
@@ -124,7 +127,7 @@ class FUserRestController @Autowired constructor(
         fUserEntity?.let {
             fUsersJPARepository.delete(fUserEntity)
         }
-        return fUserEntity
+        return fUserEntity!!.toDomain().toResponse()
     }
 
     companion object {

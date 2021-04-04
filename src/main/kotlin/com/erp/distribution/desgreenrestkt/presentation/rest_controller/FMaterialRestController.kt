@@ -58,9 +58,9 @@ class FMaterialRestController @Autowired constructor(
         val domain: FUserEntity = fUsersJPARepository.findById(activeUserEntity.id).get()
 
         println("aktif user: " + activeUserEntity.username + " >> " + activeUserEntity.fUserVendorEntities + " >> " + domain.fUserVendorEntities)
-        return if (activeUserEntity.fUserVendorEntities.size > 0) {
+        return if (activeUserEntity.fUserVendorEntities!!.size > 0) {
             val listVendorsBean: MutableList<Int> = ArrayList()
-            for (fUserVendorBean in activeUserEntity.fUserVendorEntities ) {
+            for (fUserVendorBean in activeUserEntity.fUserVendorEntities!! ) {
                 listVendorsBean.add(fUserVendorBean.fvendorBean)
             }
             getFMaterialUseCase.findByDivisionAndListVendorRes(fdivisionBean, listVendorsBean).stream().filter { x: FMaterialRes -> x.statusActive == true && x.pcode != "" && x.pname != "" }.collect(Collectors.toList())
@@ -79,9 +79,9 @@ class FMaterialRestController @Autowired constructor(
 //        val domain: FUser = fUsersJPARepository.findById(activeUser.id).get()
 //        System.out.println("#result aktif user: " + activeUser.username + " >> " + activeUser.fUserVendors + " >> " + domain.fUserVendors);
 
-        return if (activeUserEntity.fUserVendorEntities.size > 0) {
+        return if (activeUserEntity.fUserVendorEntities!!.size > 0) {
             val listVendorsBean: MutableList<Int> = ArrayList()
-            for (fUserVendorBean in activeUserEntity.fUserVendorEntities) {
+            for (fUserVendorBean in activeUserEntity.fUserVendorEntities!!) {
                 listVendorsBean.add(fUserVendorBean.fvendorBean)
             }
             getFMaterialUseCase.findAllByDivisionAndShareToCompanyAndListVendorRes(fdivisionBean, fcompanyBean, listVendorsBean).stream().filter { x: FMaterialRes -> x.statusActive == true && x.pcode != "" && x.pname != "" }.collect(Collectors.toList())

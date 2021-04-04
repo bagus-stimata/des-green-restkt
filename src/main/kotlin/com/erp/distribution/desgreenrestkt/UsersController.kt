@@ -207,7 +207,9 @@ class UsersController @Autowired constructor(
             //New Tidak memerlukan
             // if (newDomain.getFuserRoles().size()>0)
             // userRolesRepository.deleteAll(newDomain.getFuserRoles());
-            newDomain.fuserRoles = null
+
+//            newDomain.fuserRoles = null
+            newDomain.fuserRoles = mutableListOf()
             val listUserRoleEntities: MutableList<FUserRolesEntity> = ArrayList()
             for (str in domain.tempRoles) {
                 for (roleID in allRoles) {
@@ -270,7 +272,8 @@ class UsersController @Autowired constructor(
             domainUpdate.fullName = domain.fullName
             domainUpdate.phone = domain.phone
             if (domainUpdate.fuserRoles!!.size > 0) fUserRolesJPARepository.deleteAll(domainUpdate.fuserRoles!!)
-            domainUpdate.fuserRoles = null
+//            domainUpdate.fuserRoles = null
+            domainUpdate.fuserRoles =  mutableListOf()
             val listUserRoleEntities: MutableList<FUserRolesEntity> = ArrayList()
             for (str in domain.tempRoles) {
                 for (roleID in allRoles) {
@@ -294,8 +297,8 @@ class UsersController @Autowired constructor(
             val domainUpdate: FUserEntity = fUsersJPARepository.findById(domain.id).get()
             domainUpdate.tempInt1 = domain.tempInt1 //0.New Form, 1.Edit Form, 3.Delete, 5.EditVendor
             domainUpdate.tempInt1 = 5
-            if (domainUpdate.fUserVendorEntities.size > 0) {
-                fUserVendorsJPARepository.deleteAll(domainUpdate.fUserVendorEntities)
+            if (domainUpdate.fUserVendorEntities!!.size > 0) {
+                fUserVendorsJPARepository.deleteAll(domainUpdate.fUserVendorEntities!!)
 //                println("Cek Uer Vendor Before: " + domainUpdate.fUserVendors)
             }
             domainUpdate.fUserVendorEntities = listOf()
@@ -399,7 +402,7 @@ class UsersController @Autowired constructor(
 
                 domain.tempInt1 = 5 //0.New Form, 1.Edit Form, 3.Delete , 5.Edit Vendors
                 val tempVendors: MutableList<Int> = ArrayList()
-                for (opdUserRole in domain.fUserVendorEntities) {
+                for (opdUserRole in domain.fUserVendorEntities!!) {
                     tempVendors.add(opdUserRole.fvendorBean)
                 }
                 domain.tempVendors = tempVendors
