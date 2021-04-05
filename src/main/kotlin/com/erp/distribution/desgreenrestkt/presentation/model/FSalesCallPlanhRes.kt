@@ -1,17 +1,12 @@
 package com.erp.distribution.desgreenrestkt.presentation.model
 
-import com.erp.distribution.desgreenrestkt.data.source.entity.*
 import com.erp.distribution.desgreenrestkt.domain.model.FDivision
-import com.erp.distribution.desgreenrestkt.domain.model.FSalesCallPlandItems
 import com.erp.distribution.desgreenrestkt.domain.model.FSalesCallPlanh
 import com.erp.distribution.desgreenrestkt.domain.model.FSalesman
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumTipeCallPlan
-import org.hibernate.annotations.Fetch
-import org.hibernate.annotations.FetchMode
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
-import kotlin.collections.HashSet
 
 data class FSalesCallPlanhRes (
 

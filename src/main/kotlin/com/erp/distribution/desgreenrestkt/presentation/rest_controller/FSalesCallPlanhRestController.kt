@@ -24,7 +24,9 @@ class FSalesCallPlanhRestController @Autowired constructor(
 
     @RequestMapping(value = ["/rest/getAllFSalesCallPlanhBySalesman/{fsalesmanBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun findBySalesman(@PathVariable("fsalesmanBean") fsalesmanBean: Int): List<FSalesCallPlanhRes> {
-//        System.out.println((">> ${fdivisionBean} >> ${fcompanyBean}" ))
+
+//        println(" Oke findBySalesman >> ${fsalesmanBean}" )
+
         return getFSalesCallPlanhUseCase.findBySalesmanRes(fsalesmanBean).stream().filter { x: FSalesCallPlanhRes -> x.statusActive == true }.collect(Collectors.toList())
     }
     @RequestMapping(value = ["/rest/getAllFSalesCallPlanhByDivision/{fdivisionBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
@@ -35,9 +37,11 @@ class FSalesCallPlanhRestController @Autowired constructor(
 
     @RequestMapping(value = ["/rest/getAllFsalesCallPlanhByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun findByDivisionAndShareToCompany(@PathVariable("fdivisionBean") fdivisionBean: Int, @PathVariable("fcompanyBean") fcompanyBean: Int): List<FSalesCallPlanhRes> {
+
 //        System.out.println((">> ${fdivisionBean} >> ${fcompanyBean}" ))
         return getFSalesCallPlanhUseCase.findByDivisionAndShareToCompanyRes(fdivisionBean, fcompanyBean).stream().filter { x: FSalesCallPlanhRes -> x.statusActive == true }.collect(Collectors.toList())
 //        return listOf<FSalesCallPlanhRes>()
+
     }
 
 

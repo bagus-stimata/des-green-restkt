@@ -2,7 +2,7 @@ package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 
 import org.slf4j.LoggerFactory
 
-object FParamDiskonNotaRestController {
+class FParamDiskonNotaRestController {
     private val logger = LoggerFactory.getLogger(FParamDiskonNotaRestController::class.java) //    @Autowired
     //    FParamDiskonNotaJPARepository fParamDiskonNotaJPARepository;
     //
