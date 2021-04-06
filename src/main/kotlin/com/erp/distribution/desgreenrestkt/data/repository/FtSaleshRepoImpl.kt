@@ -48,8 +48,18 @@ class FtSaleshRepoImpl @Autowired constructor(
         return ftSaleshJPARepository.findBySourceIdAndCreated(sourceId, created).orElse(FtSaleshEntity())
     }
 
-    override fun findBySourceId(sourceId: Long): FtSaleshEntity {
-        return ftSaleshJPARepository.findBySourceId(sourceId).orElse(FtSaleshEntity())
+    override fun findBySourceId(sourceId: Long): List<FtSaleshEntity> {
+        return ftSaleshJPARepository.findBySourceId(sourceId)
+    }
+
+    override fun findBySourceIdAndDivisionAndSalesmanAndCustomerAndWarehouse(
+        sourceId: Long,
+        fdivisionBean: Int,
+        fsalesmanBean: Int,
+        fcustomerBean: Int,
+        fwarehouseBean: Int
+    ): FtSaleshEntity {
+        return ftSaleshJPARepository.findBySourceIdAndDivisionAndSalesmanAndCustomerAndWarehouse(sourceId, fdivisionBean, fsalesmanBean, fcustomerBean, fwarehouseBean).orElse(FtSaleshEntity())
     }
 
 

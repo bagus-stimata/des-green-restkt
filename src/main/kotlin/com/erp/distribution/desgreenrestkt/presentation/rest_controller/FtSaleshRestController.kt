@@ -3,6 +3,7 @@ package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtSalesdItemsJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtSaleshJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
+import com.erp.distribution.desgreenrestkt.domain.model.FtSalesh
 import com.erp.distribution.desgreenrestkt.domain.model.toResponse
 import com.erp.distribution.desgreenrestkt.domain.usecase.GetFtSalesdItemsUseCase
 import com.erp.distribution.desgreenrestkt.domain.usecase.GetFtSaleshUseCase
@@ -62,11 +63,8 @@ class FtSaleshRestController @Autowired constructor(
     fun createFtSaleshFromAndroid(@RequestBody ftSaleshResNew: FtSaleshRes): FtSaleshRes {
         ftSaleshResNew.fcustomerShipToBean = ftSaleshResNew.fcustomerBean
 
-//        logger.debug(">> FtSalesh Export: "  + ftSaleshResNew.refno + " >> " + ftSaleshResNew.fdivisionBean + " >> " +
-//                ftSaleshResNew.fcustomerBean+ " >> " + ftSaleshResNew.fwarehouseBean  + " >> " + ftSaleshResNew.fsalesmanBean  + " >> End");
-
-        System.out.println(">> FtSalesh Export: "  + ftSaleshResNew.refno + " >> " + ftSaleshResNew.fdivisionBean + " >> " +
-                ftSaleshResNew.fcustomerBean+ " >> " + ftSaleshResNew.fwarehouseBean  + " >> " + ftSaleshResNew.fsalesmanBean  + " >> End");
+//        System.out.println(">> FtSalesh Export: "  + ftSaleshResNew.refno + " >> " + ftSaleshResNew.sourceId + " | " + ftSaleshResNew.fdivisionBean + " >> " +
+//                ftSaleshResNew.fcustomerBean+ " >> " + ftSaleshResNew.fwarehouseBean  + " >> " + ftSaleshResNew.fsalesmanBean + " | " + ftSaleshResNew.created  + " >> End");
         /**
          * 1. Check tanggal Created dan sourceID
          * 2. Jika Tidak ada maka CREATE NEW
@@ -76,7 +74,15 @@ class FtSaleshRestController @Autowired constructor(
          */
         var ftSaleshResResult : FtSaleshRes = FtSaleshRes()
 
-        val ftSaleshExisting = getFtSaleshUseCase.findBySourceIdAndCreated(ftSaleshResNew.sourceId, ftSaleshResNew.created)
+//        val ftSaleshExisting = getFtSaleshUseCase.findBySourceIdAndCreated(ftSaleshResNew.sourceId, ftSaleshResNew.created)
+        var ftSaleshExisting = FtSalesh()
+
+//        val list :List<FtSalesh> =  getFtSaleshUseCase.findBySourceId(ftSaleshResNew.sourceId)
+//        if (list.size>0) ftSaleshExisting = list.get(0)
+
+
+        ftSaleshExisting = getFtSaleshUseCase.findBySourceIdAndDivisionAndSalesmanAndCustomerAndWarehouse(ftSaleshResNew.sourceId, ftSaleshResNew.fdivisionBean,
+                ftSaleshResNew.fsalesmanBean, ftSaleshResNew.fcustomerBean, ftSaleshResNew.fwarehouseBean)
 
         if (ftSaleshResNew.fexpedisiBean==0) ftSaleshResNew.fexpedisiBean = null
         if (ftSaleshResNew.driverBean==0) ftSaleshResNew.driverBean = null
@@ -89,17 +95,17 @@ class FtSaleshRestController @Autowired constructor(
 
 
         if (ftSaleshExisting.refno == 0L) {
-            return getFtSaleshUseCase.save(ftSaleshResNew.toDomain()).toResponse()
+//            System.out.println("Masuk Kesini 1 >> FtSalesh Export: "  + ftSaleshResNew.refno + " >> " + ftSaleshResNew.fdivisionBean + " >> " +
+//                    ftSaleshResNew.fcustomerBean+ " >> " + ftSaleshResNew.fwarehouseBean  + " >> " + ftSaleshResNew.fsalesmanBean  + " >> End");
 
-            System.out.println("Masuk Kesini 1 >> FtSalesh Export: "  + ftSaleshResNew.refno + " >> " + ftSaleshResNew.fdivisionBean + " >> " +
-                    ftSaleshResNew.fcustomerBean+ " >> " + ftSaleshResNew.fwarehouseBean  + " >> " + ftSaleshResNew.fsalesmanBean  + " >> End");
+            return getFtSaleshUseCase.save(ftSaleshResNew.toDomain()).toResponse()
 
         } else {
             if (ftSaleshExisting.orderno.trim { it <= ' ' }.toLowerCase().contains("new") || ftSaleshExisting.orderno.trim { it <= ' ' } == "") {
                 if (ftSaleshExisting.refno > 0 && ftSaleshExisting.sourceId > 0) { //source menunjukkan Asal dari Source
-                System.out.println("Masuk Kesini 2")
 
-//                ftSalesdItemsJPARepository.deleteByFtSalesh(ftSaleshExisting.getRefno());
+//                System.out.println("Masuk Kesini 2")
+
                     getFtSalesdItemsUseCase.deleteInBatch(getFtSalesdItemsUseCase.findByParent(ftSaleshExisting.refno))
                     ftSaleshResNew.refno = ftSaleshExisting.refno
 
@@ -108,7 +114,7 @@ class FtSaleshRestController @Autowired constructor(
                 ftSaleshResResult = ftSaleshResNew
             } else {
                 ftSaleshResResult = ftSaleshExisting.toResponse()
-                                System.out.println("Masuk Kesini 3")
+//                System.out.println("Masuk Kesini 3")
             }
         }
         return ftSaleshResResult

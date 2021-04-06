@@ -17,7 +17,8 @@ interface FtSaleshRepo {
     fun findByDivisionAndInvoiceDate(fdivisionBean: Int, invoiceDateFrom: Date, invoiceDateTo: Date): List<FtSaleshEntity>
 
     fun findBySourceIdAndCreated(sourceId: Long, created: Date): FtSaleshEntity
-    fun findBySourceId(sourceId: Long): FtSaleshEntity
+    fun findBySourceId(sourceId: Long): List<FtSaleshEntity>
+    fun findBySourceIdAndDivisionAndSalesmanAndCustomerAndWarehouse(sourceId: Long, fdivisionBean: Int, fsalesmanBean: Int, fcustomerBean: Int, fwarehouseBean: Int): FtSaleshEntity
 
 
     fun save(ftSaleshEntity: FtSaleshEntity): FtSaleshEntity

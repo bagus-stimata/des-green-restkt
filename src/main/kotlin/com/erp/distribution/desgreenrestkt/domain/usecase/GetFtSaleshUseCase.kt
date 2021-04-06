@@ -122,6 +122,14 @@ class GetFtSaleshUseCase @Autowired constructor(
     fun findBySourceIdAndCreated(sourceId: Long, created: Date): FtSalesh {
         return  ftSaleshRepo.findBySourceIdAndCreated(sourceId, created).toDomain()
     }
+    fun findBySourceId(sourceId: Long): List<FtSalesh> {
+        return  ftSaleshRepo.findBySourceId(sourceId).map {
+            it.toDomain()
+        }
+    }
+    fun findBySourceIdAndDivisionAndSalesmanAndCustomerAndWarehouse(sourceId: Long, fdivisionBean: Int, fsalesmanBean: Int, fcustomerBean: Int, fwarehouseBean: Int): FtSalesh {
+        return  ftSaleshRepo.findBySourceIdAndDivisionAndSalesmanAndCustomerAndWarehouse(sourceId, fdivisionBean, fsalesmanBean, fcustomerBean, fwarehouseBean).toDomain()
+    }
 
 
 }

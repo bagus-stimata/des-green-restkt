@@ -38,7 +38,16 @@ interface FtSaleshJPARepository : JpaRepository<FtSaleshEntity, Long> {
     fun findBySourceIdAndCreated(sourceId: Long, created: Date): Optional<FtSaleshEntity>
 
     @Query("SELECT u FROM FtSaleshEntity u WHERE u.sourceId = :sourceId")
-    fun findBySourceId(sourceId: Long): Optional<FtSaleshEntity>
+    fun findBySourceId(sourceId: Long): List<FtSaleshEntity>
+
+    @Query("SELECT u FROM FtSaleshEntity u WHERE" +
+            " u.sourceId = :sourceId " +
+            " AND u.fdivisionBean = :fdivisionBean" +
+            " AND u.fsalesmanBean = :fsalesmanBean" +
+            " AND u.fcustomerBean = :fcustomerBean" +
+            " AND u.fwarehouseBean = :fwarehouseBean" +
+            " ")
+    fun findBySourceIdAndDivisionAndSalesmanAndCustomerAndWarehouse(sourceId: Long, fdivisionBean: Int, fsalesmanBean: Int, fcustomerBean: Int, fwarehouseBean: Int): Optional<FtSaleshEntity>
 
     //    @Query("SELECT u FROM FtSaleshEntity u WHERE u.sourceId = :sourceID")
     //    List<FtSaleshEntity> findAllBySourceId(@Param("sourceId") long sourceID);

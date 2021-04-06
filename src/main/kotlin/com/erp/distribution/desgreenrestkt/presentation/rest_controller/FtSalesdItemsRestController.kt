@@ -72,9 +72,14 @@ class FtSalesdItemsRestController @Autowired constructor(
 //            ftSalesdItemsNew.setTax(true);
 //        }
 //        ftSalesdItemsResNew.id = 0 //Pastikan ID nya nol untuk Create Baru
+
 //        System.out.println("#result Hello bos masuk sini lho")
+
         return getFtSalesdItemsUseCase.saveAll(listFtSalesdItemsResNew.map {
             it.id = 0
+            if (it.ftaxBean==0) {
+                it.ftaxBean =null
+            }
             it.toDomain()
         }).map {
             it.toResponse()
