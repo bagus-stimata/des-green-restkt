@@ -2,6 +2,7 @@ package com.erp.distribution.desgreenrestkt.data.repository
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FtSaleshEntity
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtSaleshJPARepository
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumStatusPengiriman
 import com.erp.distribution.desgreenrestkt.domain.repository.FtSaleshRepo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -76,6 +77,15 @@ class FtSaleshRepoImpl @Autowired constructor(
     }
     override fun deleteInBatch(listFtSalesh: List<FtSaleshEntity>) {
         return ftSaleshJPARepository.deleteInBatch(listFtSalesh)
+    }
+
+    override fun findAllTotalSales(
+        dateFrom: Date,
+        dateTo: Date,
+        listFsalesmanBean: List<Int>,
+        listStatusPengiriman: List<EnumStatusPengiriman>
+    ): Double {
+       return ftSaleshJPARepository.findAllTotalSales(dateFrom, dateTo, listFsalesmanBean, listStatusPengiriman)
     }
 
 }

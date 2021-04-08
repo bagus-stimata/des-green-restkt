@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
+import java.util.*
 
 interface FtSalesdItemsJPARepository : JpaRepository<FtSalesdItemsEntity, Long> {
 //    override fun findById(id: Long): FtSalesdItemsEntity
@@ -22,5 +23,9 @@ interface FtSalesdItemsJPARepository : JpaRepository<FtSalesdItemsEntity, Long> 
     @Modifying
     @Query("delete from FtSalesdItemsEntity u where u.ftSaleshBean.refno = :ftSaleshBean")
     fun deleteByFtSalesh(@Param("ftSaleshBean") ftSaleshBean: Long): Int
+
     override fun deleteInBatch(iterable: Iterable<FtSalesdItemsEntity>)
+
+
+
 }

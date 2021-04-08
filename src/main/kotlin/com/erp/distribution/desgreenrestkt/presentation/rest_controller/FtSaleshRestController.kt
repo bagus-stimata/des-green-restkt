@@ -4,6 +4,7 @@ import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtSalesdItemsJP
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtSaleshJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
 import com.erp.distribution.desgreenrestkt.domain.model.FtSalesh
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumStatusPengiriman
 import com.erp.distribution.desgreenrestkt.domain.model.toResponse
 import com.erp.distribution.desgreenrestkt.domain.usecase.GetFtSalesdItemsUseCase
 import com.erp.distribution.desgreenrestkt.domain.usecase.GetFtSaleshUseCase
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RestController
 class FtSaleshRestController @Autowired constructor(
@@ -148,6 +150,28 @@ class FtSaleshRestController @Autowired constructor(
         }
         return ftSalesh.toResponse()
     }
+
+
+    @RequestMapping(value = ["/rest/getAllTotalSalesByFSalesmanThisMonth/{fsalesmanBean}/{terkirimSaja}"], produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun getAllTotalSalesByFSalesmanThisMonth(@PathVariable("fsalesmanBean") fsalesmanBean: Int, @PathVariable("terkirimSaja") terkirimSaja: Boolean): Double {
+        val toleransiTanggal = 3;
+        val calStart = Calendar.getInstance()
+        calStart.time = Date()
+        //Jika dibawah tangal 3 maka dianggap bulan sebelumnya
+        if (calStart.get(Calendar.DATE) <toleransiTanggal) calStart.add(Calendar.MONTH, -1)
+//        calStart.set(Calendar.DATE, 1)
+        calStart.set(Calendar.DATE, calStart.getActualMinimum(Calendar.DATE))
+
+        val calTo = Calendar.getInstance()
+        calTo.time = calStart.time
+        calTo.set(Calendar.DATE, calTo.getActualMaximum(Calendar.DATE))
+
+
+        val listFsalesmanBean :List<Int> = listOf(fsalesmanBean)
+        val listStatusPengiriman :List<EnumStatusPengiriman> = listOf(EnumStatusPengiriman.NOTA_OPEN, EnumStatusPengiriman.NOTA_BATAL, EnumStatusPengiriman.NOTA_PENDING, EnumStatusPengiriman.NOTA_TERKIRIM)
+        return getFtSaleshUseCase.findAllTotalSales(calStart.time, calTo.time, listFsalesmanBean, listStatusPengiriman)
+    }
+
 
     /**
      * EXTRA QUERY

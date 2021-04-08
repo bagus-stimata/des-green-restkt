@@ -1,6 +1,7 @@
 package com.erp.distribution.desgreenrestkt.data.source.local.dao
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FtSaleshEntity
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumStatusPengiriman
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.transaction.annotation.Transactional
@@ -53,4 +54,22 @@ interface FtSaleshJPARepository : JpaRepository<FtSaleshEntity, Long> {
     //    List<FtSaleshEntity> findAllBySourceId(@Param("sourceId") long sourceID);
     @Query(value = "SELECT * FROM FtSaleshEntity  WHERE SOURCE_ID = :sourceId ", nativeQuery = true)
     fun findAllBySourceIdNative(sourceId: Long): Collection<FtSaleshEntity>
+
+
+    fun findAllTotalSales(dateFrom :Date, dateTo :Date, listFsalesmanBean: List<Int>, listStatusPengiriman: List<EnumStatusPengiriman>): Double{
+        return findAllTotalSalesX(listFsalesmanBean)
+    }
+    /**
+     * QUERY
+     */
+    @Query("SELECT SUM(u.amountAfterDiscPlusRpAfterPpn_FG) FROM FtSaleshEntity u " +
+            " WHERE" +
+            " u.invoiceno != '' " +
+            " AND u.invoiceno IS NOT NULL " +
+            " AND u.fsalesmanBean IN :listFsalesmanBean " +
+//            " AND u.invoiceDate BETWEEN  :dateFrom AND :dateTo " +
+//            " AND u.statusPengiriman IN :listStatusPengiriman " +
+            "")
+    fun findAllTotalSalesX(listFsalesmanBean: List<Int>): Double
+
 }

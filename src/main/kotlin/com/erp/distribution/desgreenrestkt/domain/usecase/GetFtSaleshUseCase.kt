@@ -3,6 +3,7 @@ package com.erp.distribution.desgreenrestkt.domain.usecase
 import com.erp.distribution.desgreenrestkt.data.source.entity.FtSaleshEntity
 import com.erp.distribution.desgreenrestkt.data.source.entity.toDomain
 import com.erp.distribution.desgreenrestkt.domain.model.FtSalesh
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumStatusPengiriman
 import com.erp.distribution.desgreenrestkt.domain.model.toEntity
 import com.erp.distribution.desgreenrestkt.domain.model.toResponse
 import com.erp.distribution.desgreenrestkt.domain.repository.FtSaleshRepo
@@ -131,5 +132,8 @@ class GetFtSaleshUseCase @Autowired constructor(
         return  ftSaleshRepo.findBySourceIdAndDivisionAndSalesmanAndCustomerAndWarehouse(sourceId, fdivisionBean, fsalesmanBean, fcustomerBean, fwarehouseBean).toDomain()
     }
 
+    fun findAllTotalSales(dateFrom :Date, dateTo :Date, listFsalesmanBean: List<Int>, listStatusPengiriman: List<EnumStatusPengiriman>): Double{
+        return ftSaleshRepo.findAllTotalSales(dateFrom, dateTo, listFsalesmanBean, listStatusPengiriman)
+    }
 
 }
