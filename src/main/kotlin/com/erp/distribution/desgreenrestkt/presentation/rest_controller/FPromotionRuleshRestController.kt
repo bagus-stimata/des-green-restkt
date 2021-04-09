@@ -68,19 +68,19 @@ class FPromotionRuleshRestController @Autowired constructor(
     }
 
     var listLapTemplate: List<ZLapTemplate2> = ArrayList()
-    fun fillDatabaseReportDaftarPromoBerjalan(dateTransactionFrom: Date?, dateTransactionTo: Date, listFDivisionEntity: List<FDivisionEntity>, listFVendorEntity: List<FVendorEntity?>): List<ZLapTemplate2> {
+    fun fillDatabaseReportDaftarPromoBerjalan(dateTransactionFrom: Date, dateTransactionTo: Date, listFDivisionEntity: List<FDivisionEntity>, listFVendorEntity: List<FVendorEntity?>): List<ZLapTemplate2> {
         val sdf_lengkap = SimpleDateFormat("dd MMMM yyyy")
         val nf = NumberFormat.getInstance()
         nf.maximumFractionDigits = 0
         val nf2 = NumberFormat.getInstance()
         nf2.maximumFractionDigits = 2
 
-//		try{
+		try{
 //			dateTransactionFrom = CommonDateFormat.fromLocalDate(view.dateField1From.getValue());
 //			dateTransactionTo = CommonDateFormat.fromLocalDate(view.dateField1To.getValue());
-//		} catch(Exception ex){
-//			ex.printStackTrace();
-//		}
+		} catch(ex: Exception){
+			ex.printStackTrace();
+		}
 
 //        paramJudulHeaderSub1 = "POSISI TANGGAL " + sdf_lengkap.format(dateTransactionTo);
         val listLapTemplate1: MutableList<ZLapTemplate2> = ArrayList()
