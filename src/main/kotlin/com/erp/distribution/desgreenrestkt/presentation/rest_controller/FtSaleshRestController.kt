@@ -3,9 +3,12 @@ package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtSalesdItemsJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtSaleshJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
+import com.erp.distribution.desgreenrestkt.domain.model.FSalesman
 import com.erp.distribution.desgreenrestkt.domain.model.FtSalesh
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumStatusPengiriman
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumTipeFakturJual
 import com.erp.distribution.desgreenrestkt.domain.model.toResponse
+import com.erp.distribution.desgreenrestkt.domain.usecase.GetFSalesmanUseCase
 import com.erp.distribution.desgreenrestkt.domain.usecase.GetFtSalesdItemsUseCase
 import com.erp.distribution.desgreenrestkt.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.desgreenrestkt.presentation.model.FtSaleshRes
@@ -20,13 +23,10 @@ import java.util.*
 @RestController
 class FtSaleshRestController @Autowired constructor(
     val getFtSaleshUseCase: GetFtSaleshUseCase,
-    val getFtSalesdItemsUseCase: GetFtSalesdItemsUseCase
+    val getFtSalesdItemsUseCase: GetFtSalesdItemsUseCase,
+    val getFSalesmanUseCase: GetFSalesmanUseCase
 ){
-//    @Autowired
-//    var ftSaleshJPARepository: FtSaleshJPARepository? = null
-//
-//    @Autowired
-//    var ftSalesdItemsJPARepository: FtSalesdItemsJPARepository? = null
+
 
     @RequestMapping(value = ["/rest/getFtSaleshById/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getFtSaleshById(@PathVariable("id") id: Long): FtSaleshRes {
@@ -152,24 +152,39 @@ class FtSaleshRestController @Autowired constructor(
     }
 
 
-    @RequestMapping(value = ["/rest/getAllTotalSalesByFSalesmanThisMonth/{fsalesmanBean}/{terkirimSaja}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAllTotalSalesByFSalesmanThisMonth(@PathVariable("fsalesmanBean") fsalesmanBean: Int, @PathVariable("terkirimSaja") terkirimSaja: Boolean): Double {
-        val toleransiTanggal = 3;
+    @RequestMapping(value = ["/rest/getAllTotalSalesByFSalesmanThisMonth/{fsalesmanBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun getAllTotalSalesByFSalesmanThisMonth(@PathVariable("fsalesmanBean") fsalesmanBean: Int): Map<String, Double> {
+        val toleransiTanggal = 2;
         val calStart = Calendar.getInstance()
         calStart.time = Date()
         //Jika dibawah tangal 3 maka dianggap bulan sebelumnya
-        if (calStart.get(Calendar.DATE) <toleransiTanggal) calStart.add(Calendar.MONTH, -1)
-//        calStart.set(Calendar.DATE, 1)
+        if (calStart.get(Calendar.DATE) <= toleransiTanggal) calStart.add(Calendar.MONTH, -1)
         calStart.set(Calendar.DATE, calStart.getActualMinimum(Calendar.DATE))
-
         val calTo = Calendar.getInstance()
         calTo.time = calStart.time
         calTo.set(Calendar.DATE, calTo.getActualMaximum(Calendar.DATE))
 
 
+        val listTipeFaktur: List<EnumTipeFakturJual> = listOf(EnumTipeFakturJual.F, EnumTipeFakturJual.SRV)
         val listFsalesmanBean :List<Int> = listOf(fsalesmanBean)
         val listStatusPengiriman :List<EnumStatusPengiriman> = listOf(EnumStatusPengiriman.NOTA_OPEN, EnumStatusPengiriman.NOTA_BATAL, EnumStatusPengiriman.NOTA_PENDING, EnumStatusPengiriman.NOTA_TERKIRIM)
-        return getFtSaleshUseCase.findAllTotalSales(calStart.time, calTo.time, listFsalesmanBean, listStatusPengiriman)
+        val  listStatusPengirimanTerkirimSaja = listOf(EnumStatusPengiriman.NOTA_TERKIRIM)
+
+        val salesThisMonth =  getFtSaleshUseCase.findAllTotalSales(listTipeFaktur, calStart.time , calTo.time, listFsalesmanBean, listStatusPengiriman)
+        val salesThisMonthTerkirimSaja =  getFtSaleshUseCase.findAllTotalSales(listTipeFaktur, calStart.time , calTo.time, listFsalesmanBean, listStatusPengirimanTerkirimSaja)
+
+        val mapResult: MutableMap<String, Double> = mutableMapOf()
+        mapResult.put("salesThisMonth", salesThisMonth)
+        mapResult.put("salesThisMonthTerkirimSaja", salesThisMonthTerkirimSaja)
+
+
+        try {
+            val fsalesman: FSalesman = getFSalesmanUseCase.findById(fsalesmanBean)
+            mapResult.put("targetEffCall", fsalesman.targetEffCall.toDouble())
+            mapResult.put("targetSalesAmount", fsalesman.targetSalesAmount)
+        }catch (ex: Exception){}
+
+        return mapResult
     }
 
 

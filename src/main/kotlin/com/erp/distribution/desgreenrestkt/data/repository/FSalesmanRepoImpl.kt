@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service
 class FSalesmanRepoImpl @Autowired constructor(
     val fSalesmanJPARepository: FSalesmanJPARepository
 ) :FSalesmanRepo {
+
     override fun findById(id: Int): FSalesmanEntity {
         return fSalesmanJPARepository.findById(id).get()
     }

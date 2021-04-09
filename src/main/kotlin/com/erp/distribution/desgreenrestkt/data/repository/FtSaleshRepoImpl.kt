@@ -3,10 +3,13 @@ package com.erp.distribution.desgreenrestkt.data.repository
 import com.erp.distribution.desgreenrestkt.data.source.entity.FtSaleshEntity
 import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtSaleshJPARepository
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumStatusPengiriman
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumTipeFakturJual
 import com.erp.distribution.desgreenrestkt.domain.repository.FtSaleshRepo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.text.SimpleDateFormat
 import java.util.*
+
 
 @Service
 class FtSaleshRepoImpl @Autowired constructor(
@@ -80,12 +83,26 @@ class FtSaleshRepoImpl @Autowired constructor(
     }
 
     override fun findAllTotalSales(
+        listTipeFaktur: List<EnumTipeFakturJual>,
         dateFrom: Date,
         dateTo: Date,
         listFsalesmanBean: List<Int>,
         listStatusPengiriman: List<EnumStatusPengiriman>
     ): Double {
-       return ftSaleshJPARepository.findAllTotalSales(dateFrom, dateTo, listFsalesmanBean, listStatusPengiriman)
+
+//        val sdf = SimpleDateFormat("yyyy-MM-dd")
+//        val strDateFrom = sdf.format(dateFrom)
+//        val strDateTo = sdf.format(dateTo)
+//        println("hello >> ${sdf.format(dateFrom)} and ${sdf.format(dateTo)} | ${sdf.parse(strDateFrom)} and ${sdf.parse(strDateFrom)} ")
+//
+//        val cal = Calendar.getInstance()
+//        cal.time = dateFrom
+//        cal.add(Calendar.MONTH, -1)
+
+        return ftSaleshJPARepository.findAllTotalSales( listTipeFaktur, dateFrom, dateTo, listFsalesmanBean, listStatusPengiriman).orElse(0.0)
+
+
+
     }
 
 }

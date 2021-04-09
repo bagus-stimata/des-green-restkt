@@ -2,6 +2,7 @@ package com.erp.distribution.desgreenrestkt.domain.repository
 
 import com.erp.distribution.desgreenrestkt.data.source.entity.FtSaleshEntity
 import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumStatusPengiriman
+import com.erp.distribution.desgreenrestkt.domain.model.enum.EnumTipeFakturJual
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import java.util.*
@@ -27,7 +28,7 @@ interface FtSaleshRepo {
     fun delete(ftSaleshEntity: FtSaleshEntity)
     fun deleteInBatch(listFtSalesh: List<FtSaleshEntity>)
 
-    fun findAllTotalSales(dateFrom :Date, dateTo :Date, listFsalesmanBean: List<Int>, listStatusPengiriman: List<EnumStatusPengiriman>): Double
+    fun findAllTotalSales(listTipeFaktur: List<EnumTipeFakturJual>, dateFrom :Date, dateTo :Date, listFsalesmanBean: List<Int>, listStatusPengiriman: List<EnumStatusPengiriman>): Double
 
 
 }

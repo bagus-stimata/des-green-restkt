@@ -116,6 +116,13 @@ data class FSalesman (
     @Column(name =  "VENDORCOVERED" )
     var vendorcovered  :Boolean =false,
 
+
+    @Column(name = "TARGET_EFF_CALL")
+    var targetEffCall :Int = 0,
+
+    @Column(name = "TARGET_SALES_AMOUNT")
+    var targetSalesAmount :Double= 0.0,
+
     @Column(name =  "CREATED" )
     @Temporal(TemporalType.TIMESTAMP)
     var created :Date =Date(),
