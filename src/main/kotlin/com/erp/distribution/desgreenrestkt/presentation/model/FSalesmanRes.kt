@@ -116,6 +116,13 @@ data class FSalesmanRes (
     @Column(name =  "VENDORCOVERED" )
     var vendorcovered  :Boolean =false,
 
+    @Column(name = "TARGET_EFF_CALL")
+    var targetEffCall :Int = 0,
+    @Column(name = "TARGET_SALES_AMOUNT")
+    var targetSalesAmount :Double= 0.0,
+    @Column(name = "TARGET_DIPOTONG_RETUR")
+    var targetDipotongRetur :Boolean = false,
+
     @Column(name =  "CREATED" )
     @Temporal(TemporalType.TIMESTAMP)
     var created :Date =Date(),
@@ -159,6 +166,10 @@ internal fun FSalesmanRes.toDomain(): FSalesman {
         ftPriceAlthBean = ftPriceAlthBean,
         noPromotionRules = noPromotionRules,
         vendorcovered = vendorcovered,
+
+        targetEffCall = targetEffCall,
+        targetSalesAmount = targetSalesAmount,
+        targetDipotongRetur = targetDipotongRetur,
 
         created = created,
         modified = modified,

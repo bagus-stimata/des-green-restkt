@@ -154,6 +154,19 @@ class FtSaleshRestController @Autowired constructor(
 
     @RequestMapping(value = ["/rest/getAllTotalSalesByFSalesmanThisMonth/{fsalesmanBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllTotalSalesByFSalesmanThisMonth(@PathVariable("fsalesmanBean") fsalesmanBean: Int): Map<String, Double> {
+        val mapResult: MutableMap<String, Double> = mutableMapOf()
+        var fsalesman: FSalesman = FSalesman()
+        try {
+            fsalesman = getFSalesmanUseCase.findById(fsalesmanBean)
+//            println(">> salemsan: ${fsalesman.spcode} ${fsalesman.spname}  ${fsalesman.targetSalesAmount} ")
+
+            mapResult.put("targetEffCall", fsalesman.targetEffCall.toDouble())
+            mapResult.put("targetSalesAmount", fsalesman.targetSalesAmount)
+        }catch (ex: Exception){
+            ex.printStackTrace()
+        }
+
+
         val toleransiTanggal = 2;
         val calStart = Calendar.getInstance()
         calStart.time = Date()
@@ -166,23 +179,34 @@ class FtSaleshRestController @Autowired constructor(
 
 
         val listTipeFaktur: List<EnumTipeFakturJual> = listOf(EnumTipeFakturJual.F, EnumTipeFakturJual.SRV)
+        val listTipeFakturRetur: List<EnumTipeFakturJual> = listOf(EnumTipeFakturJual.R)
         val listFsalesmanBean :List<Int> = listOf(fsalesmanBean)
         val listStatusPengiriman :List<EnumStatusPengiriman> = listOf(EnumStatusPengiriman.NOTA_OPEN, EnumStatusPengiriman.NOTA_BATAL, EnumStatusPengiriman.NOTA_PENDING, EnumStatusPengiriman.NOTA_TERKIRIM)
         val  listStatusPengirimanTerkirimSaja = listOf(EnumStatusPengiriman.NOTA_TERKIRIM)
 
-        val salesThisMonth =  getFtSaleshUseCase.findAllTotalSales(listTipeFaktur, calStart.time , calTo.time, listFsalesmanBean, listStatusPengiriman)
-        val salesThisMonthTerkirimSaja =  getFtSaleshUseCase.findAllTotalSales(listTipeFaktur, calStart.time , calTo.time, listFsalesmanBean, listStatusPengirimanTerkirimSaja)
+        var salesThisMonth =  getFtSaleshUseCase.findAllTotalSales(listTipeFaktur, calStart.time , calTo.time, listFsalesmanBean, listStatusPengiriman)
+        var salesThisMonthTerkirimSaja =  getFtSaleshUseCase.findAllTotalSales(listTipeFaktur, calStart.time , calTo.time, listFsalesmanBean, listStatusPengirimanTerkirimSaja)
 
-        val mapResult: MutableMap<String, Double> = mutableMapOf()
+        if (fsalesman.targetDipotongRetur){
+            val returThisMonth =  getFtSaleshUseCase.findAllTotalSales(listTipeFakturRetur, calStart.time , calTo.time, listFsalesmanBean, listStatusPengiriman)
+            salesThisMonth -= returThisMonth
+            val returThisMonthTerkirimSaja =  getFtSaleshUseCase.findAllTotalSales(listTipeFakturRetur, calStart.time , calTo.time, listFsalesmanBean, listStatusPengiriman)
+            salesThisMonthTerkirimSaja -= returThisMonthTerkirimSaja
+        }
+
         mapResult.put("salesThisMonth", salesThisMonth)
         mapResult.put("salesThisMonthTerkirimSaja", salesThisMonthTerkirimSaja)
 
 
         try {
             val fsalesman: FSalesman = getFSalesmanUseCase.findById(fsalesmanBean)
+//            println(">> salemsan: ${fsalesman.spcode} ${fsalesman.spname}  ${fsalesman.targetSalesAmount} ")
+
             mapResult.put("targetEffCall", fsalesman.targetEffCall.toDouble())
             mapResult.put("targetSalesAmount", fsalesman.targetSalesAmount)
-        }catch (ex: Exception){}
+        }catch (ex: Exception){
+            ex.printStackTrace()
+        }
 
         return mapResult
     }
