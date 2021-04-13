@@ -1,7 +1,5 @@
 package com.erp.distribution.desgreenrestkt.presentation.rest_controller
 
-import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtSalesdItemsJPARepository
-import com.erp.distribution.desgreenrestkt.data.source.local.dao.FtSaleshJPARepository
 import com.erp.distribution.desgreenrestkt.data.source.entity_security.Role
 import com.erp.distribution.desgreenrestkt.domain.model.FSalesman
 import com.erp.distribution.desgreenrestkt.domain.model.FtSalesh
