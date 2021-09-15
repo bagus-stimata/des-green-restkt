@@ -149,7 +149,6 @@ class FtSaleshRestController @Autowired constructor(
         return ftSalesh.toResponse()
     }
 
-
     @RequestMapping(value = ["/rest/getAllTotalSalesByFSalesmanThisMonth/{fsalesmanBean}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllTotalSalesByFSalesmanThisMonth(@PathVariable("fsalesmanBean") fsalesmanBean: Int): Map<String, Double> {
         val mapResult: MutableMap<String, Double> = mutableMapOf()
@@ -164,7 +163,6 @@ class FtSaleshRestController @Autowired constructor(
             ex.printStackTrace()
         }
 
-
         val toleransiTanggal = 2;
         val calStart = Calendar.getInstance()
         calStart.time = Date()
@@ -174,7 +172,6 @@ class FtSaleshRestController @Autowired constructor(
         val calTo = Calendar.getInstance()
         calTo.time = calStart.time
         calTo.set(Calendar.DATE, calTo.getActualMaximum(Calendar.DATE))
-
 
         val listTipeFaktur: List<EnumTipeFakturJual> = listOf(EnumTipeFakturJual.F, EnumTipeFakturJual.SRV)
         val listTipeFakturRetur: List<EnumTipeFakturJual> = listOf(EnumTipeFakturJual.R)
@@ -194,7 +191,6 @@ class FtSaleshRestController @Autowired constructor(
 
         mapResult.put("salesThisMonth", salesThisMonth)
         mapResult.put("salesThisMonthTerkirimSaja", salesThisMonthTerkirimSaja)
-
 
         try {
             val fsalesman: FSalesman = getFSalesmanUseCase.findById(fsalesmanBean)
